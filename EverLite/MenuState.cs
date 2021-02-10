@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EverLite
 {
-    interface IGameState
+    class MenuState
     {
     }
 }
