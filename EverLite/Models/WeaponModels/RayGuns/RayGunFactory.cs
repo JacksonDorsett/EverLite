@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models.WeaponModels
+namespace EverLite.Models.WeaponModels.RayGuns
 {
     /// <summary>
     /// Creates the ray gun factory.
@@ -14,12 +14,12 @@ namespace EverLite.Models.WeaponModels
         /// </summary>
         /// <param name="rayGun">ray gun type.</param>
         /// <returns>Instance of ray gun.</returns>
-        public static BasicRayGun CreateRayGun(string rayGun)
+        public static BasicRayGun CreateRayGun(RayGunEnum rayGun)
         {
             return rayGun switch
             {
-                "RedRayGun" => new RedRayGun(),
-                "BlueRayGun" => new BlueRayGun(),
+                RayGunEnum.RedRayGun => new RedRayGun(),
+                RayGunEnum.BlueRayGun => new BlueRayGun(),
                 _ => null,
             };
         }

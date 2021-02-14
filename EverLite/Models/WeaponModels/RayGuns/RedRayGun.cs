@@ -1,7 +1,9 @@
-﻿namespace EverLite.Models.WeaponModels
+﻿// <copyright file="RedRayGun.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Models.WeaponModels
 {
-    using System;
-    using System.Collections.Generic;
     using Microsoft.Xna.Framework;
 
     /// <summary>

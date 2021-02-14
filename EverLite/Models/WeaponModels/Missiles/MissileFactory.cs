@@ -10,16 +10,16 @@ namespace EverLite.Models.WeaponModels.Missiles
     public class MissileFactory
     {
         /// <summary>
-        /// Creates the client chosen missile type;
+        /// Creates the client chosen missile type.
         /// </summary>
         /// <param name="missile">missile type.</param>
         /// <returns>Instance of missile.</returns>
-        public static BasicMissile CreateMissile(string missile)
+        public static BasicMissile CreateMissile(MissileEnum missile)
         {
             return missile switch
             {
-                "SingleGreenMissile" => new SingleGreenMissile(),
-                "SingleAquaMissile" => new SingleAquaMissile(),
+                MissileEnum.SingleGreenMissile => new SingleGreenMissile(),
+                MissileEnum.SingleAquaMissile => new SingleAquaMissile(),
                 _ => null,
             };
         }

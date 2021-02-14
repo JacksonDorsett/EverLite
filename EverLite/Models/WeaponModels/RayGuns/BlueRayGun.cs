@@ -9,7 +9,7 @@ namespace EverLite.Models.WeaponModels
     /// <summary>
     /// Creates the BlueRayGun.
     /// </summary>
-    internal class BlueRayGun : BasicRayGun
+    public class BlueRayGun : BasicRayGun
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BlueRayGun"/> class.

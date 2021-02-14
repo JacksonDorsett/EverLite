@@ -2,8 +2,6 @@
 {
     using Microsoft.Xna.Framework;
 
-    // Should be an internal class. Using public for testing for now.
-
     /// <summary>
     /// Abstractly creates ray guns.
     /// </summary>

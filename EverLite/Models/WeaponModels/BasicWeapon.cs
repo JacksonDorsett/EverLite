@@ -35,7 +35,7 @@
         /// <summary>
         /// Removes one round at a time. Designed for shooting.
         /// </summary>
-        public void RemoveAmmo()
+        public void ShootAmmo()
         {
             if (this.AmmoCount > 0)
             {
