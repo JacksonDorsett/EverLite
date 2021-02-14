@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverLite", "EverLite\EverLite.csproj", "{B0DDD405-6FBD-48EB-8D93-B9E57CE734EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverLite", "EverLite\EverLite.csproj", "{B0DDD405-6FBD-48EB-8D93-B9E57CE734EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverLiteTests", "EverLiteTests\EverLiteTests.csproj", "{BD49D749-BA3E-4451-9AF6-62917BAB3BD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverLiteTests", "EverLiteTests\EverLiteTests.csproj", "{BD49D749-BA3E-4451-9AF6-62917BAB3BD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
