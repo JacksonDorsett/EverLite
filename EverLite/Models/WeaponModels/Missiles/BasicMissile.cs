@@ -1,4 +1,8 @@
-﻿namespace EverLite.Models.WeaponModels.Missiles
+﻿// <copyright file="BasicMissile.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Models.WeaponModels.Missiles
 {
     using Microsoft.Xna.Framework;
 

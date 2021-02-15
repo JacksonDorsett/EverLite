@@ -2,10 +2,7 @@
 {
     using NUnit.Framework;
     using EverLite.Models;
-    using EverLite.Models.WeaponModels;
     using EverLite.Models.WeaponModels.Missiles;
-    using EverLite.Utilities;
-    using System;
     using Microsoft.Xna.Framework;
     using EverLite.Models.WeaponModels.RayGuns;
 
