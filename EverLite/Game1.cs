@@ -7,6 +7,9 @@ namespace EverLite
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Main game class.
@@ -15,6 +18,11 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+
+        //Game World
+        List<Enemie> enemies = new List<Enemie>();
+        Random random = new Random();
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -45,6 +53,8 @@ namespace EverLite
             // TODO: use this.Content to load your game content here
         }
 
+        float spawn = 0;
+
         /// <summary>
         /// Updates every game loop cycle. Used for updating game logic.
         /// </summary>
@@ -56,8 +66,36 @@ namespace EverLite
                 this.Exit();
             }
 
+            spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            foreach (Enemie enemie in enemies)
+                enemie.Update(mGraphics.GraphicsDevice);
+            LoadEnemies();
             // TODO: Add your update logic here
             base.Update(gameTime);
+        }
+
+        public void LoadEnemies()
+        {
+            int randY = random.Next(100, 400);
+            if (spawn >= 1)
+            {
+                spawn = 0;
+                if(enemies.Count < 4)
+                {
+                    enemies.Add(new Enemie(Content.Load<Texture2D>("enemy1"),new Vector2(1100, randY)));
+                }
+
+                for(int i = 0; i < enemies.Count; i++)
+                {
+                    if(!enemies[i].isVisible)
+                    {
+                        enemies.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+            }
         }
 
         /// <summary>
@@ -68,6 +106,10 @@ namespace EverLite
         {
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            mSpriteBatch.Begin();
+            foreach (Enemie enemie in enemies)
+                enemie.Draw(mSpriteBatch);
+            mSpriteBatch.End();
             // TODO: Add your drawing code here
             base.Draw(gameTime);
         }
