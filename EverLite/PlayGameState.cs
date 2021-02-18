@@ -25,6 +25,10 @@ namespace EverLite
             : base(game)
         {
             this.scrollingBG = new ScrollingBG(game);
+
+            // start BGM
+            BGM.Instance(game).Load("Solar System");
+
         }
 
         /// <summary>

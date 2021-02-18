@@ -12,7 +12,7 @@ namespace EverLite
     /// </summary>
     public class ScrollingBG
     {
-        private static readonly int SPEED = 350;
+        private static readonly int SPEED = 250;
         private Game1 game;
         private Rectangle r1;
         private Rectangle r2;
@@ -29,7 +29,7 @@ namespace EverLite
             this.texture = this.game.Content.Load<Texture2D>("road");
             this.r1 = this.texture.Bounds;
             this.r2 = this.r1;
-            this.r1.Y = this.r1.Height;
+            this.r1.Y = -this.r1.Height;
             this.currentState = ScrollState.Start;
         }
 
@@ -57,18 +57,18 @@ namespace EverLite
         {
             if (this.currentState == ScrollState.Start)
             {
-                if (this.r1.Bottom < 0)
+                if (this.r1.Top > this.r1.Height)
                 {
-                    this.r1.Y = this.r2.Bottom;
+                    this.r1.Y = this.r2.Top - this.r1.Height;
                 }
 
-                if (this.r2.Bottom < 0)
+                if (this.r2.Top > this.r1.Height)
                 {
-                    this.r2.Y = this.r1.Bottom;
+                    this.r2.Y = this.r1.Top - this.r1.Height;
                 }
 
-                this.r1.Y -= (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
-                this.r2.Y -= (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
+                this.r1.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
+                this.r2.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
             }
         }
 
