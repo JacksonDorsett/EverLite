@@ -4,6 +4,9 @@
 
 namespace EverLite
 {
+    using System;
+    using EverLite.Models;
+    using EverLite.Models.WeaponModels.RayGuns;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -15,6 +18,8 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+        PlayerCharacter player;
+        BasicWeapon initialWeapon;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -32,6 +37,9 @@ namespace EverLite
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            this.initialWeapon = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
+            this.initialWeapon.SetInitialAmmo(1000);
+            this.player = new PlayerCharacter(this.initialWeapon);
             base.Initialize();
         }
 
@@ -42,7 +50,8 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
+            this.player.Initialize(this.Content.Load<Texture2D>("Graphics\\player"), playerPosition);
         }
 
         /// <summary>
