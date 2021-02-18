@@ -16,9 +16,11 @@ namespace EverLite
     /// </summary>
     internal class MenuState : GameState
     {
+        private Game mGame;
         private int mSelectedIndex = 0;
         private string[] menuOptions;
         private SpriteFont mFont;
+        private Menu menu;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuState"/> class.
@@ -27,10 +29,12 @@ namespace EverLite
         public MenuState(Game1 game)
             : base(game)
         {
+            this.mGame = game;
             this.menuOptions = new string[2];
             this.menuOptions[0] = "Play";
             this.menuOptions[1] = "Quit";
             this.mFont = this.Game.Content.Load<SpriteFont>("Default");
+            this.InitMenu();
         }
 
         /// <summary>
@@ -40,22 +44,15 @@ namespace EverLite
         public override void Draw(GameTime gameTime)
         {
             this.SpriteBatch.Begin();
-            for (int i = 0; i < this.menuOptions.Length; i++)
-            {
-                Color c;
-                if (i != this.mSelectedIndex)
-                {
-                    c = Color.Red;
-                }
-                else
-                {
-                    c = Color.White;
-                }
-
-                this.SpriteBatch.DrawString(this.mFont, this.menuOptions[i], new Vector2(100, 100 + (i * 100)), c);
-            }
-
+            this.menu.Draw(this.SpriteBatch, this.mFont);
             this.SpriteBatch.End();
+        }
+
+        /// <summary>
+        /// Called on entering the state.
+        /// </summary>
+        public override void OnEnter()
+        {
         }
 
         /// <summary>
@@ -65,25 +62,42 @@ namespace EverLite
         public override void Update(GameTime gameTime)
         {
             // To Do: Refactor into menu item class, substitute conditional with polymorphism.
-            if (Keyboard.GetState().IsKeyDown(Keys.Down) && this.mSelectedIndex < this.menuOptions.Length - 1)
-            {
-                this.mSelectedIndex++;
-            }
+            this.menu.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up) && this.mSelectedIndex > 0)
-            {
-                this.mSelectedIndex--;
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.Down) && this.mSelectedIndex < this.menuOptions.Length - 1)
+            //{
+            //    this.mSelectedIndex++;
+            //}
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 1)
-            {
-                this.Game.Exit();
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.Up) && this.mSelectedIndex > 0)
+            //{
+            //    this.mSelectedIndex--;
+            //}
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 0)
-            {
-                this.StateContext.CurrentState = new PlayGameState(this.Game);
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 1)
+            //{
+            //    this.Game.Exit();
+            //}
+
+            //if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 0)
+            //{
+            //    this.StateContext.CurrentState = new PlayGameState(this.Game);
+            //}
+        }
+
+        /// <summary>
+        /// Called on destruction.
+        /// </summary>
+        protected override void OnExit()
+        {
+        }
+
+        private void InitMenu()
+        {
+            // Add any menu options here.
+            this.menu = new Menu();
+            this.menu.AddMenuItem(new MenuItem("Play", new ChangeStateCommand(this.Game, new PlayGameState(this.Game))));
+            this.menu.AddMenuItem(new MenuItem("Quit", new QuitCommand(this.Game)));
         }
     }
 }

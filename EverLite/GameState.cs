@@ -31,6 +31,14 @@ namespace EverLite
         }
 
         /// <summary>
+        /// Finalizes an instance of the <see cref="GameState"/> class.
+        /// </summary>
+        ~GameState()
+        {
+            this.OnExit();
+        }
+
+        /// <summary>
         /// Gets the game context object.
         /// </summary>
         protected Game1 Game
@@ -74,5 +82,15 @@ namespace EverLite
         /// </summary>
         /// <param name="gameTime">time elapsed during the cycle.</param>
         public abstract void Draw(GameTime gameTime);
+
+        /// <summary>
+        /// Called when Gamestate is entered.
+        /// </summary>
+        public abstract void OnEnter();
+
+        /// <summary>
+        /// Called by subclass to determine exit state behavior.
+        /// </summary>
+        protected abstract void OnExit();
     }
 }

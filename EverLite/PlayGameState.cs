@@ -27,7 +27,6 @@ namespace EverLite
             this.scrollingBG = new ScrollingBG(game);
 
             // start BGM
-            BGM.Instance(game).Load("Solar System");
 
         }
 
@@ -41,12 +40,27 @@ namespace EverLite
         }
 
         /// <summary>
+        /// Plays the Bgm when starting
+        /// </summary>
+        public override void OnEnter()
+        {
+            BGM.Instance(this.Game).Load("Solar System");
+
+            // BGM.Instance(this.Game).Play();
+        }
+
+        /// <summary>
         /// Updates the current gamestate.
         /// </summary>
         /// <param name="gameTime">Time elapsed during game cycle.</param>
         public override void Update(GameTime gameTime)
         {
             this.scrollingBG.Update(gameTime);
+        }
+
+        protected override void OnExit()
+        {
+            BGM.Instance(this.Game).Stop();
         }
     }
 }

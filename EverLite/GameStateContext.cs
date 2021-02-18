@@ -15,6 +15,7 @@ namespace EverLite
     public class GameStateContext
     {
         private GameState currentState;
+        private GameState nextState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateContext"/> class.
@@ -43,11 +44,21 @@ namespace EverLite
         }
 
         /// <summary>
+        /// Switches the gameStates.
+        /// </summary>
+        /// <param name="newState"></param>
+        public void SetState(GameState newState)
+        {
+            this.nextState = newState;
+        }
+
+        /// <summary>
         /// Updates the current game state.
         /// </summary>
         /// <param name="gameTime">game time in last game cycle.</param>
         public void Update(GameTime gameTime)
         {
+            this.UpdateState();
             this.currentState.Update(gameTime);
         }
 
@@ -58,6 +69,16 @@ namespace EverLite
         public void Draw(GameTime gameTime)
         {
             this.currentState.Draw(gameTime);
+        }
+
+        private void UpdateState()
+        {
+            if (this.nextState != null)
+            {
+                this.currentState = this.nextState;
+                this.nextState = null;
+                this.currentState.OnEnter();
+            }
         }
     }
 }
