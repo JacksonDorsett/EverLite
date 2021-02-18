@@ -24,8 +24,6 @@ namespace EverLite
             this.mScore = 0;
         }
 
-
-
         /// <summary>
         /// Gets instance of GameScore.
         /// </summary>
@@ -37,10 +35,21 @@ namespace EverLite
                 {
                     mInstance = new GameScore();
                 }
+
                 return mInstance;
             }
         }
 
+        /// <summary>
+        /// Gets the total score for the game.
+        /// </summary>
+        public uint Score
+        {
+            get
+            {
+                return this.mScore;
+            }
+        }
 
         /// <summary>
         /// Adds points to total score.
@@ -52,10 +61,11 @@ namespace EverLite
         }
 
         /// <summary>
-        /// Gets the total score for the game.
+        /// Resets the score to 0.
         /// </summary>
-
-
-        
+        public void Reset()
+        {
+            this.mScore = 0;
+        }
     }
 }

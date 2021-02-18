@@ -19,14 +19,14 @@ namespace EverLite
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateContext"/> class.
         /// </summary>
-        /// <param name="game"></param>
-        public GameStateContext(Game game)
+        /// <param name="game">context game object.</param>
+        public GameStateContext(Game1 game)
         {
             this.currentState = new MenuState(game);
         }
 
         /// <summary>
-        /// Gets and sets the current state that the game is in.
+        /// Gets or sets the current state that the game is in.
         /// Note: This could be a code smell (Bad encalsulation).
         /// </summary>
         internal GameState CurrentState

@@ -15,6 +15,7 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+        private GameStateContext mContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -27,12 +28,35 @@ namespace EverLite
         }
 
         /// <summary>
+        /// Gets the games sprite batch.
+        /// </summary>
+        public SpriteBatch SpriteBatch
+        {
+            get
+            {
+                return this.mSpriteBatch;
+            }
+        }
+
+        /// <summary>
+        /// Gets current GameState.
+        /// </summary>
+        internal GameStateContext StateContext
+        {
+            get
+            {
+                return this.mContext;
+            }
+        }
+
+        /// <summary>
         /// Function called at instantiation. Initialized the game object.
         /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            this.mContext = new GameStateContext(this);
         }
 
         /// <summary>
@@ -56,6 +80,8 @@ namespace EverLite
                 this.Exit();
             }
 
+            this.mContext.Update(gameTime);
+
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -69,6 +95,9 @@ namespace EverLite
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            this.mSpriteBatch.Begin();
+            this.mContext.Draw(gameTime);
+            this.mSpriteBatch.End();
             base.Draw(gameTime);
         }
     }
