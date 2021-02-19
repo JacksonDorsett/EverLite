@@ -8,6 +8,7 @@ namespace EverLite
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Modules.Enemies;
+    using Modules;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -19,10 +20,13 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+        private EnemySystem enemySystem;
 
         //Game World
         List<Enemy> enemies = new List<Enemy>();
         Random random = new Random();
+
+        public bool IsPaused = false;
 
 
         /// <summary>
@@ -52,6 +56,7 @@ namespace EverLite
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            this.enemySystem = new EnemySystem(this.Content);
         }
 
         float spawn = 0;
@@ -67,46 +72,18 @@ namespace EverLite
                 this.Exit();
             }
 
-            spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                this.IsPaused = !this.IsPaused;
+            }
 
-            foreach (Enemy enemie in enemies)
-                enemie.Update(mGraphics.GraphicsDevice);
-            LoadEnemies();
+            if (!this.IsPaused)
+            {
+                this.enemySystem.Update(this.mGraphics.GraphicsDevice, gameTime);
+            }
+            
             // TODO: Add your update logic here
             base.Update(gameTime);
-        }
-
-        public void LoadEnemies()
-        {
-            int randY = random.Next(100, 400);
-            if (spawn >= 1)
-            {
-                spawn = 0;
-                if(enemies.Count < 4)
-                {
-                    Enemy enemy = new SimpleEnemy();
-                    enemy.ChangeTexture(Content.Load<Texture2D>(enemy.spriteName));
-                    enemy.ChangePosition(new Vector2(1100, randY));
-                    enemy.SetRandomVelocity();
-                    enemies.Add(enemy);
-
-                    enemy = new SimpleEnemyAlternative();
-                    enemy.ChangeTexture(Content.Load<Texture2D>(enemy.spriteName));
-                    enemy.ChangePosition(new Vector2(1000, randY));
-                    enemy.SetRandomVelocity();
-                    enemies.Add(enemy);
-                }
-
-                for(int i = 0; i < enemies.Count; i++)
-                {
-                    if(!enemies[i].isVisible)
-                    {
-                        enemies.RemoveAt(i);
-                        i--;
-                    }
-                }
-
-            }
         }
 
         /// <summary>
@@ -118,8 +95,7 @@ namespace EverLite
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             mSpriteBatch.Begin();
-            foreach (Enemy enemie in enemies)
-                enemie.Draw(mSpriteBatch);
+            this.enemySystem.Draw(this.mSpriteBatch);
             mSpriteBatch.End();
             // TODO: Add your drawing code here
             base.Draw(gameTime);

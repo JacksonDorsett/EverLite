@@ -1,45 +1,128 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="Enemy.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace EverLite.Modules.Enemies
 {
-    abstract class Enemy
+    using System;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
+    using Microsoft.Xna.Framework.Graphics;
+
+    /// <summary>
+    /// Abstract enemy type.
+    /// </summary>
+    internal abstract class Enemy
     {
-        public Texture2D texture;
-        public Vector2 position;
-        public Vector2 velocity;
+        /// <summary>
+        /// Gets or sets texture of an enemy.
+        /// </summary>
+        public Texture2D Texture { get; set; }
 
-        abstract public string spriteName { get; set; }
+        /// <summary>
+        /// Reference to the content manager.
+        /// </summary>
+        public ContentManager ContentManagerRef;
 
-        abstract public bool isVisible { get; set; }
+        /// <summary>
+        /// position of an enemy.
+        /// </summary>
+        public Vector2 Position;
+
+        /// <summary>
+        /// velocity of an enemy.
+        /// </summary>
+        public Vector2 Velocity = new Vector2(0, 0);
+
+        /// <summary>
+        /// Target position for the enemy to reach.
+        /// </summary>
+        public Vector2 TargetPosition;
+
+        /// <summary>
+        /// Gets or sets sprite name of an enemy.
+        /// </summary>
+        public abstract string SpriteName { get; set; }
+
+        /// <summary>
+        /// Gets or sets visibility of an enemy.
+        /// </summary>
+        public abstract bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Gets or sets visibility of an enemy.
+        /// </summary>
+        public bool IsTargetting { get; set; }
 
         public Random random = new Random();
         public int randX, randY;
 
-        public Enemy() { }
-        public Enemy(Texture2D newTexture, Vector2 newPosition)
+        public Enemy(Vector2 newPosition, ContentManager contentManager)
         {
-            this.texture = newTexture;
-            this.position = newPosition;
-
-            this.randY = this.random.Next(-4, 4);
-            this.randX = this.random.Next(-4, -1);
-
-            this.velocity = new Vector2(this.randX, this.randY);
+            this.Position = newPosition;
+            this.ContentManagerRef = contentManager;
+            this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
         }
 
-        public void Update(GraphicsDevice graphics)
+        public Enemy(ContentManager contentManager)
         {
-            position += velocity;
+            this.ContentManagerRef = contentManager;
+            this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
+        }
 
-            if (position.Y <= 0 || position.Y >= graphics.Viewport.Height - texture.Height)
-                velocity.Y = -velocity.Y;
+        /// <summary>
+        /// Update function to update the enemy.
+        /// </summary>
+        /// <param name="graphics"> graphics.</param>
+        /// <param name="gameTime"> gametime.</param>
+        public void Update(GraphicsDevice graphics, GameTime gameTime)
+        {
+            if (this.IsTargetting)
+            {
+                if (this.Velocity.X > 0)
+                {
+                    // calcualte velocity for X.
+                    if (this.Position.X > this.TargetPosition.X)
+                    {
+                        float xDiff = this.Position.X - this.Velocity.X;
+                        this.Position.X -= xDiff < this.TargetPosition.X ? this.TargetPosition.X : this.Velocity.X;
+                    }
+                    else if (this.Position.X < this.TargetPosition.X)
+                    {
+                        float xDiff = this.Position.X + this.Velocity.X;
+                        this.Position.X += xDiff > this.TargetPosition.X ? this.TargetPosition.X : this.Velocity.X;
+                    }
+                }
 
-            if(position.X < 0 - texture.Width)
-                this.isVisible = false;
+                if (this.Velocity.Y > 0)
+                {
+                    // calcualte velocity for Y.
+                    if (this.Position.Y > this.TargetPosition.Y && this.Velocity.Y > 0)
+                    {
+                        float yDiff = this.Position.Y - this.Velocity.Y;
+                        this.Position.Y -= yDiff < this.TargetPosition.Y ? this.TargetPosition.Y : this.Velocity.Y;
+                    }
+                    else if (this.Position.Y < this.TargetPosition.Y)
+                    {
+                        float yDiff = this.Position.Y + this.Velocity.Y;
+                        this.Position.Y += yDiff > this.TargetPosition.Y ? this.TargetPosition.Y : this.Velocity.Y;
+                    }
+                }
+            }
+            else
+            {
+                this.Position += this.Velocity;
+            }
+
+            if (this.Position.Y <= 0 || this.Position.Y >= graphics.Viewport.Height - this.Texture.Height)
+            {
+                this.Velocity.Y = -this.Velocity.Y;
+            }
+
+            if (this.Position.X < 0 - this.Texture.Width)
+            {
+                this.IsVisible = false;
+            }
         }
 
         /// <summary>
@@ -48,7 +131,7 @@ namespace EverLite.Modules.Enemies
         /// <param name="newVelocity"> new velocity to set.</param>
         public void ChangeVelocity(Vector2 newVelocity)
         {
-            this.velocity = newVelocity;
+            this.Velocity = newVelocity;
         }
 
         /// <summary>
@@ -57,15 +140,7 @@ namespace EverLite.Modules.Enemies
         /// <param name="newPosition"> new position to set.</param>
         public void ChangePosition(Vector2 newPosition)
         {
-            this.position = newPosition;
-        }
-
-        public void SetRandomVelocity()
-        {
-            this.randY = this.random.Next(-4, 4);
-            this.randX = this.random.Next(-4, -1);
-
-            this.velocity = new Vector2(this.randX, this.randY);
+            this.Position = newPosition;
         }
 
         /// <summary>
@@ -74,12 +149,42 @@ namespace EverLite.Modules.Enemies
         /// <param name="newTexture"> new velocity to set.</param>
         public void ChangeTexture(Texture2D newTexture)
         {
-            this.texture = newTexture;
+            this.Texture = newTexture;
         }
 
+        /// <summary>
+        /// Function that sets new target position.
+        /// </summary>
+        /// <param name="targetPosition"> new target position.</param>
+        public void ChangeTarget(Vector2 targetPosition)
+        {
+            this.TargetPosition = targetPosition;
+            this.IsTargetting = true;
+        }
+
+        /// <summary>
+        /// Function that starts targetting.
+        /// </summary>
+        public void StartTargetting()
+        {
+            this.IsTargetting = true;
+        }
+
+        /// <summary>
+        /// Function that stops targetting.
+        /// </summary>
+        public void StopTargetting()
+        {
+            this.IsTargetting = false;
+        }
+
+        /// <summary>
+        /// Draws an enemy class.
+        /// </summary>
+        /// <param name="sprite"> spriteBatch.</param>
         public void Draw(SpriteBatch sprite)
         {
-            sprite.Draw(this.texture, this.position, Color.White);
+            sprite.Draw(this.Texture, this.Position, Color.White);
         }
     }
 
