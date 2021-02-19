@@ -18,6 +18,8 @@ namespace EverLite
     {
         private List<MenuItem> menuOptions;
         private int mSelectedIndex;
+        private bool isKeyDown;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Menu"/> class.
         /// </summary>
@@ -25,6 +27,7 @@ namespace EverLite
         {
             this.mSelectedIndex = 0;
             this.menuOptions = new List<MenuItem>();
+            this.isKeyDown = false;
         }
 
         /// <summary>
@@ -33,7 +36,7 @@ namespace EverLite
         /// <param name="gameTime">Gametime passed.</param>
         public void Update()
         {
-            if (this.menuOptions.Count != 0)
+            if (this.menuOptions.Count != 0 && !this.isKeyDown)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.Down) && this.mSelectedIndex < this.menuOptions.Count - 1)
                 {
@@ -49,9 +52,21 @@ namespace EverLite
                 {
                     this.menuOptions[this.mSelectedIndex].Select();
                 }
+
+                this.isKeyDown = true;
+            }
+
+            if (!Keyboard.GetState().IsKeyDown(Keys.Down) && !Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                this.isKeyDown = false;
             }
         }
 
+        /// <summary>
+        /// Draws the menu.
+        /// </summary>
+        /// <param name="spriteBatch">Sprite Batch.</param>
+        /// <param name="font">Font of menu.</param>
         public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
             for (int i = 0; i < this.menuOptions.Count; i++)

@@ -46,7 +46,7 @@ namespace EverLite
         /// <summary>
         /// Switches the gameStates.
         /// </summary>
-        /// <param name="newState"></param>
+        /// <param name="newState">Next state.</param>
         public void SetState(GameState newState)
         {
             this.nextState = newState;

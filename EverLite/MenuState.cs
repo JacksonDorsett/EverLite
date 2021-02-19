@@ -16,8 +16,6 @@ namespace EverLite
     /// </summary>
     internal class MenuState : GameState
     {
-        private Game mGame;
-        private int mSelectedIndex = 0;
         private string[] menuOptions;
         private SpriteFont mFont;
         private Menu menu;
@@ -29,10 +27,7 @@ namespace EverLite
         public MenuState(Game1 game)
             : base(game)
         {
-            this.mGame = game;
             this.menuOptions = new string[2];
-            this.menuOptions[0] = "Play";
-            this.menuOptions[1] = "Quit";
             this.mFont = this.Game.Content.Load<SpriteFont>("Default");
             this.InitMenu();
         }
@@ -61,28 +56,7 @@ namespace EverLite
         /// <param name="gameTime">Time elapsed during cycle.</param>
         public override void Update(GameTime gameTime)
         {
-            // To Do: Refactor into menu item class, substitute conditional with polymorphism.
             this.menu.Update();
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.Down) && this.mSelectedIndex < this.menuOptions.Length - 1)
-            //{
-            //    this.mSelectedIndex++;
-            //}
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.Up) && this.mSelectedIndex > 0)
-            //{
-            //    this.mSelectedIndex--;
-            //}
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 1)
-            //{
-            //    this.Game.Exit();
-            //}
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.Enter) && this.mSelectedIndex == 0)
-            //{
-            //    this.StateContext.CurrentState = new PlayGameState(this.Game);
-            //}
         }
 
         /// <summary>
@@ -97,6 +71,7 @@ namespace EverLite
             // Add any menu options here.
             this.menu = new Menu();
             this.menu.AddMenuItem(new MenuItem("Play", new ChangeStateCommand(this.Game, new PlayGameState(this.Game))));
+            this.menu.AddMenuItem(new MenuItem("Test", new QuitCommand(this.Game)));
             this.menu.AddMenuItem(new MenuItem("Quit", new QuitCommand(this.Game)));
         }
     }

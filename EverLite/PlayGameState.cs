@@ -25,9 +25,6 @@ namespace EverLite
             : base(game)
         {
             this.scrollingBG = new ScrollingBG(game);
-
-            // start BGM
-
         }
 
         /// <summary>
@@ -40,7 +37,7 @@ namespace EverLite
         }
 
         /// <summary>
-        /// Plays the Bgm when starting
+        /// Plays the Bgm when starting.
         /// </summary>
         public override void OnEnter()
         {
@@ -58,6 +55,9 @@ namespace EverLite
             this.scrollingBG.Update(gameTime);
         }
 
+        /// <summary>
+        /// Stopps the BGM on destruction.
+        /// </summary>
         protected override void OnExit()
         {
             BGM.Instance(this.Game).Stop();
