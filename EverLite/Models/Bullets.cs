@@ -1,6 +1,9 @@
-﻿namespace EverLite.Models
+﻿// <copyright file="Bullets.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Models
 {
-    using EverLite.Models;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -9,13 +12,12 @@
     /// </summary>
     public class Bullets : Sprite
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Bullets"/> class.
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         public Bullets()
-            : base(true, 0, 8.0f, FactoryEnum.Bullets)
+            : base(true, 0, 16.0f, FactoryEnum.Bullets)
         { // TODO: Adjust bullet constructor.
         }
 

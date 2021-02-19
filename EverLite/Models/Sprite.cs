@@ -69,7 +69,7 @@ namespace EverLite.Models
         /// This class was built for testing purposes.
         /// </summary>
         /// <returns>The enum of the spriteType.</returns>
-        public FactoryEnum isSpriteType()
+        public FactoryEnum GetSpriteType()
         {
             return this.SpriteType;
         }

@@ -1,4 +1,8 @@
-﻿namespace EverLite.Models
+﻿// <copyright file="SpriteFactory.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Models
 {
     using System;
 
