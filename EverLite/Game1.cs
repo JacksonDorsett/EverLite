@@ -7,6 +7,7 @@ namespace EverLite
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Modules.Enemies;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -20,7 +21,7 @@ namespace EverLite
         private SpriteBatch mSpriteBatch;
 
         //Game World
-        List<Enemie> enemies = new List<Enemie>();
+        List<Enemy> enemies = new List<Enemy>();
         Random random = new Random();
 
 
@@ -68,7 +69,7 @@ namespace EverLite
 
             spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (Enemie enemie in enemies)
+            foreach (Enemy enemie in enemies)
                 enemie.Update(mGraphics.GraphicsDevice);
             LoadEnemies();
             // TODO: Add your update logic here
@@ -83,7 +84,17 @@ namespace EverLite
                 spawn = 0;
                 if(enemies.Count < 4)
                 {
-                    enemies.Add(new Enemie(Content.Load<Texture2D>("enemy1"),new Vector2(1100, randY)));
+                    Enemy enemy = new SimpleEnemy();
+                    enemy.ChangeTexture(Content.Load<Texture2D>(enemy.spriteName));
+                    enemy.ChangePosition(new Vector2(1100, randY));
+                    enemy.SetRandomVelocity();
+                    enemies.Add(enemy);
+
+                    enemy = new SimpleEnemyAlternative();
+                    enemy.ChangeTexture(Content.Load<Texture2D>(enemy.spriteName));
+                    enemy.ChangePosition(new Vector2(1000, randY));
+                    enemy.SetRandomVelocity();
+                    enemies.Add(enemy);
                 }
 
                 for(int i = 0; i < enemies.Count; i++)
@@ -107,7 +118,7 @@ namespace EverLite
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             mSpriteBatch.Begin();
-            foreach (Enemie enemie in enemies)
+            foreach (Enemy enemie in enemies)
                 enemie.Draw(mSpriteBatch);
             mSpriteBatch.End();
             // TODO: Add your drawing code here
