@@ -14,7 +14,7 @@
         public void CreatePlayerTest()
         {
             player = SpriteFactory.CreateSprite(FactoryEnum.Player);
-            Assert.AreEqual(player.isSpriteType(), FactoryEnum.Player);
+            Assert.AreEqual(player.GetSpriteType(), FactoryEnum.Player);
         }
 
         /// <summary>
@@ -25,8 +25,8 @@
         public void PlayerEnumTypeFailureTest()
         {
             player = SpriteFactory.CreateSprite(FactoryEnum.Player);
-            Assert.AreEqual(player.isSpriteType(), FactoryEnum.Player);
-            Assert.AreNotEqual(player.isSpriteType(), FactoryEnum.Bullets);
+            Assert.AreEqual(player.GetSpriteType(), FactoryEnum.Player);
+            Assert.AreNotEqual(player.GetSpriteType(), FactoryEnum.Bullets);
         }
     }
 }

@@ -49,12 +49,6 @@ namespace EverLite
             this.LoadPlayer();
         }
 
-        private void LoadPlayer()
-        {
-            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 5), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
-            this.player.Initialize(this.Content.Load<Texture2D>("Player"), playerPosition);
-        }
-
         /// <summary>
         /// Updates every game loop cycle. Used for updating game logic.
         /// </summary>
@@ -67,7 +61,6 @@ namespace EverLite
             }
 
             this.player.Update();
-            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -85,6 +78,15 @@ namespace EverLite
 
             // TODO: Add your drawing code here
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Initializes the player icon.
+        /// </summary>
+        private void LoadPlayer()
+        {
+            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 5), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
+            this.player.Initialize(this.Content.Load<Texture2D>("Player"), playerPosition);
         }
     }
 }
