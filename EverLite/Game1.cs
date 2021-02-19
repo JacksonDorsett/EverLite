@@ -5,8 +5,8 @@
 namespace EverLite
 {
     using System;
+    using System.Collections.Generic;
     using EverLite.Models;
-    using EverLite.Models.WeaponModels.RayGuns;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -18,8 +18,7 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
-        PlayerCharacter player;
-        BasicWeapon initialWeapon;
+        private Sprite player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -36,10 +35,7 @@ namespace EverLite
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            this.initialWeapon = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            this.initialWeapon.SetInitialAmmo(1000);
-            this.player = new PlayerCharacter(this.initialWeapon);
+            this.player = SpriteFactory.CreateSprite(FactoryEnum.Player);
             base.Initialize();
         }
 
@@ -50,8 +46,13 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
-            this.player.Initialize(this.Content.Load<Texture2D>("Graphics\\player"), playerPosition);
+            this.LoadPlayer();
+        }
+
+        private void LoadPlayer()
+        {
+            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 5), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
+            this.player.Initialize(this.Content.Load<Texture2D>("Player"), playerPosition);
         }
 
         /// <summary>
@@ -65,6 +66,7 @@ namespace EverLite
                 this.Exit();
             }
 
+            this.player.Update();
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -75,7 +77,11 @@ namespace EverLite
         /// <param name="gameTime">time elapsed in cycle.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.Aquamarine);
+
+            this.mSpriteBatch.Begin();
+            this.player.Draw(this.mSpriteBatch);
+            this.mSpriteBatch.End();
 
             // TODO: Add your drawing code here
             base.Draw(gameTime);

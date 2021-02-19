@@ -2,95 +2,31 @@
 {
     using NUnit.Framework;
     using EverLite.Models;
-    using EverLite.Models.WeaponModels;
-    using EverLite.Models.WeaponModels.Missiles;
-    using EverLite.Utilities;
-    using System;
-    using Microsoft.Xna.Framework;
-    using EverLite.Models.WeaponModels.RayGuns;
-    using System.Collections.Generic;
 
     public class PlayerDesignTests
     {
-        private List<BasicWeapon> weaponList;
-        private PlayerCharacter player;
-        private BasicRayGun basicRayGun;
+        private Sprite player;
 
+        /// <summary>
+        /// Checking to see if the player is correctly created.
+        /// </summary>
         [Test]
         public void CreatePlayerTest()
         {
-            player = new PlayerCharacter();
-            Assert.AreEqual(player.CurrentWeaponList().Count, 0);
+            player = SpriteFactory.CreateSprite(FactoryEnum.Player);
+            Assert.AreEqual(player.isSpriteType(), FactoryEnum.Player);
         }
 
+        /// <summary>
+        /// Checking to see that the sprite class assigns spriteType field correctly.
+        /// Checks for correct, then checks that a different spriteType isn't assigned.
+        /// </summary>
         [Test]
-        public void AddOneWeaponTest()
+        public void PlayerEnumTypeFailureTest()
         {
-            player = new PlayerCharacter();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            Assert.AreEqual(player.CurrentWeaponList().Count, 1);
-        }
-
-        [Test]
-        public void OneWeaponAmmoCountTest()
-        {
-            player = new PlayerCharacter();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            Assert.AreEqual(player.GetWeapon(basicRayGun).AmmoCount, 100);
-        }
-
-        [Test]
-        public void AddDuplicateWeaponTest()
-        {
-            player = new PlayerCharacter();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            player.AddNewWeapon(basicRayGun);
-            Assert.AreEqual(player.CurrentWeaponList().Count, 1);
-        }
-
-        [Test]
-        public void DuplicateWeaponAmmoCountTest()
-        {
-            player = new PlayerCharacter();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            player.AddNewWeapon(basicRayGun);
-            Assert.AreEqual(player.GetWeapon(basicRayGun).AmmoCount, 200);
-        }
-
-        [Test]
-        public void AddTwoDifferentRayGunTest()
-        {
-            player = new PlayerCharacter();
-            weaponList = new List<BasicWeapon>();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.BlueRayGun);
-            player.AddNewWeapon(basicRayGun);
-            Assert.AreEqual(player.CurrentWeaponList().Count, 2);
-        }
-
-        [Test]
-        public void TwoDifferentRayGunTypeTest()
-        {
-            player = new PlayerCharacter();
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.RedRayGun);
-            basicRayGun.SetInitialAmmo(100);
-            player.AddNewWeapon(basicRayGun);
-            basicRayGun = RayGunFactory.CreateRayGun(RayGunEnum.BlueRayGun);
-            player.AddNewWeapon(basicRayGun);
-
-            weaponList = player.CurrentWeaponList();
-
-            Assert.That(weaponList, Is.Unique);
+            player = SpriteFactory.CreateSprite(FactoryEnum.Player);
+            Assert.AreEqual(player.isSpriteType(), FactoryEnum.Player);
+            Assert.AreNotEqual(player.isSpriteType(), FactoryEnum.Bullets);
         }
     }
 }
