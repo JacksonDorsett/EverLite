@@ -14,7 +14,6 @@ namespace EverLite.Models
     {
         private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
-        private Vector2 origin;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Bullets"/> class.
@@ -22,14 +21,14 @@ namespace EverLite.Models
         /// </summary>
         public Bullets()
             : base(false, 0, 16.0f, FactoryEnum.Bullets)
-        { // TODO: Adjust bullet constructor.
+        {
         }
 
         /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
-            this.Position = position;
+            this.position = position;
             this.SetVelocity();
             this.SetPosition(position);
         }
@@ -42,19 +41,23 @@ namespace EverLite.Models
         /// <inheritdoc/>
         public override void SetPosition(Vector2 playerPosition)
         {
-            this.Position = playerPosition + this.Velocity;
+            this.position = playerPosition + this.velocity;
         }
 
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            this.Velocity = new Vector2(0, -this.sVelocity);
+            this.velocity = new Vector2(0, -this.sVelocity);
         }
 
         /// <inheritdoc/>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.Position, null, Color.White, this.angle, this.origin, this.scale, SpriteEffects.None, this.layerDepth);
+            Vector2 origin;
+            origin.X = this.texture.Width / 6;
+            origin.Y = this.texture.Height / 6;
+
+            spriteBatch.Draw(this.texture, this.position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }

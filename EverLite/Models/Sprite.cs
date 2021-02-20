@@ -15,17 +15,12 @@ namespace EverLite.Models
         /// <summary>
         /// Holds the object's position.
         /// </summary>
-        public Vector2 Position;
+        public Vector2 position;
 
         /// <summary>
         /// The bullet subclass uses this Velocity.
         /// </summary>
-        public Vector2 Velocity;
-
-        /// <summary>
-        /// Reflects the onscreen status.
-        /// </summary>
-        public bool IsVisible;
+        protected Vector2 velocity;
 
         /// <summary>
         /// Holds the object's picture.
@@ -45,7 +40,22 @@ namespace EverLite.Models
         /// <summary>
         /// Holds the object's specific FactoryEnum type.
         /// </summary>
-        protected FactoryEnum SpriteType;
+        protected FactoryEnum spriteType;
+
+        /// <summary>
+        /// Used for left/right limits of sprite movement box.
+        /// </summary>
+        protected int screenWidth;
+
+        /// <summary>
+        /// Used for up/down limits of sprite movement box.
+        /// </summary>
+        protected int screenHeight;
+
+        /// <summary>
+        /// Reflects the onscreen status.
+        /// </summary>
+        protected bool isVisible;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
@@ -56,10 +66,10 @@ namespace EverLite.Models
         /// <param name="type">Sets the spriteType.</param>
         public Sprite(bool active, float angle, float velocity, FactoryEnum type)
         {
-            this.IsVisible = active;
+            this.isVisible = active;
             this.angle = angle;
             this.sVelocity = velocity;
-            this.SpriteType = type;
+            this.spriteType = type;
         }
 
         /// <summary>
@@ -77,7 +87,7 @@ namespace EverLite.Models
         /// <returns>The enum of the spriteType.</returns>
         public FactoryEnum GetSpriteType()
         {
-            return this.SpriteType;
+            return this.spriteType;
         }
 
         /// <summary>
@@ -86,16 +96,25 @@ namespace EverLite.Models
         /// <returns>Sprite's position.</returns>
         public Vector2 GetPosition()
         {
-            return this.Position;
+            return this.position;
+        }
+
+        /// <summary>
+        /// Get's the instance's current sVelocity.
+        /// </summary>
+        /// <returns>Sprite's velocity.</returns>
+        public float GetsVelocity()
+        {
+            return this.sVelocity;
         }
 
         /// <summary>
         /// Get's the instance's current velocity.
         /// </summary>
         /// <returns>Sprite's velocity.</returns>
-        public float GetVelocity()
+        public Vector2 GetVelocity()
         {
-            return this.sVelocity;
+            return this.velocity;
         }
 
         /// <summary>
@@ -154,6 +173,35 @@ namespace EverLite.Models
         /// <param name="position">Player's position.</param>
         public virtual void SetPosition(Vector2 position)
         {
+        }
+
+        /// <summary>
+        /// Sets isVisible.
+        /// </summary>
+        /// <param name="value">True or False.</param>
+        public void SetIsVisible(bool value)
+        {
+            this.isVisible = value;
+        }
+
+        /// <summary>
+        /// Gets isVisible.
+        /// </summary>
+        /// <returns>True or False.</returns>
+        public bool GetIsVisible()
+        {
+            return this.isVisible;
+        }
+
+        /// <summary>
+        /// Sets the width and height. Subclasses can use that data to set their movement boundary.
+        /// </summary>
+        /// <param name="width">ScreenView width.</param>
+        /// <param name="height">ScreenView Height.</param>
+        public void SetGameBoundary(int width, int height)
+        {
+            this.screenWidth = width;
+            this.screenHeight = height;
         }
 
         /// <summary>

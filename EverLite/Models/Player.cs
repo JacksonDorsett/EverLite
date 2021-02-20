@@ -13,8 +13,8 @@ namespace EverLite.Models
     /// </summary>
     public class Player : Sprite
     {
-        private static float speed = 8.0f; // This is static so I can use it in the constructor.
-        private readonly float scale = 0.1f;
+        private static float speed = 10.0f; // This is static so I can use it in the constructor.
+        private readonly float scale = 0.3f;
         private readonly float layerDepth = 0.0f;
         private KeyboardState currentKeyboardState;
         private GamePadState currentGamePadState;
@@ -38,7 +38,7 @@ namespace EverLite.Models
         public override void Initialize(Texture2D texture, Vector2 position)
         {
             this.texture = texture;
-            this.Position = position;
+            this.position = position;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace EverLite.Models
         /// </summary>
         public override void SlowSpeed()
         {
-            this.sVelocity = 2.0f;
+            this.sVelocity = 3.0f;
         }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace EverLite.Models
         /// </summary>
         public override void IncreaseSpeed()
         {
-            if (this.sVelocity != 8.0f)
+            if (this.sVelocity != 10.0f)
             {
-                this.sVelocity = 8.0f;
+                this.sVelocity = 10.0f;
             }
         }
 
@@ -68,10 +68,10 @@ namespace EverLite.Models
         /// <returns>Bullet instance.</returns>
         public override Sprite Shoot(Texture2D texture, Vector2 position)
         {
-            Vector2 playerPosition = new Vector2(position.X, position.Y);
+            Vector2 playerPosition = new Vector2(position.X + 12, position.Y);
             Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
             newBullet.Initialize(texture, playerPosition);
-            newBullet.IsVisible = true;
+            newBullet.SetIsVisible(true);
             return newBullet;
         }
 
@@ -82,43 +82,64 @@ namespace EverLite.Models
 
             this.currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
-            this.Position.X += this.currentGamePadState.ThumbSticks.Left.X * speed;
+            this.position.X += this.currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
 
-            this.Position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * speed;
+            this.position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
 
-            if (this.currentGamePadState.Buttons.A == ButtonState.Pressed || this.currentKeyboardState.IsKeyDown(Keys.S))
+            if (this.currentKeyboardState.IsKeyDown(Keys.G))
             {
                 this.SlowSpeed();
             }
 
-            if (this.currentGamePadState.Buttons.A == ButtonState.Released || this.currentKeyboardState.IsKeyUp(Keys.S))
+            if (this.currentKeyboardState.IsKeyUp(Keys.G))
             {
                 this.IncreaseSpeed();
             }
 
-            if (this.currentGamePadState.Buttons.Y == ButtonState.Pressed || this.currentKeyboardState.IsKeyDown(Keys.Q))
+            if (this.currentGamePadState.Buttons.Y == ButtonState.Pressed || this.currentKeyboardState.IsKeyDown(Keys.T))
             {
                 this.ChangeBulletType();
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Left))
+            if (this.currentKeyboardState.IsKeyDown(Keys.Left) || this.currentKeyboardState.IsKeyDown(Keys.A))
             {
-                this.Position.X -= this.sVelocity;
+                this.position.X -= this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Right))
+            if (this.currentKeyboardState.IsKeyDown(Keys.Right) || this.currentKeyboardState.IsKeyDown(Keys.D))
             {
-                this.Position.X += this.sVelocity;
+                this.position.X += this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Up))
+            if (this.currentKeyboardState.IsKeyDown(Keys.Up) || this.currentKeyboardState.IsKeyDown(Keys.W))
             {
-                this.Position.Y -= this.sVelocity;
+                this.position.Y -= this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Down))
+            if (this.currentKeyboardState.IsKeyDown(Keys.Down) || this.currentKeyboardState.IsKeyDown(Keys.S))
             {
-                this.Position.Y += this.sVelocity;
+                this.position.Y += this.sVelocity;
+            }
+
+            // Logic to keep the player on screen
+            if (this.position.X <= 2)
+            {
+                this.position.X = 2;
+            }
+
+            if (this.position.Y <= this.screenHeight / 2)
+            {
+                this.position.Y = this.screenHeight / 2;
+            }
+
+            if (this.position.X + (this.GetTexture().Width / 10) >= this.screenWidth)
+            {
+                this.position.X = this.screenWidth - (this.GetTexture().Width / 10);
+            }
+
+            if (this.position.Y + (this.GetTexture().Height / 10) >= this.screenHeight)
+            {
+                this.position.Y = this.screenHeight - (this.GetTexture().Height / 10);
             }
         }
 
@@ -154,7 +175,7 @@ namespace EverLite.Models
             origin.Y = this.texture.Height / 6;
 
             // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
-            spriteBatch.Draw(this.texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+            spriteBatch.Draw(this.texture, this.position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }

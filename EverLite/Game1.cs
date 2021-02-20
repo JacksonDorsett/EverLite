@@ -4,7 +4,6 @@
 
 namespace EverLite
 {
-    using System;
     using System.Collections.Generic;
     using EverLite.Models;
     using Microsoft.Xna.Framework;
@@ -19,14 +18,7 @@ namespace EverLite
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
         private Sprite player;
-
-        // Bullets
         private List<Sprite> bullets = new List<Sprite>();
-        private Sprite theBullet;
-
-        // Screen Parameters
-        private int screenWidth;
-        private int screenHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -44,7 +36,6 @@ namespace EverLite
         protected override void Initialize()
         {
             this.player = SpriteFactory.CreateSprite(FactoryEnum.Player);
-            this.theBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
             base.Initialize();
         }
 
@@ -54,8 +45,6 @@ namespace EverLite
         protected override void LoadContent()
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.screenWidth = this.GraphicsDevice.Viewport.Width;
-            this.screenHeight = this.GraphicsDevice.Viewport.Height;
             this.LoadPlayer();
         }
 
@@ -72,30 +61,9 @@ namespace EverLite
 
             this.player.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.D))
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J))
             {
                 this.PlayerShoot();
-            }
-
-            // Logic to keep the player on screen
-            if (this.player.Position.X <= 2)
-            {
-                this.player.Position.X = 2;
-            }
-
-            if (this.player.Position.Y <= this.screenHeight / 2)
-            {
-                this.player.Position.Y = this.screenHeight / 2;
-            }
-
-            if (this.player.Position.X + (this.player.GetTexture().Width / 10) >= this.screenWidth)
-            {
-                this.player.Position.X = this.screenWidth - (this.player.GetTexture().Width / 10);
-            }
-
-            if (this.player.Position.Y + (this.player.GetTexture().Height / 10) >= this.screenHeight)
-            {
-                this.player.Position.Y = this.screenHeight - (this.player.GetTexture().Height / 10);
             }
 
             this.UpdateBullets();
@@ -106,16 +74,16 @@ namespace EverLite
         {
             foreach (Bullets bullet in this.bullets)
             {
-                bullet.Position += bullet.Velocity;
-                if (Vector2.Distance(bullet.Position, this.player.Position) > 1000)
+                bullet.position += bullet.GetVelocity();
+                if (Vector2.Distance(bullet.GetPosition(), this.player.GetPosition()) > 1000)
                 {
-                    bullet.IsVisible = false;
+                    bullet.SetIsVisible(false);
                 }
             }
 
             for (int index = 0; index < this.bullets.Count; index++)
             {
-                if (!this.bullets[index].IsVisible)
+                if (!this.bullets[index].GetIsVisible())
                 {
                     this.bullets.RemoveAt(index);
                     index--;
@@ -158,7 +126,8 @@ namespace EverLite
         private void LoadPlayer()
         {
             Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
-            this.player.Initialize(this.Content.Load<Texture2D>("Biplane"), playerPosition);
+            this.player.Initialize(this.Content.Load<Texture2D>("Rocket"), playerPosition);
+            this.player.SetGameBoundary(this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
         }
     }
 }
