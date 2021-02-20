@@ -13,14 +13,19 @@ namespace EverLite.Models
     /// </summary>
     public class Player : Sprite
     {
+        private readonly float scale = 0.1f;
+        private readonly float layerDepth = 0.0f;
         private KeyboardState currentKeyboardState;
+        GamePadState currentGamePadState;
+        private static float speed = 8.0f;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
-        /// Sets isActive, angle, and velocity fields.
+        /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
+        /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 90, 8.0f, FactoryEnum.Player)
+            : base(true, 0, speed, FactoryEnum.Player)
         {
         }
 
@@ -55,9 +60,15 @@ namespace EverLite.Models
         }
 
         /// <inheritdoc/>
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             this.currentKeyboardState = Keyboard.GetState();
+
+            this.currentGamePadState = GamePad.GetState(PlayerIndex.One);
+
+            this.sPosition.X += this.currentGamePadState.ThumbSticks.Left.X * speed;
+
+            this.sPosition.Y -= this.currentGamePadState.ThumbSticks.Left.Y * speed;
 
             if (this.currentKeyboardState.IsKeyDown(Keys.S))
             {
@@ -94,11 +105,11 @@ namespace EverLite.Models
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.texture.Width / 2;
-            origin.Y = this.texture.Height / 2;
+            origin.X = this.texture.Width / 6;
+            origin.Y = this.texture.Height / 6;
 
             // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
-            spriteBatch.Draw(this.texture, this.sPosition, null, Color.White, this.angle, origin, .5f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.texture, this.sPosition, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }
