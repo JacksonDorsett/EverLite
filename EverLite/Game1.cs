@@ -19,11 +19,14 @@ namespace EverLite
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
         private Sprite player;
-        private KeyboardState pastKey;
 
-        //Bullets
-        List<Sprite> bullets = new List<Sprite>();
-        Sprite theBullet;
+        // Bullets
+        private List<Sprite> bullets = new List<Sprite>();
+        private Sprite theBullet;
+
+        // Screen Parameters
+        private int screenWidth;
+        private int screenHeight;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -51,7 +54,8 @@ namespace EverLite
         protected override void LoadContent()
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
-
+            this.screenWidth = this.GraphicsDevice.Viewport.Width;
+            this.screenHeight = this.GraphicsDevice.Viewport.Height;
             this.LoadPlayer();
         }
 
@@ -68,12 +72,32 @@ namespace EverLite
 
             this.player.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || (Keyboard.GetState().IsKeyDown(Keys.D) && this.pastKey.IsKeyUp(Keys.Space)))
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                this.Shoot();
+                this.PlayerShoot();
             }
 
-            this.pastKey = Keyboard.GetState();
+            // Logic to keep the player on screen
+            if (this.player.Position.X <= 2)
+            {
+                this.player.Position.X = 2;
+            }
+
+            if (this.player.Position.Y <= this.screenHeight / 2)
+            {
+                this.player.Position.Y = this.screenHeight / 2;
+            }
+
+            if (this.player.Position.X + (this.player.GetTexture().Width / 10) >= this.screenWidth)
+            {
+                this.player.Position.X = this.screenWidth - (this.player.GetTexture().Width / 10);
+            }
+
+            if (this.player.Position.Y + (this.player.GetTexture().Height / 10) >= this.screenHeight)
+            {
+                this.player.Position.Y = this.screenHeight - (this.player.GetTexture().Height / 10);
+            }
+
             this.UpdateBullets();
             base.Update(gameTime);
         }
@@ -82,16 +106,16 @@ namespace EverLite
         {
             foreach (Bullets bullet in this.bullets)
             {
-                bullet.sPosition += bullet.Velocity;
-                if (Vector2.Distance(bullet.sPosition, this.player.sPosition) > 1000)
+                bullet.Position += bullet.Velocity;
+                if (Vector2.Distance(bullet.Position, this.player.Position) > 1000)
                 {
-                    bullet.isVisible = false;
+                    bullet.IsVisible = false;
                 }
             }
 
             for (int index = 0; index < this.bullets.Count; index++)
             {
-                if (!this.bullets[index].isVisible)
+                if (!this.bullets[index].IsVisible)
                 {
                     this.bullets.RemoveAt(index);
                     index--;
@@ -99,16 +123,11 @@ namespace EverLite
             }
         }
 
-        public void Shoot()
+        public void PlayerShoot()
         {
-            Vector2 playerPosition = new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
-            newBullet.Initialize(this.Content.Load<Texture2D>("TinyBlue"), playerPosition);
-            newBullet.isVisible = true;
-
-            if (this.bullets.Count < 20)
+            if (this.bullets.Count < 50)
             {
-                this.bullets.Add(newBullet);
+                this.bullets.Add(this.player.Shoot(this.Content.Load<Texture2D>(this.player.GetCurrentBulletType()), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
             }
         }
 
@@ -118,7 +137,7 @@ namespace EverLite
         /// <param name="gameTime">time elapsed in cycle.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.Aquamarine);
+            this.GraphicsDevice.Clear(Color.Black);
 
             this.mSpriteBatch.Begin();
             this.player.Draw(this.mSpriteBatch);
@@ -138,7 +157,7 @@ namespace EverLite
         /// </summary>
         private void LoadPlayer()
         {
-            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 5), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height / 2));
+            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
             this.player.Initialize(this.Content.Load<Texture2D>("Biplane"), playerPosition);
         }
     }

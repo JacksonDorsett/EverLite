@@ -4,10 +4,8 @@
 
 namespace EverLite.Models
 {
-    using System;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// The Bullet class created will handle the special stuff the bullets can do.
@@ -30,9 +28,8 @@ namespace EverLite.Models
         /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
-            // TODO: Fix bullet logic here.
             this.texture = texture;
-            this.sPosition = position;
+            this.Position = position;
             this.SetVelocity();
             this.SetPosition(position);
         }
@@ -40,25 +37,24 @@ namespace EverLite.Models
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add bullet update stuff.
         }
 
         /// <inheritdoc/>
         public override void SetPosition(Vector2 playerPosition)
         {
-            this.sPosition = playerPosition + (this.Velocity * 5);
+            this.Position = playerPosition + this.Velocity;
         }
 
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            this.Velocity = new Vector2(this.sVelocity, 0);
+            this.Velocity = new Vector2(0, -this.sVelocity);
         }
 
         /// <inheritdoc/>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.sPosition, null, Color.White, this.angle, this.origin, this.scale, SpriteEffects.None, this.layerDepth);
+            spriteBatch.Draw(this.texture, this.Position, null, Color.White, this.angle, this.origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }

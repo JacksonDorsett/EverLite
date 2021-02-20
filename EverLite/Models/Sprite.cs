@@ -6,7 +6,6 @@ namespace EverLite.Models
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using System;
 
     /// <summary>
     /// Base class for all objects used in game.
@@ -14,26 +13,29 @@ namespace EverLite.Models
     public class Sprite
     {
         /// <summary>
+        /// Holds the object's position.
+        /// </summary>
+        public Vector2 Position;
+
+        /// <summary>
+        /// The bullet subclass uses this Velocity.
+        /// </summary>
+        public Vector2 Velocity;
+
+        /// <summary>
+        /// Reflects the onscreen status.
+        /// </summary>
+        public bool IsVisible;
+
+        /// <summary>
         /// Holds the object's picture.
         /// </summary>
         protected Texture2D texture;
 
         /// <summary>
-        /// Holds the object's position.
-        /// </summary>
-        public Vector2 sPosition;
-
-        /// <summary>
-        /// Reflects the onscreen status.
-        /// </summary>
-        public bool isVisible;
-
-        /// <summary>
         /// Reflects the direction the object's picture is pointing.
         /// </summary>
         protected float angle;
-
-        public Vector2 Velocity;
 
         /// <summary>
         /// Holds the object's velocity.
@@ -54,7 +56,7 @@ namespace EverLite.Models
         /// <param name="type">Sets the spriteType.</param>
         public Sprite(bool active, float angle, float velocity, FactoryEnum type)
         {
-            this.isVisible = active;
+            this.IsVisible = active;
             this.angle = angle;
             this.sVelocity = velocity;
             this.SpriteType = type;
@@ -84,7 +86,7 @@ namespace EverLite.Models
         /// <returns>Sprite's position.</returns>
         public Vector2 GetPosition()
         {
-            return this.sPosition;
+            return this.Position;
         }
 
         /// <summary>
@@ -96,8 +98,54 @@ namespace EverLite.Models
             return this.sVelocity;
         }
 
+        /// <summary>
+        /// Used by the player to determine it's movement parameters.
+        /// </summary>
+        /// <returns>The texture.</returns>
+        public Texture2D GetTexture()
+        {
+            return this.texture;
+        }
+
+        /// <summary>
+        /// Used by the player to reduce speed by 1/4.
+        /// </summary>
+        public virtual void SlowSpeed()
+        {
+        }
+
+        /// <summary>
+        /// Used by the player to return to initial speed.
+        /// </summary>
+        public virtual void IncreaseSpeed()
+        {
+        }
+
+        /// <summary>
+        /// Used to determine the next bullet created in Game1 class.
+        /// </summary>
+        /// <returns>Returns the name of the selected bullet type.</returns>
+        public virtual string GetCurrentBulletType()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Used by the bullets to aid in shooting the correct direction.
+        /// </summary>
         public virtual void SetVelocity()
         {
+        }
+
+        /// <summary>
+        /// Used by the player to create the bullets being shot.
+        /// </summary>
+        /// <param name="texture">Picture of the bullets.</param>
+        /// <param name="position">Position of where the bullets are shooting from.</param>
+        /// <returns>Bullet Sprite or null.</returns>
+        public virtual Sprite Shoot(Texture2D texture, Vector2 position)
+        {
+            return null;
         }
 
         /// <summary>
