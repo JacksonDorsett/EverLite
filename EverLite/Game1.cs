@@ -83,7 +83,7 @@ namespace EverLite
             foreach (Bullets bullet in this.bullets)
             {
                 bullet.sPosition += bullet.Velocity;
-                if (Vector2.Distance(bullet.sPosition, this.player.sPosition) > 500)
+                if (Vector2.Distance(bullet.sPosition, this.player.sPosition) > 1000)
                 {
                     bullet.isVisible = false;
                 }
@@ -102,9 +102,8 @@ namespace EverLite
         public void Shoot()
         {
             Vector2 playerPosition = new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y);
-            //Vector2 playerPosition = new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y);
             Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
-            newBullet.Initialize(this.Content.Load<Texture2D>("Biplane"), playerPosition);
+            newBullet.Initialize(this.Content.Load<Texture2D>("TinyBlue"), playerPosition);
             newBullet.isVisible = true;
 
             if (this.bullets.Count < 20)

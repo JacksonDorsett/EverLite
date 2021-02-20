@@ -14,12 +14,9 @@ namespace EverLite.Models
     /// </summary>
     public class Bullets : Sprite
     {
-        private readonly float scale = 0.1f;
+        private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
         private Vector2 origin;
-
-        private KeyboardState currentKeyboardState;
-        GamePadState currentGamePadState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Bullets"/> class.
@@ -49,13 +46,13 @@ namespace EverLite.Models
         /// <inheritdoc/>
         public override void SetPosition(Vector2 playerPosition)
         {
-            this.sPosition = playerPosition/* + this.Velocity*/;
+            this.sPosition = playerPosition + (this.Velocity * 5);
         }
 
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            this.Velocity = new Vector2((float)Math.Cos(this.angle), ((float)Math.Sin(this.angle) * 5f) + this.sVelocity);
+            this.Velocity = new Vector2(this.sVelocity, 0);
         }
 
         /// <inheritdoc/>
