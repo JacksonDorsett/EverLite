@@ -15,15 +15,17 @@ namespace EverLite.Models.Sprites
     /// </summary>
     public class Player : Sprite
     {
-        private int screenWidth;
-        private int screenHeight;
-        private static float speed = 15.0f; // This is static so I can use it in the constructor.
+        private static readonly float NORMALSPEED = 15.0f;
+        private static readonly float SLOWSPEED = 5.0f;
         private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
-        private KeyboardState currentKeyboardState;
-        private GamePadState currentGamePadState;
+        private int screenWidth;
+        private int screenHeight;
+        //private KeyboardState currentKeyboardState;
+        //private GamePadState currentGamePadState;
         private string currentBulletType = "TinyBlue";
         private Game mGame;
+        private ToggleStatus slowSpeedStatus;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -31,16 +33,21 @@ namespace EverLite.Models.Sprites
         /// </summary>
         /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 0, speed, FactoryEnum.Player)
+            : base(true, 0, NORMALSPEED, FactoryEnum.Player)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Player"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public Player(Game game)
-            : base(0, speed, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
+            : base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
         {
             this.mGame = game;
             this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(this.GetSpriteType())), this.GetPlayerLocation());
             this.SetGameBoundary(this.mGame.GraphicsDevice.Viewport.Width, this.mGame.GraphicsDevice.Viewport.Height);
+            this.slowSpeedStatus = new ToggleStatus(Keys.G);
         }
 
         private void SetGameBoundary(int width, int height)
@@ -63,25 +70,6 @@ namespace EverLite.Models.Sprites
         {
             this.Texture = texture;
             this.Position = position;
-        }
-
-        /// <summary>
-        /// Reduces the player speed when the 'S' key is held down.
-        /// </summary>
-        public void SlowSpeed()
-        {
-            this.sVelocity = 5.0f;
-        }
-
-        /// <summary>
-        /// Returns the player speed to initial speed when the 'S' key released.
-        /// </summary>
-        public void IncreaseSpeed()
-        {
-            if (this.sVelocity != 15.0f)
-            {
-                this.sVelocity = 15.0f;
-            }
         }
 
         /// <summary>
@@ -116,52 +104,58 @@ namespace EverLite.Models.Sprites
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-            this.currentKeyboardState = Keyboard.GetState();
 
-            this.currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            KeyboardState currentKeyboardState = Keyboard.GetState();
+
+            GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
             #region Player controls
-            this.Position.X += this.currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
-
-            this.Position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
-
-            if (this.currentKeyboardState.IsKeyDown(Keys.G))
+            this.slowSpeedStatus.Update();
+            // get current speed
+            if (!this.slowSpeedStatus.Status)
             {
-                this.SlowSpeed();
+                this.sVelocity = 15;
+            }
+            else
+            {
+                this.sVelocity = 5;
             }
 
-            if (this.currentKeyboardState.IsKeyUp(Keys.G))
-            {
-                this.IncreaseSpeed();
-            }
+            this.Position.X += currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
 
-            if (this.currentGamePadState.Buttons.Y == ButtonState.Pressed || this.currentKeyboardState.IsKeyDown(Keys.T))
+            this.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
+
+            if (currentGamePadState.Buttons.Y == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.T))
             {
                 this.ChangeBulletType();
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Left) || this.currentKeyboardState.IsKeyDown(Keys.A))
+            if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {
                 this.Position.X -= this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Right) || this.currentKeyboardState.IsKeyDown(Keys.D))
+            if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
             {
                 this.Position.X += this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Up) || this.currentKeyboardState.IsKeyDown(Keys.W))
+            if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
             {
                 this.Position.Y -= this.sVelocity;
             }
 
-            if (this.currentKeyboardState.IsKeyDown(Keys.Down) || this.currentKeyboardState.IsKeyDown(Keys.S))
+            if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
             {
                 this.Position.Y += this.sVelocity;
             }
             #endregion
 
-            #region Boundary box for player
+            this.CheckPlayerBoundry();
+        }
+
+        private void CheckPlayerBoundry()
+        {
             if (this.Position.X <= 15)
             {
                 this.Position.X = 15;
@@ -181,7 +175,6 @@ namespace EverLite.Models.Sprites
             {
                 this.Position.Y = this.screenHeight - this.Texture.Height;
             }
-            #endregion
         }
 
         /// <summary>
