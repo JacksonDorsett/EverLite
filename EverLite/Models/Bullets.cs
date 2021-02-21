@@ -20,15 +20,18 @@ namespace EverLite.Models
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         public Bullets()
-            : base(false, 0, 16.0f, FactoryEnum.Bullets)
+            : base(false, 0f, 16.0f, FactoryEnum.Bullets)
         {
         }
 
         /// <inheritdoc/>
+        public override string SpriteName { get; set; } = "TinyRed";
+
+        /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
-            this.texture = texture;
-            this.position = position;
+            this.Texture = texture;
+            this.Position = position;
             this.SetVelocity();
             this.SetPosition(position);
         }
@@ -41,23 +44,23 @@ namespace EverLite.Models
         /// <inheritdoc/>
         public override void SetPosition(Vector2 playerPosition)
         {
-            this.position = playerPosition + this.velocity;
+            this.Position = playerPosition + this.Velocity;
         }
 
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            this.velocity = new Vector2(0, -this.sVelocity);
+            this.Velocity = new Vector2(0, -this.sVelocity);
         }
 
         /// <inheritdoc/>
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.texture.Width / 6;
-            origin.Y = this.texture.Height / 6;
+            origin.X = this.Texture.Width / 6;
+            origin.Y = this.Texture.Height / 6;
 
-            spriteBatch.Draw(this.texture, this.position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }

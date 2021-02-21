@@ -20,6 +20,9 @@ namespace EverLite
         private Sprite player;
         private List<Sprite> bullets = new List<Sprite>();
 
+        private PlayerSystem playerSystem;
+        public bool IsPaused = false;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
         /// </summary>
@@ -35,7 +38,6 @@ namespace EverLite
         /// </summary>
         protected override void Initialize()
         {
-            this.player = SpriteFactory.CreateSprite(FactoryEnum.Player);
             base.Initialize();
         }
 
@@ -45,7 +47,13 @@ namespace EverLite
         protected override void LoadContent()
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.LoadPlayer();
+
+            this.playerSystem = new PlayerSystem(this.Content, this.GraphicsDevice);
+
+            this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
+            this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.mGraphics.HardwareModeSwitch = false;
         }
 
         /// <summary>
@@ -54,49 +62,17 @@ namespace EverLite
         /// <param name="gameTime">time passed every cycle.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                this.Exit();
+                this.IsPaused = !this.IsPaused;
             }
 
-            this.player.Update(gameTime);
-
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J))
+            if (!this.IsPaused)
             {
-                this.PlayerShoot();
+                this.playerSystem.Update(this.mGraphics.GraphicsDevice, gameTime);
             }
 
-            this.UpdateBullets();
             base.Update(gameTime);
-        }
-
-        public void UpdateBullets()
-        {
-            foreach (Bullets bullet in this.bullets)
-            {
-                bullet.position += bullet.GetVelocity();
-                if (Vector2.Distance(bullet.GetPosition(), this.player.GetPosition()) > 1000)
-                {
-                    bullet.SetIsVisible(false);
-                }
-            }
-
-            for (int index = 0; index < this.bullets.Count; index++)
-            {
-                if (!this.bullets[index].GetIsVisible())
-                {
-                    this.bullets.RemoveAt(index);
-                    index--;
-                }
-            }
-        }
-
-        public void PlayerShoot()
-        {
-            if (this.bullets.Count < 50)
-            {
-                this.bullets.Add(this.player.Shoot(this.Content.Load<Texture2D>(this.player.GetCurrentBulletType()), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
-            }
         }
 
         /// <summary>
@@ -108,26 +84,12 @@ namespace EverLite
             this.GraphicsDevice.Clear(Color.Black);
 
             this.mSpriteBatch.Begin();
-            this.player.Draw(this.mSpriteBatch);
-            foreach (Bullets bullet in this.bullets)
-            {
-                bullet.Draw(this.mSpriteBatch);
-            }
+            this.playerSystem.Draw(this.mSpriteBatch);
 
             this.mSpriteBatch.End();
 
             // TODO: Add your drawing code here
             base.Draw(gameTime);
-        }
-
-        /// <summary>
-        /// Initializes the player icon.
-        /// </summary>
-        private void LoadPlayer()
-        {
-            Vector2 playerPosition = new Vector2(this.GraphicsDevice.Viewport.TitleSafeArea.X + (this.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
-            this.player.Initialize(this.Content.Load<Texture2D>("Rocket"), playerPosition);
-            this.player.SetGameBoundary(this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
         }
     }
 }

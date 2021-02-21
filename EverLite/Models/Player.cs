@@ -13,8 +13,8 @@ namespace EverLite.Models
     /// </summary>
     public class Player : Sprite
     {
-        private static float speed = 10.0f; // This is static so I can use it in the constructor.
-        private readonly float scale = 0.3f;
+        private static float speed = 15.0f; // This is static so I can use it in the constructor.
+        private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
         private KeyboardState currentKeyboardState;
         private GamePadState currentGamePadState;
@@ -30,6 +30,9 @@ namespace EverLite.Models
         {
         }
 
+        /// <inheritdoc/>
+        public override string SpriteName { get; set; } = "Rocket";
+
         /// <summary>
         /// This combines the Texture2D and Rectangle objects into the player for control.
         /// </summary>
@@ -37,8 +40,8 @@ namespace EverLite.Models
         /// <param name="position">Starting position for the player object.</param>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
-            this.texture = texture;
-            this.position = position;
+            this.Texture = texture;
+            this.Position = position;
         }
 
         /// <summary>
@@ -46,7 +49,7 @@ namespace EverLite.Models
         /// </summary>
         public override void SlowSpeed()
         {
-            this.sVelocity = 3.0f;
+            this.sVelocity = 5.0f;
         }
 
         /// <summary>
@@ -54,9 +57,9 @@ namespace EverLite.Models
         /// </summary>
         public override void IncreaseSpeed()
         {
-            if (this.sVelocity != 10.0f)
+            if (this.sVelocity != 15.0f)
             {
-                this.sVelocity = 10.0f;
+                this.sVelocity = 15.0f;
             }
         }
 
@@ -75,6 +78,20 @@ namespace EverLite.Models
             return newBullet;
         }
 
+        /// <summary>
+        /// Creates the bullet instance for the Game1 class.
+        /// </summary>
+        /// <param name="position">Bullets spawn point.</param>
+        /// <returns>Bullet instance.</returns>
+        public override Sprite Shoot(Vector2 position)
+        {
+            Vector2 playerPosition = new Vector2(position.X + 12, position.Y);
+            Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
+            newBullet.Initialize(this.Texture, playerPosition);
+            newBullet.SetIsVisible(true);
+            return newBullet;
+        }
+
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
@@ -82,9 +99,9 @@ namespace EverLite.Models
 
             this.currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
-            this.position.X += this.currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
+            this.Position.X += this.currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
 
-            this.position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
+            this.Position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
 
             if (this.currentKeyboardState.IsKeyDown(Keys.G))
             {
@@ -103,43 +120,43 @@ namespace EverLite.Models
 
             if (this.currentKeyboardState.IsKeyDown(Keys.Left) || this.currentKeyboardState.IsKeyDown(Keys.A))
             {
-                this.position.X -= this.sVelocity;
+                this.Position.X -= this.sVelocity;
             }
 
             if (this.currentKeyboardState.IsKeyDown(Keys.Right) || this.currentKeyboardState.IsKeyDown(Keys.D))
             {
-                this.position.X += this.sVelocity;
+                this.Position.X += this.sVelocity;
             }
 
             if (this.currentKeyboardState.IsKeyDown(Keys.Up) || this.currentKeyboardState.IsKeyDown(Keys.W))
             {
-                this.position.Y -= this.sVelocity;
+                this.Position.Y -= this.sVelocity;
             }
 
             if (this.currentKeyboardState.IsKeyDown(Keys.Down) || this.currentKeyboardState.IsKeyDown(Keys.S))
             {
-                this.position.Y += this.sVelocity;
+                this.Position.Y += this.sVelocity;
             }
 
             // Logic to keep the player on screen
-            if (this.position.X <= 2)
+            if (this.Position.X <= 2)
             {
-                this.position.X = 2;
+                this.Position.X = 2;
             }
 
-            if (this.position.Y <= this.screenHeight / 2)
+            if (this.Position.Y <= this.screenHeight / 2)
             {
-                this.position.Y = this.screenHeight / 2;
+                this.Position.Y = this.screenHeight / 2;
             }
 
-            if (this.position.X + (this.GetTexture().Width / 10) >= this.screenWidth)
+            if (this.Position.X + (this.Texture.Width / 10) >= this.screenWidth)
             {
-                this.position.X = this.screenWidth - (this.GetTexture().Width / 10);
+                this.Position.X = this.screenWidth - (this.Texture.Width / 10);
             }
 
-            if (this.position.Y + (this.GetTexture().Height / 10) >= this.screenHeight)
+            if (this.Position.Y + (this.Texture.Height / 10) >= this.screenHeight)
             {
-                this.position.Y = this.screenHeight - (this.GetTexture().Height / 10);
+                this.Position.Y = this.screenHeight - (this.Texture.Height / 10);
             }
         }
 
@@ -171,11 +188,11 @@ namespace EverLite.Models
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.texture.Width / 6;
-            origin.Y = this.texture.Height / 6;
+            origin.X = this.Texture.Width / 6;
+            origin.Y = this.Texture.Height / 6;
 
             // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
-            spriteBatch.Draw(this.texture, this.position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
     }
 }

@@ -5,6 +5,7 @@
 namespace EverLite.Models
 {
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
@@ -15,17 +16,7 @@ namespace EverLite.Models
         /// <summary>
         /// Holds the object's position.
         /// </summary>
-        public Vector2 position;
-
-        /// <summary>
-        /// The bullet subclass uses this Velocity.
-        /// </summary>
-        protected Vector2 velocity;
-
-        /// <summary>
-        /// Holds the object's picture.
-        /// </summary>
-        protected Texture2D texture;
+        public Vector2 Position;
 
         /// <summary>
         /// Reflects the direction the object's picture is pointing.
@@ -58,6 +49,11 @@ namespace EverLite.Models
         protected bool isVisible;
 
         /// <summary>
+        /// Reference to the content manager.
+        /// </summary>
+        private ContentManager contentManagerRef;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
         /// </summary>
         /// <param name="active">Sets the isActive field.</param>
@@ -71,6 +67,39 @@ namespace EverLite.Models
             this.sVelocity = velocity;
             this.spriteType = type;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sprite"/> class.
+        /// </summary>
+        /// <param name="active">Sets the isActive field.</param>
+        /// <param name="angle">Sets the angle field.</param>
+        /// <param name="velocity">Sets the velocity field.</param>
+        /// <param name="type">Sets the spriteType.</param>
+        /// <param name="contentManager">Sets the ContentManagerRef.</param>
+        public Sprite(bool active, float angle, float velocity, FactoryEnum type, ContentManager contentManager)
+        {
+            this.isVisible = active;
+            this.angle = angle;
+            this.sVelocity = velocity;
+            this.spriteType = type;
+            this.contentManagerRef = contentManager;
+            this.Texture = this.contentManagerRef.Load<Texture2D>(this.SpriteName);
+        }
+
+        /// <summary>
+        /// Gets or sets the bullet subclass uses this Velocity.
+        /// </summary>
+        public Vector2 Velocity { get; set; }
+
+        /// <summary>
+        /// Gets or sets texture of an enemy.
+        /// </summary>
+        public Texture2D Texture { get; set; }
+
+        /// <summary>
+        /// Gets or sets sprite name of an enemy.
+        /// </summary>
+        public virtual string SpriteName { get; set; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -96,7 +125,7 @@ namespace EverLite.Models
         /// <returns>Sprite's position.</returns>
         public Vector2 GetPosition()
         {
-            return this.position;
+            return this.Position;
         }
 
         /// <summary>
@@ -106,24 +135,6 @@ namespace EverLite.Models
         public float GetsVelocity()
         {
             return this.sVelocity;
-        }
-
-        /// <summary>
-        /// Get's the instance's current velocity.
-        /// </summary>
-        /// <returns>Sprite's velocity.</returns>
-        public Vector2 GetVelocity()
-        {
-            return this.velocity;
-        }
-
-        /// <summary>
-        /// Used by the player to determine it's movement parameters.
-        /// </summary>
-        /// <returns>The texture.</returns>
-        public Texture2D GetTexture()
-        {
-            return this.texture;
         }
 
         /// <summary>
@@ -163,6 +174,16 @@ namespace EverLite.Models
         /// <param name="position">Position of where the bullets are shooting from.</param>
         /// <returns>Bullet Sprite or null.</returns>
         public virtual Sprite Shoot(Texture2D texture, Vector2 position)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Used by the player to create the bullets being shot.
+        /// </summary>
+        /// <param name="position">Position of where the bullets are shooting from.</param>
+        /// <returns>Bullet Sprite or null.</returns>
+        public virtual Sprite Shoot(Vector2 position)
         {
             return null;
         }
