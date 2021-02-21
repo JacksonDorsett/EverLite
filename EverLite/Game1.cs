@@ -10,6 +10,11 @@ namespace EverLite
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using Modules.Enemies;
+    using Modules;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Main game class.
@@ -19,6 +24,12 @@ namespace EverLite
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
+
+
+
+        //Game World
+        Random random = new Random();
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -68,7 +79,10 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
+            // TODO: use this.Content to load your game content here
+
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
+
             this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             this.mGraphics.HardwareModeSwitch = false;
@@ -83,7 +97,6 @@ namespace EverLite
         protected override void Update(GameTime gameTime)
         {
             this.mContext.Update(gameTime);
-
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -96,6 +109,7 @@ namespace EverLite
         {
             this.GraphicsDevice.Clear(Color.Black);
 
+            
             // TODO: Add your drawing code here
             //this.mSpriteBatch.Begin();
             this.mContext.Draw(gameTime);

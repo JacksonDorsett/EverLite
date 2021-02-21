@@ -94,6 +94,7 @@
 /build:Sub Focus - Solar System.mp3
 
 #begin TinyBlue.png
+#begin uw.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -106,6 +107,9 @@
 /build:TinyBlue.png
 
 #begin TinyRed.png
+/build:uw.png
+
+#begin wsu.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -116,4 +120,5 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TinyRed.png
+/build:wsu.jpg
 

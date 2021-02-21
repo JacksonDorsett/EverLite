@@ -10,6 +10,7 @@ namespace EverLite
     using EverLite.Audio;
     using EverLite.Models;
     using EverLite.Models.Sprites;
+    using EverLite.Modules;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -21,6 +22,7 @@ namespace EverLite
     {
         private ScrollingBG scrollingBG;
         private PlayerSystem playerSystem;
+        private EnemySystem enemySystem;
         public bool IsPaused = false; // Encapsulate or further refactor.
         private Sprite player;
         private List<Sprite> bullets = new List<Sprite>();
@@ -33,7 +35,7 @@ namespace EverLite
             : base(game)
         {
             this.scrollingBG = new ScrollingBG(game);
-
+            this.enemySystem = new EnemySystem(this.Game.Content, this.Game.GraphicsDevice);
             this.playerSystem = new PlayerSystem(this.Game);
         }
 
@@ -44,7 +46,8 @@ namespace EverLite
         public override void Draw(GameTime gameTime)
         {
             this.scrollingBG.Draw(gameTime);
-            this.playerSystem.Draw(Game.SpriteBatch);
+            this.playerSystem.Draw(this.SpriteBatch);
+            this.enemySystem.Draw(this.SpriteBatch);
         }
 
         /// <summary>
@@ -53,8 +56,6 @@ namespace EverLite
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("Solar System");
-
-            // BGM.Instance(this.Game).Play();
         }
 
         /// <summary>
@@ -71,9 +72,11 @@ namespace EverLite
             if (!this.IsPaused)
             {
                 this.playerSystem.Update(this.Game.GraphicsDevice, gameTime);
+                this.enemySystem.Update(this.Game.GraphicsDevice, gameTime);
             }
 
             this.scrollingBG.Update(gameTime);
+
         }
 
         /// <summary>
