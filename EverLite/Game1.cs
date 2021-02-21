@@ -20,8 +20,6 @@ namespace EverLite
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
 
-        //public bool IsPaused = false;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
         /// </summary>
@@ -31,15 +29,6 @@ namespace EverLite
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
-
-        public GraphicsDeviceManager Graphics
-        {
-            get
-            {
-                return this.mGraphics;
-            }
-        }
-
 
         /// <summary>
         /// Gets the games sprite batch.
@@ -93,7 +82,6 @@ namespace EverLite
         /// <param name="gameTime">time passed every cycle.</param>
         protected override void Update(GameTime gameTime)
         {
-
             this.mContext.Update(gameTime);
 
             // TODO: Add your update logic here

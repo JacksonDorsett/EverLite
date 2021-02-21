@@ -7,6 +7,7 @@ namespace EverLite
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Audio;
     using EverLite.Models;
     using EverLite.Models.Sprites;
     using Microsoft.Xna.Framework;
