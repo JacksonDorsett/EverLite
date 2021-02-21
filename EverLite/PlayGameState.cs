@@ -23,6 +23,7 @@ namespace EverLite
         private ScrollingBG scrollingBG;
         private PlayerSystem playerSystem;
         private EnemySystem enemySystem;
+        private PauseStatus pauseStatus;
         public bool IsPaused = false; // Encapsulate or further refactor.
         private Sprite player;
         private List<Sprite> bullets = new List<Sprite>();
@@ -37,6 +38,7 @@ namespace EverLite
             this.scrollingBG = new ScrollingBG(game);
             this.enemySystem = new EnemySystem(this.Game.Content, this.Game.GraphicsDevice);
             this.playerSystem = new PlayerSystem(this.Game);
+            this.pauseStatus = new PauseStatus(Keys.Space);
         }
 
         /// <summary>
@@ -64,18 +66,18 @@ namespace EverLite
         /// <param name="gameTime">Time elapsed during game cycle.</param>
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                this.IsPaused = !this.IsPaused;
-            }
+            // check if game is paused.
+            this.pauseStatus.Update();
 
-            if (!this.IsPaused)
+            if (!this.pauseStatus.IsPaused)
             {
                 this.playerSystem.Update(this.Game.GraphicsDevice, gameTime);
                 this.enemySystem.Update(this.Game.GraphicsDevice, gameTime);
+                this.scrollingBG.Update(gameTime);
             }
 
-            this.scrollingBG.Update(gameTime);
+
+            //this.scrollingBG.Update(gameTime);
 
         }
 
