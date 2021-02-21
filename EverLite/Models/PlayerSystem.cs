@@ -19,29 +19,13 @@ namespace EverLite.Models
     {
         private Player player;
         private List<Sprite> bullets = new List<Sprite>();
-        private Game1 mGame;
+        private Game mGame;
 
-        /*
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
-        /// </summary>
-        /// <param name="contentManager">ContentManager.</param>
-        /// <param name="graphicsDevice">GraphicsDevice.</param>
-        public PlayerSystem(ContentManager contentManager, GraphicsDevice graphicsDevice)
-        {
-            this.contentManagerRef = contentManager;
-            this.graphicsDeviceRef = graphicsDevice;
-            this.player = SpriteFactory.CreateSprite(FactoryEnum.Player);
-            Vector2 playerPosition = new Vector2(this.graphicsDeviceRef.Viewport.TitleSafeArea.X + (this.graphicsDeviceRef.Viewport.TitleSafeArea.Width / 2), this.graphicsDeviceRef.Viewport.TitleSafeArea.Y + (this.graphicsDeviceRef.Viewport.TitleSafeArea.Height * 4 / 5));
-            this.player.Initialize(this.contentManagerRef.Load<Texture2D>(EnumToStringFactory.GetEnumToString(this.player.GetSpriteType())), playerPosition);
-            this.player.SetGameBoundary(this.graphicsDeviceRef.Viewport.Width, this.graphicsDeviceRef.Viewport.Height);
-        }
-        */
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
         /// </summary>
         /// <param name="game">game Reference object.</param>
-        public PlayerSystem(Game1 game)
+        public PlayerSystem(Game game)
         {
             this.mGame = game;
             this.player = new Player(game);

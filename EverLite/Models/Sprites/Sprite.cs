@@ -64,21 +64,11 @@ namespace EverLite.Models.Sprites
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
         /// </summary>
-        /// <param name="active">Sets the isActive field.</param>
-        /// <param name="angle">Sets the angle field.</param>
-        /// <param name="velocity">Sets the velocity field.</param>
-        /// <param name="type">Sets the spriteType.</param>
-        /// <param name="contentManager">Sets the ContentManagerRef.</param>
-        public Sprite(bool active, float angle, float velocity, FactoryEnum type, ContentManager contentManager)
-        {
-            this.isVisible = active;
-            this.angle = angle;
-            this.sVelocity = velocity;
-            this.spriteType = type;
-            this.contentManagerRef = contentManager;
-            this.Texture = this.contentManagerRef.Load<Texture2D>(EnumToStringFactory.GetEnumToString(type));
-        }
-
+        /// <param name="angle">initial angle.</param>
+        /// <param name="velocity">intial velocity.</param>
+        /// <param name="texture">texture of sprite.</param>
+        /// <param name="position">sprites initial position.</param>
+        /// <param name="active">is sprite visible.</param>
         public Sprite(float angle, float velocity, Texture2D texture, Vector2 position, bool active = true)
         {
             this.isVisible = active;
@@ -97,12 +87,7 @@ namespace EverLite.Models.Sprites
         /// <summary>
         /// Gets or sets texture of an enemy.
         /// </summary>
-        public Texture2D Texture { get; set; }
-
-        /// <summary>
-        /// Gets or sets sprite name of an enemy.
-        /// </summary>
-        //public virtual string SpriteName { get; set; }
+        public Texture2D Texture { get; protected set; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -139,16 +124,7 @@ namespace EverLite.Models.Sprites
         {
             return this.sVelocity;
         }
-        /*
-        /// <summary>
-        /// Used to determine the next bullet created in Game1 class.
-        /// </summary>
-        /// <returns>Returns the name of the selected bullet type.</returns>
-        public virtual string GetCurrentBulletType()
-        {
-            return null;
-        }
-        */
+
         /// <summary>
         /// Used by the bullets to aid in shooting the correct direction.
         /// </summary>
@@ -156,29 +132,6 @@ namespace EverLite.Models.Sprites
         {
         }
 
-        /*
-        /// <summary>
-        /// Used by the player to create the bullets being shot.
-        /// </summary>
-        /// <param name="texture">Picture of the bullets.</param>
-        /// <param name="position">Position of where the bullets are shooting from.</param>
-        /// <returns>Bullet Sprite or null.</returns>
-        
-        public virtual Sprite Shoot(Texture2D texture, Vector2 position)
-        {
-            return null;
-        }
-        
-        /// <summary>
-        /// Used by the player to create the bullets being shot.
-        /// </summary>
-        /// <param name="position">Position of where the bullets are shooting from.</param>
-        /// <returns>Bullet Sprite or null.</returns>
-        public virtual Sprite Shoot(Vector2 position)
-        {
-            return null;
-        }
-        */
         /// <summary>
         /// Sets the initial position of the bullet.
         /// </summary>
@@ -204,18 +157,7 @@ namespace EverLite.Models.Sprites
         {
             return this.isVisible;
         }
-        /*
-        /// <summary>
-        /// Sets the width and height. Subclasses can use that data to set their movement boundary.
-        /// </summary>
-        /// <param name="width">ScreenView width.</param>
-        /// <param name="height">ScreenView Height.</param>
-        public void SetGameBoundary(int width, int height)
-        {
-            this.screenWidth = width;
-            this.screenHeight = height;
-        }
-        */
+
         /// <summary>
         /// The object's special controls are called here.
         /// </summary>
