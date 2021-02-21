@@ -34,9 +34,8 @@ namespace EverLite.Models
         /// <summary>
         /// Calls on the player and bullet updates.
         /// </summary>
-        /// <param name="graphics">GraphicsDevice.</param>
         /// <param name="gameTime">GameTime.</param>
-        public void Update(GraphicsDevice graphics, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             this.player.Update(gameTime);
 

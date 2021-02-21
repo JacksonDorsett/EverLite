@@ -70,12 +70,10 @@ namespace EverLite
 
             if (!this.pauseStatus.Status)
             {
-                this.playerSystem.Update(this.Game.GraphicsDevice, gameTime);
+                this.playerSystem.Update(gameTime);
                 this.enemySystem.Update(gameTime);
                 this.scrollingBG.Update(gameTime);
             }
-
-
         }
 
         /// <summary>
