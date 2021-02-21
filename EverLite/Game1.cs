@@ -4,6 +4,9 @@
 
 namespace EverLite
 {
+    using System.Collections.Generic;
+    using EverLite.Models;
+    using EverLite.Models.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -15,7 +18,15 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
+<<<<<<< HEAD
         private GameStateContext mContext;
+=======
+        private Sprite player;
+        private List<Sprite> bullets = new List<Sprite>();
+
+        private PlayerSystem playerSystem;
+        public bool IsPaused = false;
+>>>>>>> 589f7355f052c79de58352c68682038b66e27578
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -54,7 +65,6 @@ namespace EverLite
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             base.Initialize();
             this.mContext = new GameStateContext(this);
         }
@@ -66,7 +76,13 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
+            this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.mGraphics.HardwareModeSwitch = false;
+            this.mGraphics.ApplyChanges();
+
+            this.playerSystem = new PlayerSystem(this.Content, this.GraphicsDevice);
         }
 
         /// <summary>
@@ -75,14 +91,22 @@ namespace EverLite
         /// <param name="gameTime">time passed every cycle.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                this.Exit();
+                this.IsPaused = !this.IsPaused;
             }
 
+            if (!this.IsPaused)
+            {
+                this.playerSystem.Update(this.mGraphics.GraphicsDevice, gameTime);
+            }
+
+<<<<<<< HEAD
             this.mContext.Update(gameTime);
 
             // TODO: Add your update logic here
+=======
+>>>>>>> 589f7355f052c79de58352c68682038b66e27578
             base.Update(gameTime);
         }
 
@@ -92,7 +116,12 @@ namespace EverLite
         /// <param name="gameTime">time elapsed in cycle.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.CornflowerBlue);
+            this.GraphicsDevice.Clear(Color.Black);
+
+            this.mSpriteBatch.Begin();
+            this.playerSystem.Draw(this.mSpriteBatch);
+
+            this.mSpriteBatch.End();
 
             // TODO: Add your drawing code here
             this.mSpriteBatch.Begin();
