@@ -18,8 +18,6 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
-        private Sprite player;
-        private List<Sprite> bullets = new List<Sprite>();
 
         private PlayerSystem playerSystem;
         public bool IsPaused = false;
