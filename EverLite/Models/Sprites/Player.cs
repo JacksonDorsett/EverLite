@@ -191,9 +191,10 @@ namespace EverLite.Models.Sprites
             Vector2 origin;
             origin.X = this.Texture.Width / 6;
             origin.Y = this.Texture.Height / 6;
-
+            //spriteBatch.Begin();
             // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
             spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+            //spriteBatch.End();
         }
     }
 }

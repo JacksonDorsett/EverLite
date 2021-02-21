@@ -29,7 +29,7 @@ namespace EverLite.Models
 
         private Sprite player;
         private List<Sprite> bullets = new List<Sprite>();
-
+        private Game1 mGame;
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
         /// </summary>
@@ -43,6 +43,19 @@ namespace EverLite.Models
             Vector2 playerPosition = new Vector2(this.graphicsDeviceRef.Viewport.TitleSafeArea.X + (this.graphicsDeviceRef.Viewport.TitleSafeArea.Width / 2), this.graphicsDeviceRef.Viewport.TitleSafeArea.Y + (this.graphicsDeviceRef.Viewport.TitleSafeArea.Height * 4 / 5));
             this.player.Initialize(this.contentManagerRef.Load<Texture2D>(EnumToStringFactory.GetEnumToString(this.player.GetSpriteType())), playerPosition);
             this.player.SetGameBoundary(this.graphicsDeviceRef.Viewport.Width, this.graphicsDeviceRef.Viewport.Height);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
+        /// </summary>
+        /// <param name="game">game Reference object.</param>
+        public PlayerSystem(Game1 game)
+        {
+            this.mGame = game;
+            this.player = SpriteFactory.CreateSprite(FactoryEnum.Player);
+            Vector2 playerPosition = new Vector2(this.mGame.GraphicsDevice.Viewport.TitleSafeArea.X + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
+            this.player.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(this.player.GetSpriteType())), playerPosition);
+            this.player.SetGameBoundary(this.mGame.GraphicsDevice.Viewport.Width, this.mGame.GraphicsDevice.Viewport.Height);
         }
 
         /// <summary>
@@ -103,11 +116,14 @@ namespace EverLite.Models
         /// <param name="sprite">SpriteBatch.</param>
         public void Draw(SpriteBatch sprite)
         {
+            sprite.Begin();
             this.player.Draw(sprite);
             foreach (Sprite bullet in this.bullets)
             {
                 bullet.Draw(sprite);
             }
+            sprite.End();
+
         }
     }
 }

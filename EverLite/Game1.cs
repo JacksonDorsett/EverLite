@@ -18,15 +18,9 @@ namespace EverLite
     {
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
-<<<<<<< HEAD
         private GameStateContext mContext;
-=======
-        private Sprite player;
-        private List<Sprite> bullets = new List<Sprite>();
 
-        private PlayerSystem playerSystem;
-        public bool IsPaused = false;
->>>>>>> 589f7355f052c79de58352c68682038b66e27578
+        //public bool IsPaused = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -37,6 +31,15 @@ namespace EverLite
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
         }
+
+        public GraphicsDeviceManager Graphics
+        {
+            get
+            {
+                return this.mGraphics;
+            }
+        }
+
 
         /// <summary>
         /// Gets the games sprite batch.
@@ -82,7 +85,6 @@ namespace EverLite
             this.mGraphics.HardwareModeSwitch = false;
             this.mGraphics.ApplyChanges();
 
-            this.playerSystem = new PlayerSystem(this.Content, this.GraphicsDevice);
         }
 
         /// <summary>
@@ -91,22 +93,10 @@ namespace EverLite
         /// <param name="gameTime">time passed every cycle.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
-                this.IsPaused = !this.IsPaused;
-            }
 
-            if (!this.IsPaused)
-            {
-                this.playerSystem.Update(this.mGraphics.GraphicsDevice, gameTime);
-            }
-
-<<<<<<< HEAD
             this.mContext.Update(gameTime);
 
             // TODO: Add your update logic here
-=======
->>>>>>> 589f7355f052c79de58352c68682038b66e27578
             base.Update(gameTime);
         }
 
@@ -118,15 +108,10 @@ namespace EverLite
         {
             this.GraphicsDevice.Clear(Color.Black);
 
-            this.mSpriteBatch.Begin();
-            this.playerSystem.Draw(this.mSpriteBatch);
-
-            this.mSpriteBatch.End();
-
             // TODO: Add your drawing code here
-            this.mSpriteBatch.Begin();
+            //this.mSpriteBatch.Begin();
             this.mContext.Draw(gameTime);
-            this.mSpriteBatch.End();
+            //this.mSpriteBatch.End();
             base.Draw(gameTime);
         }
     }

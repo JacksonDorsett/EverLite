@@ -35,7 +35,7 @@ namespace EverLiteTests
 
             public void Transition()
             {
-                Game.
+
             }
         }
         [SetUp]

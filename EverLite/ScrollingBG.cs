@@ -45,8 +45,10 @@ namespace EverLite
         /// <param name="gameTime">Game time passed during game cycle.</param>
         public void Draw(GameTime gameTime)
         {
+            this.game.SpriteBatch.Begin();
             this.game.SpriteBatch.Draw(this.texture, this.r1, Color.White);
             this.game.SpriteBatch.Draw(this.texture, this.r2, Color.White);
+            this.game.SpriteBatch.End();
         }
 
         /// <summary>

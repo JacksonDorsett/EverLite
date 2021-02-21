@@ -7,8 +7,11 @@ namespace EverLite
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Models;
+    using EverLite.Models.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Gamestate representing when game is being played.
@@ -16,6 +19,10 @@ namespace EverLite
     public class PlayGameState : GameState
     {
         private ScrollingBG scrollingBG;
+        private PlayerSystem playerSystem;
+        public bool IsPaused = false; // Encapsulate or further refactor.
+        private Sprite player;
+        private List<Sprite> bullets = new List<Sprite>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
@@ -25,6 +32,8 @@ namespace EverLite
             : base(game)
         {
             this.scrollingBG = new ScrollingBG(game);
+
+            this.playerSystem = new PlayerSystem(this.Game);
         }
 
         /// <summary>
@@ -34,6 +43,7 @@ namespace EverLite
         public override void Draw(GameTime gameTime)
         {
             this.scrollingBG.Draw(gameTime);
+            this.playerSystem.Draw(Game.SpriteBatch);
         }
 
         /// <summary>
@@ -52,6 +62,16 @@ namespace EverLite
         /// <param name="gameTime">Time elapsed during game cycle.</param>
         public override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                this.IsPaused = !this.IsPaused;
+            }
+
+            if (!this.IsPaused)
+            {
+                this.playerSystem.Update(Game.GraphicsDevice, gameTime);
+            }
+
             this.scrollingBG.Update(gameTime);
         }
 
