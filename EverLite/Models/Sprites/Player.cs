@@ -2,8 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Models.Sprites
 {
+    using EverLite.Models.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -18,7 +19,7 @@ namespace EverLite.Models
         private readonly float layerDepth = 0.0f;
         private KeyboardState currentKeyboardState;
         private GamePadState currentGamePadState;
-        private string currentBulletType = "TinyRed";
+        private string currentBulletType = "TinyBlue";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -29,9 +30,6 @@ namespace EverLite.Models
             : base(true, 0, speed, FactoryEnum.Player)
         {
         }
-
-        /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "Rocket";
 
         /// <summary>
         /// This combines the Texture2D and Rectangle objects into the player for control.
@@ -72,7 +70,7 @@ namespace EverLite.Models
         public override Sprite Shoot(Texture2D texture, Vector2 position)
         {
             Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
+            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()));
             newBullet.Initialize(texture, playerPosition);
             newBullet.SetIsVisible(true);
             return newBullet;
@@ -86,7 +84,7 @@ namespace EverLite.Models
         public override Sprite Shoot(Vector2 position)
         {
             Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
+            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()));
             newBullet.Initialize(this.Texture, playerPosition);
             newBullet.SetIsVisible(true);
             return newBullet;
@@ -99,6 +97,7 @@ namespace EverLite.Models
 
             this.currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
+            #region Player controls
             this.Position.X += this.currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
 
             this.Position.Y -= this.currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
@@ -137,8 +136,9 @@ namespace EverLite.Models
             {
                 this.Position.Y += this.sVelocity;
             }
+            #endregion
 
-            // Logic to keep the player on screen
+            #region Boundary box for player
             if (this.Position.X <= 15)
             {
                 this.Position.X = 15;
@@ -158,6 +158,7 @@ namespace EverLite.Models
             {
                 this.Position.Y = this.screenHeight - this.Texture.Height;
             }
+            #endregion
         }
 
         /// <summary>
@@ -165,7 +166,14 @@ namespace EverLite.Models
         /// </summary>
         public void ChangeBulletType()
         {
-            // TODO: Some snappy idea to change bullet choice.
+            if (this.currentBulletType == "TinyRed")
+            {
+                this.currentBulletType = "TinyBlue";
+            }
+            else
+            {
+                this.currentBulletType = "TinyRed";
+            }
         }
 
         /// <summary>

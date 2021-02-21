@@ -1,31 +1,29 @@
-﻿// <copyright file="Bullets.cs" company="PlaceholderCompany">
+﻿// <copyright file="TinyRedBullets.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Models.Sprites
 {
+    using EverLite.Models.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// The Bullet class created will handle the special stuff the bullets can do.
     /// </summary>
-    public class Bullets : Sprite
+    public class TinyRedBullets : Sprite
     {
         private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Bullets"/> class.
+        /// Initializes a new instance of the <see cref="TinyRedBullets"/> class.
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
-        public Bullets()
-            : base()
+        public TinyRedBullets()
+            : base(false, 0f, 16.0f, FactoryEnum.TinyRed)
         {
         }
-
-        /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "TinyRed";
 
         /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)

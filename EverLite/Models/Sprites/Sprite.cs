@@ -2,8 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Models.Sprites
 {
+    using EverLite.Models.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -83,7 +84,7 @@ namespace EverLite.Models
             this.sVelocity = velocity;
             this.spriteType = type;
             this.contentManagerRef = contentManager;
-            this.Texture = this.contentManagerRef.Load<Texture2D>(this.SpriteName);
+            this.Texture = this.contentManagerRef.Load<Texture2D>(EnumToStringFactory.GetEnumToString(type));
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace EverLite.Models
         /// <summary>
         /// Gets or sets sprite name of an enemy.
         /// </summary>
-        public virtual string SpriteName { get; set; }
+        //public virtual string SpriteName { get; set; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.

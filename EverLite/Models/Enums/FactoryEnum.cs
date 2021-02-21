@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Models.Enums
 {
     /// <summary>
     /// List of available sprite creations.
@@ -15,12 +15,13 @@ namespace EverLite.Models
         Player,
 
         /// <summary>
-        /// Choice for the bullet class.
+        /// Choice for the tiny red bullets.
         /// </summary>
-        Bullets,
-
         TinyRed,
 
+        /// <summary>
+        /// Choice for the tiny blue bullets.
+        /// </summary>
         TinyBlue,
     }
 }

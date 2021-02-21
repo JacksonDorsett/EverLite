@@ -6,6 +6,7 @@ namespace EverLite
 {
     using System.Collections.Generic;
     using EverLite.Models;
+    using EverLite.Models.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -47,8 +48,6 @@ namespace EverLite
         protected override void LoadContent()
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
-
-
 
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
             this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;

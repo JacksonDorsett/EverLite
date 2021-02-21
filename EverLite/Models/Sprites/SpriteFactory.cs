@@ -2,9 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Models.Enums
 {
-    using System;
+    using EverLite.Models.Sprites;
 
     /// <summary>
     /// In charge of making the different game sprites.
@@ -21,7 +21,8 @@ namespace EverLite.Models
             return spriteType switch
             {
                 FactoryEnum.Player => new Player(),
-                FactoryEnum.Bullets => new Bullets(),
+                FactoryEnum.TinyBlue => new TinyBlueBullets(),
+                FactoryEnum.TinyRed => new TinyRedBullets(),
                 _ => null,
             };
         }
