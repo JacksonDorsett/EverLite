@@ -20,7 +20,7 @@ namespace EverLite.Models
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         public Bullets()
-            : base(false, 0f, 16.0f, FactoryEnum.Bullets)
+            : base()
         {
         }
 

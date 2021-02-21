@@ -48,12 +48,15 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            this.playerSystem = new PlayerSystem(this.Content, this.GraphicsDevice);
+
 
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
             this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             this.mGraphics.HardwareModeSwitch = false;
+            this.mGraphics.ApplyChanges();
+
+            this.playerSystem = new PlayerSystem(this.Content, this.GraphicsDevice);
         }
 
         /// <summary>

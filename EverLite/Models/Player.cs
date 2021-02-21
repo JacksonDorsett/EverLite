@@ -71,7 +71,7 @@ namespace EverLite.Models
         /// <returns>Bullet instance.</returns>
         public override Sprite Shoot(Texture2D texture, Vector2 position)
         {
-            Vector2 playerPosition = new Vector2(position.X + 12, position.Y);
+            Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
             Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
             newBullet.Initialize(texture, playerPosition);
             newBullet.SetIsVisible(true);
@@ -85,7 +85,7 @@ namespace EverLite.Models
         /// <returns>Bullet instance.</returns>
         public override Sprite Shoot(Vector2 position)
         {
-            Vector2 playerPosition = new Vector2(position.X + 12, position.Y);
+            Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
             Sprite newBullet = SpriteFactory.CreateSprite(FactoryEnum.Bullets);
             newBullet.Initialize(this.Texture, playerPosition);
             newBullet.SetIsVisible(true);
@@ -139,9 +139,9 @@ namespace EverLite.Models
             }
 
             // Logic to keep the player on screen
-            if (this.Position.X <= 2)
+            if (this.Position.X <= 15)
             {
-                this.Position.X = 2;
+                this.Position.X = 15;
             }
 
             if (this.Position.Y <= this.screenHeight / 2)
@@ -149,14 +149,14 @@ namespace EverLite.Models
                 this.Position.Y = this.screenHeight / 2;
             }
 
-            if (this.Position.X + (this.Texture.Width / 10) >= this.screenWidth)
+            if (this.Position.X + this.Texture.Width >= this.screenWidth)
             {
-                this.Position.X = this.screenWidth - (this.Texture.Width / 10);
+                this.Position.X = this.screenWidth - this.Texture.Width;
             }
 
-            if (this.Position.Y + (this.Texture.Height / 10) >= this.screenHeight)
+            if (this.Position.Y + this.Texture.Height >= this.screenHeight)
             {
-                this.Position.Y = this.screenHeight - (this.Texture.Height / 10);
+                this.Position.Y = this.screenHeight - this.Texture.Height;
             }
         }
 
@@ -165,14 +165,7 @@ namespace EverLite.Models
         /// </summary>
         public void ChangeBulletType()
         {
-            if (this.currentBulletType == "TinyRed")
-            {
-                this.currentBulletType = "TinyBlue";
-            }
-            else
-            {
-                this.currentBulletType = "TinyRed";
-            }
+            // TODO: Some snappy idea to change bullet choice.
         }
 
         /// <summary>

@@ -65,7 +65,7 @@ namespace EverLite.Models
         /// </summary>
         public void PlayerShoot()
         {
-            if (this.bullets.Count < 50)
+            if (this.bullets.Count < 100)
             {
                 this.bullets.Add(this.player.Shoot(this.contentManagerRef.Load<Texture2D>("TinyRed"), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
             }

@@ -18,5 +18,9 @@ namespace EverLite.Models
         /// Choice for the bullet class.
         /// </summary>
         Bullets,
+
+        TinyRed,
+
+        TinyBlue,
     }
 }
