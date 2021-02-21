@@ -5,6 +5,7 @@
 namespace EverLite.Models.Enums
 {
     using EverLite.Models.Sprites;
+    using Microsoft.Xna.Framework;
 
     /// <summary>
     /// In charge of making the different game sprites.
@@ -15,12 +16,13 @@ namespace EverLite.Models.Enums
         /// Creates the needed sprite.
         /// </summary>
         /// <param name="spriteType">Type of instance to be created.</param>
+        /// <param name="game">Game Reference.</param>
         /// <returns>Created instance.</returns>
-        public static Sprite CreateSprite(FactoryEnum spriteType)
+        public static Sprite CreateSprite(FactoryEnum spriteType, Game game)
         {
             return spriteType switch
             {
-                FactoryEnum.Player => new Player(),
+                //FactoryEnum.Player => new Player(),
                 FactoryEnum.TinyBlue => new TinyBlueBullets(),
                 FactoryEnum.TinyRed => new TinyRedBullets(),
                 _ => null,

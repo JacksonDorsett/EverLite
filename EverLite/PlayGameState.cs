@@ -69,7 +69,7 @@ namespace EverLite
 
             if (!this.IsPaused)
             {
-                this.playerSystem.Update(Game.GraphicsDevice, gameTime);
+                this.playerSystem.Update(this.Game.GraphicsDevice, gameTime);
             }
 
             this.scrollingBG.Update(gameTime);

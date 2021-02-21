@@ -34,15 +34,7 @@ namespace EverLite.Models.Sprites
         /// </summary>
         protected FactoryEnum spriteType;
 
-        /// <summary>
-        /// Used for left/right limits of sprite movement box.
-        /// </summary>
-        protected int screenWidth;
-
-        /// <summary>
-        /// Used for up/down limits of sprite movement box.
-        /// </summary>
-        protected int screenHeight;
+        
 
         /// <summary>
         /// Reflects the onscreen status.
@@ -85,6 +77,16 @@ namespace EverLite.Models.Sprites
             this.spriteType = type;
             this.contentManagerRef = contentManager;
             this.Texture = this.contentManagerRef.Load<Texture2D>(EnumToStringFactory.GetEnumToString(type));
+        }
+
+        public Sprite(float angle, float velocity, Texture2D texture, Vector2 position, bool active = true)
+        {
+            this.isVisible = active;
+            this.sVelocity = velocity;
+            this.Texture = texture;
+            this.Position = position;
+            this.angle = angle;
+
         }
 
         /// <summary>
@@ -137,21 +139,7 @@ namespace EverLite.Models.Sprites
         {
             return this.sVelocity;
         }
-
-        /// <summary>
-        /// Used by the player to reduce speed by 1/4.
-        /// </summary>
-        public virtual void SlowSpeed()
-        {
-        }
-
-        /// <summary>
-        /// Used by the player to return to initial speed.
-        /// </summary>
-        public virtual void IncreaseSpeed()
-        {
-        }
-
+        /*
         /// <summary>
         /// Used to determine the next bullet created in Game1 class.
         /// </summary>
@@ -160,7 +148,7 @@ namespace EverLite.Models.Sprites
         {
             return null;
         }
-
+        */
         /// <summary>
         /// Used by the bullets to aid in shooting the correct direction.
         /// </summary>
@@ -168,17 +156,19 @@ namespace EverLite.Models.Sprites
         {
         }
 
+        /*
         /// <summary>
         /// Used by the player to create the bullets being shot.
         /// </summary>
         /// <param name="texture">Picture of the bullets.</param>
         /// <param name="position">Position of where the bullets are shooting from.</param>
         /// <returns>Bullet Sprite or null.</returns>
+        
         public virtual Sprite Shoot(Texture2D texture, Vector2 position)
         {
             return null;
         }
-
+        
         /// <summary>
         /// Used by the player to create the bullets being shot.
         /// </summary>
@@ -188,7 +178,7 @@ namespace EverLite.Models.Sprites
         {
             return null;
         }
-
+        */
         /// <summary>
         /// Sets the initial position of the bullet.
         /// </summary>
@@ -214,7 +204,7 @@ namespace EverLite.Models.Sprites
         {
             return this.isVisible;
         }
-
+        /*
         /// <summary>
         /// Sets the width and height. Subclasses can use that data to set their movement boundary.
         /// </summary>
@@ -225,7 +215,7 @@ namespace EverLite.Models.Sprites
             this.screenWidth = width;
             this.screenHeight = height;
         }
-
+        */
         /// <summary>
         /// The object's special controls are called here.
         /// </summary>

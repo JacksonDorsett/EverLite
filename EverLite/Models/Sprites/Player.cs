@@ -8,18 +8,22 @@ namespace EverLite.Models.Sprites
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using System;
 
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
     public class Player : Sprite
     {
+        private int screenWidth;
+        private int screenHeight;
         private static float speed = 15.0f; // This is static so I can use it in the constructor.
         private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
         private KeyboardState currentKeyboardState;
         private GamePadState currentGamePadState;
         private string currentBulletType = "TinyBlue";
+        private Game mGame;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -29,6 +33,25 @@ namespace EverLite.Models.Sprites
         public Player()
             : base(true, 0, speed, FactoryEnum.Player)
         {
+        }
+
+        public Player(Game game)
+            : base(0, speed, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
+        {
+            this.mGame = game;
+            this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(this.GetSpriteType())), this.GetPlayerLocation());
+            this.SetGameBoundary(this.mGame.GraphicsDevice.Viewport.Width, this.mGame.GraphicsDevice.Viewport.Height);
+        }
+
+        private void SetGameBoundary(int width, int height)
+        {
+            this.screenWidth = width;
+            this.screenHeight = height;
+        }
+
+        private Vector2 GetPlayerLocation()
+        {
+            return new Vector2(this.mGame.GraphicsDevice.Viewport.TitleSafeArea.X + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
         }
 
         /// <summary>
@@ -45,7 +68,7 @@ namespace EverLite.Models.Sprites
         /// <summary>
         /// Reduces the player speed when the 'S' key is held down.
         /// </summary>
-        public override void SlowSpeed()
+        public void SlowSpeed()
         {
             this.sVelocity = 5.0f;
         }
@@ -53,7 +76,7 @@ namespace EverLite.Models.Sprites
         /// <summary>
         /// Returns the player speed to initial speed when the 'S' key released.
         /// </summary>
-        public override void IncreaseSpeed()
+        public void IncreaseSpeed()
         {
             if (this.sVelocity != 15.0f)
             {
@@ -67,10 +90,10 @@ namespace EverLite.Models.Sprites
         /// <param name="texture">Picture of bullet.</param>
         /// <param name="position">Bullets spawn point.</param>
         /// <returns>Bullet instance.</returns>
-        public override Sprite Shoot(Texture2D texture, Vector2 position)
+        public Sprite Shoot(Texture2D texture, Vector2 position)
         {
             Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()));
+            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()),this.mGame);
             newBullet.Initialize(texture, playerPosition);
             newBullet.SetIsVisible(true);
             return newBullet;
@@ -81,10 +104,10 @@ namespace EverLite.Models.Sprites
         /// </summary>
         /// <param name="position">Bullets spawn point.</param>
         /// <returns>Bullet instance.</returns>
-        public override Sprite Shoot(Vector2 position)
+        public Sprite Shoot(Vector2 position)
         {
             Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()));
+            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(this.GetCurrentBulletType()), this.mGame);
             newBullet.Initialize(this.Texture, playerPosition);
             newBullet.SetIsVisible(true);
             return newBullet;
@@ -180,7 +203,7 @@ namespace EverLite.Models.Sprites
         /// Returns selected bullet type.
         /// </summary>
         /// <returns>Name of selected bullet.</returns>
-        public override string GetCurrentBulletType()
+        public string GetCurrentBulletType()
         {
             return this.currentBulletType;
         }
@@ -191,10 +214,8 @@ namespace EverLite.Models.Sprites
             Vector2 origin;
             origin.X = this.Texture.Width / 6;
             origin.Y = this.Texture.Height / 6;
-            //spriteBatch.Begin();
             // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
             spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
-            //spriteBatch.End();
         }
     }
 }
