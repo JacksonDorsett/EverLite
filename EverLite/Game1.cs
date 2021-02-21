@@ -23,7 +23,6 @@ namespace EverLite
         private EnemySystem enemySystem;
 
         //Game World
-        List<Enemy> enemies = new List<Enemy>();
         Random random = new Random();
 
         public bool IsPaused = false;
@@ -37,6 +36,7 @@ namespace EverLite
             this.mGraphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
+            
         }
 
         /// <summary>
@@ -56,10 +56,15 @@ namespace EverLite
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            this.enemySystem = new EnemySystem(this.Content);
-        }
+            this.enemySystem = new EnemySystem(this.Content, this.GraphicsDevice);
 
-        float spawn = 0;
+            this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
+            //this.mGraphics.IsFullScreen = true;
+            this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.mGraphics.HardwareModeSwitch = false;
+            this.mGraphics.ApplyChanges();
+        }
 
         /// <summary>
         /// Updates every game loop cycle. Used for updating game logic.
@@ -94,7 +99,7 @@ namespace EverLite
         {
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            mSpriteBatch.Begin();
+            mSpriteBatch.Begin(samplerState: SamplerState.PointWrap);
             this.enemySystem.Draw(this.mSpriteBatch);
             mSpriteBatch.End();
             // TODO: Add your drawing code here

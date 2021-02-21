@@ -114,12 +114,17 @@ namespace EverLite.Modules.Enemies
                 this.Position += this.Velocity;
             }
 
-            if (this.Position.Y <= 0 || this.Position.Y >= graphics.Viewport.Height - this.Texture.Height)
+            if (this.Position.Y <= 0)
             {
                 this.Velocity.Y = -this.Velocity.Y;
             }
 
-            if (this.Position.X < 0 - this.Texture.Width)
+            if (this.Position.X < 0 || this.Position.X > graphics.Viewport.Width)
+            {
+                this.Velocity.X = -this.Velocity.X;
+            }
+
+            if (this.Position.Y > graphics.Viewport.Height)
             {
                 this.IsVisible = false;
             }

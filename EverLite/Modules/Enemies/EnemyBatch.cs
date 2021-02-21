@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -46,7 +47,7 @@
         /// </summary>
         /// <param name="enemyType"> type of enemies to create.</param>
         /// <param name="number"> number of enemies to create.</param>
-        public void CreateEnemies(string enemyType, int number)
+        public virtual void CreateEnemies(string enemyType, int number)
         {
             if (number < 1)
             {
@@ -64,7 +65,7 @@
         /// Creates a certain number of random type of enemies.
         /// </summary>
         /// <param name="number"> number of enemies to create.</param>
-        public void CreateEnemiesRandom(int number)
+        public virtual void CreateEnemiesRandom(int number)
         {
             if (number < 1)
             {
@@ -88,7 +89,7 @@
         /// <param name="enemyType"> type of an enemy to create.</param>
         /// <param name="newPosition"> new positon.</param>
         /// <returns> enemy created.</returns>
-        public Enemy CreateEnemy(string enemyType, Vector2 newPosition)
+        public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition)
         {
             Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition);
             this.EnemiesList.Add(enemy);
@@ -102,16 +103,22 @@
         /// <param name="gameTime"> gametime.</param>
         public void Update(GraphicsDevice graphics, GameTime gameTime)
         {
+            List<Enemy> enemiesToDelete = new List<Enemy>() { };
             foreach (Enemy enemy in this.EnemiesList)
             {
                 if (!enemy.IsVisible)
                 {
-                    this.EnemiesList.Remove(enemy);
+                    enemiesToDelete.Add(enemy);
                 }
                 else
                 {
                     enemy.Update(graphics, gameTime);
                 }
+            }
+
+            if (enemiesToDelete.Count > 0)
+            {
+                this.EnemiesList = this.EnemiesList.Except(enemiesToDelete).ToList();
             }
         }
 

@@ -1,5 +1,10 @@
-﻿namespace EverLite.Modules
+﻿// <copyright file="EnemySystem.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Modules
 {
+    using System;
     using System.Collections.Generic;
     using EverLite.Modules.Enemies;
     using Microsoft.Xna.Framework;
@@ -16,9 +21,15 @@
         /// </summary>
         public ContentManager ContentManagerRef;
 
-        public EnemySystem(ContentManager contentManager)
+        /// <summary>
+        /// Reference to the graphics device.
+        /// </summary>
+        public GraphicsDevice GraphicsDeviceRef;
+
+        public EnemySystem(ContentManager contentManager, GraphicsDevice graphicsDevice)
         {
             this.ContentManagerRef = contentManager;
+            this.GraphicsDeviceRef = graphicsDevice;
         }
 
         /// <summary>
@@ -33,36 +44,39 @@
         /// <param name="gameTime"> game time.</param>
         public void Update(GraphicsDevice graphics, GameTime gameTime)
         {
-            int count = 0;
+            int enemiesCount = 0;
             foreach (EnemyBatch enemyBatch in this.EnemyBatches)
             {
                 enemyBatch.Update(graphics, gameTime);
-                count += enemyBatch.EnemiesList.Count;
+                enemiesCount += enemyBatch.EnemiesList.Count;
             }
 
-            Vector2 testVec = new Vector2(100, graphics.Viewport.Height / 2);
+            Vector2 testVec = new Vector2(graphics.Viewport.Width / 2, (float)(graphics.Viewport.Height * 0.7));
 
-            if (count == 0 && gameTime.TotalGameTime.TotalSeconds > 1)
+            // TODO: for debug only, remove!
+            if (enemiesCount == 0)
             {
                 EnemyBatch enemyBatch = new EnemyBatch(this.ContentManagerRef, 1);
                 Enemy enemy = enemyBatch.CreateEnemy("regular", testVec);
                 this.EnemyBatches.Add(enemyBatch);
             }
 
-            if (count <= 1 && gameTime.TotalGameTime.TotalSeconds > 3)
+            // TODO: add event system.
+            // Check for the first stage
+            if (enemiesCount <= 1 && this.FirstStage(gameTime.TotalGameTime))
             {
                 // Spawn early mobs
-                Vector2 velocity = new Vector2(2.5F, 0.5F);
-                EnemyBatch enemyBatch = new EnemyBatch(this.ContentManagerRef, 2);
-                Enemy enemy1 = enemyBatch.CreateEnemy("regular-alt", new Vector2(graphics.Viewport.Width - 50, graphics.Viewport.Height - 50));
-                enemy1.ChangeTarget(testVec);
-                enemy1.ChangeVelocity(velocity);
-
-                Enemy enemy2 = enemyBatch.CreateEnemy("regular-alt", new Vector2(graphics.Viewport.Width - 50, 50));
-                enemy2.ChangeTarget(testVec);
-                enemy2.ChangeVelocity(velocity);
+                Vector2 velocity = new Vector2(-2.5F, 0);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.ContentManagerRef, graphics, "regular-alt", 8);
                 this.EnemyBatches.Add(enemyBatch);
+            }
 
+            // We are in the mid boss fight
+            if (this.MidBossStage(gameTime.TotalGameTime))
+            {
+                this.ClearAllEnemies();
+
+                // TODO: handle mid boss spawn here.
             }
         }
 
@@ -91,6 +105,52 @@
             }
 
             return count;
+        }
+
+        /// <summary>
+        /// Clears out all enemies.
+        /// </summary>
+        public void ClearAllEnemies()
+        {
+            this.EnemyBatches = new List<EnemyBatch>() { };
+        }
+
+        /// <summary>
+        /// Check if we are in the first stage.
+        /// </summary>
+        /// <param name="gameTime"> current total gametime.</param>
+        /// <returns>boolean.</returns>
+        public bool FirstStage(TimeSpan gameTime)
+        {
+            if (gameTime.TotalMinutes >= 1)
+            {
+                return false;
+            }
+            else
+            {
+                return gameTime.TotalSeconds < 48;
+            }
+        }
+
+        /// <summary>
+        /// Check if we are in mid boss stage.
+        /// </summary>
+        /// <param name="gameTime"> current total gametime.</param>
+        /// <returns>boolean.</returns>
+        public bool MidBossStage(TimeSpan gameTime)
+        {
+            if (gameTime.TotalMinutes > 1)
+            {
+                return false;
+            }
+            else if (gameTime.TotalMinutes == 1)
+            {
+                return gameTime.TotalSeconds < 15;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
