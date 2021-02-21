@@ -60,13 +60,11 @@ namespace EverLite.Models.Sprites
         /// <param name="active">Sets the isActive field.</param>
         /// <param name="angle">Sets the angle field.</param>
         /// <param name="velocity">Sets the velocity field.</param>
-        /// <param name="type">Sets the spriteType.</param>
-        public Sprite(bool active, float angle, float velocity, FactoryEnum type)
+        public Sprite(bool active, float angle, float velocity)
         {
             this.isVisible = active;
             this.angle = angle;
             this.sVelocity = velocity;
-            this.spriteType = type;
         }
 
         /// <summary>
@@ -96,11 +94,6 @@ namespace EverLite.Models.Sprites
         /// Gets or sets texture of an enemy.
         /// </summary>
         public Texture2D Texture { get; set; }
-
-        /// <summary>
-        /// Gets or sets sprite name of an enemy.
-        /// </summary>
-        //public virtual string SpriteName { get; set; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.

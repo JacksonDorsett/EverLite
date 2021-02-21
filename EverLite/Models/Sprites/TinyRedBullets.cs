@@ -18,10 +18,10 @@ namespace EverLite.Models.Sprites
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TinyRedBullets"/> class.
-        /// Sets isActive, angle, velocity, and spriteType fields.
+        /// Sets isActive, angle, and velocity fields.
         /// </summary>
         public TinyRedBullets()
-            : base(false, 0f, 16.0f, FactoryEnum.TinyRed)
+            : base(false, 0f, 16.0f)
         {
         }
 

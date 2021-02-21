@@ -23,11 +23,11 @@ namespace EverLite.Models.Sprites
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
-        /// Sets isActive, angle, velocity, and spriteType fields.
+        /// Sets isActive, angle, and velocity fields.
         /// </summary>
         /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 0, speed, FactoryEnum.Player)
+            : base(true, 0, speed)
         {
         }
 
