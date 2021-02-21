@@ -17,16 +17,6 @@ namespace EverLite.Models
     /// </summary>
     internal class PlayerSystem
     {
-        /// <summary>
-        /// Content manager ref.
-        /// </summary>
-        private ContentManager contentManagerRef;
-
-        /// <summary>
-        /// Reference to the graphics device.
-        /// </summary>
-        private GraphicsDevice graphicsDeviceRef;
-
         private Player player;
         private List<Sprite> bullets = new List<Sprite>();
         private Game1 mGame;
@@ -81,7 +71,7 @@ namespace EverLite.Models
         {
             if (this.bullets.Count < 100)
             {
-                this.bullets.Add(this.player.Shoot(this.contentManagerRef.Load<Texture2D>(this.player.GetCurrentBulletType()), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
+                this.bullets.Add(this.player.Shoot(this.mGame.Content.Load<Texture2D>(this.player.GetCurrentBulletType()), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
             }
         }
 
