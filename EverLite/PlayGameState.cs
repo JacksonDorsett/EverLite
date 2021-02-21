@@ -24,7 +24,6 @@ namespace EverLite
         private PlayerSystem playerSystem;
         private EnemySystem enemySystem;
         private ToggleStatus pauseStatus;
-        public bool IsPaused = false; // Encapsulate or further refactor.
         private Sprite player;
         private List<Sprite> bullets = new List<Sprite>();
 
@@ -36,7 +35,7 @@ namespace EverLite
             : base(game)
         {
             this.scrollingBG = new ScrollingBG(game);
-            this.enemySystem = new EnemySystem(this.Game.Content, this.Game.GraphicsDevice);
+            this.enemySystem = new EnemySystem(this.Game);
             this.playerSystem = new PlayerSystem(this.Game);
             this.pauseStatus = new ToggleStatus(Keys.Space);
         }
@@ -72,7 +71,7 @@ namespace EverLite
             if (!this.pauseStatus.Status)
             {
                 this.playerSystem.Update(this.Game.GraphicsDevice, gameTime);
-                this.enemySystem.Update(this.Game.GraphicsDevice, gameTime);
+                this.enemySystem.Update(gameTime);
                 this.scrollingBG.Update(gameTime);
             }
 

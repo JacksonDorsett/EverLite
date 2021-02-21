@@ -16,34 +16,30 @@ namespace EverLite.Modules
     /// </summary>
     internal class EnemySystem
     {
-        /// <summary>
-        /// Content manager ref.
-        /// </summary>
-        public ContentManager ContentManagerRef;
+
+        private Game mGame;
 
         /// <summary>
-        /// Reference to the graphics device.
+        /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
-        public GraphicsDevice GraphicsDeviceRef;
-
-        public EnemySystem(ContentManager contentManager, GraphicsDevice graphicsDevice)
+        /// <param name="game">game reference object.</param>
+        public EnemySystem(Game game)
         {
-            this.ContentManagerRef = contentManager;
-            this.GraphicsDeviceRef = graphicsDevice;
+            this.mGame = game;
         }
 
         /// <summary>
         /// List of enemy batches.
         /// </summary>
-        public List<EnemyBatch> EnemyBatches = new List<EnemyBatch>() { };
+        private List<EnemyBatch> EnemyBatches = new List<EnemyBatch>() { };
 
         /// <summary>
         /// Updates all enemy batches in the list.
         /// </summary>
-        /// <param name="graphics"> graphics device.</param>
         /// <param name="gameTime"> game time.</param>
-        public void Update(GraphicsDevice graphics, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
+            GraphicsDevice graphics = this.mGame.GraphicsDevice;
             int enemiesCount = 0;
             foreach (EnemyBatch enemyBatch in this.EnemyBatches)
             {
@@ -56,7 +52,7 @@ namespace EverLite.Modules
             // TODO: for debug only, remove!
             if (enemiesCount == 0)
             {
-                EnemyBatch enemyBatch = new EnemyBatch(this.ContentManagerRef, 1);
+                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1);
                 Enemy enemy = enemyBatch.CreateEnemy("regular", testVec);
                 this.EnemyBatches.Add(enemyBatch);
             }
@@ -67,7 +63,7 @@ namespace EverLite.Modules
             {
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.ContentManagerRef, graphics, "regular-alt", 8);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 8);
                 this.EnemyBatches.Add(enemyBatch);
             }
 
