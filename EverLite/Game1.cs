@@ -22,9 +22,6 @@ namespace EverLite
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
 
-        //Game World
-        Random random = new Random();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
         /// </summary>

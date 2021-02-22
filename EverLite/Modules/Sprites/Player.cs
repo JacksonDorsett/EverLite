@@ -18,13 +18,13 @@ namespace EverLite.Modules.Sprites
     /// </summary>
     public class Player : Sprite
     {
+        // constants
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
         private readonly float scale = 0.5f;
         private readonly float layerDepth = 0.0f;
         private int screenWidth;
         private int screenHeight;
-        private string currentBulletType = "TinyBlue";
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
         private IBlaster blaster;
@@ -47,21 +47,10 @@ namespace EverLite.Modules.Sprites
         {
             this.mGame = game;
             this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), this.GetPlayerLocation());
-            this.SetGameBoundary(this.mGame.GraphicsDevice.Viewport.Width, this.mGame.GraphicsDevice.Viewport.Height);
+
+            // initialize components
             this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
-
             this.slowSpeedStatus = new ToggleStatus(Keys.G);
-        }
-
-        private void SetGameBoundary(int width, int height)
-        {
-            this.screenWidth = width;
-            this.screenHeight = height;
-        }
-
-        private Vector2 GetPlayerLocation()
-        {
-            return new Vector2(mGame.GraphicsDevice.Viewport.TitleSafeArea.X + mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2, mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5);
         }
 
         /// <summary>
@@ -71,10 +60,15 @@ namespace EverLite.Modules.Sprites
         /// <param name="position">Starting position for the player object.</param>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
-            Texture = texture;
-            Position = position;
+            this.Texture = texture;
+            this.Position = position;
+            this.SetGameBoundary();
         }
 
+        /// <summary>
+        /// Shoots a bullet from blaster and returns the bullet object.
+        /// </summary>
+        /// <returns>returns the bullet that was shot.</returns>
         public Sprite Shoot()
         {
             return this.blaster.Shoot(this.Position);
@@ -83,111 +77,99 @@ namespace EverLite.Modules.Sprites
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-            blaster.Update(gameTime);
+            this.blaster.Update(gameTime);
+
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
-            GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            this.UpdatePlayerPosition(currentKeyboardState);
+        }
 
-            #region Player controls
-            this.slowSpeedStatus.Update();
-            // get current speed
-            if (!this.slowSpeedStatus.Status)
-            {
-                this.sVelocity = NORMALSPEED;
-            }
-            else
-            {
-                this.sVelocity = SLOWSPEED;
-            }
+        /// <summary>
+        /// Draws the Player.
+        /// </summary>
+        /// <param name="spriteBatch">sprite batch being drawn to.</param>
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Vector2 origin;
+            origin.X = this.Texture.Width / 6;
+            origin.Y = this.Texture.Height / 6;
+            // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
+            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+        }
 
-            this.Position.X += currentGamePadState.ThumbSticks.Left.X * sVelocity;
-
-            Position.Y -= currentGamePadState.ThumbSticks.Left.Y * sVelocity;
-
-            if (currentGamePadState.Buttons.Y == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.T))
-            {
-                ChangeBulletType();
-            }
+        private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
+        {
+            float speed = this.GetPlayerSpeed();
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {
-                Position.X -= sVelocity;
+                this.Position.X -= this.sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
             {
-                Position.X += sVelocity;
+                this.Position.X += this.sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
             {
-                Position.Y -= sVelocity;
+                this.Position.Y -= this.sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
             {
-                Position.Y += sVelocity;
+                this.Position.Y += this.sVelocity;
             }
-            #endregion
 
-            CheckPlayerBoundry();
+            this.CheckPlayerBoundry();
+        }
+
+        private void SetGameBoundary()
+        {
+            var rect = this.mGame.Window.ClientBounds;
+            this.screenWidth = rect.Width;
+            this.screenHeight = rect.Height;
+        }
+
+        private Vector2 GetPlayerLocation()
+        {
+            return new Vector2(this.mGame.GraphicsDevice.Viewport.TitleSafeArea.X + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
+        }
+
+        private float GetPlayerSpeed()
+        {
+            this.slowSpeedStatus.Update();
+            if (!this.slowSpeedStatus.Status)
+            {
+                return NORMALSPEED;
+            }
+            else
+            {
+                return SLOWSPEED;
+            }
         }
 
         private void CheckPlayerBoundry()
         {
-            if (Position.X <= 15)
+            if (this.Position.X <= 15)
             {
-                Position.X = 15;
+                this.Position.X = 15;
             }
 
-            if (Position.Y <= screenHeight / 2)
+            if (this.Position.Y <= 0)
             {
-                Position.Y = screenHeight / 2;
+                this.Position.Y = 0;
             }
 
-            if (Position.X + Texture.Width >= screenWidth)
+            if (this.Position.X + this.Texture.Width >= this.screenWidth)
             {
-                Position.X = screenWidth - Texture.Width;
+                this.Position.X = this.screenWidth - this.Texture.Width;
             }
 
-            if (Position.Y + Texture.Height >= screenHeight)
+            if (this.Position.Y + this.Texture.Height >= this.screenHeight)
             {
-                Position.Y = screenHeight - Texture.Height;
+                this.Position.Y = this.screenHeight - this.Texture.Height;
             }
-        }
-
-        /// <summary>
-        /// Simple feature that switches between the available choices.
-        /// </summary>
-        public void ChangeBulletType()
-        {
-            if (currentBulletType == "TinyRed")
-            {
-                currentBulletType = "TinyBlue";
-            }
-            else
-            {
-                currentBulletType = "TinyRed";
-            }
-        }
-
-        /// <summary>
-        /// Returns selected bullet type.
-        /// </summary>
-        /// <returns>Name of selected bullet.</returns>
-        public string GetCurrentBulletType()
-        {
-            return currentBulletType;
-        }
-
-        /// <inheritdoc/>
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            Vector2 origin;
-            origin.X = Texture.Width / 6;
-            origin.Y = Texture.Height / 6;
-            // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
-            spriteBatch.Draw(Texture, Position, null, Color.White, angle, origin, scale, SpriteEffects.None, layerDepth);
         }
     }
 }
