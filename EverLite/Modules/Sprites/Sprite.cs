@@ -34,17 +34,12 @@ namespace EverLite.Models.Sprites
         /// </summary>
         protected FactoryEnum spriteType;
 
-        
+
 
         /// <summary>
         /// Reflects the onscreen status.
         /// </summary>
-        protected bool isVisible;
-
-        /// <summary>
-        /// Reference to the content manager.
-        /// </summary>
-        private ContentManager contentManagerRef;
+        private bool isVisible;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sprite"/> class.
@@ -55,7 +50,7 @@ namespace EverLite.Models.Sprites
         /// <param name="type">Sets the spriteType.</param>
         public Sprite(bool active, float angle, float velocity, FactoryEnum type)
         {
-            this.isVisible = active;
+            this.IsVisible = active;
             this.angle = angle;
             this.sVelocity = velocity;
             this.spriteType = type;
@@ -71,7 +66,7 @@ namespace EverLite.Models.Sprites
         /// <param name="active">is sprite visible.</param>
         public Sprite(float angle, float velocity, Texture2D texture, Vector2 position, bool active = true)
         {
-            this.isVisible = active;
+            this.IsVisible = active;
             this.sVelocity = velocity;
             this.Texture = texture;
             this.Position = position;
@@ -88,6 +83,11 @@ namespace EverLite.Models.Sprites
         /// Gets or sets texture of an enemy.
         /// </summary>
         public Texture2D Texture { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is visible.
+        /// </summary>
+        protected bool IsVisible { get => this.isVisible; set => this.isVisible = value; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -146,7 +146,7 @@ namespace EverLite.Models.Sprites
         /// <param name="value">True or False.</param>
         public void SetIsVisible(bool value)
         {
-            this.isVisible = value;
+            this.IsVisible = value;
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace EverLite.Models.Sprites
         /// <returns>True or False.</returns>
         public bool GetIsVisible()
         {
-            return this.isVisible;
+            return this.IsVisible;
         }
 
         /// <summary>
