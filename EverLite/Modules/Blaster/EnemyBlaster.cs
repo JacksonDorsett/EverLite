@@ -1,22 +1,24 @@
-﻿using EverLite.Modules.Sprites;
-using EverLite.Utilities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace EverLite.Modules.Blaster
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using EverLite.Modules.Sprites;
+    using EverLite.Utilities;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     /// <summary>
     /// Standard Enemy Blaster.
     /// </summary>
-    class EnemyBlaster : IBlaster
+    public class EnemyBlaster : IBlaster
     {
         private Player player;
         private Texture2D texture;
         private double rateOfFire;
-        private double TimeElapsed;
+        private double timeElapsed;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyBlaster"/> class.
         /// </summary>
@@ -27,14 +29,14 @@ namespace EverLite.Modules.Blaster
             this.texture = texture;
             this.player = player;
             this.rateOfFire = rof;
-            this.TimeElapsed = 0;
+            this.timeElapsed = 0;
         }
 
         public Sprite Shoot(Vector2 position)
         {
-            if (this.TimeElapsed >= this.rateOfFire)
+            if (this.timeElapsed >= this.rateOfFire)
             {
-                this.TimeElapsed = 0;
+                this.timeElapsed = 0;
                 return new TinyRedBullets(this.texture, position, this.CalculateVelocity(position));
             }
             return null;
@@ -42,7 +44,7 @@ namespace EverLite.Modules.Blaster
 
         public void Update(GameTime gameTime)
         {
-            this.TimeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
+            this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
 
 
         }

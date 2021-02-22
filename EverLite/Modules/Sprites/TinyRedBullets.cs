@@ -42,6 +42,7 @@ namespace EverLite.Modules.Sprites
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
+            Position += Velocity;
         }
 
         /// <inheritdoc/>

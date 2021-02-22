@@ -20,6 +20,7 @@ namespace EverLite.Modules
         private Player mPlayer;
         private Game mGame;
         private List<EnemyBatch> enemyBatches = new List<EnemyBatch>() { };
+        private List<Sprite> bullets;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
@@ -28,6 +29,7 @@ namespace EverLite.Modules
         {
             this.mGame = game;
             this.mPlayer = player;
+            bullets = new List<Sprite>();
         }
 
         /// <summary>
@@ -40,8 +42,22 @@ namespace EverLite.Modules
             int enemiesCount = 0;
             foreach (EnemyBatch enemyBatch in this.enemyBatches)
             {
+                foreach (Enemy e in enemyBatch.EnemiesList)
+                {
+                    var bullet = e.Shoot();
+                    if (bullet != null)
+                    {
+                        bullets.Add(bullet);
+                    }
+                }
+                
                 enemyBatch.Update(graphics, gameTime);
                 enemiesCount += enemyBatch.EnemiesList.Count;
+            }
+
+            foreach (Sprite s in bullets)
+            {
+                s.Update(gameTime);
             }
 
             Vector2 testVec = new Vector2(graphics.Viewport.Width / 2, (float)(graphics.Viewport.Height * 0.7));
@@ -49,8 +65,8 @@ namespace EverLite.Modules
             // TODO: for debug only, remove!
             if (enemiesCount == 0)
             {
-                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1);
-                Enemy enemy = enemyBatch.CreateEnemy("regular", testVec);
+                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1, mPlayer);
+                Enemy enemy = enemyBatch.CreateEnemy("regular", testVec, mPlayer);
                 this.enemyBatches.Add(enemyBatch);
             }
 
@@ -60,7 +76,7 @@ namespace EverLite.Modules
             {
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 8);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 8, mPlayer);
                 this.enemyBatches.Add(enemyBatch);
             }
 
@@ -79,6 +95,12 @@ namespace EverLite.Modules
         /// <param name="sprite"> sprite batch.</param>
         public void Draw(SpriteBatch sprite)
         {
+            sprite.Begin();
+            foreach (Sprite s in bullets)
+            {
+                s.Draw(sprite);
+            }
+            sprite.End();
             foreach (EnemyBatch enemy in this.enemyBatches)
             {
                 enemy.Draw(sprite);

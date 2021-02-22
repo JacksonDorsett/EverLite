@@ -6,6 +6,7 @@ namespace EverLite.Modules.Enemies
 {
     using System;
     using EverLite.Modules.Blaster;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -86,6 +87,10 @@ namespace EverLite.Modules.Enemies
             this.blaster = blaster;
         }
 
+        public Sprite Shoot()
+        {
+            return blaster.Shoot(this.Position);
+        }
         /// <summary>
         /// Update function to update the enemy.
         /// </summary>
@@ -93,8 +98,11 @@ namespace EverLite.Modules.Enemies
         /// <param name="gameTime"> gametime.</param>
         public void Update(GraphicsDevice graphics, GameTime gameTime)
         {
+            this.blaster.Update(gameTime);
             if (this.IsTargetting)
             {
+
+
                 if (this.Velocity.X > 0)
                 {
                     // calcualte velocity for X.

@@ -180,6 +180,7 @@ namespace EverLite.Modules.Sprites
         /// <param name="gameTime">SpriteBatch source.</param>
         public virtual void Update(GameTime gameTime)
         {
+            Position += Velocity;
         }
 
         /// <summary>
