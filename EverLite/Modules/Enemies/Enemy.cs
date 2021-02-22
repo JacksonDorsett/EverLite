@@ -65,7 +65,7 @@ namespace EverLite.Modules.Enemies
         public abstract bool IsVisible { get; set; }
 
         /// <summary>
-        /// Gets or sets visibility of an enemy.
+        /// Gets or sets a value indicating whether enemy is targeting.
         /// </summary>
         public bool IsTargetting { get; set; }
 

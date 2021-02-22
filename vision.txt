@@ -4,16 +4,16 @@ KC Studios
 --DESCIPTION:
 The game is a simple Bullet Hell Shooting Game made with C# using MonoGame and Visual Studio 19.
 
-The menu is a simple menu allowing the player to choose play and quit.
+The menu is a simple menu allowing the player to choose play and quit along with being able to display the controls.
 
-The game will be broken up in 4 phases with waves of enemies moving from top to bottom
+The game will be broken up in main 4 phases with waves of enemies moving from top to bottom and side to side
 in different patterns. At the end of each stage the player must either defeat a stage boss
-or survive long enough for the stageboss to retriet. The stage bosses have health, making
+or survive long enough for the stageboss to retreat. The stage bosses have health, making
 it challenging for the player to survive.
 
 The player will be able to pick up special items, such as bombs, extra life, or speed boosts,
 periodically throughout the game to assist in survival. The player will also be able to switch
-between different gun types.
+between different gun types. The strength of the gun depends on how many powerups were picked up.
 
 The enemy hoards consists of 4 different enemy types. 
 
@@ -24,17 +24,21 @@ at end score and top 10 scores.
 --PHASES:
 Phase 1:	5x waves of enemies, each wave consisting of 10 enemies, each wave moves top to
 			bottom in a straight line in random patterns (wedges, lines, double lines).
+			There will be 3 Waves of A type enemies and 2 B type enemies.
+
 Phase 2:	2x waves of enemies, following same requirements as phase 1. Followed by the Mid
 			Boss. The Mid Boss will hover near the top, floating around in generally an
 			elliptical in the top half of the screen. The Mid Boss will fire in several
 			directions in a cyclic pattern and occasionally fire a wide beam in a short
-			sweeping move.
+			sweeping move the player will be required to move back in order to avoid the beam.
 Phase 3:	5x waves of enemiers, each wave consisting of 8-12 enemies, each wave moves top
 			to bottom in random, curvy motions. They will fly in same random patterns as
-			described in phase 1.
+			described in phase 1. Each wave fires twice as many bullets as Phase 1 and in
+			slightly more complex patterns
 Phase 4:	2x waves of enemies, following same requirements as phase 3. Followed by the Main
-			Boss. The Main Boss will slowly hoaver closer to the player, while staying in the
-			top half of the screen. The Main Boss will shoot bullets in several directions
+			Boss. The Main Boss will slowly hover closer to the player, while staying in the
+			top half of the screen. The Main Boss will shoot bullets in several directions in
+			several patterns such as a rose and clusters of bullets with gaps the player must dodge through
 			at once and occasionally fire dumb homing missiles.
 			
 			
