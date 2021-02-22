@@ -86,6 +86,8 @@ namespace EverLite.Modules.Enemies
                 default:
                     break;
             }
+
+            this.Blaster.Update(gameTime);
         }
 
         /// <summary>

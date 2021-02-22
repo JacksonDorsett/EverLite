@@ -127,7 +127,7 @@ namespace EverLite.Modules
             if (this.finalBoss != null)
             {
                 this.finalBoss.Update(graphics, gameTime);
-                var bullet = this.midBoss.Shoot();
+                var bullet = this.finalBoss.Shoot();
                 if (bullet != null)
                 {
                     this.bullets.Add(bullet);
