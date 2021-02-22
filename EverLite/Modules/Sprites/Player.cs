@@ -5,6 +5,7 @@
 namespace EverLite.Modules.Sprites
 {
     using System;
+    using EverLite.Modules.Blaster;
     using EverLite.Modules.Enums;
     using EverLite.Modules.Input;
     using Microsoft.Xna.Framework;
@@ -23,19 +24,17 @@ namespace EverLite.Modules.Sprites
         private readonly float layerDepth = 0.0f;
         private int screenWidth;
         private int screenHeight;
-        //private KeyboardState currentKeyboardState;
-        //private GamePadState currentGamePadState;
         private string currentBulletType = "TinyBlue";
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
-
+        private IBlaster blaster;
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 0, NORMALSPEED, FactoryEnum.Player)
+            : base(true, 0, NORMALSPEED)
         {
         }
 
@@ -46,16 +45,18 @@ namespace EverLite.Modules.Sprites
         public Player(Game game)
             : base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
         {
-            mGame = game;
-            Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(GetSpriteType())), GetPlayerLocation());
-            SetGameBoundary(mGame.GraphicsDevice.Viewport.Width, mGame.GraphicsDevice.Viewport.Height);
-            slowSpeedStatus = new ToggleStatus(Keys.G);
+            this.mGame = game;
+            this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), this.GetPlayerLocation());
+            this.SetGameBoundary(this.mGame.GraphicsDevice.Viewport.Width, this.mGame.GraphicsDevice.Viewport.Height);
+            this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
+
+            this.slowSpeedStatus = new ToggleStatus(Keys.G);
         }
 
         private void SetGameBoundary(int width, int height)
         {
-            screenWidth = width;
-            screenHeight = height;
+            this.screenWidth = width;
+            this.screenHeight = height;
         }
 
         private Vector2 GetPlayerLocation()
@@ -74,56 +75,32 @@ namespace EverLite.Modules.Sprites
             Position = position;
         }
 
-        /// <summary>
-        /// Creates the bullet instance for the Game1 class.
-        /// </summary>
-        /// <param name="texture">Picture of bullet.</param>
-        /// <param name="position">Bullets spawn point.</param>
-        /// <returns>Bullet instance.</returns>
-        public Sprite Shoot(Texture2D texture, Vector2 position)
+        public Sprite Shoot()
         {
-            Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(GetCurrentBulletType()), mGame);
-            newBullet.Initialize(texture, playerPosition);
-            newBullet.SetIsVisible(true);
-            return newBullet;
-        }
-
-        /// <summary>
-        /// Creates the bullet instance for the Game1 class.
-        /// </summary>
-        /// <param name="position">Bullets spawn point.</param>
-        /// <returns>Bullet instance.</returns>
-        public Sprite Shoot(Vector2 position)
-        {
-            Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(GetCurrentBulletType()), mGame);
-            newBullet.Initialize(Texture, playerPosition);
-            newBullet.SetIsVisible(true);
-            return newBullet;
+            return this.blaster.Shoot(this.Position);
         }
 
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-
+            blaster.Update(gameTime);
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
             GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
             #region Player controls
-            slowSpeedStatus.Update();
+            this.slowSpeedStatus.Update();
             // get current speed
-            if (!slowSpeedStatus.Status)
+            if (!this.slowSpeedStatus.Status)
             {
-                sVelocity = 15;
+                this.sVelocity = NORMALSPEED;
             }
             else
             {
-                sVelocity = 5;
+                this.sVelocity = SLOWSPEED;
             }
 
-            Position.X += currentGamePadState.ThumbSticks.Left.X * sVelocity;
+            this.Position.X += currentGamePadState.ThumbSticks.Left.X * sVelocity;
 
             Position.Y -= currentGamePadState.ThumbSticks.Left.Y * sVelocity;
 

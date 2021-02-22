@@ -6,6 +6,7 @@ namespace EverLite.Modules.Enemies
 {
     using System;
     using System.Timers;
+    using EverLite.Modules.Blaster;
     using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -24,16 +25,18 @@ namespace EverLite.Modules.Enemies
         /// Initializes a new instance of the <see cref="MidBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public MidBoss(ContentManager contentManager)
-            : base(contentManager) { }
+        /// <param name="blaster"> blaster for enemy.</param>
+        public MidBoss(ContentManager contentManager, IBlaster blaster)
+            : base(contentManager, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MidBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
-        public MidBoss(Vector2 newPosition, ContentManager contentManager)
-            : base(newPosition, contentManager) { }
+        /// <param name="blaster"> blast for enemy.</param>
+        public MidBoss(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
+            : base(newPosition, contentManager, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "mid-boss";

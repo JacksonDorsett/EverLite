@@ -4,6 +4,7 @@
 
 namespace EverLite.Modules.Enemies
 {
+    using EverLite.Modules.Blaster;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
 
@@ -16,16 +17,18 @@ namespace EverLite.Modules.Enemies
         /// Initializes a new instance of the <see cref="FinalBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public FinalBoss(ContentManager contentManager)
-            : base(contentManager) { }
+        /// <param name="blaster"> blaster for boss.</param>
+        public FinalBoss(ContentManager contentManager, IBlaster blaster)
+            : base(contentManager, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FinalBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
-        public FinalBoss(Vector2 newPosition, ContentManager contentManager)
-            : base(newPosition, contentManager) { }
+        /// <param name="blaster"> blaster for the boss.</param>
+        public FinalBoss(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
+            : base(newPosition, contentManager, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "final-boss";

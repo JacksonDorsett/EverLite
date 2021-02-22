@@ -7,7 +7,9 @@ namespace EverLite.Modules
     using System;
     using System.Collections.Generic;
     using System.Timers;
+    using EverLite.Modules.Blaster;
     using EverLite.Modules.Enemies;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -28,16 +30,18 @@ namespace EverLite.Modules
 
         private int lastEnemyType = 0;
 
+        private Player mPlayer;
+        private List<Sprite> bullets;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public EnemySystem(Game game)
+        public EnemySystem(Game game, Player player)
         {
             this.mGame = game;
+            this.mPlayer = player;
+            bullets = new List<Sprite>();
         }
-
-
 
         /// <summary>
         /// Updates all enemy batches in the list.
@@ -49,13 +53,26 @@ namespace EverLite.Modules
             int enemiesCount = 0;
             foreach (EnemyBatch enemyBatch in this.enemyBatches)
             {
+                foreach (Enemy e in enemyBatch.EnemiesList)
+                {
+                    var bullet = e.Shoot();
+                    if (bullet != null)
+                    {
+                        this.bullets.Add(bullet);
+                    }
+                }
+
                 enemyBatch.Update(graphics, gameTime);
                 enemiesCount += enemyBatch.EnemiesList.Count;
             }
 
+            foreach (Sprite s in this.bullets)
+            {
+                s.Update(gameTime);
+            }
+
             Vector2 testVec = new Vector2(graphics.Viewport.Width / 2, (float)(graphics.Viewport.Height * 0.7));
 
-            // TODO: add event system.
             // Check for the first stage
             if (enemiesCount == 0 && this.FirstStage(gameTime.TotalGameTime))
             {
@@ -63,7 +80,7 @@ namespace EverLite.Modules
                 Random rand = new Random();
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, enemyTypes[this.lastEnemyType], 9);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, enemyTypes[this.lastEnemyType], 9, this.mPlayer);
                 this.lastEnemyType = this.lastEnemyType == 0 ? 1 : 0;
                 this.enemyBatches.Add(enemyBatch);
             }
@@ -77,7 +94,7 @@ namespace EverLite.Modules
                 if (this.midBoss == null)
                 {
                     Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
-                    this.midBoss = EnemyFactory.CreateEnemy("mid-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))));
+                    this.midBoss = EnemyFactory.CreateEnemy("mid-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
                     this.midBoss.ChangeTarget(enterTarget);
                 }
             }
@@ -92,7 +109,7 @@ namespace EverLite.Modules
                     this.DeleteEnemyAfterTime(this.midBoss, new TimeSpan(0, 0, 3));
 
                     Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
-                    this.finalBoss = EnemyFactory.CreateEnemy("final-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))));
+                    this.finalBoss = EnemyFactory.CreateEnemy("final-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
                     this.finalBoss.ChangeTarget(enterTarget);
                 }
             }
@@ -100,11 +117,21 @@ namespace EverLite.Modules
             if (this.midBoss != null)
             {
                 this.midBoss.Update(graphics, gameTime);
+                var bullet = this.midBoss.Shoot();
+                if (bullet != null)
+                {
+                    this.bullets.Add(bullet);
+                }
             }
 
             if (this.finalBoss != null)
             {
                 this.finalBoss.Update(graphics, gameTime);
+                var bullet = this.midBoss.Shoot();
+                if (bullet != null)
+                {
+                    this.bullets.Add(bullet);
+                }
             }
         }
 
@@ -150,6 +177,12 @@ namespace EverLite.Modules
         /// <param name="sprite"> sprite batch.</param>
         public void Draw(SpriteBatch sprite)
         {
+            sprite.Begin();
+            foreach (Sprite s in bullets)
+            {
+                s.Draw(sprite);
+            }
+            sprite.End();
             foreach (EnemyBatch enemy in this.enemyBatches)
             {
                 enemy.Draw(sprite);

@@ -5,6 +5,7 @@
 namespace EverLite.Modules.Enemies
 {
     using System;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -36,8 +37,8 @@ namespace EverLite.Modules.Enemies
         /// <param name="graphicsDevice"> references to the graphics device.</param>
         /// <param name="enemyType"> enemy type.</param>
         /// <param name="number"> initial list capacity.</param>
-        public EnemyBatchVFormation(ContentManager contentManager, GraphicsDevice graphicsDevice, string enemyType, int number)
-            : base(contentManager, number)
+        public EnemyBatchVFormation(ContentManager contentManager, GraphicsDevice graphicsDevice, string enemyType, int number, Player player)
+            : base(contentManager, number, player)
         {
             this.GraphicsDeviceRef = graphicsDevice;
             this.CreateEnemies(enemyType, number);
@@ -57,7 +58,7 @@ namespace EverLite.Modules.Enemies
 
             while (number > 0)
             {
-                Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0));
+                Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0), this.mPlayer);
                 enemy.ChangeVelocity(this.Velocity);
                 number--;
             }
@@ -80,7 +81,7 @@ namespace EverLite.Modules.Enemies
 
             while (number > 0)
             {
-                Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0));
+                Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0), this.mPlayer);
                 enemy.ChangeVelocity(newVelocity);
                 number--;
             }

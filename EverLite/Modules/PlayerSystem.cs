@@ -32,6 +32,18 @@ namespace EverLite.Modules
         }
 
         /// <summary>
+        /// Gets the player object.
+        /// Note: This Method needs refactoring.
+        /// </summary>
+        public Player Player
+        {
+            get
+            {
+                return this.player;
+            }
+        }
+
+        /// <summary>
         /// Calls on the player and bullet updates.
         /// </summary>
         /// <param name="gameTime">GameTime.</param>
@@ -39,32 +51,18 @@ namespace EverLite.Modules
         {
             this.player.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || this.IsShootingKey())
+            var bullet = player.Shoot();
+            if (this.CanShoot(100) && bullet != null)
             {
-                this.PlayerShoot();
+                this.bullets.Add(bullet);
             }
 
             this.UpdateBullets();
         }
 
-        /// <summary>
-        /// Checks if currently pressed key is a CTRL or J.
-        /// </summary>
-        /// <returns> bool of wether keys are pressed.</returns>
-        public bool IsShootingKey()
+        private bool CanShoot(int maxBullets)
         {
-            return Keyboard.GetState().IsKeyDown(Keys.LeftControl) || Keyboard.GetState().IsKeyDown(Keys.J);
-        }
-
-        /// <summary>
-        /// As the label implies. Player adds a bullet to the list for shooting.
-        /// </summary>
-        public void PlayerShoot()
-        {
-            if (bullets.Count < 100)
-            {
-                bullets.Add(player.Shoot(mGame.Content.Load<Texture2D>(player.GetCurrentBulletType()), new Vector2(player.GetPosition().X, player.GetPosition().Y)));
-            }
+            return (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) || Keyboard.GetState().IsKeyDown(Keys.LeftControl)) && bullets.Count < maxBullets;
         }
 
         /// <summary>

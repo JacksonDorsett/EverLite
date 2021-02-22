@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using EverLite.Modules.Blaster;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -17,13 +19,16 @@
         /// </summary>
         public ContentManager ContentManagerRef;
 
+        protected Player mPlayer;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyBatch"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public EnemyBatch(ContentManager contentManager)
+        public EnemyBatch(ContentManager contentManager, Player player)
         {
             this.ContentManagerRef = contentManager;
+            this.mPlayer = player;
+            this.EnemiesList = new List<Enemy>() { };
         }
 
         /// <summary>
@@ -31,10 +36,11 @@
         /// </summary>
         /// <param name="number"> initial list capacity.</param>
         /// <param name="contentManager"> content manager ref.</param>
-        public EnemyBatch(ContentManager contentManager, int number)
+        public EnemyBatch(ContentManager contentManager, int number, Player player)
         {
             this.ContentManagerRef = contentManager;
             this.EnemiesList = new List<Enemy>(number) { };
+            mPlayer = player;
         }
 
         /// <summary>
@@ -56,7 +62,7 @@
 
             while (number > 0)
             {
-                this.CreateEnemy(enemyType, new Vector2(0, 0));
+                this.CreateEnemy(enemyType, new Vector2(0, 0),mPlayer);
                 number--;
             }
         }
@@ -78,7 +84,7 @@
             while (number > 0)
             {
                 string enemyType = enemyTypes[rnd.Next(enemyTypes.Length)];
-                this.CreateEnemy(enemyType, new Vector2(0, 0));
+                this.CreateEnemy(enemyType, new Vector2(0, 0), mPlayer);
                 number--;
             }
         }
@@ -89,9 +95,9 @@
         /// <param name="enemyType"> type of an enemy to create.</param>
         /// <param name="newPosition"> new positon.</param>
         /// <returns> enemy created.</returns>
-        public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition)
+        public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition, Player player)
         {
-            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition);
+            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition, new EnemyBlaster(mPlayer, ContentManagerRef.Load<Texture2D>("TinyRed")));
             this.EnemiesList.Add(enemy);
             return enemy;
         }

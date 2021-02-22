@@ -27,7 +27,7 @@ namespace EverLite.Modules.Graphics
         public ScrollingBG(Game1 game)
         {
             this.game = game;
-            texture = this.game.Content.Load<Texture2D>("road");
+            texture = this.game.Content.Load<Texture2D>("space");
             r1 = texture.Bounds;
             r2 = r1;
             r1.Y = -r1.Height;

@@ -1,5 +1,6 @@
 ﻿namespace EverLite.Modules.Enemies
 {
+    using EverLite.Modules.Blaster;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using System;
@@ -16,18 +17,18 @@
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> positon.</param>
         /// <returns> created enemy object.</returns>
-        internal static Enemy CreateEnemy(string enemyType, ContentManager contentManager, Vector2 newPosition)
+        internal static Enemy CreateEnemy(string enemyType, ContentManager contentManager, Vector2 newPosition, IBlaster blaster)
         {
             switch (enemyType)
             {
                 case "regular":
-                    return new SimpleEnemy(newPosition, contentManager);
+                    return new SimpleEnemy(newPosition, contentManager, blaster);
                 case "regular-alt":
-                    return new SimpleEnemyAlternative(newPosition, contentManager);
+                    return new SimpleEnemyAlternative(newPosition, contentManager, blaster);
                 case "mid-boss":
-                    return new MidBoss(newPosition, contentManager);
+                    return new MidBoss(newPosition, contentManager, blaster);
                 case "final-boss":
-                    return new FinalBoss(newPosition, contentManager);
+                    return new FinalBoss(newPosition, contentManager, blaster);
                 default:
                     throw new NotImplementedException("this enemy type is not implemented!");
             }

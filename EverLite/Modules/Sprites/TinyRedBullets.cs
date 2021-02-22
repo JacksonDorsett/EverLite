@@ -21,7 +21,12 @@ namespace EverLite.Modules.Sprites
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         public TinyRedBullets()
-            : base(false, 0f, 16.0f, FactoryEnum.TinyRed)
+            : base(false, 0f, 16.0f)
+        {
+        }
+
+        public TinyRedBullets(Texture2D texture, Vector2 position, Vector2 velocity)
+            : base(texture,position,velocity)
         {
         }
 
@@ -37,6 +42,7 @@ namespace EverLite.Modules.Sprites
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
+            Position += Velocity;
         }
 
         /// <inheritdoc/>
