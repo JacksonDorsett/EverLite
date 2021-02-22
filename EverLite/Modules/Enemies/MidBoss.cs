@@ -4,13 +4,16 @@
 
 namespace EverLite.Modules.Enemies
 {
+    using System;
+    using System.Timers;
     using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
-    using System;
-    using System.Timers;
 
+    /// <summary>
+    /// Mid boss class.
+    /// </summary>
     internal class MidBoss : Enemy
     {
         private BossStateEnum currentState = BossStateEnum.Entering;
@@ -33,7 +36,7 @@ namespace EverLite.Modules.Enemies
             : base(newPosition, contentManager) { }
 
         /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "boss_placeholder";
+        public override string SpriteName { get; set; } = "mid-boss";
 
         /// <inheritdoc/>
         public override bool IsVisible { get; set; } = true;
@@ -74,6 +77,9 @@ namespace EverLite.Modules.Enemies
                 case BossStateEnum.Targetting:
                     this.MoveToTarget();
                     break;
+                case BossStateEnum.Leaving:
+                    this.Position += this.Velocity;
+                    break;
                 default:
                     break;
             }
@@ -106,6 +112,15 @@ namespace EverLite.Modules.Enemies
             }
 
             this.Position += this.Velocity;
+        }
+
+        /// <summary>
+        /// Leaves the map.
+        /// </summary>
+        public override void LeaveMap()
+        {
+            this.ChangeVelocity(new Vector2(0, -15));
+            this.currentState = BossStateEnum.Leaving;
         }
     }
 }

@@ -27,7 +27,7 @@
                 case "mid-boss":
                     return new MidBoss(newPosition, contentManager);
                 case "final-boss":
-                    throw new NotImplementedException("final boss is not implemented yet");
+                    return new FinalBoss(newPosition, contentManager);
                 default:
                     throw new NotImplementedException("this enemy type is not implemented!");
             }

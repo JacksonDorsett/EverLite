@@ -15,17 +15,18 @@ namespace EverLite.Modules.Enums
         Dodging = 3,
         Charging = 4,
         Targetting = 5,
+        Leaving = 6,
 
         // Movement patterns
-        MovementPattern1 = 6,
-        MovementPattern2 = 7,
-        MovementPattern3 = 8,
-        MovementPattern4 = 9,
+        MovementPattern1 = 7,
+        MovementPattern2 = 8,
+        MovementPattern3 = 9,
+        MovementPattern4 = 10,
 
         // Shooting patterns
-        ShootingPattern1 = 10,
-        ShootingPattern2 = 11,
-        ShootingPattern3 = 12,
-        ShootingPattern4 = 13
+        ShootingPattern1 = 11,
+        ShootingPattern2 = 12,
+        ShootingPattern3 = 13,
+        ShootingPattern4 = 14
     }
 }

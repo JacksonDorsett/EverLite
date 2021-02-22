@@ -238,6 +238,14 @@ namespace EverLite.Modules.Enemies
             sprite.Draw(this.Texture, this.Position, Color.White);
             sprite.End();
         }
+
+        /// <summary>
+        /// Leave the map.
+        /// </summary>
+        public virtual void LeaveMap()
+        {
+            return;
+        }
     }
 
 }
