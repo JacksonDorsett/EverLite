@@ -32,6 +32,12 @@
 /processorParam:TextureFormat=Color
 /build:M484BulletCollection1.png
 
+#begin Megalovania.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Megalovania.mp3
+
 #begin road.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -62,7 +68,7 @@
 /processorParam:Quality=Best
 /build:Solar System.mp3
 
-#begin TinyBlue.png
+#begin space.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -72,26 +78,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:TinyBlue.png
-
-#begin TinyRed.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:TinyRed.png
-
-
-#begin Solar System.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Solar System.mp3
+/build:space.jpg
 
 #begin TinyBlue.png
 /importer:TextureImporter
@@ -140,6 +127,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:wsu.jpg
-
-
 

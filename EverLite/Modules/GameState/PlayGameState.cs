@@ -58,7 +58,7 @@ namespace EverLite.Modules.GameState
         /// </summary>
         public override void OnEnter()
         {
-            BGM.Instance(this.Game).Load("Solar System");
+            BGM.Instance(this.Game).Load("Megalovania");
         }
 
         /// <summary>

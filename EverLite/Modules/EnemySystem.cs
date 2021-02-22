@@ -50,12 +50,12 @@ namespace EverLite.Modules
                         bullets.Add(bullet);
                     }
                 }
-                
+
                 enemyBatch.Update(graphics, gameTime);
                 enemiesCount += enemyBatch.EnemiesList.Count;
             }
 
-            foreach (Sprite s in bullets)
+            foreach (Sprite s in this.bullets)
             {
                 s.Update(gameTime);
             }
@@ -65,8 +65,8 @@ namespace EverLite.Modules
             // TODO: for debug only, remove!
             if (enemiesCount == 0)
             {
-                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1, mPlayer);
-                Enemy enemy = enemyBatch.CreateEnemy("regular", testVec, mPlayer);
+                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1, this.mPlayer);
+                Enemy enemy = enemyBatch.CreateEnemy("regular", testVec, this.mPlayer);
                 this.enemyBatches.Add(enemyBatch);
             }
 
