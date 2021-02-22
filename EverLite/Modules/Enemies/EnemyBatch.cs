@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using EverLite.Modules.Blaster;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -17,13 +19,15 @@
         /// </summary>
         public ContentManager ContentManagerRef;
 
+        private Player mPlayer;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyBatch"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public EnemyBatch(ContentManager contentManager)
+        public EnemyBatch(ContentManager contentManager, Player player)
         {
             this.ContentManagerRef = contentManager;
+            this.mPlayer = player;
         }
 
         /// <summary>
@@ -91,7 +95,7 @@
         /// <returns> enemy created.</returns>
         public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition)
         {
-            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition);
+            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition, new EnemyBlaster(mPlayer, ContentManagerRef.Load<Texture2D>("TinyRed")));
             this.EnemiesList.Add(enemy);
             return enemy;
         }

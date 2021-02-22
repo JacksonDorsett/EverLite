@@ -5,6 +5,7 @@
 namespace EverLite.Modules.Enemies
 {
     using System;
+    using EverLite.Modules.Blaster;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -14,6 +15,19 @@ namespace EverLite.Modules.Enemies
     /// </summary>
     internal abstract class Enemy
     {
+        private IBlaster blaster;
+
+        public IBlaster Blaster
+        {
+            get
+            {
+                return this.blaster;
+            }
+            protected set
+            {
+                this.blaster = value;
+            }
+        }
         /// <summary>
         /// Gets or sets texture of an enemy.
         /// </summary>
@@ -57,17 +71,19 @@ namespace EverLite.Modules.Enemies
         public Random random = new Random();
         public int randX, randY;
 
-        public Enemy(Vector2 newPosition, ContentManager contentManager)
+        public Enemy(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
         {
             this.Position = newPosition;
             this.ContentManagerRef = contentManager;
             this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
+            this.blaster = blaster;
         }
 
-        public Enemy(ContentManager contentManager)
+        public Enemy(ContentManager contentManager, IBlaster blaster)
         {
             this.ContentManagerRef = contentManager;
             this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
+            this.blaster = blaster;
         }
 
         /// <summary>

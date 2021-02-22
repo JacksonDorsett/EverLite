@@ -7,6 +7,7 @@ namespace EverLite.Modules
     using System;
     using System.Collections.Generic;
     using EverLite.Modules.Enemies;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -16,19 +17,18 @@ namespace EverLite.Modules
     /// </summary>
     internal class EnemySystem
     {
-
+        private Player mPlayer;
         private Game mGame;
         private List<EnemyBatch> enemyBatches = new List<EnemyBatch>() { };
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public EnemySystem(Game game)
+        public EnemySystem(Game game, Player player)
         {
             this.mGame = game;
+            this.mPlayer = player;
         }
-
-
 
         /// <summary>
         /// Updates all enemy batches in the list.

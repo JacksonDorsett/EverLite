@@ -36,9 +36,9 @@ namespace EverLite.Modules.GameState
         public PlayGameState(Game1 game)
             : base(game)
         {
-            scrollingBG = new ScrollingBG(game);
-            enemySystem = new EnemySystem(Game);
             playerSystem = new PlayerSystem(Game);
+            scrollingBG = new ScrollingBG(game);
+            enemySystem = new EnemySystem(Game, playerSystem.Player);
             pauseStatus = new ToggleStatus(Keys.Space);
         }
 

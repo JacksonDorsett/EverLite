@@ -75,22 +75,6 @@ namespace EverLite.Modules.Sprites
             Position = position;
         }
 
-        /// <summary>
-        /// Creates the bullet instance for the Game1 class.
-        /// </summary>
-        /// <param name="texture">Picture of bullet.</param>
-        /// <param name="position">Bullets spawn point.</param>
-        /// <returns>Bullet instance.</returns>
-        /*
-        public Sprite Shoot(Texture2D texture, Vector2 position)
-        {
-            Vector2 playerPosition = new Vector2(position.X + 22, position.Y);
-            Sprite newBullet = SpriteFactory.CreateSprite(BulletChoiceFactory.GetBulletType(GetCurrentBulletType()), mGame);
-            newBullet.Initialize(texture, playerPosition);
-            newBullet.SetIsVisible(true);
-            return newBullet;
-        }
-        */
         public Sprite Shoot()
         {
             return this.blaster.Shoot(this.Position);
@@ -99,7 +83,7 @@ namespace EverLite.Modules.Sprites
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-
+            blaster.Update(gameTime);
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
             GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);

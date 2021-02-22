@@ -32,6 +32,18 @@ namespace EverLite.Modules
         }
 
         /// <summary>
+        /// Gets the player object.
+        /// Note: This Method needs refactoring.
+        /// </summary>
+        public Player Player
+        {
+            get
+            {
+                return this.player;
+            }
+        }
+
+        /// <summary>
         /// Calls on the player and bullet updates.
         /// </summary>
         /// <param name="gameTime">GameTime.</param>
@@ -39,9 +51,10 @@ namespace EverLite.Modules
         {
             this.player.Update(gameTime);
 
-            if (this.CanShoot(100))
+            var bullet = player.Shoot();
+            if (this.CanShoot(100) && bullet != null)
             {
-                this.bullets.Add(this.player.Shoot());
+                this.bullets.Add(bullet);
             }
 
             this.UpdateBullets();

@@ -19,5 +19,7 @@ namespace EverLite.Modules.Blaster
         /// Shoot blaster.
         /// </summary>
         public Sprite Shoot(Vector2 position);
+
+        public void Update(GameTime gameTime);
     }
 }

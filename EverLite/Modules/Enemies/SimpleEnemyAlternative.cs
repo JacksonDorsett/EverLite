@@ -4,6 +4,7 @@
 
 namespace EverLite.Modules.Enemies
 {
+    using EverLite.Modules.Blaster;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
 
@@ -17,16 +18,16 @@ namespace EverLite.Modules.Enemies
         /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public SimpleEnemyAlternative(ContentManager contentManager)
-            : base(contentManager) { }
+        public SimpleEnemyAlternative(ContentManager contentManager, IBlaster blaster)
+            : base(contentManager, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
-        public SimpleEnemyAlternative(Vector2 newPosition, ContentManager contentManager)
-            : base(newPosition, contentManager) { }
+        public SimpleEnemyAlternative(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
+            : base(newPosition, contentManager, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "uw";

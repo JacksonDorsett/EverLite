@@ -25,6 +25,11 @@ namespace EverLite.Modules.Sprites
         {
         }
 
+        public TinyRedBullets(Texture2D texture, Vector2 position, Vector2 velocity)
+            : base(texture,position,velocity)
+        {
+        }
+
         /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
