@@ -22,11 +22,8 @@ namespace EverLite
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
 
-
-
         //Game World
         Random random = new Random();
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -106,11 +103,8 @@ namespace EverLite
         {
             this.GraphicsDevice.Clear(Color.Black);
 
-            
             // TODO: Add your drawing code here
-            //this.mSpriteBatch.Begin();
             this.mContext.Draw(gameTime);
-            //this.mSpriteBatch.End();
             base.Draw(gameTime);
         }
     }

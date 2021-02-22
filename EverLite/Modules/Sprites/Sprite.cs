@@ -32,7 +32,7 @@ namespace EverLite.Modules.Sprites
         /// <summary>
         /// Holds the object's specific FactoryEnum type.
         /// </summary>
-        protected FactoryEnum spriteType;
+        //protected FactoryEnum spriteType;
 
 
 
@@ -48,12 +48,11 @@ namespace EverLite.Modules.Sprites
         /// <param name="angle">Sets the angle field.</param>
         /// <param name="velocity">Sets the velocity field.</param>
         /// <param name="type">Sets the spriteType.</param>
-        public Sprite(bool active, float angle, float velocity, FactoryEnum type)
+        public Sprite(bool active, float angle, float velocity)
         {
-            IsVisible = active;
+            this.IsVisible = active;
             this.angle = angle;
-            sVelocity = velocity;
-            spriteType = type;
+            this.sVelocity = velocity;
         }
 
         /// <summary>
@@ -66,12 +65,27 @@ namespace EverLite.Modules.Sprites
         /// <param name="active">is sprite visible.</param>
         public Sprite(float angle, float velocity, Texture2D texture, Vector2 position, bool active = true)
         {
-            IsVisible = active;
-            sVelocity = velocity;
-            Texture = texture;
-            Position = position;
+            this.IsVisible = active;
+            this.sVelocity = velocity;
+            this.Texture = texture;
+            this.Position = position;
             this.angle = angle;
 
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sprite"/> class.
+        /// </summary>
+        /// <param name="texture">Texture.</param>
+        /// <param name="position">position of sprite.</param>
+        /// <param name="velocity">velocity.</param>
+        /// <param name="active">is visible.</param>
+        public Sprite(Texture2D texture, Vector2 position, Vector2 velocity, bool active = true)
+        {
+            this.Texture = texture;
+            this.Position = position;
+            this.Velocity = velocity;
+            this.IsVisible = true;
         }
 
         /// <summary>
@@ -88,6 +102,7 @@ namespace EverLite.Modules.Sprites
         /// Gets or sets a value indicating whether is visible.
         /// </summary>
         protected bool IsVisible { get => isVisible; set => isVisible = value; }
+        //public Vector2 Position { get => position; set => position = value; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -102,11 +117,12 @@ namespace EverLite.Modules.Sprites
         /// This class was built for testing purposes.
         /// </summary>
         /// <returns>The enum of the spriteType.</returns>
+         /*
         public FactoryEnum GetSpriteType()
         {
             return spriteType;
         }
-
+         */
         /// <summary>
         /// Get's the instance's current position.
         /// </summary>

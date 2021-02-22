@@ -23,7 +23,6 @@ namespace EverLite.Modules.Sprites
         {
             return spriteType switch
             {
-                //FactoryEnum.Player => new Player(),
                 FactoryEnum.TinyBlue => new TinyBlueBullets(),
                 FactoryEnum.TinyRed => new TinyRedBullets(),
                 _ => null,

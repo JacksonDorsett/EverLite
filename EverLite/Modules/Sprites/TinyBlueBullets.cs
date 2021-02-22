@@ -21,8 +21,14 @@ namespace EverLite.Modules.Sprites
         /// Sets isActive, angle, velocity, and spriteType fields.
         /// </summary>
         public TinyBlueBullets()
-            : base(false, 0f, 16.0f, FactoryEnum.TinyBlue)
+            : base(false, 0f, 16.0f)
         {
+        }
+
+        public TinyBlueBullets(Texture2D texture, Vector2 position, Vector2 velocity)
+            : base(texture, position, velocity)
+        {
+            IsVisible = true;
         }
 
         /// <inheritdoc/>
@@ -48,7 +54,7 @@ namespace EverLite.Modules.Sprites
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            Velocity = new Vector2(0, -sVelocity);
+            Velocity = new Vector2(0, - sVelocity);
         }
 
         /// <inheritdoc/>

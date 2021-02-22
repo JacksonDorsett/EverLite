@@ -39,23 +39,17 @@ namespace EverLite.Modules
         {
             this.player.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J))
+            if (this.CanShoot(100))
             {
-                PlayerShoot();
+                this.bullets.Add(this.player.Shoot());
             }
 
-            UpdateBullets();
+            this.UpdateBullets();
         }
 
-        /// <summary>
-        /// As the label implies. Player adds a bullet to the list for shooting.
-        /// </summary>
-        public void PlayerShoot()
+        private bool CanShoot(int maxBullets)
         {
-            if (bullets.Count < 100)
-            {
-                bullets.Add(player.Shoot(mGame.Content.Load<Texture2D>(player.GetCurrentBulletType()), new Vector2(player.GetPosition().X, player.GetPosition().Y)));
-            }
+            return GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) && bullets.Count < maxBullets;
         }
 
         /// <summary>
