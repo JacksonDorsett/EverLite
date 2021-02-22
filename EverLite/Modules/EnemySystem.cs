@@ -16,9 +16,14 @@ namespace EverLite.Modules
     /// </summary>
     internal class EnemySystem
     {
-
         private Game mGame;
         private List<EnemyBatch> enemyBatches = new List<EnemyBatch>() { };
+
+        /// <summary>
+        /// current boss fighting.
+        /// </summary>
+        private Enemy boss;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
@@ -46,30 +51,40 @@ namespace EverLite.Modules
 
             Vector2 testVec = new Vector2(graphics.Viewport.Width / 2, (float)(graphics.Viewport.Height * 0.7));
 
-            // TODO: for debug only, remove!
-            if (enemiesCount == 0)
+            if (this.boss == null)
             {
-                EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1);
-                Enemy enemy = enemyBatch.CreateEnemy("regular", testVec);
-                this.enemyBatches.Add(enemyBatch);
+                Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
+                this.boss = EnemyFactory.CreateEnemy("mid-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))));
+                this.boss.ChangeTarget(enterTarget);
             }
 
             // TODO: add event system.
             // Check for the first stage
-            if (enemiesCount <= 1 && this.FirstStage(gameTime.TotalGameTime))
+            if (enemiesCount == 0 && this.FirstStage(gameTime.TotalGameTime))
             {
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 8);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 9);
                 this.enemyBatches.Add(enemyBatch);
             }
 
             // We are in the mid boss fight
             if (this.MidBossStage(gameTime.TotalGameTime))
             {
-                this.ClearAllEnemies();
+                this.LeaveMap();
 
                 // TODO: handle mid boss spawn here.
+                if (this.boss == null)
+                {
+                    Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
+                    this.boss = EnemyFactory.CreateEnemy("mid-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))));
+                    this.boss.ChangeTarget(enterTarget);
+                }
+            }
+
+            if (this.boss != null)
+            {
+                this.boss.Update(graphics, gameTime);
             }
         }
 
@@ -82,6 +97,11 @@ namespace EverLite.Modules
             foreach (EnemyBatch enemy in this.enemyBatches)
             {
                 enemy.Draw(sprite);
+            }
+
+            if (this.boss != null)
+            {
+                this.boss.Draw(sprite);
             }
         }
 
@@ -109,20 +129,24 @@ namespace EverLite.Modules
         }
 
         /// <summary>
+        /// Tells regular enemies to exit the map.
+        /// </summary>
+        public void LeaveMap()
+        {
+            foreach (EnemyBatch enemyBatch in this.enemyBatches)
+            {
+                enemyBatch.LeaveMap();
+            }
+        }
+
+        /// <summary>
         /// Check if we are in the first stage.
         /// </summary>
         /// <param name="gameTime"> current total gametime.</param>
         /// <returns>boolean.</returns>
         public bool FirstStage(TimeSpan gameTime)
         {
-            if (gameTime.TotalMinutes >= 1)
-            {
-                return false;
-            }
-            else
-            {
-                return gameTime.TotalSeconds < 48;
-            }
+            return gameTime.TotalSeconds < 46;
         }
 
         /// <summary>
@@ -132,13 +156,13 @@ namespace EverLite.Modules
         /// <returns>boolean.</returns>
         public bool MidBossStage(TimeSpan gameTime)
         {
-            if (gameTime.TotalMinutes > 1)
+            if (this.FirstStage(gameTime))
             {
                 return false;
             }
-            else if (gameTime.TotalMinutes == 1)
+            else if (gameTime.TotalSeconds < 75)
             {
-                return gameTime.TotalSeconds < 15;
+                return true;
             }
             else
             {

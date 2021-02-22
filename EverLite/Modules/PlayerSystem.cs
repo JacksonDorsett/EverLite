@@ -39,12 +39,21 @@ namespace EverLite.Modules
         {
             this.player.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J))
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || this.IsShootingKey())
             {
-                PlayerShoot();
+                this.PlayerShoot();
             }
 
-            UpdateBullets();
+            this.UpdateBullets();
+        }
+
+        /// <summary>
+        /// Checks if currently pressed key is a CTRL or J.
+        /// </summary>
+        /// <returns> bool of wether keys are pressed.</returns>
+        public bool IsShootingKey()
+        {
+            return Keyboard.GetState().IsKeyDown(Keys.LeftControl) || Keyboard.GetState().IsKeyDown(Keys.J);
         }
 
         /// <summary>
