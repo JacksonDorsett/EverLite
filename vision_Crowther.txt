@@ -1,0 +1,53 @@
+KC Studios
+
+
+--DESCIPTION:
+The game is a simple Bullet Hell Shooting Game made with C# using MonoGame and Visual Studio 19.
+
+The menu is a simple menu allowing the player to choose play and quit.
+
+The game will be broken up in 4 phases with waves of enemies moving from top to bottom
+in different patterns. At the end of each stage the player must either defeat a stage boss
+or survive long enough for the stageboss to retriet. The stage bosses have health, making
+it challenging for the player to survive.
+
+The player will be able to pick up special items, such as bombs, extra life, or speed boosts,
+periodically throughout the game to assist in survival. The player will also be able to switch
+between different gun types.
+
+The enemy hoards consists of 4 different enemy types. 
+
+The player will start with three lives. The game will keep player score so the player can look 
+at end score and top 10 scores.
+
+
+--PHASES:
+Phase 1:	5x waves of enemies, each wave consisting of 10 enemies, each wave moves top to
+			bottom in a straight line in random patterns (wedges, lines, double lines).
+Phase 2:	2x waves of enemies, following same requirements as phase 1. Followed by the Mid
+			Boss. The Mid Boss will hover near the top, floating around in generally an
+			elliptical in the top half of the screen. The Mid Boss will fire in several
+			directions in a cyclic pattern and occasionally fire a wide beam in a short
+			sweeping move.
+Phase 3:	5x waves of enemiers, each wave consisting of 8-12 enemies, each wave moves top
+			to bottom in random, curvy motions. They will fly in same random patterns as
+			described in phase 1.
+Phase 4:	2x waves of enemies, following same requirements as phase 3. Followed by the Main
+			Boss. The Main Boss will slowly hoaver closer to the player, while staying in the
+			top half of the screen. The Main Boss will shoot bullets in several directions
+			at once and occasionally fire dumb homing missiles.
+			
+			
+--CONTROLS:
+Keyboard:	A or left arrow: move to the left.
+			S or down arrow: move to the bottom.
+			D or right arrow: move to the right.
+			W or up arrow: move to the top.
+			T: change bullet type.
+			G: slow down.
+			J: shoot.
+			Spacebar: pause game.
+
+Gamepad:	Left joystick: move in cardinal directions.
+			Right trigger: shoot.
+			Y botton: change bullet type.
