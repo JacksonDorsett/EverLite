@@ -87,57 +87,40 @@ namespace EverLite.Modules.Enemies
             this.blaster = blaster;
         }
 
+        /// <summary>
+        /// Shoot blasters.
+        /// </summary>
+        /// <returns> blaster shot.</returns>
         public Sprite Shoot()
         {
-            return blaster.Shoot(this.Position);
+            return this.blaster.Shoot(this.Position);
         }
         /// <summary>
         /// Update function to update the enemy.
         /// </summary>
         /// <param name="graphics"> graphics.</param>
         /// <param name="gameTime"> gametime.</param>
-        public void Update(GraphicsDevice graphics, GameTime gameTime)
+        public virtual void Update(GraphicsDevice graphics, GameTime gameTime)
         {
             this.blaster.Update(gameTime);
             if (this.IsTargetting)
             {
-
-
-                if (this.Velocity.X > 0)
-                {
-                    // calcualte velocity for X.
-                    if (this.Position.X > this.TargetPosition.X)
-                    {
-                        float xDiff = this.Position.X - this.Velocity.X;
-                        this.Position.X -= xDiff < this.TargetPosition.X ? this.TargetPosition.X : this.Velocity.X;
-                    }
-                    else if (this.Position.X < this.TargetPosition.X)
-                    {
-                        float xDiff = this.Position.X + this.Velocity.X;
-                        this.Position.X += xDiff > this.TargetPosition.X ? this.TargetPosition.X : this.Velocity.X;
-                    }
-                }
-
-                if (this.Velocity.Y > 0)
-                {
-                    // calcualte velocity for Y.
-                    if (this.Position.Y > this.TargetPosition.Y && this.Velocity.Y > 0)
-                    {
-                        float yDiff = this.Position.Y - this.Velocity.Y;
-                        this.Position.Y -= yDiff < this.TargetPosition.Y ? this.TargetPosition.Y : this.Velocity.Y;
-                    }
-                    else if (this.Position.Y < this.TargetPosition.Y)
-                    {
-                        float yDiff = this.Position.Y + this.Velocity.Y;
-                        this.Position.Y += yDiff > this.TargetPosition.Y ? this.TargetPosition.Y : this.Velocity.Y;
-                    }
-                }
+                this.MoveToTarget();
             }
             else
             {
                 this.Position += this.Velocity;
             }
 
+            this.CheckBoundries(graphics);
+        }
+
+        /// <summary>
+        /// Checks if we crossed the boundries.
+        /// </summary>
+        /// <param name="graphics"> graphics device.</param>
+        public virtual void CheckBoundries(GraphicsDevice graphics)
+        {
             if (this.Position.Y <= 0)
             {
                 this.Velocity.Y = -this.Velocity.Y;
@@ -148,9 +131,73 @@ namespace EverLite.Modules.Enemies
                 this.Velocity.X = -this.Velocity.X;
             }
 
-            if (this.Position.Y > graphics.Viewport.Height)
+            if (this.Position.Y > graphics.Viewport.Height || this.Position.Y <= 0 || this.Position.X > graphics.Viewport.Width || this.Position.X < 0)
             {
                 this.IsVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// Moves enemy to the target.
+        /// </summary>
+        public virtual void MoveToTarget()
+        {
+            if (this.Velocity.X > 0)
+            {
+                // calcualte velocity for X.
+                if (this.Position.X > this.TargetPosition.X)
+                {
+                    float xDiff = this.Position.X - this.Velocity.X;
+                    if (xDiff < this.TargetPosition.X)
+                    {
+                        this.Position.X = this.TargetPosition.X;
+                    }
+                    else
+                    {
+                        this.Position.X -= this.Velocity.X;
+                    }
+                }
+                else if (this.Position.X < this.TargetPosition.X)
+                {
+                    float xDiff = this.Position.X + this.Velocity.X;
+                    if (xDiff > this.TargetPosition.X)
+                    {
+                        this.Position.X = this.TargetPosition.X;
+                    }
+                    else
+                    {
+                        this.Position.X += this.Velocity.X;
+                    }
+                }
+            }
+
+            if (this.Velocity.Y > 0)
+            {
+                // calcualte velocity for Y.
+                if (this.Position.Y > this.TargetPosition.Y)
+                {
+                    float yDiff = this.Position.Y - this.Velocity.Y;
+                    if (yDiff < this.TargetPosition.Y)
+                    {
+                        this.Position.Y = this.TargetPosition.Y;
+                    }
+                    else
+                    {
+                        this.Position.Y -= this.Velocity.Y;
+                    }
+                }
+                else if (this.Position.Y < this.TargetPosition.Y)
+                {
+                    float yDiff = this.Position.Y + this.Velocity.Y;
+                    if (yDiff > this.TargetPosition.Y)
+                    {
+                        this.Position.Y = this.TargetPosition.Y;
+                    }
+                    else
+                    {
+                        this.Position.Y += this.Velocity.Y;
+                    }
+                }
             }
         }
 
@@ -216,6 +263,14 @@ namespace EverLite.Modules.Enemies
             sprite.Begin();
             sprite.Draw(this.Texture, this.Position, Color.White);
             sprite.End();
+        }
+
+        /// <summary>
+        /// Leave the map.
+        /// </summary>
+        public virtual void LeaveMap()
+        {
+            return;
         }
     }
 

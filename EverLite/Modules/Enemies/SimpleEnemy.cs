@@ -29,7 +29,7 @@ namespace EverLite.Modules.Enemies
             : base(newPosition, contentManager,  blaster) { }
 
         /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "wsu";
+        public override string SpriteName { get; set; } = "enemy1";
 
         /// <inheritdoc/>
         public override bool IsVisible { get; set; } = true;

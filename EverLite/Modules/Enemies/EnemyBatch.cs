@@ -139,5 +139,18 @@
                 enemy.Draw(sprite);
             }
         }
+
+        /// <summary>
+        /// Makes enemies leave the map.
+        /// </summary>
+        public virtual void LeaveMap()
+        {
+            Random rand = new Random();
+            float[] exitSpeed = new float[] { -7, 7 };
+            foreach (Enemy enemy in this.EnemiesList)
+            {
+                enemy.ChangeVelocity(new Vector2(exitSpeed[rand.Next(0, 1)], 0));
+            }
+        }
     }
 }

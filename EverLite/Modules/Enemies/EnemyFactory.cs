@@ -26,9 +26,9 @@
                 case "regular-alt":
                     return new SimpleEnemyAlternative(newPosition, contentManager, blaster);
                 case "mid-boss":
-                    throw new NotImplementedException("mid boss is not implemented yet");
+                    return new MidBoss(newPosition, contentManager, blaster);
                 case "final-boss":
-                    throw new NotImplementedException("final boss is not implemented yet");
+                    return new FinalBoss(newPosition, contentManager, blaster);
                 default:
                     throw new NotImplementedException("this enemy type is not implemented!");
             }

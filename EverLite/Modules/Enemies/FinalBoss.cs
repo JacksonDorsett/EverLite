@@ -1,4 +1,4 @@
-﻿// <copyright file="SimpleEnemyAlternative.cs" company="PlaceholderCompany">
+﻿// <copyright file="FinalBoss.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -9,28 +9,29 @@ namespace EverLite.Modules.Enemies
     using Microsoft.Xna.Framework.Content;
 
     /// <summary>
-    /// Regular enemy type B class.
+    /// Final boss class.
     /// </summary>
-    internal class SimpleEnemyAlternative : Enemy
+    internal class FinalBoss : MidBoss
     {
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
+        /// Initializes a new instance of the <see cref="FinalBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public SimpleEnemyAlternative(ContentManager contentManager, IBlaster blaster)
+        /// <param name="blaster"> blaster for boss.</param>
+        public FinalBoss(ContentManager contentManager, IBlaster blaster)
             : base(contentManager, blaster) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
+        /// Initializes a new instance of the <see cref="FinalBoss"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
-        public SimpleEnemyAlternative(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
+        /// <param name="blaster"> blaster for the boss.</param>
+        public FinalBoss(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
             : base(newPosition, contentManager, blaster) { }
 
         /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "enemy2";
+        public override string SpriteName { get; set; } = "final-boss";
 
         /// <inheritdoc/>
         public override bool IsVisible { get; set; } = true;

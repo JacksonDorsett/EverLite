@@ -132,5 +132,29 @@ namespace EverLite.Modules.Enemies
                 enemy.ChangeVelocity(new Vector2(newVelocity.X, 0));
             }
         }
+
+        /// <summary>
+        /// Makes enemies leave the map.
+        /// </summary>
+        public override void LeaveMap()
+        {
+            int i = this.EnemiesList.Count;
+
+            // Start from the top and drop down
+            for (; i > 1; i -= 2)
+            {
+                Enemy enemyLeft = this.EnemiesList[i - 1];
+                Enemy enemyRight = this.EnemiesList[i - 2];
+                enemyLeft.ChangeVelocity(new Vector2(-8, 0));
+                enemyRight.ChangeVelocity(new Vector2(8, 0));
+            }
+
+            // Check if we have even or not number of enemies
+            if (this.EnemiesList.Count % 2 != 0)
+            {
+                Enemy enemy = this.EnemiesList[i - 1];
+                enemy.ChangeVelocity(new Vector2(0, -11));
+            }
+        }
     }
 }

@@ -62,7 +62,7 @@ namespace EverLite.Modules
 
         private bool CanShoot(int maxBullets)
         {
-            return GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) && bullets.Count < maxBullets;
+            return (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) || Keyboard.GetState().IsKeyDown(Keys.LeftControl)) && bullets.Count < maxBullets;
         }
 
         /// <summary>
