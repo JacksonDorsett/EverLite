@@ -2,9 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models.Enums
+namespace EverLite.Modules.Sprites
 {
-    using EverLite.Models.Sprites;
+    using EverLite.Modules.Sprites;
+    using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
 
     /// <summary>

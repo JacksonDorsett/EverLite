@@ -2,11 +2,11 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models
+namespace EverLite.Modules
 {
     using System.Collections.Generic;
-    using EverLite.Models.Enums;
-    using EverLite.Models.Sprites;
+    using EverLite.Modules.Enums;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -41,10 +41,10 @@ namespace EverLite.Models
 
             if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J))
             {
-                this.PlayerShoot();
+                PlayerShoot();
             }
 
-            this.UpdateBullets();
+            UpdateBullets();
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace EverLite.Models
         /// </summary>
         public void PlayerShoot()
         {
-            if (this.bullets.Count < 100)
+            if (bullets.Count < 100)
             {
-                this.bullets.Add(this.player.Shoot(this.mGame.Content.Load<Texture2D>(this.player.GetCurrentBulletType()), new Vector2(this.player.GetPosition().X, this.player.GetPosition().Y)));
+                bullets.Add(player.Shoot(mGame.Content.Load<Texture2D>(player.GetCurrentBulletType()), new Vector2(player.GetPosition().X, player.GetPosition().Y)));
             }
         }
 
@@ -63,20 +63,20 @@ namespace EverLite.Models
         /// </summary>
         public void UpdateBullets()
         {
-            foreach (Sprite bullet in this.bullets)
+            foreach (Sprite bullet in bullets)
             {
                 bullet.Position += bullet.Velocity;
-                if (Vector2.Distance(bullet.GetPosition(), this.player.GetPosition()) > 2000)
+                if (Vector2.Distance(bullet.GetPosition(), player.GetPosition()) > 2000)
                 {
                     bullet.SetIsVisible(false);
                 }
             }
 
-            for (int index = 0; index < this.bullets.Count; index++)
+            for (int index = 0; index < bullets.Count; index++)
             {
-                if (!this.bullets[index].GetIsVisible())
+                if (!bullets[index].GetIsVisible())
                 {
-                    this.bullets.RemoveAt(index);
+                    bullets.RemoveAt(index);
                     index--;
                 }
             }
@@ -89,8 +89,8 @@ namespace EverLite.Models
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            this.player.Draw(sprite);
-            foreach (Sprite bullet in this.bullets)
+            player.Draw(sprite);
+            foreach (Sprite bullet in bullets)
             {
                 bullet.Draw(sprite);
             }

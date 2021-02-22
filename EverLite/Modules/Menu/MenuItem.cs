@@ -2,8 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Menu
 {
+    using EverLite.Modules.Menu.Commands;
+
     /// <summary>
     /// Represents a single menu option.
     /// </summary>
@@ -30,7 +32,7 @@ namespace EverLite
         {
             get
             {
-                return this.mName;
+                return mName;
             }
         }
 
@@ -39,7 +41,7 @@ namespace EverLite
         /// </summary>
         public void Select()
         {
-            this.mCommand.Execute();
+            mCommand.Execute();
         }
     }
 }

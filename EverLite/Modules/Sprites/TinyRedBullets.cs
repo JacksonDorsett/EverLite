@@ -2,9 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models.Sprites
+namespace EverLite.Modules.Sprites
 {
-    using EverLite.Models.Enums;
+    using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -28,10 +28,10 @@ namespace EverLite.Models.Sprites
         /// <inheritdoc/>
         public override void Initialize(Texture2D texture, Vector2 position)
         {
-            this.Texture = texture;
-            this.Position = position;
-            this.SetVelocity();
-            this.SetPosition(position);
+            Texture = texture;
+            Position = position;
+            SetVelocity();
+            SetPosition(position);
         }
 
         /// <inheritdoc/>
@@ -42,23 +42,23 @@ namespace EverLite.Models.Sprites
         /// <inheritdoc/>
         public override void SetPosition(Vector2 playerPosition)
         {
-            this.Position = playerPosition + this.Velocity;
+            Position = playerPosition + Velocity;
         }
 
         /// <inheritdoc/>
         public override void SetVelocity()
         {
-            this.Velocity = new Vector2(0, -this.sVelocity);
+            Velocity = new Vector2(0, -sVelocity);
         }
 
         /// <inheritdoc/>
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.Texture.Width / 6;
-            origin.Y = this.Texture.Height / 6;
+            origin.X = Texture.Width / 6;
+            origin.Y = Texture.Height / 6;
 
-            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+            spriteBatch.Draw(Texture, Position, null, Color.White, angle, origin, scale, SpriteEffects.None, layerDepth);
         }
     }
 }

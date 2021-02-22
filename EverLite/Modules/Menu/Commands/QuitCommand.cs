@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Menu.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace EverLite
         /// <param name="game">Game to quit.</param>
         public QuitCommand(Game game)
         {
-            this.mGame = game;
+            mGame = game;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace EverLite
         /// </summary>
         public override void Execute()
         {
-            this.mGame.Exit();
+            mGame.Exit();
         }
     }
 }

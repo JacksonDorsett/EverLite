@@ -2,11 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.GameState
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -25,9 +26,9 @@ namespace EverLite
         /// <param name="game">context for gamestate.</param>
         public GameState(Game1 game)
         {
-            this.mContext = game.StateContext;
-            this.mGame = game;
-            this.spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            mContext = game.StateContext;
+            mGame = game;
+            spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace EverLite
         /// </summary>
         ~GameState()
         {
-            this.OnExit();
+            OnExit();
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace EverLite
         {
             get
             {
-                return this.mGame;
+                return mGame;
             }
         }
 
@@ -56,7 +57,7 @@ namespace EverLite
         {
             get
             {
-                return this.mGame.StateContext;
+                return mGame.StateContext;
             }
         }
 
@@ -67,7 +68,7 @@ namespace EverLite
         {
             get
             {
-                return this.spriteBatch;
+                return spriteBatch;
             }
         }
 

@@ -2,11 +2,12 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.GameState
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite;
     using Microsoft.Xna.Framework;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace EverLite
         /// <param name="game">context game object.</param>
         public GameStateContext(Game1 game)
         {
-            this.currentState = new MenuState(game);
+            currentState = new MenuState(game);
         }
 
         /// <summary>
@@ -34,12 +35,12 @@ namespace EverLite
         {
             get
             {
-                return this.currentState;
+                return currentState;
             }
 
             set
             {
-                this.currentState = value;
+                currentState = value;
             }
         }
 
@@ -49,7 +50,7 @@ namespace EverLite
         /// <param name="newState">Next state.</param>
         public void SetState(GameState newState)
         {
-            this.nextState = newState;
+            nextState = newState;
         }
 
         /// <summary>
@@ -58,8 +59,8 @@ namespace EverLite
         /// <param name="gameTime">game time in last game cycle.</param>
         public void Update(GameTime gameTime)
         {
-            this.UpdateState();
-            this.currentState.Update(gameTime);
+            UpdateState();
+            currentState.Update(gameTime);
         }
 
         /// <summary>
@@ -68,16 +69,16 @@ namespace EverLite
         /// <param name="gameTime">game time in last game cycle.</param>
         public void Draw(GameTime gameTime)
         {
-            this.currentState.Draw(gameTime);
+            currentState.Draw(gameTime);
         }
 
         private void UpdateState()
         {
-            if (this.nextState != null)
+            if (nextState != null)
             {
-                this.currentState = this.nextState;
-                this.nextState = null;
-                this.currentState.OnEnter();
+                currentState = nextState;
+                nextState = null;
+                currentState.OnEnter();
             }
         }
     }

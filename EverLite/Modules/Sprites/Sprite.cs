@@ -2,9 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models.Sprites
+namespace EverLite.Modules.Sprites
 {
-    using EverLite.Models.Enums;
+    using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
@@ -50,10 +50,10 @@ namespace EverLite.Models.Sprites
         /// <param name="type">Sets the spriteType.</param>
         public Sprite(bool active, float angle, float velocity, FactoryEnum type)
         {
-            this.IsVisible = active;
+            IsVisible = active;
             this.angle = angle;
-            this.sVelocity = velocity;
-            this.spriteType = type;
+            sVelocity = velocity;
+            spriteType = type;
         }
 
         /// <summary>
@@ -66,10 +66,10 @@ namespace EverLite.Models.Sprites
         /// <param name="active">is sprite visible.</param>
         public Sprite(float angle, float velocity, Texture2D texture, Vector2 position, bool active = true)
         {
-            this.IsVisible = active;
-            this.sVelocity = velocity;
-            this.Texture = texture;
-            this.Position = position;
+            IsVisible = active;
+            sVelocity = velocity;
+            Texture = texture;
+            Position = position;
             this.angle = angle;
 
         }
@@ -87,7 +87,7 @@ namespace EverLite.Models.Sprites
         /// <summary>
         /// Gets or sets a value indicating whether is visible.
         /// </summary>
-        protected bool IsVisible { get => this.isVisible; set => this.isVisible = value; }
+        protected bool IsVisible { get => isVisible; set => isVisible = value; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -104,7 +104,7 @@ namespace EverLite.Models.Sprites
         /// <returns>The enum of the spriteType.</returns>
         public FactoryEnum GetSpriteType()
         {
-            return this.spriteType;
+            return spriteType;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace EverLite.Models.Sprites
         /// <returns>Sprite's position.</returns>
         public Vector2 GetPosition()
         {
-            return this.Position;
+            return Position;
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace EverLite.Models.Sprites
         /// <returns>Sprite's velocity.</returns>
         public float GetsVelocity()
         {
-            return this.sVelocity;
+            return sVelocity;
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace EverLite.Models.Sprites
         /// <param name="value">True or False.</param>
         public void SetIsVisible(bool value)
         {
-            this.IsVisible = value;
+            IsVisible = value;
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace EverLite.Models.Sprites
         /// <returns>True or False.</returns>
         public bool GetIsVisible()
         {
-            return this.IsVisible;
+            return IsVisible;
         }
 
         /// <summary>

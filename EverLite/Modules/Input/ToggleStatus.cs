@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Input
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace EverLite
         /// <param name="pauseKey">selected key to pause the system.</param>
         public ToggleStatus(Keys pauseKey)
         {
-            this.mStatus = false;
+            mStatus = false;
             this.pauseKey = pauseKey;
         }
 
@@ -35,7 +35,7 @@ namespace EverLite
         {
             get
             {
-                return this.mStatus;
+                return mStatus;
             }
         }
 
@@ -44,12 +44,12 @@ namespace EverLite
         /// </summary>
         public void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(this.pauseKey) && !this.prevState.IsKeyDown(this.pauseKey))
+            if (Keyboard.GetState().IsKeyDown(pauseKey) && !prevState.IsKeyDown(pauseKey))
             {
-                this.mStatus = !this.mStatus;
+                mStatus = !mStatus;
             }
 
-            this.prevState = Keyboard.GetState();
+            prevState = Keyboard.GetState();
         }
 
     }

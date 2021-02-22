@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Menu
 {
     using System;
     using System.Collections.Generic;
@@ -25,9 +25,9 @@ namespace EverLite
         /// </summary>
         public Menu()
         {
-            this.mSelectedIndex = 0;
-            this.menuOptions = new List<MenuItem>();
-            this.isKeyDown = false;
+            mSelectedIndex = 0;
+            menuOptions = new List<MenuItem>();
+            isKeyDown = false;
         }
 
         /// <summary>
@@ -36,29 +36,29 @@ namespace EverLite
         /// <param name="gameTime">Gametime passed.</param>
         public void Update()
         {
-            if (this.menuOptions.Count != 0 && !this.isKeyDown)
+            if (menuOptions.Count != 0 && !isKeyDown)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Down) && this.mSelectedIndex < this.menuOptions.Count - 1)
+                if (Keyboard.GetState().IsKeyDown(Keys.Down) && mSelectedIndex < menuOptions.Count - 1)
                 {
-                    this.mSelectedIndex++;
+                    mSelectedIndex++;
                 }
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Up) && this.mSelectedIndex > 0)
+                if (Keyboard.GetState().IsKeyDown(Keys.Up) && mSelectedIndex > 0)
                 {
-                    this.mSelectedIndex--;
+                    mSelectedIndex--;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
-                    this.menuOptions[this.mSelectedIndex].Select();
+                    menuOptions[mSelectedIndex].Select();
                 }
 
-                this.isKeyDown = true;
+                isKeyDown = true;
             }
 
             if (!Keyboard.GetState().IsKeyDown(Keys.Down) && !Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                this.isKeyDown = false;
+                isKeyDown = false;
             }
         }
 
@@ -69,10 +69,10 @@ namespace EverLite
         /// <param name="font">Font of menu.</param>
         public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            for (int i = 0; i < this.menuOptions.Count; i++)
+            for (int i = 0; i < menuOptions.Count; i++)
             {
                 Color c;
-                if (i != this.mSelectedIndex)
+                if (i != mSelectedIndex)
                 {
                     c = Color.Red;
                 }
@@ -81,7 +81,7 @@ namespace EverLite
                     c = Color.White;
                 }
 
-                spriteBatch.DrawString(font, this.menuOptions[i].Name, new Vector2(100, 100 + (i * 100)), c);
+                spriteBatch.DrawString(font, menuOptions[i].Name, new Vector2(100, 100 + i * 100), c);
             }
         }
 
@@ -91,7 +91,7 @@ namespace EverLite
         /// <param name="item">item added.</param>
         public void AddMenuItem(MenuItem item)
         {
-            this.menuOptions.Add(item);
+            menuOptions.Add(item);
         }
     }
 }

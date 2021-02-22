@@ -18,7 +18,7 @@ namespace EverLite.Modules
     {
 
         private Game mGame;
-
+        private List<EnemyBatch> enemyBatches = new List<EnemyBatch>() { };
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
@@ -28,10 +28,7 @@ namespace EverLite.Modules
             this.mGame = game;
         }
 
-        /// <summary>
-        /// List of enemy batches.
-        /// </summary>
-        private List<EnemyBatch> EnemyBatches = new List<EnemyBatch>() { };
+
 
         /// <summary>
         /// Updates all enemy batches in the list.
@@ -41,7 +38,7 @@ namespace EverLite.Modules
         {
             GraphicsDevice graphics = this.mGame.GraphicsDevice;
             int enemiesCount = 0;
-            foreach (EnemyBatch enemyBatch in this.EnemyBatches)
+            foreach (EnemyBatch enemyBatch in this.enemyBatches)
             {
                 enemyBatch.Update(graphics, gameTime);
                 enemiesCount += enemyBatch.EnemiesList.Count;
@@ -54,7 +51,7 @@ namespace EverLite.Modules
             {
                 EnemyBatch enemyBatch = new EnemyBatch(this.mGame.Content, 1);
                 Enemy enemy = enemyBatch.CreateEnemy("regular", testVec);
-                this.EnemyBatches.Add(enemyBatch);
+                this.enemyBatches.Add(enemyBatch);
             }
 
             // TODO: add event system.
@@ -64,7 +61,7 @@ namespace EverLite.Modules
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
                 EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, "regular-alt", 8);
-                this.EnemyBatches.Add(enemyBatch);
+                this.enemyBatches.Add(enemyBatch);
             }
 
             // We are in the mid boss fight
@@ -82,7 +79,7 @@ namespace EverLite.Modules
         /// <param name="sprite"> sprite batch.</param>
         public void Draw(SpriteBatch sprite)
         {
-            foreach (EnemyBatch enemy in this.EnemyBatches)
+            foreach (EnemyBatch enemy in this.enemyBatches)
             {
                 enemy.Draw(sprite);
             }
@@ -95,7 +92,7 @@ namespace EverLite.Modules
         public int GetCurrentEnemyCount()
         {
             int count = 0;
-            foreach (EnemyBatch enemyBatch in this.EnemyBatches)
+            foreach (EnemyBatch enemyBatch in this.enemyBatches)
             {
                 count += enemyBatch.EnemiesList.Count;
             }
@@ -108,7 +105,7 @@ namespace EverLite.Modules
         /// </summary>
         public void ClearAllEnemies()
         {
-            this.EnemyBatches = new List<EnemyBatch>() { };
+            this.enemyBatches = new List<EnemyBatch>() { };
         }
 
         /// <summary>

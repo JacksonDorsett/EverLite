@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite.Models.Enums
+namespace EverLite.Modules.Enums
 {
     /// <summary>
     /// Used by the player to switch between bullet types.

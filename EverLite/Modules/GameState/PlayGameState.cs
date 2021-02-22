@@ -2,15 +2,17 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.GameState
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite;
     using EverLite.Audio;
-    using EverLite.Models;
-    using EverLite.Models.Sprites;
     using EverLite.Modules;
+    using EverLite.Modules.Graphics;
+    using EverLite.Modules.Input;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -34,10 +36,10 @@ namespace EverLite
         public PlayGameState(Game1 game)
             : base(game)
         {
-            this.scrollingBG = new ScrollingBG(game);
-            this.enemySystem = new EnemySystem(this.Game);
-            this.playerSystem = new PlayerSystem(this.Game);
-            this.pauseStatus = new ToggleStatus(Keys.Space);
+            scrollingBG = new ScrollingBG(game);
+            enemySystem = new EnemySystem(Game);
+            playerSystem = new PlayerSystem(Game);
+            pauseStatus = new ToggleStatus(Keys.Space);
         }
 
         /// <summary>
@@ -46,9 +48,9 @@ namespace EverLite
         /// <param name="gameTime">Time elapsed during game cycle.</param>
         public override void Draw(GameTime gameTime)
         {
-            this.scrollingBG.Draw(gameTime);
-            this.playerSystem.Draw(this.SpriteBatch);
-            this.enemySystem.Draw(this.SpriteBatch);
+            scrollingBG.Draw(gameTime);
+            playerSystem.Draw(SpriteBatch);
+            enemySystem.Draw(SpriteBatch);
         }
 
         /// <summary>
@@ -66,13 +68,13 @@ namespace EverLite
         public override void Update(GameTime gameTime)
         {
             // check if game is paused.
-            this.pauseStatus.Update();
+            pauseStatus.Update();
 
-            if (!this.pauseStatus.Status)
+            if (!pauseStatus.Status)
             {
-                this.playerSystem.Update(gameTime);
-                this.enemySystem.Update(gameTime);
-                this.scrollingBG.Update(gameTime);
+                playerSystem.Update(gameTime);
+                enemySystem.Update(gameTime);
+                scrollingBG.Update(gameTime);
             }
         }
 
@@ -81,7 +83,7 @@ namespace EverLite
         /// </summary>
         protected override void OnExit()
         {
-            BGM.Instance(this.Game).Stop();
+            BGM.Instance(Game).Stop();
         }
     }
 }

@@ -4,17 +4,14 @@
 
 namespace EverLite
 {
-    using System.Collections.Generic;
-    using EverLite.Models;
-    using EverLite.Models.Sprites;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
-    using Modules.Enemies;
-    using Modules;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using EverLite.Modules;
+    using EverLite.Modules.GameState;
+    using EverLite.Modules.Sprites;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// Main game class.

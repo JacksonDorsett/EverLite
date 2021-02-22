@@ -2,8 +2,9 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Graphics
 {
+    using EverLite;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -26,11 +27,11 @@ namespace EverLite
         public ScrollingBG(Game1 game)
         {
             this.game = game;
-            this.texture = this.game.Content.Load<Texture2D>("road");
-            this.r1 = this.texture.Bounds;
-            this.r2 = this.r1;
-            this.r1.Y = -this.r1.Height;
-            this.currentState = ScrollState.Start;
+            texture = this.game.Content.Load<Texture2D>("road");
+            r1 = texture.Bounds;
+            r2 = r1;
+            r1.Y = -r1.Height;
+            currentState = ScrollState.Start;
         }
 
         private enum ScrollState
@@ -45,10 +46,10 @@ namespace EverLite
         /// <param name="gameTime">Game time passed during game cycle.</param>
         public void Draw(GameTime gameTime)
         {
-            this.game.SpriteBatch.Begin();
-            this.game.SpriteBatch.Draw(this.texture, this.r1, Color.White);
-            this.game.SpriteBatch.Draw(this.texture, this.r2, Color.White);
-            this.game.SpriteBatch.End();
+            game.SpriteBatch.Begin();
+            game.SpriteBatch.Draw(texture, r1, Color.White);
+            game.SpriteBatch.Draw(texture, r2, Color.White);
+            game.SpriteBatch.End();
         }
 
         /// <summary>
@@ -57,20 +58,20 @@ namespace EverLite
         /// <param name="gameTime">Game time passed during game cycle.</param>
         public void Update(GameTime gameTime)
         {
-            if (this.currentState == ScrollState.Start)
+            if (currentState == ScrollState.Start)
             {
-                if (this.r1.Top > this.r1.Height)
+                if (r1.Top > r1.Height)
                 {
-                    this.r1.Y = this.r2.Top - this.r1.Height;
+                    r1.Y = r2.Top - r1.Height;
                 }
 
-                if (this.r2.Top > this.r1.Height)
+                if (r2.Top > r1.Height)
                 {
-                    this.r2.Y = this.r1.Top - this.r1.Height;
+                    r2.Y = r1.Top - r1.Height;
                 }
 
-                this.r1.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
-                this.r2.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
+                r1.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
+                r2.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
             }
         }
 
@@ -79,7 +80,7 @@ namespace EverLite
         /// </summary>
         public void Start()
         {
-            this.currentState = ScrollState.Start;
+            currentState = ScrollState.Start;
         }
 
         /// <summary>
@@ -87,12 +88,12 @@ namespace EverLite
         /// </summary>
         public void Stop()
         {
-            this.currentState = ScrollState.Stop;
+            currentState = ScrollState.Stop;
         }
 
         private Rectangle GetWindowSize()
         {
-            Rectangle r = this.game.Window.ClientBounds;
+            Rectangle r = game.Window.ClientBounds;
             r.X = 0;
             r.Y = 0;
             return r;

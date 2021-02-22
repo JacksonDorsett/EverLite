@@ -2,11 +2,13 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace EverLite
+namespace EverLite.Modules.Menu.Commands
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite;
+    using EverLite.Modules.GameState;
 
     /// <summary>
     /// Changes the state.
@@ -32,7 +34,7 @@ namespace EverLite
         /// </summary>
         public override void Execute()
         {
-            this.game.StateContext.SetState(this.state);
+            game.StateContext.SetState(state);
         }
     }
 }
