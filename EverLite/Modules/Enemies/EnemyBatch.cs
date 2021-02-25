@@ -17,16 +17,17 @@
         /// <summary>
         /// Content manager ref.
         /// </summary>
-        public ContentManager ContentManagerRef;
+        private Game game;
 
         protected Player mPlayer;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyBatch"/> class.
         /// </summary>
-        /// <param name="contentManager"> content manager ref.</param>
-        public EnemyBatch(ContentManager contentManager, Player player)
+        /// <param name="game"> Game reference object.</param>
+        /// <param name="player">player object.</param>
+        public EnemyBatch(Game game, Player player)
         {
-            this.ContentManagerRef = contentManager;
+            this.game = game;
             this.mPlayer = player;
             this.EnemiesList = new List<Enemy>() { };
         }
@@ -36,11 +37,11 @@
         /// </summary>
         /// <param name="number"> initial list capacity.</param>
         /// <param name="contentManager"> content manager ref.</param>
-        public EnemyBatch(ContentManager contentManager, int number, Player player)
+        public EnemyBatch(Game game, int number, Player player)
         {
-            this.ContentManagerRef = contentManager;
+            this.game = game;
             this.EnemiesList = new List<Enemy>(number) { };
-            mPlayer = player;
+            this.mPlayer = player;
         }
 
         /// <summary>
@@ -97,7 +98,7 @@
         /// <returns> enemy created.</returns>
         public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition, Player player)
         {
-            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.ContentManagerRef, newPosition, new EnemyBlaster(mPlayer, ContentManagerRef.Load<Texture2D>("TinyRed")));
+            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.game, newPosition, new EnemyBlaster(mPlayer, game.Content.Load<Texture2D>("TinyRed")));
             this.EnemiesList.Add(enemy);
             return enemy;
         }

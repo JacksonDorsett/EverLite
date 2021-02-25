@@ -28,6 +28,7 @@ namespace EverLite.Modules.Sprites
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
         private IBlaster blaster;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
         /// Sets isActive, angle, velocity, and spriteType fields.
@@ -99,6 +100,8 @@ namespace EverLite.Modules.Sprites
             spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
 
+        
+
         private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)
         {
             if (currentGamePadState.Buttons.Y == ButtonState.Pressed)
@@ -118,17 +121,8 @@ namespace EverLite.Modules.Sprites
 
         private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
         {
-            float speed = this.GetPlayerSpeed();
-
-            if (currentKeyboardState.IsKeyDown(Keys.G))
-            {
-                this.sVelocity = SLOWSPEED;
-            }
-
-            if (currentKeyboardState.IsKeyUp(Keys.G))
-            {
-                this.sVelocity = NORMALSPEED;
-            }
+            //sets the player speed based on the toggle state.
+            this.sVelocity = this.GetPlayerSpeed();
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {

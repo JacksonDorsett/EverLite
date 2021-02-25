@@ -37,7 +37,7 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// Reference to the content manager.
         /// </summary>
-        public ContentManager ContentManagerRef;
+        public Game mGame;
 
         /// <summary>
         /// position of an enemy.
@@ -72,18 +72,18 @@ namespace EverLite.Modules.Enemies
         public Random random = new Random();
         public int randX, randY;
 
-        public Enemy(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
+        public Enemy(Vector2 newPosition, Game game, IBlaster blaster)
         {
             this.Position = newPosition;
-            this.ContentManagerRef = contentManager;
-            this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
+            this.mGame = game;
+            this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
             this.blaster = blaster;
         }
 
-        public Enemy(ContentManager contentManager, IBlaster blaster)
+        public Enemy(Game game, IBlaster blaster)
         {
-            this.ContentManagerRef = contentManager;
-            this.Texture = this.ContentManagerRef.Load<Texture2D>(this.SpriteName);
+            this.mGame = game;
+            this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
             this.blaster = blaster;
         }
 

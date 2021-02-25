@@ -18,16 +18,16 @@ namespace EverLite.Modules.Enemies
         /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
-        public SimpleEnemyAlternative(ContentManager contentManager, IBlaster blaster)
-            : base(contentManager, blaster) { }
+        public SimpleEnemyAlternative(Game game, IBlaster blaster)
+            : base(game, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleEnemyAlternative"/> class.
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
-        public SimpleEnemyAlternative(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
-            : base(newPosition, contentManager, blaster) { }
+        public SimpleEnemyAlternative(Vector2 newPosition, Game game, IBlaster blaster)
+            : base(newPosition, game, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "enemy2";

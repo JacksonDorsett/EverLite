@@ -40,7 +40,7 @@ namespace EverLite.Modules
         {
             this.mGame = game;
             this.mPlayer = player;
-            bullets = new List<Sprite>();
+            this.bullets = new List<Sprite>();
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace EverLite.Modules
                 Random rand = new Random();
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame.Content, graphics, enemyTypes[this.lastEnemyType], 9, this.mPlayer);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame, enemyTypes[this.lastEnemyType], 9, this.mPlayer);
                 this.lastEnemyType = this.lastEnemyType == 0 ? 1 : 0;
                 this.enemyBatches.Add(enemyBatch);
             }
@@ -94,7 +94,7 @@ namespace EverLite.Modules
                 if (this.midBoss == null)
                 {
                     Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
-                    this.midBoss = EnemyFactory.CreateEnemy("mid-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
+                    this.midBoss = EnemyFactory.CreateEnemy("mid-boss", this.mGame, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
                     this.midBoss.ChangeTarget(enterTarget);
                 }
             }
@@ -109,7 +109,7 @@ namespace EverLite.Modules
                     this.DeleteEnemyAfterTime(this.midBoss, new TimeSpan(0, 0, 3));
 
                     Vector2 enterTarget = new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(graphics.Viewport.Height * 0.25));
-                    this.finalBoss = EnemyFactory.CreateEnemy("final-boss", this.mGame.Content, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
+                    this.finalBoss = EnemyFactory.CreateEnemy("final-boss", this.mGame, new Vector2((float)(graphics.Viewport.Width * 0.4), (float)(0 - (graphics.Viewport.Height * 0.1))), new EnemyBlaster(this.mPlayer, this.mGame.Content.Load<Texture2D>("TinyRed")));
                     this.finalBoss.ChangeTarget(enterTarget);
                 }
             }

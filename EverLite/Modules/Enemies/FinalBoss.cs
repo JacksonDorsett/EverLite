@@ -18,8 +18,8 @@ namespace EverLite.Modules.Enemies
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="blaster"> blaster for boss.</param>
-        public FinalBoss(ContentManager contentManager, IBlaster blaster)
-            : base(contentManager, blaster) { }
+        public FinalBoss(Game game, IBlaster blaster)
+            : base(game, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FinalBoss"/> class.
@@ -27,8 +27,8 @@ namespace EverLite.Modules.Enemies
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
         /// <param name="blaster"> blaster for the boss.</param>
-        public FinalBoss(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
-            : base(newPosition, contentManager, blaster) { }
+        public FinalBoss(Vector2 newPosition, Game game, IBlaster blaster)
+            : base(newPosition, game, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "final-boss";

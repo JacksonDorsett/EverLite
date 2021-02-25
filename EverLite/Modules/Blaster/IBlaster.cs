@@ -6,9 +6,6 @@ namespace EverLite.Modules.Blaster
 {
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Blaster Interface.
@@ -16,10 +13,16 @@ namespace EverLite.Modules.Blaster
     public interface IBlaster
     {
         /// <summary>
-        /// Shoot blaster.
+        /// Shoot interface.
         /// </summary>
+        /// <param name="position">position being fired from.</param>
+        /// <returns>returns the bullet sprite.</returns>
         public Sprite Shoot(Vector2 position);
 
+        /// <summary>
+        /// Updates the blaster interface.
+        /// </summary>
+        /// <param name="gameTime">gametime passed during the cycle.</param>
         public void Update(GameTime gameTime);
     }
 }

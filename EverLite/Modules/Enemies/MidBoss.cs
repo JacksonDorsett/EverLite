@@ -26,8 +26,8 @@ namespace EverLite.Modules.Enemies
         /// </summary>
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="blaster"> blaster for enemy.</param>
-        public MidBoss(ContentManager contentManager, IBlaster blaster)
-            : base(contentManager, blaster) { }
+        public MidBoss(Game game, IBlaster blaster)
+            : base(game, blaster) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MidBoss"/> class.
@@ -35,8 +35,8 @@ namespace EverLite.Modules.Enemies
         /// <param name="contentManager"> content manager ref.</param>
         /// <param name="newPosition"> new position.</param>
         /// <param name="blaster"> blast for enemy.</param>
-        public MidBoss(Vector2 newPosition, ContentManager contentManager, IBlaster blaster)
-            : base(newPosition, contentManager, blaster) { }
+        public MidBoss(Vector2 newPosition, Game game, IBlaster blaster)
+            : base(newPosition, game, blaster) { }
 
         /// <inheritdoc/>
         public override string SpriteName { get; set; } = "mid-boss";

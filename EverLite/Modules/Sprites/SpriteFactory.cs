@@ -4,8 +4,8 @@
 
 namespace EverLite.Modules.Sprites
 {
-    using EverLite.Modules.Sprites;
     using EverLite.Modules.Enums;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
 
     /// <summary>

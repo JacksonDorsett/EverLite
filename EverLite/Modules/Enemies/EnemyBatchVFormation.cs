@@ -23,7 +23,7 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// Reference to the graphics device.
         /// </summary>
-        public GraphicsDevice GraphicsDeviceRef;
+        private Game game;
 
         /// <summary>
         /// Precent of distance between enemies.
@@ -37,10 +37,10 @@ namespace EverLite.Modules.Enemies
         /// <param name="graphicsDevice"> references to the graphics device.</param>
         /// <param name="enemyType"> enemy type.</param>
         /// <param name="number"> initial list capacity.</param>
-        public EnemyBatchVFormation(ContentManager contentManager, GraphicsDevice graphicsDevice, string enemyType, int number, Player player)
-            : base(contentManager, number, player)
+        public EnemyBatchVFormation(Game game, string enemyType, int number, Player player)
+            : base(game, number, player)
         {
-            this.GraphicsDeviceRef = graphicsDevice;
+            this.game = game;
             this.CreateEnemies(enemyType, number);
         }
 
@@ -101,12 +101,12 @@ namespace EverLite.Modules.Enemies
             // Start from the top and drop down
             for (; i > 1; i -= 2)
             {
-                float precentWidth = (float)(this.GraphicsDeviceRef.Viewport.Width * distancePrecent);
-                float precentHeight = (float)(this.GraphicsDeviceRef.Viewport.Height * distancePrecent);
+                float precentWidth = (float)(this.game.GraphicsDevice.Viewport.Width * distancePrecent);
+                float precentHeight = (float)(this.game.GraphicsDevice.Viewport.Height * distancePrecent);
                 Enemy enemyLeft = this.EnemiesList[i - 1];
                 Enemy enemyRight = this.EnemiesList[i - 2];
                 enemyLeft.ChangePosition(new Vector2(0 + precentWidth, 0 + precentHeight));
-                enemyRight.ChangePosition(new Vector2(this.GraphicsDeviceRef.Viewport.Width - precentWidth, 0 + precentHeight));
+                enemyRight.ChangePosition(new Vector2(this.game.GraphicsDevice.Viewport.Width - precentWidth, 0 + precentHeight));
 
                 distancePrecent += 0.1;
             }
@@ -114,10 +114,10 @@ namespace EverLite.Modules.Enemies
             // Check if we have even or not number of enemies
             if (this.EnemiesList.Count % 2 != 0)
             {
-                float precentWidth = (float)(this.GraphicsDeviceRef.Viewport.Width * distancePrecent);
-                float precentHeight = (float)(this.GraphicsDeviceRef.Viewport.Height * distancePrecent);
+                float precentWidth = (float)(this.game.GraphicsDevice.Viewport.Width * distancePrecent);
+                float precentHeight = (float)(this.game.GraphicsDevice.Viewport.Height * distancePrecent);
                 Enemy enemy = this.EnemiesList[i - 1];
-                enemy.ChangePosition(new Vector2(this.GraphicsDeviceRef.Viewport.Width / 2, 0 + precentHeight));
+                enemy.ChangePosition(new Vector2(this.game.GraphicsDevice.Viewport.Width / 2, 0 + precentHeight));
             }
         }
 
