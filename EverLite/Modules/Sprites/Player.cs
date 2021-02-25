@@ -79,8 +79,11 @@ namespace EverLite.Modules.Sprites
         {
             this.blaster.Update(gameTime);
 
+            GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
+
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
+            this.UpdatePlayerPositionGamePad(currentGamePadState);
             this.UpdatePlayerPosition(currentKeyboardState);
         }
 
@@ -93,13 +96,39 @@ namespace EverLite.Modules.Sprites
             Vector2 origin;
             origin.X = this.Texture.Width / 6;
             origin.Y = this.Texture.Height / 6;
-            // Needed parameters when Draw(Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects effects, float layerDepth);
             spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+        }
+
+        private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)
+        {
+            if (currentGamePadState.Buttons.Y == ButtonState.Pressed)
+            {
+                this.sVelocity = SLOWSPEED;
+            }
+
+            if (currentGamePadState.Buttons.Y == ButtonState.Released)
+            {
+                this.sVelocity = NORMALSPEED;
+            }
+
+            this.Position.X += currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
+
+            this.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
         }
 
         private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
         {
             float speed = this.GetPlayerSpeed();
+
+            if (currentKeyboardState.IsKeyDown(Keys.G))
+            {
+                this.sVelocity = SLOWSPEED;
+            }
+
+            if (currentKeyboardState.IsKeyUp(Keys.G))
+            {
+                this.sVelocity = NORMALSPEED;
+            }
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {
