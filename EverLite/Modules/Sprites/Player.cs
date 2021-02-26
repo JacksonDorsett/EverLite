@@ -5,6 +5,7 @@
 namespace EverLite.Modules.Sprites
 {
     using System;
+    using System.Collections.Generic;
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Enums;
     using EverLite.Modules.Input;
@@ -18,6 +19,9 @@ namespace EverLite.Modules.Sprites
     /// </summary>
     public class Player : Sprite
     {
+        // instance
+        private static Dictionary<Game, Player> sPlayerRef;
+
         // constants
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
@@ -28,6 +32,11 @@ namespace EverLite.Modules.Sprites
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
         private IBlaster blaster;
+
+        static Player()
+        {
+            sPlayerRef = new Dictionary<Game, Player>();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -100,7 +109,20 @@ namespace EverLite.Modules.Sprites
             spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
         }
 
-        
+        /// <summary>
+        /// Gets instance of player for game object.
+        /// </summary>
+        /// <param name="game">game object.</param>
+        /// <returns>returns player associated with the game.</returns>
+        public static Player Instance(Game game)
+        {
+            if (!sPlayerRef.ContainsKey(game))
+            {
+                sPlayerRef[game] = new Player(game);
+            }
+
+            return sPlayerRef[game];
+        }
 
         private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)
         {
@@ -121,7 +143,7 @@ namespace EverLite.Modules.Sprites
 
         private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
         {
-            //sets the player speed based on the toggle state.
+            // sets the player speed based on the toggle state.
             this.sVelocity = this.GetPlayerSpeed();
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))

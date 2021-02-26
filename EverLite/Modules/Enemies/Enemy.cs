@@ -37,7 +37,7 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// Reference to the content manager.
         /// </summary>
-        public Game mGame;
+        public Game mGame { get; private set; }
 
         /// <summary>
         /// position of an enemy.

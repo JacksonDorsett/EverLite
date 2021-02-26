@@ -63,7 +63,7 @@
 
             while (number > 0)
             {
-                this.CreateEnemy(enemyType, new Vector2(0, 0),mPlayer);
+                this.CreateEnemy(enemyType, new Vector2(0, 0));
                 number--;
             }
         }
@@ -85,7 +85,7 @@
             while (number > 0)
             {
                 string enemyType = enemyTypes[rnd.Next(enemyTypes.Length)];
-                this.CreateEnemy(enemyType, new Vector2(0, 0), mPlayer);
+                this.CreateEnemy(enemyType, new Vector2(0, 0));
                 number--;
             }
         }
@@ -96,9 +96,9 @@
         /// <param name="enemyType"> type of an enemy to create.</param>
         /// <param name="newPosition"> new positon.</param>
         /// <returns> enemy created.</returns>
-        public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition, Player player)
+        public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition)
         {
-            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.game, newPosition, new EnemyBlaster(mPlayer, game.Content.Load<Texture2D>("TinyRed")));
+            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.game, newPosition, new EnemyBlaster(Player.Instance(this.game), game.Content.Load<Texture2D>("TinyRed")));
             this.EnemiesList.Add(enemy);
             return enemy;
         }

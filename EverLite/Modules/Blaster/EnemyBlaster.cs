@@ -16,6 +16,7 @@ namespace EverLite.Modules.Blaster
     public class EnemyBlaster : IBlaster
     {
         private Player player;
+        private Game game;
         private Texture2D texture;
         private double rateOfFire;
         private double timeElapsed;

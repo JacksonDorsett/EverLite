@@ -80,7 +80,7 @@ namespace EverLite.Modules
                 Random rand = new Random();
                 // Spawn early mobs
                 Vector2 velocity = new Vector2(-2.5F, 0);
-                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame, enemyTypes[this.lastEnemyType], 9, this.mPlayer);
+                EnemyBatchVFormation enemyBatch = new EnemyBatchVFormation(this.mGame, enemyTypes[this.lastEnemyType], 9);
                 this.lastEnemyType = this.lastEnemyType == 0 ? 1 : 0;
                 this.enemyBatches.Add(enemyBatch);
             }
