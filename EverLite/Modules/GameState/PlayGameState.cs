@@ -10,6 +10,7 @@ namespace EverLite.Modules.GameState
     using EverLite;
     using EverLite.Audio;
     using EverLite.Modules;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Graphics;
     using EverLite.Modules.Input;
     using EverLite.Modules.Sprites;

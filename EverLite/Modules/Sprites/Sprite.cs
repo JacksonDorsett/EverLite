@@ -22,19 +22,12 @@ namespace EverLite.Modules.Sprites
         /// <summary>
         /// Reflects the direction the object's picture is pointing.
         /// </summary>
-        protected float angle;
+        public float angle;
 
         /// <summary>
         /// Holds the object's velocity.
         /// </summary>
         protected float sVelocity;
-
-        /// <summary>
-        /// Holds the object's specific FactoryEnum type.
-        /// </summary>
-        //protected FactoryEnum spriteType;
-
-
 
         /// <summary>
         /// Reflects the onscreen status.
@@ -102,7 +95,6 @@ namespace EverLite.Modules.Sprites
         /// Gets or sets a value indicating whether is visible.
         /// </summary>
         protected bool IsVisible { get => isVisible; set => isVisible = value; }
-        //public Vector2 Position { get => position; set => position = value; }
 
         /// <summary>
         /// Sets up the object Texture2D and space-time placement.
@@ -114,22 +106,12 @@ namespace EverLite.Modules.Sprites
         }
 
         /// <summary>
-        /// This class was built for testing purposes.
-        /// </summary>
-        /// <returns>The enum of the spriteType.</returns>
-         /*
-        public FactoryEnum GetSpriteType()
-        {
-            return spriteType;
-        }
-         */
-        /// <summary>
         /// Get's the instance's current position.
         /// </summary>
         /// <returns>Sprite's position.</returns>
         public Vector2 GetPosition()
         {
-            return Position;
+            return this.Position;
         }
 
         /// <summary>
@@ -138,7 +120,12 @@ namespace EverLite.Modules.Sprites
         /// <returns>Sprite's velocity.</returns>
         public float GetsVelocity()
         {
-            return sVelocity;
+            return this.sVelocity;
+        }
+
+        public void SetsVelocity(float speed)
+        {
+            this.sVelocity = speed;
         }
 
         /// <summary>
@@ -162,7 +149,7 @@ namespace EverLite.Modules.Sprites
         /// <param name="value">True or False.</param>
         public void SetIsVisible(bool value)
         {
-            IsVisible = value;
+            this.IsVisible = value;
         }
 
         /// <summary>
@@ -171,7 +158,7 @@ namespace EverLite.Modules.Sprites
         /// <returns>True or False.</returns>
         public bool GetIsVisible()
         {
-            return IsVisible;
+            return this.IsVisible;
         }
 
         /// <summary>
@@ -180,7 +167,7 @@ namespace EverLite.Modules.Sprites
         /// <param name="gameTime">SpriteBatch source.</param>
         public virtual void Update(GameTime gameTime)
         {
-            Position += Velocity;
+            this.Position += this.Velocity;
         }
 
         /// <summary>
