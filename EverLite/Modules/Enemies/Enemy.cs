@@ -17,6 +17,7 @@ namespace EverLite.Modules.Enemies
     internal abstract class Enemy
     {
         private IBlaster blaster;
+        private Lifespan lifespan;
 
         public IBlaster Blaster
         {
@@ -72,19 +73,21 @@ namespace EverLite.Modules.Enemies
         public Random random = new Random();
         public int randX, randY;
 
-        public Enemy(Vector2 newPosition, Game game, IBlaster blaster)
+        public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
         {
             this.Position = newPosition;
             this.mGame = game;
             this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
             this.blaster = blaster;
+            this.lifespan = new Lifespan(lifetime);
         }
 
-        public Enemy(Game game, IBlaster blaster)
+        public Enemy(Game game, IBlaster blaster, double lifetime = 10)
         {
             this.mGame = game;
             this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
             this.blaster = blaster;
+            this.lifespan = new Lifespan(lifetime);
         }
 
         /// <summary>
@@ -102,6 +105,7 @@ namespace EverLite.Modules.Enemies
         /// <param name="gameTime"> gametime.</param>
         public virtual void Update(GraphicsDevice graphics, GameTime gameTime)
         {
+            this.lifespan.Update(gameTime);
             this.blaster.Update(gameTime);
             if (this.IsTargetting)
             {

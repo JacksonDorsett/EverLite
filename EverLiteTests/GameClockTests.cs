@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EverLiteTests
 {
-    public class Tests
+    public class GameClockTests
     {
         [SetUp]
         public void Setup()
