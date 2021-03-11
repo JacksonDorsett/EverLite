@@ -18,7 +18,7 @@ namespace EverLite.Modules.Enemies
     {
         private IBlaster blaster;
         private Lifespan lifespan;
-
+        protected SpriteN enemySprite;
         public IBlaster Blaster
         {
             get
@@ -75,9 +75,10 @@ namespace EverLite.Modules.Enemies
 
         public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
         {
+
             this.Position = newPosition;
             this.mGame = game;
-            this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
+            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>(this.SpriteName));
             this.blaster = blaster;
             this.lifespan = new Lifespan(lifetime);
         }
@@ -85,7 +86,7 @@ namespace EverLite.Modules.Enemies
         public Enemy(Game game, IBlaster blaster, double lifetime = 10)
         {
             this.mGame = game;
-            this.Texture = this.mGame.Content.Load<Texture2D>(this.SpriteName);
+            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>(this.SpriteName));
             this.blaster = blaster;
             this.lifespan = new Lifespan(lifetime);
         }
@@ -265,7 +266,8 @@ namespace EverLite.Modules.Enemies
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            sprite.Draw(this.Texture, this.Position, Color.White);
+            enemySprite.Draw(sprite,Position);
+            //sprite.Draw(this.Texture, this.Position, Color.White);
             sprite.End();
         }
 

@@ -17,7 +17,7 @@ namespace EverLite.Modules.Sprites
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
-    public class Player : Sprite
+    public class Player
     {
         // instance
         private static Dictionary<Game, Player> sPlayerRef;
@@ -29,9 +29,11 @@ namespace EverLite.Modules.Sprites
         private readonly float layerDepth = 0.0f;
         private int screenWidth;
         private int screenHeight;
+        private Vector2 mPosition;
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
         private IBlaster blaster;
+        private SpriteN playerSprite;
 
         static Player()
         {
@@ -44,7 +46,6 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 0, NORMALSPEED)
         {
         }
 
@@ -53,26 +54,15 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="game">game reference object.</param>
         public Player(Game game)
-            : base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
+            //: base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
         {
             this.mGame = game;
-            this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), this.GetPlayerLocation());
-
+            this.SetGameBoundary();
+            this.mPosition = new Vector2(screenWidth / 2, 3 * screenHeight / 4);
+            this.playerSprite = new SpriteN(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)));
             // initialize components
             this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
             this.slowSpeedStatus = new ToggleStatus(Keys.G);
-        }
-
-        /// <summary>
-        /// This combines the Texture2D and Rectangle objects into the player for control.
-        /// </summary>
-        /// <param name="texture">The picture of the player object.</param>
-        /// <param name="position">Starting position for the player object.</param>
-        public override void Initialize(Texture2D texture, Vector2 position)
-        {
-            this.Texture = texture;
-            this.Position = position;
-            this.SetGameBoundary();
         }
 
         /// <summary>
@@ -81,11 +71,11 @@ namespace EverLite.Modules.Sprites
         /// <returns>returns the bullet that was shot.</returns>
         public Sprite Shoot()
         {
-            return this.blaster.Shoot(this.Position);
+            return this.blaster.Shoot(this.mPosition);
         }
 
         /// <inheritdoc/>
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             this.blaster.Update(gameTime);
 
@@ -97,16 +87,19 @@ namespace EverLite.Modules.Sprites
             this.UpdatePlayerPosition(currentKeyboardState);
         }
 
+        public Vector2 GetPosition()
+        {
+            return this.mPosition;
+        }
         /// <summary>
         /// Draws the Player.
         /// </summary>
         /// <param name="spriteBatch">sprite batch being drawn to.</param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.Texture.Width / 6;
-            origin.Y = this.Texture.Height / 6;
-            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+
+            this.playerSprite.Draw(spriteBatch, this.mPosition,.5f);
         }
 
         /// <summary>
@@ -126,44 +119,45 @@ namespace EverLite.Modules.Sprites
 
         private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)
         {
+            float speed = NORMALSPEED;
             if (currentGamePadState.Buttons.Y == ButtonState.Pressed)
             {
-                this.sVelocity = SLOWSPEED;
+                speed = SLOWSPEED;
             }
 
-            if (currentGamePadState.Buttons.Y == ButtonState.Released)
-            {
-                this.sVelocity = NORMALSPEED;
-            }
+            //if (currentGamePadState.Buttons.Y == ButtonState.Released)
+            //{
+            //    speed = NORMALSPEED;
+            //}
 
-            this.Position.X += currentGamePadState.ThumbSticks.Left.X * this.sVelocity;
+            this.mPosition.X += currentGamePadState.ThumbSticks.Left.X * speed;
 
-            this.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * this.sVelocity;
+            this.mPosition.Y -= currentGamePadState.ThumbSticks.Left.Y * speed;
         }
 
         private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
         {
             // sets the player speed based on the toggle state.
-            this.sVelocity = this.GetPlayerSpeed();
+            float sVelocity = this.GetPlayerSpeed();
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {
-                this.Position.X -= this.sVelocity;
+                this.mPosition.X -= sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
             {
-                this.Position.X += this.sVelocity;
+                this.mPosition.X += sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
             {
-                this.Position.Y -= this.sVelocity;
+                this.mPosition.Y -= sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
             {
-                this.Position.Y += this.sVelocity;
+                this.mPosition.Y += sVelocity;
             }
 
             this.CheckPlayerBoundry();
@@ -196,24 +190,24 @@ namespace EverLite.Modules.Sprites
 
         private void CheckPlayerBoundry()
         {
-            if (this.Position.X <= 15)
+            if (this.mPosition.X <= 15)
             {
-                this.Position.X = 15;
+                this.mPosition.X = 15;
             }
 
-            if (this.Position.Y <= 0)
+            if (this.mPosition.Y <= 0)
             {
-                this.Position.Y = 0;
+                this.mPosition.Y = 0;
             }
 
-            if (this.Position.X + this.Texture.Width >= this.screenWidth)
+            if (this.mPosition.X >= this.screenWidth)
             {
-                this.Position.X = this.screenWidth - this.Texture.Width;
+                this.mPosition.X = this.screenWidth;
             }
 
-            if (this.Position.Y + this.Texture.Height >= this.screenHeight)
+            if (this.mPosition.Y >= this.screenHeight)
             {
-                this.Position.Y = this.screenHeight - this.Texture.Height;
+                this.mPosition.Y = this.screenHeight;
             }
         }
     }

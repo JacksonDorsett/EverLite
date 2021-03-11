@@ -28,7 +28,7 @@ namespace EverLite.Modules
         public PlayerSystem(Game game)
         {
             this.mGame = game;
-            this.player = new Player(game);
+            this.player = Player.Instance(game);
         }
 
         /// <summary>
@@ -79,11 +79,11 @@ namespace EverLite.Modules
                 }
             }
 
-            for (int index = 0; index < bullets.Count; index++)
+            for (int index = 0; index < this.bullets.Count; index++)
             {
-                if (!bullets[index].GetIsVisible())
+                if (!this.bullets[index].GetIsVisible())
                 {
-                    bullets.RemoveAt(index);
+                    this.bullets.RemoveAt(index);
                     index--;
                 }
             }
@@ -97,7 +97,7 @@ namespace EverLite.Modules
         {
             sprite.Begin();
             player.Draw(sprite);
-            foreach (Sprite bullet in bullets)
+            foreach (Sprite bullet in this.bullets)
             {
                 bullet.Draw(sprite);
             }

@@ -18,7 +18,7 @@ namespace EverLite.Modules.Enemies
     internal class MidBoss : Enemy
     {
         private BossStateEnum currentState = BossStateEnum.Entering;
-
+        private Vector2 Velocity;
         public float lowerBoundryY = 0;
 
         /// <summary>
@@ -44,6 +44,9 @@ namespace EverLite.Modules.Enemies
         /// <inheritdoc/>
         public override bool IsVisible { get; set; } = true;
 
+        public void ChangeVelocity(Vector2 newVelocity) {
+            this.Velocity = newVelocity;
+        }
 
         /// <summary>
         /// Update function to update the enemy.
@@ -111,7 +114,7 @@ namespace EverLite.Modules.Enemies
             {
                 this.Velocity.X = Math.Abs(this.Velocity.X);
             }
-            else if (this.Position.X + this.Texture.Width > (float)(graphics.Viewport.Width * 0.9))
+            else if (this.Position.X + this.enemySprite.Texture.Width > (float)(graphics.Viewport.Width * 0.9))
             {
                 this.Velocity.X = -Math.Abs(this.Velocity.X);
             }
