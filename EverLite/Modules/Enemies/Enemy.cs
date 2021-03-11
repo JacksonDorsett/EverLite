@@ -16,9 +16,10 @@ namespace EverLite.Modules.Enemies
     /// </summary>
     internal abstract class Enemy
     {
+        protected SpriteN enemySprite;
         private IBlaster blaster;
         private Lifespan lifespan;
-        protected SpriteN enemySprite;
+
         public IBlaster Blaster
         {
             get
@@ -30,10 +31,6 @@ namespace EverLite.Modules.Enemies
                 this.blaster = value;
             }
         }
-        /// <summary>
-        /// Gets or sets texture of an enemy.
-        /// </summary>
-        public Texture2D Texture { get; set; }
 
         /// <summary>
         /// Reference to the content manager.
@@ -43,7 +40,7 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// position of an enemy.
         /// </summary>
-        public Vector2 Position;
+        public Vector2 Position { get; internal set; }
 
         /// <summary>
         /// velocity of an enemy.
@@ -70,8 +67,6 @@ namespace EverLite.Modules.Enemies
         /// </summary>
         public bool IsTargetting { get; set; }
 
-        public Random random = new Random();
-        public int randX, randY;
 
         public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
         {
@@ -160,14 +155,7 @@ namespace EverLite.Modules.Enemies
             this.Position = newPosition;
         }
 
-        /// <summary>
-        /// Function that sets new texture.
-        /// </summary>
-        /// <param name="newTexture"> new velocity to set.</param>
-        public void ChangeTexture(Texture2D newTexture)
-        {
-            this.Texture = newTexture;
-        }
+
 
         /// <summary>
         /// Function that sets new target position.

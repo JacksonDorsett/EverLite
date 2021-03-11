@@ -32,6 +32,7 @@ namespace EverLite.Modules
 
         private Player mPlayer;
         private List<Sprite> bullets;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
