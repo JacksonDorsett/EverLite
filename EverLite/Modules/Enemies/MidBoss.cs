@@ -92,7 +92,69 @@ namespace EverLite.Modules.Enemies
 
             this.Blaster.Update(gameTime);
         }
+        /// <summary>
+        /// Moves enemy to the target.
+        /// </summary>
+        public virtual void MoveToTarget()
+        {
+            if (this.Velocity.X > 0)
+            {
+                // calcualte velocity for X.
+                if (this.Position.X > this.TargetPosition.X)
+                {
+                    float xDiff = this.Position.X - this.Velocity.X;
+                    if (xDiff < this.TargetPosition.X)
+                    {
+                        this.Position.X = this.TargetPosition.X;
+                    }
+                    else
+                    {
+                        this.Position.X -= this.Velocity.X;
+                    }
+                }
+                else if (this.Position.X < this.TargetPosition.X)
+                {
+                    float xDiff = this.Position.X + this.Velocity.X;
+                    if (xDiff > this.TargetPosition.X)
+                    {
+                        this.Position.X = this.TargetPosition.X;
+                    }
+                    else
+                    {
+                        this.Position.X += this.Velocity.X;
+                    }
+                }
+            }
 
+            if (this.Velocity.Y > 0)
+            {
+                // calcualte velocity for Y.
+                if (this.Position.Y > this.TargetPosition.Y)
+                {
+                    float yDiff = this.Position.Y - this.Velocity.Y;
+                    if (yDiff < this.TargetPosition.Y)
+                    {
+                        this.Position.Y = this.TargetPosition.Y;
+                    }
+                    else
+                    {
+                        this.Position.Y -= this.Velocity.Y;
+                    }
+                }
+                else if (this.Position.Y < this.TargetPosition.Y)
+                {
+                    float yDiff = this.Position.Y + this.Velocity.Y;
+                    if (yDiff > this.TargetPosition.Y)
+                    {
+                        this.Position.Y = this.TargetPosition.Y;
+                    }
+                    else
+                    {
+                        this.Position.Y += this.Velocity.Y;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// Starts movement pattern 1.
         /// </summary>
