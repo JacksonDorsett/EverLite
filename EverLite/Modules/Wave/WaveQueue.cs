@@ -35,7 +35,7 @@ namespace EverLite.Modules.Wave
         {
             get
             {
-                if (q.Count == 0 || this.gameClock.ElapsedTime.TotalSeconds > this.q.Values[0].StartTime)
+                if (this.q.Count == 0 || this.gameClock.ElapsedTime.TotalSeconds > this.q.Values[0].StartTime)
                 {
                     return false;
                 }
@@ -43,6 +43,11 @@ namespace EverLite.Modules.Wave
                 return true;
             }
         }
+
+        /// <summary>
+        /// Gets the number of queued waves.
+        /// </summary>
+        public int Count { get => this.q.Count; }
 
         /// <summary>
         /// Precondition: time passed must exceed head wave.

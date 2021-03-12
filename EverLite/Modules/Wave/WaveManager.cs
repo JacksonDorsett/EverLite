@@ -16,7 +16,6 @@ namespace EverLite
     /// </summary>
     public class WaveManager : GameComponent
     {
-
         private List<Wave> activeWaves;
         private GameClock clock;
         private WaveQueue queue;
@@ -33,9 +32,27 @@ namespace EverLite
             this.queue = new WaveQueue(this.clock);
         }
 
-        public void AddWave(Wave wave)
-        {
+        /// <summary>
+        /// Gets number of active waves.
+        /// </summary>
+        public int CountActive { get => this.activeWaves.Count; }
 
+        /// <summary>
+        /// Gets number of queued waves.
+        /// </summary>
+        public int CountQueued { get => this.queue.Count; }
+
+        /// <summary>
+        /// Adds wave to wave manager.
+        /// </summary>
+        /// <param name="wave">wave to be added.</param>
+        /// <returns>returns if the wave was successully added.</returns>
+        public bool AddWave(Wave wave)
+        {
+            if (wave.StartTime < this.clock.ElapsedTime.TotalSeconds) return false;
+
+            this.queue.Add(wave);
+            return true;
         }
 
         public override void Initialize()
