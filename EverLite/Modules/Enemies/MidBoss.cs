@@ -106,6 +106,7 @@ namespace EverLite.Modules.Enemies
                     if (xDiff < this.TargetPosition.X)
                     {
                         this.Position.X = this.TargetPosition.X;
+                        
                     }
                     else
                     {
@@ -191,6 +192,26 @@ namespace EverLite.Modules.Enemies
         {
             this.ChangeVelocity(new Vector2(0, -15));
             this.currentState = BossStateEnum.Leaving;
+        }
+
+        private void CheckBoundries(GraphicsDevice graphics)
+        {
+
+            if (this.Position.Y <= 0)
+            {
+                this.Velocity.Y = -this.Velocity.Y;
+            }
+
+            if (this.Position.X < 0 || this.Position.X > graphics.Viewport.Width)
+            {
+                this.Velocity.X = -this.Velocity.X;
+            }
+
+            if (this.Position.Y > graphics.Viewport.Height || this.Position.Y <= 0 || this.Position.X > graphics.Viewport.Width || this.Position.X < 0)
+            {
+                this.IsVisible = false;
+            }
+
         }
     }
 }

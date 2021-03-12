@@ -9,7 +9,7 @@ namespace EverLite.Modules.Sprites
     using System.Text;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    class SpriteN
+    public class SpriteN
     {
         private Texture2D mTexture;
 

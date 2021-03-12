@@ -14,7 +14,7 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    internal abstract class Enemy
+    public abstract class Enemy
     {
         protected SpriteN enemySprite;
         private IBlaster blaster;
@@ -40,12 +40,12 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// position of an enemy.
         /// </summary>
-        public Vector2 Position { get; internal set; }
+        public Vector2 Position;
 
         /// <summary>
         /// velocity of an enemy.
         /// </summary>
-        public Vector2 Velocity = new Vector2(0, 0);
+        //public Vector2 Velocity = new Vector2(0, 0);
 
         /// <summary>
         /// Target position for the enemy to reach.
@@ -70,7 +70,6 @@ namespace EverLite.Modules.Enemies
 
         public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
         {
-
             this.Position = newPosition;
             this.mGame = game;
             this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>(this.SpriteName));
@@ -109,33 +108,17 @@ namespace EverLite.Modules.Enemies
             }
             else
             {
-                this.Position += this.Velocity;
+                //this.Position += this.Velocity;
             }
 
-            this.CheckBoundries(graphics);
+            //this.CheckBoundries(graphics);
         }
 
         /// <summary>
         /// Checks if we crossed the boundries.
         /// </summary>
         /// <param name="graphics"> graphics device.</param>
-        public virtual void CheckBoundries(GraphicsDevice graphics)
-        {
-            if (this.Position.Y <= 0)
-            {
-                this.Velocity.Y = -this.Velocity.Y;
-            }
-
-            if (this.Position.X < 0 || this.Position.X > graphics.Viewport.Width)
-            {
-                this.Velocity.X = -this.Velocity.X;
-            }
-
-            if (this.Position.Y > graphics.Viewport.Height || this.Position.Y <= 0 || this.Position.X > graphics.Viewport.Width || this.Position.X < 0)
-            {
-                this.IsVisible = false;
-            }
-        }
+        
 
         /// <summary>
         /// Function that sets new velocity.
@@ -143,7 +126,7 @@ namespace EverLite.Modules.Enemies
         /// <param name="newVelocity"> new velocity to set.</param>
         public void ChangeVelocity(Vector2 newVelocity)
         {
-            this.Velocity = newVelocity;
+            //this.Velocity = newVelocity;
         }
 
         /// <summary>
