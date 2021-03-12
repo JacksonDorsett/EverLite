@@ -5,6 +5,7 @@
 namespace EverLite.Modules.Enemies
 {
     using System;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
@@ -14,7 +15,7 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    public abstract class Enemy
+    public class Enemy
     {
         protected SpriteN enemySprite;
         private IBlaster blaster;
@@ -31,6 +32,15 @@ namespace EverLite.Modules.Enemies
                 this.blaster = value;
             }
         }
+        
+        /// <summary>
+        /// Movement associated with the enemy.
+        /// </summary>
+        public IMovement Movement
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Reference to the content manager.
@@ -43,11 +53,6 @@ namespace EverLite.Modules.Enemies
         public Vector2 Position;
 
         /// <summary>
-        /// velocity of an enemy.
-        /// </summary>
-        //public Vector2 Velocity = new Vector2(0, 0);
-
-        /// <summary>
         /// Target position for the enemy to reach.
         /// </summary>
         public Vector2 TargetPosition;
@@ -55,12 +60,12 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// Gets or sets sprite name of an enemy.
         /// </summary>
-        public abstract string SpriteName { get; set; }
+        public string SpriteName { get; set; }
 
         /// <summary>
         /// Gets or sets visibility of an enemy.
         /// </summary>
-        public abstract bool IsVisible { get; set; }
+        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether enemy is targeting.
@@ -85,6 +90,14 @@ namespace EverLite.Modules.Enemies
             this.lifespan = new Lifespan(lifetime);
         }
 
+        public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
+        {
+            this.Blaster = blaster;
+            this.enemySprite = sprite;
+            this.Movement = movement;
+            this.lifespan = new Lifespan(lifespan);
+        }
+
         /// <summary>
         /// Shoot blasters.
         /// </summary>
@@ -100,33 +113,9 @@ namespace EverLite.Modules.Enemies
         /// <param name="gameTime"> gametime.</param>
         public virtual void Update(GraphicsDevice graphics, GameTime gameTime)
         {
+            this.Position = this.Movement.GetPosition(this.lifespan.Halflife);
             this.lifespan.Update(gameTime);
             this.blaster.Update(gameTime);
-            if (this.IsTargetting)
-            {
-
-            }
-            else
-            {
-                //this.Position += this.Velocity;
-            }
-
-            //this.CheckBoundries(graphics);
-        }
-
-        /// <summary>
-        /// Checks if we crossed the boundries.
-        /// </summary>
-        /// <param name="graphics"> graphics device.</param>
-        
-
-        /// <summary>
-        /// Function that sets new velocity.
-        /// </summary>
-        /// <param name="newVelocity"> new velocity to set.</param>
-        public void ChangeVelocity(Vector2 newVelocity)
-        {
-            //this.Velocity = newVelocity;
         }
 
         /// <summary>
@@ -173,15 +162,14 @@ namespace EverLite.Modules.Enemies
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            this.enemySprite.Draw(sprite, Position);
-            
+            this.enemySprite.Draw(sprite, this.Position);
             sprite.End();
         }
 
         /// <summary>
         /// Leave the map.
         /// </summary>
-        public virtual void LeaveMap()
+        public void LeaveMap()
         {
             return;
         }

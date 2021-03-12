@@ -30,7 +30,7 @@ namespace EverLite.Modules.Wave
 
         public Enemy Spawn()
         {
-            return null;
+            return new Enemy(this.sprite, this.blaster, this.movement, this.lifespan);
         }
     }
 }

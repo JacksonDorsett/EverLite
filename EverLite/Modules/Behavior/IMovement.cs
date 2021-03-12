@@ -20,6 +20,6 @@ namespace EverLite.Modules.Behavior
         /// </summary>
         /// <param name="halfLife">Halflife represents the percentage an object is through its lifetime.</param>
         /// <returns>returns the position along the path.</returns>
-        Vector2 GetPosition(float halfLife);
+        Vector2 GetPosition(double halfLife);
     }
 }

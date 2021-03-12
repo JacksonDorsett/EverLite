@@ -27,9 +27,9 @@ namespace EverLite.Modules.Behavior
         }
 
         // inheritdoc
-        public Vector2 GetPosition(float halfLife)
+        public Vector2 GetPosition(double halfLife)
         {
-            return this.mInitialPos + (halfLife * this.diff);
+            return this.mInitialPos + ((float)halfLife * this.diff);
         }
     }
 }

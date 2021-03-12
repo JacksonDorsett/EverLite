@@ -39,10 +39,10 @@ namespace EverLite.Modules.Enemies
             : base(newPosition, game, blaster) { }
 
         /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "mid-boss";
+        public string SpriteName { get; set; } = "mid-boss";
 
         /// <inheritdoc/>
-        public override bool IsVisible { get; set; } = true;
+        public bool IsVisible { get; set; } = true;
 
         public void ChangeVelocity(Vector2 newVelocity) {
             this.Velocity = newVelocity;
@@ -188,7 +188,7 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// Leaves the map.
         /// </summary>
-        public override void LeaveMap()
+        public void LeaveMap()
         {
             this.ChangeVelocity(new Vector2(0, -15));
             this.currentState = BossStateEnum.Leaving;

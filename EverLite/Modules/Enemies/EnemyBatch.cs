@@ -150,7 +150,7 @@
             float[] exitSpeed = new float[] { -7, 7 };
             foreach (Enemy enemy in this.EnemiesList)
             {
-                enemy.ChangeVelocity(new Vector2(exitSpeed[rand.Next(0, 1)], 0));
+                //enemy.ChangeVelocity(new Vector2(exitSpeed[rand.Next(0, 1)], 0));
             }
         }
     }

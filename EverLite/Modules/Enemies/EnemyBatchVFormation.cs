@@ -59,7 +59,7 @@ namespace EverLite.Modules.Enemies
             while (number > 0)
             {
                 Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0));
-                enemy.ChangeVelocity(this.Velocity);
+                //enemy.ChangeVelocity(this.Velocity);
                 number--;
             }
 
@@ -82,7 +82,7 @@ namespace EverLite.Modules.Enemies
             while (number > 0)
             {
                 Enemy enemy = this.CreateEnemy(enemyType, new Vector2(0, 0));
-                enemy.ChangeVelocity(newVelocity);
+                //enemy.ChangeVelocity(newVelocity);
                 number--;
             }
 
@@ -129,7 +129,7 @@ namespace EverLite.Modules.Enemies
         {
             foreach (Enemy enemy in this.EnemiesList)
             {
-                enemy.ChangeVelocity(new Vector2(newVelocity.X, 0));
+                //enemy.ChangeVelocity(new Vector2(newVelocity.X, 0));
             }
         }
 
@@ -145,15 +145,15 @@ namespace EverLite.Modules.Enemies
             {
                 Enemy enemyLeft = this.EnemiesList[i - 1];
                 Enemy enemyRight = this.EnemiesList[i - 2];
-                enemyLeft.ChangeVelocity(new Vector2(-8, 0));
-                enemyRight.ChangeVelocity(new Vector2(8, 0));
+                //enemyLeft.ChangeVelocity(new Vector2(-8, 0));
+                //enemyRight.ChangeVelocity(new Vector2(8, 0));
             }
 
             // Check if we have even or not number of enemies
             if (this.EnemiesList.Count % 2 != 0)
             {
                 Enemy enemy = this.EnemiesList[i - 1];
-                enemy.ChangeVelocity(new Vector2(0, -11));
+                //enemy.ChangeVelocity(new Vector2(0, -11));
             }
         }
     }
