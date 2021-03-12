@@ -13,7 +13,7 @@ namespace EverLite.Modules.Wave
     /// <summary>
     /// Stores the Queues to be added.
     /// </summary>
-    internal class WaveQueue
+    public class WaveQueue
     {
         private SortedList<float, Wave> q;
         private GameClock gameClock;
@@ -35,7 +35,7 @@ namespace EverLite.Modules.Wave
         {
             get
             {
-                if (q.Count == 0 || this.gameClock.ElapsedTime.TotalSeconds < q.Values[0].StartTime)
+                if (q.Count == 0 || this.gameClock.ElapsedTime.TotalSeconds > this.q.Values[0].StartTime)
                 {
                     return false;
                 }
