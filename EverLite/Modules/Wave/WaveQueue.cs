@@ -35,12 +35,12 @@ namespace EverLite.Modules.Wave
         {
             get
             {
-                if (this.q.Count == 0 || this.gameClock.ElapsedTime.TotalSeconds > this.q.Values[0].StartTime)
+                if (this.q.Count != 0 && this.gameClock.ElapsedTime.TotalSeconds >= this.q.Values[0].StartTime)
                 {
-                    return false;
+                    return true;
                 }
 
-                return true;
+                return false;
             }
         }
 
@@ -69,7 +69,7 @@ namespace EverLite.Modules.Wave
         /// <param name="wave">wave to be added.</param>
         public void Add(Wave wave)
         {
-            this.q.Add(wave.StartTime, wave);
+            this.q.Add((float)wave.StartTime, wave);
         }
     }
 }

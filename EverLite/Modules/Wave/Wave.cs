@@ -7,31 +7,35 @@ namespace EverLite.Modules.Wave
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using EverLite.Modules.Behavior;
     using EverLite.Modules.Enemies;
     using Microsoft.Xna.Framework;
 
-
     /// <summary>
-    /// Represents a wave
+    /// Represents a wave.
     /// </summary>
     public class Wave : IComparable
     {
-        private float spawnInterval;
+        private double spawnInterval;
         private int spawnCount;
+        private int totalSpawned;
         private EnemyFactory spawner;
-        private float timeElapsed;
+        private double timeElapsed;
+        private List<Enemy> enemyList;
 
-        public Wave(EnemyFactory spawner, float spawnInterval, int spawnCount, float startTime)
+        public Wave(List<Enemy> enemies, EnemyFactory spawner, double spawnInterval, int spawnCount, double startTime)
         {
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
             this.spawner = spawner;
             this.StartTime = startTime;
             this.timeElapsed = 0;
+            this.totalSpawned = 0;
+            this.enemyList = enemies;
         }
 
-        public float StartTime { get; private set; }
+        public double StartTime { get; private set; }
+
+        public bool IsWaveActive { get => this.spawnCount > this.totalSpawned; }
 
         public int CompareTo(object obj)
         {
@@ -42,7 +46,18 @@ namespace EverLite.Modules.Wave
 
         public void Update(GameTime gameTime)
         {
-            if () this.spawner.Spawn();
+            if (this.IsWaveActive)
+            {
+                // update clock
+                this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (this.totalSpawned < this.spawnCount && this.timeElapsed >= this.spawnInterval)
+                {
+                    this.enemyList.Add(this.spawner.Spawn());
+                    this.totalSpawned++;
+                    this.timeElapsed -= this.spawnInterval;
+
+                }
+            }
         }
     }
 }

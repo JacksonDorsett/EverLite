@@ -16,7 +16,8 @@ namespace EverLite
     using Microsoft.Xna.Framework;
 
     /// <summary>
-    /// Manages the Wave of enemies.
+    /// The primary responsibility of the wave manager
+    /// is to track the active waves queueing up the active waves.
     /// </summary>
     public class WaveManager : GameComponent
     {
@@ -29,6 +30,7 @@ namespace EverLite
         /// Initializes a new instance of the <see cref="WaveManager"/> class.
         /// </summary>
         /// <param name="game">game ref.</param>
+        /// <param name="enemies">list of active enemies.</param>
         public WaveManager(Game game, List<Enemy> enemies)
             : base(game)
         {
@@ -64,7 +66,8 @@ namespace EverLite
         public override void Initialize()
         {
             base.Initialize();
-            this.AddWave(new Wave(new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1.png"), new EnemyBlaster(Player.Instance(mGame), SpriteLoader.LoadSprite("TinyRed").Texture), new LinearMovement(new Vector2(-30, 200), new Vector2(1000, 300)),10),1,10,5));
+            var blaster = new EnemyBlaster(Player.Instance(this.mGame), SpriteLoader.LoadSprite("TinyRed").Texture);
+            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1.png"), blaster, new LinearMovement(new Vector2(-30, 200), new Vector2(1000, 300)), 10), 1, 10, 5));
         }
 
         public override void Update(GameTime gameTime)
@@ -77,9 +80,20 @@ namespace EverLite
                 this.activeWaves.Add(this.queue.PopWave());
             }
 
+            List<Wave> deadWaves = new List<Wave>();
             foreach (Wave w in this.activeWaves)
             {
-                
+                w.Update(gameTime);
+                if (!w.IsWaveActive)
+                {
+                    deadWaves.Add(w);
+                }
+            }
+
+            // Cleanup dead waves
+            foreach (var w in deadWaves)
+            {
+                this.activeWaves.Remove(w);
             }
         }
     }

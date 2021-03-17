@@ -25,6 +25,7 @@ namespace EverLiteTests
         public void TestPopWave()
         {
             GameClock clock = new GameClock();
+            clock.Start();
             WaveQueue q = new WaveQueue(clock);
             Assert.AreEqual(false, q.IsReady);
             Wave w1 = new Wave(null, null, 0, 0, 0);
@@ -33,7 +34,10 @@ namespace EverLiteTests
             q.Add(w2);
             Assert.AreEqual(true, q.IsReady);
             Assert.AreSame(w1, q.PopWave());
-            Assert.AreEqual(true, q.IsReady);
+
+            Assert.AreEqual(false, q.IsReady);
+            clock.Update(new GameTime(new TimeSpan(0, 0, 10), new TimeSpan(0, 0, 10)));
+            Assert.IsTrue(q.IsReady);
             Assert.AreSame(w2, q.PopWave());
             Assert.AreEqual(false, q.IsReady);
 

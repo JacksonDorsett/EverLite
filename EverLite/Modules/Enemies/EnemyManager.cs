@@ -24,7 +24,7 @@ namespace EverLite.Modules.Enemies
         public EnemyManager(Game game)
         {
             this.mGame = game;
-            this.waveManager = new WaveManager(game);
+            this.waveManager = new WaveManager(game, activeEnemies);
         }
 
         public event EventHandler<EventArgs> EnabledChanged;
