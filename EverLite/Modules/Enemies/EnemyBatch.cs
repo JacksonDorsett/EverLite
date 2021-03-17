@@ -98,7 +98,7 @@
         /// <returns> enemy created.</returns>
         public virtual Enemy CreateEnemy(string enemyType, Vector2 newPosition)
         {
-            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.game, newPosition, new EnemyBlaster(Player.Instance(this.game), game.Content.Load<Texture2D>("TinyRed")));
+            Enemy enemy = EnemyFactory.CreateEnemy(enemyType, this.game, newPosition, new EnemyBlaster(Player.Instance(this.game)/*BasePlayer.Instance(this.game)*/, game.Content.Load<Texture2D>("TinyRed")));
             this.EnemiesList.Add(enemy);
             return enemy;
         }

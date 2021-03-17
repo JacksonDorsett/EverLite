@@ -16,6 +16,7 @@ namespace EverLite.Modules.Blaster
     public class EnemyBlaster : IBlaster
     {
         private Player player;
+        //private BasePlayer player;
         private Game game;
         private Texture2D texture;
         private double rateOfFire;
@@ -25,7 +26,7 @@ namespace EverLite.Modules.Blaster
         /// </summary>
         /// <param name="player">player reference.</param>
         /// <param name="texture">texture of bullet.</param>
-        public EnemyBlaster(Player player, Texture2D texture, float rof = 2)
+        public EnemyBlaster(Player player/*BasePlayer player*/, Texture2D texture, float rof = 2)
         {
             this.texture = texture;
             this.player = player;
@@ -52,7 +53,8 @@ namespace EverLite.Modules.Blaster
 
         private Vector2 CalculateVelocity(Vector2 Position)
         {
-            var diff = this.player.GetPosition() - Position;
+            //var diff = this.player.GetPosition() - Position;
+            var diff = this.player.Position - Position;
             //get Magnitude
             diff.Normalize();
             return diff * 10;

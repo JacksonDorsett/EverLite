@@ -4,6 +4,7 @@
 
 namespace EverLite.Modules.Sprites
 {
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Enums;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -12,7 +13,7 @@ namespace EverLite.Modules.Sprites
     /// <summary>
     /// Base class for all objects used in game.
     /// </summary>
-    public class Sprite
+    public class Sprite : ButtonControls
     {
         /// <summary>
         /// Holds the object's position.

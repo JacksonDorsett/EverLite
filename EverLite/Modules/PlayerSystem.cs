@@ -17,6 +17,7 @@ namespace EverLite.Modules
     internal class PlayerSystem
     {
         private Player player;
+        //private RocketMan player;
         private List<Sprite> bullets = new List<Sprite>();
         private Game mGame;
         private Controller controller;
@@ -29,9 +30,10 @@ namespace EverLite.Modules
         {
             this.mGame = game;
             this.player = new Player(game);
+            //this.player = new RocketMan(game);
             this.controller = new Controller(game, this.player);
         }
-
+        
         /// <summary>
         /// Gets the player object.
         /// Note: This Method needs refactoring.
@@ -43,6 +45,11 @@ namespace EverLite.Modules
                 return this.player;
             }
         }
+        /*
+        public BasePlayer Player
+        {
+            get { return this.player; }
+        }*/
 
         /// <summary>
         /// Calls on the player and bullet updates.
@@ -86,10 +93,16 @@ namespace EverLite.Modules
             foreach (Sprite bullet in this.bullets)
             {
                 bullet.Position += bullet.Velocity;
+                
                 if (Vector2.Distance(bullet.GetPosition(), this.player.GetPosition()) > 2000)
                 {
                     bullet.SetIsVisible(false);
                 }
+                /*
+                if (Vector2.Distance(bullet.GetPosition(), this.player.Position) > 2000)
+                {
+                    bullet.SetIsVisible(false);
+                }*/
             }
 
             for (int index = 0; index < this.bullets.Count; index++)

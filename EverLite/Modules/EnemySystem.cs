@@ -31,12 +31,13 @@ namespace EverLite.Modules
         private int lastEnemyType = 0;
 
         private Player mPlayer;
+        //private BasePlayer mPlayer;
         private List<Sprite> bullets;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public EnemySystem(Game game, Player player)
+        public EnemySystem(Game game, Player player/*BasePlayer player*/)
         {
             this.mGame = game;
             this.mPlayer = player;

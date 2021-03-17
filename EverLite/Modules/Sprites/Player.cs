@@ -100,7 +100,7 @@ namespace EverLite.Modules.Sprites
         {
             return new Vector2(this.mGame.GraphicsDevice.Viewport.TitleSafeArea.X + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
         }
-
+        
         public float GetPlayerSpeed()
         {
             this.slowSpeedStatus.Update();

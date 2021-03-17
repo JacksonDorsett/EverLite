@@ -13,7 +13,7 @@ namespace EverLite.Modules.Behavior
     /// <summary>
     /// The Controller class manages the user controls for gameplay.
     /// </summary>
-    public class Controller
+    public class Controller /*: ButtonControls*/
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
@@ -22,13 +22,14 @@ namespace EverLite.Modules.Behavior
         private int screenHeight;
         private Game game;
         private Player player;
+        //private BasePlayer player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
         /// <param name="g">game reference.</param>
         /// <param name="p">player object.</param>
-        public Controller(Game g, Player p)
+        public Controller(Game g, Player p/*BasePlayer p*/)
         {
             this.player = p;
             this.game = g;
@@ -42,12 +43,11 @@ namespace EverLite.Modules.Behavior
         /// <param name="gameTime">SpriteBatch source.</param>
         public void Update(GameTime gameTime)
         {
-            GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
+            GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
+            KeyboardState keyBoard = Keyboard.GetState();
 
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-
-            this.UpdatePlayerPositionGamePad(currentGamePadState);
-            this.UpdatePlayerPosition(currentKeyboardState);
+            this.UpdatePlayerPositionGamePad(gamePad);
+            this.UpdatePlayerPosition(keyBoard);
             this.blaster.Update(gameTime);
         }
 
@@ -66,36 +66,40 @@ namespace EverLite.Modules.Behavior
         /// <returns>T/F if player is shooting.</returns>
         public bool CanShoot()
         {
-            return GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) || Keyboard.GetState().IsKeyDown(Keys.LeftControl);
+            return GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(this.player.Shoot);
         }
 
         /// <summary>
         /// Keyboard controls.
         /// </summary>
         /// <param name="currentKeyboardState">keyboard state.</param>
-        private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
+        private void UpdatePlayerPosition(KeyboardState keyBoard)
         {
             // sets the player speed based on the toggle state.
             this.player.SetsVelocity(this.player.GetPlayerSpeed());
 
-            if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
+            if (keyBoard.IsKeyDown(this.player.MoveLeft))
             {
                 this.player.Position.X -= this.player.GetsVelocity();
+                //this.player.Position = new Vector2(this.player.Position.X - this.player.Speed, this.player.Position.Y);
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
+            if (keyBoard.IsKeyDown(this.player.MoveRight))
             {
                 this.player.Position.X += this.player.GetsVelocity();
+                //this.player.Position = new Vector2(this.player.Position.X + this.player.Speed, this.player.Position.Y);
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
+            if (keyBoard.IsKeyDown(this.player.MoveUp))
             {
                 this.player.Position.Y -= this.player.GetsVelocity();
+                //this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y - this.player.Speed);
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
+            if (keyBoard.IsKeyDown(this.player.MoveDown))
             {
                 this.player.Position.Y += this.player.GetsVelocity();
+                //this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y + this.player.Speed);
             }
 
             this.CheckPlayerBoundry();
@@ -105,21 +109,32 @@ namespace EverLite.Modules.Behavior
         /// Gamepad control.
         /// </summary>
         /// <param name="currentGamePadState">gamepad state.</param>
-        private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)
+        private void UpdatePlayerPositionGamePad(GamePadState gamePad)
         {
-            if (currentGamePadState.Buttons.Y == ButtonState.Pressed)
+            if (gamePad.IsButtonDown(this.player.PadPause))
+            {
+                this.game.Exit();
+            }
+
+            if (gamePad.IsButtonDown(this.player.PadSlowSpeed))
             {
                 this.player.SetsVelocity(SLOWSPEED);
+                //this.player.Speed = this.player.SLOWSPEED;
             }
 
-            if (currentGamePadState.Buttons.Y == ButtonState.Released)
+            if (gamePad.IsButtonUp(this.player.PadSlowSpeed))
             {
                 this.player.SetsVelocity(NORMALSPEED);
+                //this.player.Speed = this.player.NORMALSPEED;
             }
 
-            this.player.Position.X += currentGamePadState.ThumbSticks.Left.X * this.player.GetsVelocity();
+            this.player.Position.X += gamePad.ThumbSticks.Left.X * this.player.GetsVelocity();
 
-            this.player.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * this.player.GetsVelocity();
+            this.player.Position.Y -= gamePad.ThumbSticks.Left.Y * this.player.GetsVelocity();
+
+            //this.player.Position += new Vector2(gamePad.ThumbSticks.Left.X * this.player.Speed, this.player.Position.Y);
+
+            //this.player.Position -= new Vector2(this.player.Position.X, gamePad.ThumbSticks.Left.Y * this.player.Speed);
         }
 
         /// <summary>
@@ -140,22 +155,27 @@ namespace EverLite.Modules.Behavior
             if (this.player.Position.X <= 15)
             {
                 this.player.Position.X = 15;
+                //this.player.Position = new Vector2(15, this.player.Position.Y);
             }
 
             if (this.player.Position.Y <= 45)
             {
                 this.player.Position.Y = 45;
+                //this.player.Position = new Vector2(this.player.Position.X, 15);
             }
 
             if (this.player.Position.X + this.player.Texture.Width >= this.screenWidth)
             {
                 this.player.Position.X = this.screenWidth - this.player.Texture.Width;
+                //this.player.Position = new Vector2(this.screenWidth - this.player.Texture.Width, this.player.Position.Y);
             }
 
             if (this.player.Position.Y + this.player.Texture.Height >= this.screenHeight)
             {
                 this.player.Position.Y = this.screenHeight - this.player.Texture.Height;
+                //this.player.Position = new Vector2(this.player.Position.X, this.screenHeight - this.player.Texture.Height);
             }
         }
     }
+
 }

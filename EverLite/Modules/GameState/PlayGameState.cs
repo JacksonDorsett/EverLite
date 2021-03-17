@@ -27,7 +27,8 @@ namespace EverLite.Modules.GameState
         private PlayerSystem playerSystem;
         private EnemySystem enemySystem;
         private ToggleStatus pauseStatus;
-        private Sprite player;
+        //private Sprite player;
+        private BasePlayer player;
         private List<Sprite> bullets = new List<Sprite>();
 
         /// <summary>
