@@ -9,6 +9,7 @@ namespace EverLite.Modules.Wave
     using System.Diagnostics.CodeAnalysis;
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Enemies;
+    using Microsoft.Xna.Framework;
 
 
     /// <summary>
@@ -18,16 +19,16 @@ namespace EverLite.Modules.Wave
     {
         private float spawnInterval;
         private int spawnCount;
-        private IMovement path;
         private EnemyFactory spawner;
+        private float timeElapsed;
 
-        public Wave(EnemyFactory spawner, IMovement path, float spawnInterval, int spawnCount, float startTime)
+        public Wave(EnemyFactory spawner, float spawnInterval, int spawnCount, float startTime)
         {
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
-            this.path = path;
             this.spawner = spawner;
             this.StartTime = startTime;
+            this.timeElapsed = 0;
         }
 
         public float StartTime { get; private set; }
@@ -37,6 +38,11 @@ namespace EverLite.Modules.Wave
             if ((obj as Wave).StartTime == this.StartTime) return 0;
             if ((obj as Wave).StartTime > this.StartTime) return -1;
             return 1;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if () this.spawner.Spawn();
         }
     }
 }

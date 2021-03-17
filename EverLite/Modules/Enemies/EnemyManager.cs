@@ -4,10 +4,10 @@
 
 namespace EverLite.Modules.Enemies
 {
-    using Microsoft.Xna.Framework;
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Microsoft.Xna.Framework;
 
     /// <summary>
     /// Manages the enemies that are spawned and remove them when their lifespan surpassed.
@@ -16,7 +16,7 @@ namespace EverLite.Modules.Enemies
     {
         private List<Enemy> activeEnemies;
         private Game mGame;
-
+        private WaveManager waveManager;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
@@ -24,6 +24,7 @@ namespace EverLite.Modules.Enemies
         public EnemyManager(Game game)
         {
             this.mGame = game;
+            this.waveManager = new WaveManager(game);
         }
 
         public event EventHandler<EventArgs> EnabledChanged;
@@ -34,10 +35,9 @@ namespace EverLite.Modules.Enemies
 
         public int UpdateOrder => 1;
 
-
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            this.waveManager.Update(gameTime);
         }
     }
 }

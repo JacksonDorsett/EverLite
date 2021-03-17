@@ -22,7 +22,7 @@ namespace EverLite.Modules.Sprites
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float scale = 1, float rotation = 0 )
         {
-            Vector2 origin = new Vector2();
+            Vector2 origin = new Vector2(0, 0);
             origin.X = this.mTexture.Width / 2;
             origin.Y = this.mTexture.Height / 2;
             spriteBatch.Draw(this.mTexture, position, null, Color.White,rotation, origin,scale, SpriteEffects.None, 0);

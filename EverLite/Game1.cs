@@ -61,6 +61,7 @@ namespace EverLite
         {
             base.Initialize();
             this.mContext = new GameStateContext(this);
+            SpriteLoader.Initialize(this.Content);
         }
 
         /// <summary>
