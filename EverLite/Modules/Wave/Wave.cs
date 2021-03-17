@@ -33,7 +33,7 @@ namespace EverLite.Modules.Wave
             this.enemyList = enemies;
         }
 
-        public double StartTime { get; private set; }
+        public double StartTime { get; internal set; }
 
         public bool IsWaveActive { get => this.spawnCount > this.totalSpawned; }
 

@@ -15,7 +15,7 @@ namespace EverLite.Modules.Wave
     /// </summary>
     public class WaveQueue
     {
-        private SortedList<float, Wave> q;
+        private SortedList<double, Wave> q;
         private GameClock gameClock;
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace EverLite.Modules.Wave
         /// <param name="clock">game clock handling time passed.</param>
         public WaveQueue(GameClock clock)
         {
-            q = new SortedList<float, Wave>();
+            q = new SortedList<double, Wave>();
             this.gameClock = clock; // could be refactored into Wave Queue.
         }
 
@@ -69,7 +69,11 @@ namespace EverLite.Modules.Wave
         /// <param name="wave">wave to be added.</param>
         public void Add(Wave wave)
         {
-            this.q.Add((float)wave.StartTime, wave);
+            while (this.q.ContainsKey(wave.StartTime))
+            {
+                wave.StartTime += 0.0001d;
+            }
+            this.q.Add(wave.StartTime, wave);
         }
     }
 }

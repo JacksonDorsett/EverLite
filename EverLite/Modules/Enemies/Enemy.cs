@@ -77,7 +77,7 @@ namespace EverLite.Modules.Enemies
         {
             this.Position = newPosition;
             this.mGame = game;
-            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>(this.SpriteName));
+            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>("enemy1"));
             this.blaster = blaster;
             this.lifespan = new Lifespan(lifetime);
         }
