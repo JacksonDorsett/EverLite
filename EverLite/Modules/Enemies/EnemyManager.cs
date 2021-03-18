@@ -13,7 +13,7 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Manages the enemies that are spawned and remove them when their lifespan surpassed.
     /// </summary>
-    class EnemyManager : IUpdateable
+    public class EnemyManager : IUpdateable
     {
         private List<Enemy> activeEnemies;
         private Game mGame;
@@ -44,7 +44,7 @@ namespace EverLite.Modules.Enemies
             for (int i = this.activeEnemies.Count - 1; i >= 0; i--)
             {
                 Enemy e = this.activeEnemies[i];
-                e.Update(this.mGame.GraphicsDevice, gameTime);
+                e.Update(gameTime);
                 if (!e.IsAlive)
                 {
                     this.activeEnemies.Remove(e);

@@ -34,7 +34,7 @@ namespace EverLite.Modules.Enemies
         }
 
         /// <summary>
-        /// Movement associated with the enemy.
+        /// gets the movement associated with the enemy.
         /// </summary>
         public IMovement Movement
         {
@@ -43,36 +43,9 @@ namespace EverLite.Modules.Enemies
         }
 
         /// <summary>
-        /// Reference to the content manager.
+        /// gets the position of an enemy.
         /// </summary>
-        public Game mGame { get; private set; }
-
-        /// <summary>
-        /// position of an enemy.
-        /// </summary>
-        public Vector2 Position;
-
-        /// <summary>
-        /// Gets or sets sprite name of an enemy.
-        /// </summary>
-        public string SpriteName { get; set; }
-
-        public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
-        {
-            this.Position = newPosition;
-            this.mGame = game;
-            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>("enemy1"));
-            this.blaster = blaster;
-            this.lifespan = new Lifespan(lifetime);
-        }
-
-        public Enemy(Game game, IBlaster blaster, double lifetime = 10)
-        {
-            this.mGame = game;
-            this.enemySprite = new SpriteN(this.mGame.Content.Load<Texture2D>(this.SpriteName));
-            this.blaster = blaster;
-            this.lifespan = new Lifespan(lifetime);
-        }
+        public Vector2 Position { get => this.Movement.GetPosition(this.lifespan.Halflife); }
 
         public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
         {
@@ -95,39 +68,17 @@ namespace EverLite.Modules.Enemies
         {
             return this.blaster.Shoot(this.Position);
         }
+
         /// <summary>
         /// Update function to update the enemy.
         /// </summary>
-        /// <param name="graphics"> graphics.</param>
-        /// <param name="gameTime"> gametime.</param>
-        public virtual void Update(GraphicsDevice graphics, GameTime gameTime)
+        /// <param name="gameTime">gametime.</param>
+        public virtual void Update(GameTime gameTime)
         {
             this.lifespan.Update(gameTime);
-            this.Position = this.Movement.GetPosition(this.lifespan.Halflife);
 
             this.blaster.Update(gameTime);
         }
-
-        /// <summary>
-        /// Function that sets new position.
-        /// </summary>
-        /// <param name="newPosition"> new position to set.</param>
-        public void ChangePosition(Vector2 newPosition)
-        {
-            this.Position = newPosition;
-        }
-
-
-
-        /// <summary>
-        /// Function that sets new target position.
-        /// </summary>
-        /// <param name="targetPosition"> new target position.</param>
-        public void ChangeTarget(Vector2 targetPosition)
-        {
-        }
-
-        
 
         /// <summary>
         /// Draws an enemy class.
@@ -140,13 +91,6 @@ namespace EverLite.Modules.Enemies
             sprite.End();
         }
 
-        /// <summary>
-        /// Leave the map.
-        /// </summary>
-        public void LeaveMap()
-        {
-            return;
-        }
     }
 
 }
