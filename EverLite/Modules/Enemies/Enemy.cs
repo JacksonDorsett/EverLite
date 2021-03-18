@@ -32,7 +32,7 @@ namespace EverLite.Modules.Enemies
                 this.blaster = value;
             }
         }
-        
+
         /// <summary>
         /// Movement associated with the enemy.
         /// </summary>
@@ -53,25 +53,9 @@ namespace EverLite.Modules.Enemies
         public Vector2 Position;
 
         /// <summary>
-        /// Target position for the enemy to reach.
-        /// </summary>
-        public Vector2 TargetPosition;
-
-        /// <summary>
         /// Gets or sets sprite name of an enemy.
         /// </summary>
         public string SpriteName { get; set; }
-
-        /// <summary>
-        /// Gets or sets visibility of an enemy.
-        /// </summary>
-        public bool IsVisible { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether enemy is targeting.
-        /// </summary>
-        public bool IsTargetting { get; set; }
-
 
         public Enemy(Vector2 newPosition, Game game, IBlaster blaster, double lifetime = 10)
         {
@@ -98,6 +82,11 @@ namespace EverLite.Modules.Enemies
             this.lifespan = new Lifespan(lifespan);
         }
 
+        public bool IsAlive
+        {
+            get => this.lifespan.Halflife < 1;
+        }
+
         /// <summary>
         /// Shoot blasters.
         /// </summary>
@@ -113,8 +102,9 @@ namespace EverLite.Modules.Enemies
         /// <param name="gameTime"> gametime.</param>
         public virtual void Update(GraphicsDevice graphics, GameTime gameTime)
         {
-            this.Position = this.Movement.GetPosition(this.lifespan.Halflife);
             this.lifespan.Update(gameTime);
+            this.Position = this.Movement.GetPosition(this.lifespan.Halflife);
+
             this.blaster.Update(gameTime);
         }
 
@@ -135,25 +125,9 @@ namespace EverLite.Modules.Enemies
         /// <param name="targetPosition"> new target position.</param>
         public void ChangeTarget(Vector2 targetPosition)
         {
-            this.TargetPosition = targetPosition;
-            this.IsTargetting = true;
         }
 
-        /// <summary>
-        /// Function that starts targetting.
-        /// </summary>
-        public void StartTargetting()
-        {
-            this.IsTargetting = true;
-        }
-
-        /// <summary>
-        /// Function that stops targetting.
-        /// </summary>
-        public void StopTargetting()
-        {
-            this.IsTargetting = false;
-        }
+        
 
         /// <summary>
         /// Draws an enemy class.

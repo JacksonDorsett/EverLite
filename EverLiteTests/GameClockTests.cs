@@ -22,8 +22,7 @@ namespace EverLiteTests
             //test Update
             GameTime gt = new GameTime(new TimeSpan(100), new TimeSpan(100));
 
-            gc.Update(gt);
-            Assert.AreEqual(new TimeSpan(0), gc.ElapsedTime);
+
             //test Update
             gc.Start();
             gc.Update(gt);

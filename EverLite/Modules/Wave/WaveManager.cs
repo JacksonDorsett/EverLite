@@ -19,7 +19,7 @@ namespace EverLite
     /// The primary responsibility of the wave manager
     /// is to track the active waves queueing up the active waves.
     /// </summary>
-    public class WaveManager : GameComponent
+    public class WaveManager
     {
         private List<Wave> activeWaves;
         private GameClock clock;
@@ -32,12 +32,14 @@ namespace EverLite
         /// <param name="game">game ref.</param>
         /// <param name="enemies">list of active enemies.</param>
         public WaveManager(Game game, List<Enemy> enemies)
-            : base(game)
+            : base()
         {
             this.clock = new GameClock();
             this.activeWaves = new List<Wave>();
             this.queue = new WaveQueue(this.clock);
             this.enemies = enemies;
+            this.mGame = game;
+            this.Initialize();
         }
 
         /// <summary>
@@ -63,16 +65,15 @@ namespace EverLite
             return true;
         }
 
-        public override void Initialize()
+        public void Initialize()
         {
-            base.Initialize();
             var blaster = new EnemyBlaster(Player.Instance(this.mGame), SpriteLoader.LoadSprite("TinyRed").Texture);
-            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1.png"), blaster, new LinearMovement(new Vector2(-30, 200), new Vector2(1000, 300)), 10), 1, 10, 5));
+            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy2"), blaster, new LinearMovement(new Vector2(2000, 200), new Vector2(-30, 800)), 4), 500, 100, 0));
+            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1"), blaster, new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950),new Vector2(500,100)), 4), 500, 100, 0));
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             this.clock.Update(gameTime);
 
             if (this.queue.IsReady)

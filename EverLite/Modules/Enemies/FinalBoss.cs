@@ -1,7 +1,7 @@
 ﻿// <copyright file="FinalBoss.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
+/*
 namespace EverLite.Modules.Enemies
 {
     using EverLite.Modules.Blaster;
@@ -37,3 +37,4 @@ namespace EverLite.Modules.Enemies
         public bool IsVisible { get; set; } = true;
     }
 }
+*/
