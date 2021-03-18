@@ -28,6 +28,11 @@ namespace EverLite.Modules.Behavior
 
         public float Angle(double halfLife)
         {
+            if (this.diff.X == 0)
+            {
+                if (this.diff.Y >= 0) return (float)Math.PI / 2;
+                else return 3 * (float)Math.PI / 2;
+            }
             return (float)Math.Atan((double)this.diff.Y/ (double)this.diff.X);
         }
 
