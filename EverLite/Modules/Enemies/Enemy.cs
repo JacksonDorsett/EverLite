@@ -21,12 +21,31 @@ namespace EverLite.Modules.Enemies
         private IBlaster blaster;
         private Lifespan lifespan;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Enemy"/> class.
+        /// </summary>
+        /// <param name="sprite">sprite of the enemy.</param>
+        /// <param name="blaster">blaster pattern.</param>
+        /// <param name="movement">movement pattern.</param>
+        /// <param name="lifespan">lifespan pattern.</param>
+        public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
+        {
+            this.Blaster = blaster;
+            this.enemySprite = sprite;
+            this.Movement = movement;
+            this.lifespan = new Lifespan(lifespan);
+        }
+
+        /// <summary>
+        /// gets or sets blaster object.
+        /// </summary>
         public IBlaster Blaster
         {
             get
             {
                 return this.blaster;
             }
+
             protected set
             {
                 this.blaster = value;
@@ -47,14 +66,9 @@ namespace EverLite.Modules.Enemies
         /// </summary>
         public Vector2 Position { get => this.Movement.GetPosition(this.lifespan.Halflife); }
 
-        public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
-        {
-            this.Blaster = blaster;
-            this.enemySprite = sprite;
-            this.Movement = movement;
-            this.lifespan = new Lifespan(lifespan);
-        }
-
+        /// <summary>
+        /// Gets a value indicating whether or not the enemy is alive.
+        /// </summary>
         public bool IsAlive
         {
             get => this.lifespan.Halflife < 1;
@@ -87,10 +101,9 @@ namespace EverLite.Modules.Enemies
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            this.enemySprite.Draw(sprite, this.Position);
+            this.enemySprite.Draw(sprite, this.Position, rotation: Movement.Angle(this.lifespan.Halflife));
             sprite.End();
         }
-
     }
 
 }

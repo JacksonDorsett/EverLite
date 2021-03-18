@@ -36,6 +36,12 @@ namespace EverLite.Modules.Behavior
             this.keyCollection.Add(new CurveKey(end.X, end.Y));
         }
 
+        public float Angle(double halfLife)
+        {
+            var dif = this.GetPosition(halfLife) - this.GetPosition(halfLife - .0001d);
+            return (float)Math.Atan((double)dif.Y / (double)dif.X);
+        }
+
         public Vector2 GetPosition(double halfLife)
         {
             var delta = this.end.X - this.start.X;

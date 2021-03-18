@@ -11,6 +11,7 @@ namespace EverLite.Modules.Blaster
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
 
     class Bullet
     {
@@ -39,6 +40,17 @@ namespace EverLite.Modules.Blaster
             this.lifespan.Update(gameTime);
 
             
+        }
+
+        /// <summary>
+        /// Draws the bullet sprite.
+        /// </summary>
+        /// <param name="spriteBatch">spritebatch to draw too.</param>
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin();
+            this.sprite.Draw(spriteBatch, this.Position);
+            spriteBatch.End();
         }
     }
 }

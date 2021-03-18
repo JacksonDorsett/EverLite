@@ -26,6 +26,11 @@ namespace EverLite.Modules.Behavior
             this.diff = finalPos - initialPos;
         }
 
+        public float Angle(double halfLife)
+        {
+            return (float)Math.Atan((double)this.diff.Y/ (double)this.diff.X);
+        }
+
         // inheritdoc
         public Vector2 GetPosition(double halfLife)
         {

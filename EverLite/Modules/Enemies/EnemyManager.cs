@@ -18,6 +18,7 @@ namespace EverLite.Modules.Enemies
         private List<Enemy> activeEnemies;
         private Game mGame;
         private WaveManager waveManager;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
