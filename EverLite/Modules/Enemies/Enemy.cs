@@ -15,11 +15,9 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    public class Enemy
+    public class Enemy : LifetimeEntity
     {
-        protected SpriteN enemySprite;
         private IBlaster blaster;
-        private Lifespan lifespan;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.
@@ -29,11 +27,9 @@ namespace EverLite.Modules.Enemies
         /// <param name="movement">movement pattern.</param>
         /// <param name="lifespan">lifespan pattern.</param>
         public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
+            : base(sprite, movement, (double)lifespan)
         {
             this.Blaster = blaster;
-            this.enemySprite = sprite;
-            this.Movement = movement;
-            this.lifespan = new Lifespan(lifespan);
         }
 
         /// <summary>
@@ -53,57 +49,16 @@ namespace EverLite.Modules.Enemies
         }
 
         /// <summary>
-        /// gets the movement associated with the enemy.
-        /// </summary>
-        public IMovement Movement
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// gets the position of an enemy.
-        /// </summary>
-        public Vector2 Position { get => this.Movement.GetPosition(this.lifespan.Halflife); }
-
-        /// <summary>
-        /// Gets a value indicating whether or not the enemy is alive.
-        /// </summary>
-        public bool IsAlive
-        {
-            get => this.lifespan.Halflife < 1;
-        }
-
-        /// <summary>
-        /// Shoot blasters.
-        /// </summary>
-        /// <returns> blaster shot.</returns>
-        public Sprite Shoot()
-        {
-            return this.blaster.Shoot(this.Position);
-        }
-
-        /// <summary>
         /// Update function to update the enemy.
         /// </summary>
         /// <param name="gameTime">gametime.</param>
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            this.lifespan.Update(gameTime);
+            base.Update(gameTime);
 
             this.blaster.Update(gameTime);
         }
 
-        /// <summary>
-        /// Draws an enemy class.
-        /// </summary>
-        /// <param name="sprite"> spriteBatch.</param>
-        public void Draw(SpriteBatch sprite)
-        {
-            sprite.Begin();
-            this.enemySprite.Draw(sprite, this.Position, rotation: Movement.Angle(this.lifespan.Halflife));
-            sprite.End();
-        }
     }
 
 }

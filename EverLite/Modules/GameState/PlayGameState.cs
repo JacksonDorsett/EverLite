@@ -37,7 +37,7 @@ namespace EverLite.Modules.GameState
             : base(game)
         {
             SpriteLoader.Initialize(game.Content);
-            playerSystem = new PlayerSystem(Game);
+            playerSystem = new PlayerSystem(this.Game);
             scrollingBG = new ScrollingBG(game);
             enemySystem = new EnemySystem(this.Game, playerSystem.Player);
             pauseStatus = new ToggleStatus(Keys.Space);
