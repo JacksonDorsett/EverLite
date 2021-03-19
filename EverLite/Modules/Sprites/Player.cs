@@ -34,7 +34,7 @@ namespace EverLite.Modules.Sprites
         private ToggleStatus slowSpeedStatus;
         private IBlaster blaster;
         private SpriteN playerSprite;
-
+        private PlayerShoot shooter;
         static Player()
         {
             sPlayerRef = new Dictionary<Game, Player>();
@@ -61,8 +61,9 @@ namespace EverLite.Modules.Sprites
             this.mPosition = new Vector2(screenWidth / 2, 3 * screenHeight / 4);
             this.playerSprite = new SpriteN(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)));
             // initialize components
-            this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
+            // this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
             this.slowSpeedStatus = new ToggleStatus(Keys.G);
+            this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
         }
 
         /// <summary>
@@ -71,14 +72,18 @@ namespace EverLite.Modules.Sprites
         /// <returns>returns the bullet that was shot.</returns>
         public Sprite Shoot()
         {
+            return null;
             return this.blaster.Shoot(this.mPosition);
         }
 
         /// <inheritdoc/>
         public void Update(GameTime gameTime)
         {
-            this.blaster.Update(gameTime);
-
+            //this.blaster.Update(gameTime);
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                this.shooter.Shoot(this.mPosition);
+            }
             GamePadState currentGamePadState = GamePad.GetState(PlayerIndex.One);
 
             KeyboardState currentKeyboardState = Keyboard.GetState();
@@ -91,6 +96,7 @@ namespace EverLite.Modules.Sprites
         {
             return this.mPosition;
         }
+
         /// <summary>
         /// Draws the Player.
         /// </summary>
@@ -124,11 +130,6 @@ namespace EverLite.Modules.Sprites
             {
                 speed = SLOWSPEED;
             }
-
-            //if (currentGamePadState.Buttons.Y == ButtonState.Released)
-            //{
-            //    speed = NORMALSPEED;
-            //}
 
             this.mPosition.X += currentGamePadState.ThumbSticks.Left.X * speed;
 
@@ -168,11 +169,6 @@ namespace EverLite.Modules.Sprites
             var rect = this.mGame.Window.ClientBounds;
             this.screenWidth = rect.Width;
             this.screenHeight = rect.Height;
-        }
-
-        private Vector2 GetPlayerLocation()
-        {
-            return new Vector2(this.mGame.GraphicsDevice.Viewport.TitleSafeArea.X + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Width / 2), this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Y + (this.mGame.GraphicsDevice.Viewport.TitleSafeArea.Height * 4 / 5));
         }
 
         private float GetPlayerSpeed()

@@ -50,44 +50,11 @@ namespace EverLite.Modules
         public void Update(GameTime gameTime)
         {
             this.player.Update(gameTime);
-
-            var bullet = player.Shoot();
-            if (this.CanShoot(100) && bullet != null)
-            {
-                this.bullets.Add(bullet);
-            }
-
-            this.UpdateBullets();
-        }
-
-        private bool CanShoot(int maxBullets)
-        {
-            return (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) || Keyboard.GetState().IsKeyDown(Keys.LeftControl)) && bullets.Count < maxBullets;
         }
 
         /// <summary>
         /// Maintains the bullets visibility.
         /// </summary>
-        public void UpdateBullets()
-        {
-            foreach (Sprite bullet in bullets)
-            {
-                bullet.Position += bullet.Velocity;
-                if (Vector2.Distance(bullet.GetPosition(), player.GetPosition()) > 2000)
-                {
-                    bullet.SetIsVisible(false);
-                }
-            }
-
-            for (int index = 0; index < this.bullets.Count; index++)
-            {
-                if (!this.bullets[index].GetIsVisible())
-                {
-                    this.bullets.RemoveAt(index);
-                    index--;
-                }
-            }
-        }
 
         /// <summary>
         /// Draws shapes in the game.
@@ -96,11 +63,7 @@ namespace EverLite.Modules
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            player.Draw(sprite);
-            foreach (Sprite bullet in this.bullets)
-            {
-                bullet.Draw(sprite);
-            }
+            this.player.Draw(sprite);
             sprite.End();
 
         }
