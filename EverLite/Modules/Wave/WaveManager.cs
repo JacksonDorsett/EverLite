@@ -67,7 +67,7 @@ namespace EverLite
 
         public void Initialize()
         {
-            var blaster = new EnemyBlaster(Player.Instance(this.mGame), SpriteLoader.LoadSprite("TinyRed").Texture);
+            var blaster = new EnemyBlaster(Player.Instance(), SpriteLoader.LoadSprite("TinyRed").Texture);
             this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy2"), blaster, new LinearMovement(new Vector2(2000, 200), new Vector2(-30, 800)), 4), 500, 100, 0));
             this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1"), blaster, new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950),new Vector2(500,100)), 4), 500, 100, 0));
         }

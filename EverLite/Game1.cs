@@ -79,6 +79,7 @@ namespace EverLite
             this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             this.mGraphics.HardwareModeSwitch = false;
             this.mGraphics.ApplyChanges();
+            SpriteLoader.Initialize(this.Content);
 
         }
 

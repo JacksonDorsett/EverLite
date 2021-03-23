@@ -28,7 +28,7 @@ namespace EverLite.Modules
         public PlayerSystem(Game game)
         {
             this.mGame = game;
-            this.player = Player.Instance(game);
+            player = Player.Instance();
         }
 
         /// <summary>
