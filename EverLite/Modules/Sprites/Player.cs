@@ -20,8 +20,8 @@ namespace EverLite.Modules.Sprites
     public class Player
     {
         // instance
-        private static Dictionary<Game, Player> sPlayerRef;
 
+        private static Player mInstance;
         // constants
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
@@ -35,10 +35,6 @@ namespace EverLite.Modules.Sprites
         private IBlaster blaster;
         private SpriteN playerSprite;
 
-        static Player()
-        {
-            sPlayerRef = new Dictionary<Game, Player>();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -107,14 +103,18 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="game">game object.</param>
         /// <returns>returns player associated with the game.</returns>
-        public static Player Instance(Game game)
+        public static Player Instance()
         {
-            if (!sPlayerRef.ContainsKey(game))
-            {
-                sPlayerRef[game] = new Player(game);
-            }
+            if (mInstance == null) throw new Exception("Player not initialized.");
 
-            return sPlayerRef[game];
+            return mInstance;
+        }
+
+        public static void Initialize(Game game)
+        {
+            if (mInstance != null) throw new Exception("Player already initialized.");
+            mInstance = new Player(game);
+
         }
 
         private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)

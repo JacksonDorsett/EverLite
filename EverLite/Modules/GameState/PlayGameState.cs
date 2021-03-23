@@ -36,6 +36,7 @@ namespace EverLite.Modules.GameState
         public PlayGameState(Game1 game)
             : base(game)
         {
+            Player.Initialize(game);
             SpriteLoader.Initialize(game.Content);
             playerSystem = new PlayerSystem(this.Game);
             scrollingBG = new ScrollingBG(game);
@@ -63,6 +64,7 @@ namespace EverLite.Modules.GameState
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("Megalovania");
+            
         }
 
         /// <summary>
