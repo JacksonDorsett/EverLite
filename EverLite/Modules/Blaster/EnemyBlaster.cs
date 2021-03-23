@@ -13,7 +13,7 @@ namespace EverLite.Modules.Blaster
     /// <summary>
     /// Standard Enemy Blaster.
     /// </summary>
-    public class EnemyBlaster : IBlaster
+    public class EnemyBlaster : IShootingPattern, IBlaster
     {
         private Player player;
         private Game game;
@@ -33,21 +33,13 @@ namespace EverLite.Modules.Blaster
             this.timeElapsed = 0;
         }
 
-        public Sprite Shoot(Vector2 position)
+        public void Shoot(Vector2 position)
         {
-            if (this.timeElapsed >= this.rateOfFire)
-            {
-                this.timeElapsed = 0;
-                return new TinyRedBullets(this.texture, position, this.CalculateVelocity(position));
-            }
-            return null;
+            throw new NotImplementedException();
         }
 
         public void Update(GameTime gameTime)
         {
-            this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
-
-
         }
 
         private Vector2 CalculateVelocity(Vector2 Position)
@@ -56,6 +48,11 @@ namespace EverLite.Modules.Blaster
             //get Magnitude
             diff.Normalize();
             return diff * 10;
+        }
+
+        Sprite IBlaster.Shoot(Vector2 position)
+        {
+            throw new NotImplementedException();
         }
     }
 }

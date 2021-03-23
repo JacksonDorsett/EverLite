@@ -13,20 +13,6 @@ namespace EverLite.Modules.Sprites
     /// </summary>
     public class SpriteFactory
     {
-        /// <summary>
-        /// Creates the needed sprite.
-        /// </summary>
-        /// <param name="spriteType">Type of instance to be created.</param>
-        /// <param name="game">Game Reference.</param>
-        /// <returns>Created instance.</returns>
-        public static Sprite CreateSprite(FactoryEnum spriteType, Game game)
-        {
-            return spriteType switch
-            {
-                FactoryEnum.TinyBlue => new TinyBlueBullets(),
-                FactoryEnum.TinyRed => new TinyRedBullets(),
-                _ => null,
-            };
-        }
+
     }
 }
