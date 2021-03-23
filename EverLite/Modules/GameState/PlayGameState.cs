@@ -40,7 +40,6 @@ namespace EverLite.Modules.GameState
             SpriteLoader.Initialize(game.Content);
             this.playerSystem = new PlayerSystem(this.Game);
             this.scrollingBG = new ScrollingBG(game);
-            //this.enemySystem = new EnemySystem(this.Game, this.playerSystem.Player);
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
@@ -64,7 +63,7 @@ namespace EverLite.Modules.GameState
         /// </summary>
         public override void OnEnter()
         {
-            BGM.Instance(this.Game).Load("Megalovania");
+            BGM.Instance(this.Game).Load("DeepSpace");
         }
 
         /// <summary>

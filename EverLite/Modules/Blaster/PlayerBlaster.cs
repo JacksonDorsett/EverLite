@@ -14,7 +14,7 @@ namespace EverLite.Modules.Blaster
     /// <summary>
     /// Player Blaster.
     /// </summary>
-    public class PlayerBlaster : IBlaster
+    public class PlayerBlaster : IShootingPattern
     {
         private double timeElapsed;
         private readonly double ROF = .2;
@@ -28,21 +28,16 @@ namespace EverLite.Modules.Blaster
             this.bulletTexture = bulletTexture;
         }
 
-        public Sprite Shoot(Vector2 position)
-        {
-            if (this.timeElapsed >= this.ROF)
-            {
-                position.X += 22;
-                timeElapsed = 0;
-                return new TinyBlueBullets(this.bulletTexture, position, new Vector2(0, -16));
-            }
-
-            return null;
-        }
+       
 
         public void Update(GameTime gameTime)
         {
             timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        public void Shoot(Vector2 position)
+        {
+            throw new NotImplementedException();
         }
     }
 }
