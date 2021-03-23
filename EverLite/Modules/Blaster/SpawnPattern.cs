@@ -1,23 +1,27 @@
-﻿using EverLite.Modules.Sprites;
-using EverLite.Utilities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-
-using System.Text;
+﻿// <copyright file="SpawnPattern.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace EverLite.Modules.Blaster
 {
-    abstract class SpawnPattern
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using EverLite.Modules.Sprites;
+    using EverLite.Utilities;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
+    public abstract class SpawnPattern
     {
-        readonly SpriteN bulletSprite;
-        int numSpawned;
-        int totalBullets;
-        double spawnRate;
+        private readonly SpriteN bulletSprite;
+        private int numSpawned;
+        private readonly int totalBullets;
+        private double spawnRate;
         protected List<Bullet> bulletList;
-        double timeElapsed;
-        public SpawnPattern(List<Bullet> bullets, SpriteN bulletSprite, int spawnRate, int totalBullets)
+        private double timeElapsed;
+        private double speed;
+        public SpawnPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate)
         {
             this.bulletList = bullets;
             this.bulletSprite = bulletSprite;
@@ -26,10 +30,14 @@ namespace EverLite.Modules.Blaster
             this.numSpawned = 0;
             this.IsEnabled = false;
             this.timeElapsed = 0;
+            this.speed = speed;
         }
 
         public bool IsEnabled { get; set; }
+
         public abstract void Spawn(Vector2 spawnPosition);
+
+        protected SpriteN Sprite { get => this.bulletSprite; }
 
         public void Update(GameTime gameTime, Vector2 position)
         {
@@ -50,5 +58,7 @@ namespace EverLite.Modules.Blaster
                 }
             }
         }
+
+        public abstract SpawnPattern Clone();
     }
 }

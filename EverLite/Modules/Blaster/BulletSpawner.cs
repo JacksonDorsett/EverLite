@@ -14,22 +14,15 @@ namespace EverLite.Modules.Blaster
     using Microsoft.Xna.Framework.Graphics;
 
 
-    internal class BulletSpawner : LifetimeEntity
+    public class BulletSpawner : LifetimeEntity
     {
-        readonly List<Bullet> bulletList;
-        private int numBullets;
-        private float speed;
-        private SpriteN bulletSprite;
-        public BulletSpawner(SpriteN bulletSprite, IMovement movementPattern, List<Bullet> bulletList, int numBullets, float speed, double lifetime)
+        private SpawnPattern spawnPattern;
+
+        public BulletSpawner(IMovement movementPattern, double lifetime, SpawnPattern spawnPattern)
             : base(new NoSprite(), movementPattern, lifetime)
         {
-            this.bulletList = bulletList;
-            this.speed = speed;
-            this.numBullets = numBullets;
-            this.bulletSprite = bulletSprite;
+            this.spawnPattern = spawnPattern;
         }
-
-        protected List<Bullet> BulletList { get => this.bulletList; }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -39,7 +32,7 @@ namespace EverLite.Modules.Blaster
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+            this.spawnPattern.Update(gameTime, this.Position);
         }
     }
 }

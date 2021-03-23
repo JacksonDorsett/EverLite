@@ -14,23 +14,23 @@ namespace EverLite.Modules.Wave
         private readonly SpriteN sprite;
         private readonly IMovement movement;
         private readonly float lifespan;
-        private IBlaster blaster;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyFactory"/> class.
         /// </summary>
         /// <param name=""></param>
-        public EnemyFactory(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
+        public EnemyFactory(SpriteN sprite, IMovement movement, float lifespan)
         {
             this.sprite = sprite;
             this.movement = movement;
             this.lifespan = lifespan;
-            this.blaster = blaster;
+
         }
 
         public Enemy Spawn()
         {
-            return new Enemy(this.sprite, this.blaster, this.movement, this.lifespan);
+            return new Enemy(this.sprite, this.movement, this.lifespan);
         }
     }
 }
