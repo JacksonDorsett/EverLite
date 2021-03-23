@@ -17,7 +17,8 @@ namespace EverLite.Modules.Blaster
     public class BulletSpawner : LifetimeEntity
     {
         private SpawnPattern spawnPattern;
-
+        private double lifetime;
+        private IMovement movement;
         public BulletSpawner(IMovement movementPattern, double lifetime, SpawnPattern spawnPattern)
             : base(new NoSprite(), movementPattern, lifetime)
         {
@@ -33,6 +34,11 @@ namespace EverLite.Modules.Blaster
         {
             base.Update(gameTime);
             this.spawnPattern.Update(gameTime, this.Position);
+        }
+
+        public BulletSpawner Clone()
+        {
+            return new BulletSpawner(this.movement, this.lifetime, new SpawnPattern())
         }
     }
 }

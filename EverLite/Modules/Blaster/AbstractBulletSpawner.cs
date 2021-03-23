@@ -27,7 +27,7 @@ namespace EverLite.Modules.Blaster
 
         public BulletSpawner GetSpawner()
         {
-            return new BulletSpawner(movementPattern, lifetime, spawnPattern)
+            return new BulletSpawner(movementPattern, lifetime, new SpawnPattern(BulletManager)
         }
     }
 }
