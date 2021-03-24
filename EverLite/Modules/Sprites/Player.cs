@@ -32,7 +32,6 @@ namespace EverLite.Modules.Sprites
         private Vector2 mPosition;
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
-        private IBlaster blaster;
         private SpriteN playerSprite;
         private PlayerShoot shooter;
 
@@ -61,16 +60,6 @@ namespace EverLite.Modules.Sprites
             // this.blaster = new PlayerBlaster(game.Content.Load<Texture2D>("TinyBlue"));
             this.slowSpeedStatus = new ToggleStatus(Keys.G);
             this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
-        }
-
-        /// <summary>
-        /// Shoots a bullet from blaster and returns the bullet object.
-        /// </summary>
-        /// <returns>returns the bullet that was shot.</returns>
-        public Sprite Shoot()
-        {
-            return null;
-            return this.blaster.Shoot(this.mPosition);
         }
 
         /// <inheritdoc/>
