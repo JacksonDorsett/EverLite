@@ -18,7 +18,6 @@ namespace EverLite.Modules
     internal class PlayerSystem
     {
         private Player player;
-        private List<Sprite> bullets = new List<Sprite>();
         private Game mGame;
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace EverLite.Modules
         public PlayerSystem(Game game)
         {
             this.mGame = game;
-            player = Player.Instance();
+            this.player = Player.Instance();
         }
 
         /// <summary>
