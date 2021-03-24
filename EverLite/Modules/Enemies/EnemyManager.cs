@@ -7,7 +7,9 @@ namespace EverLite.Modules.Enemies
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Blaster;
+    using EverLite.Modules.Managers;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -17,11 +19,12 @@ namespace EverLite.Modules.Enemies
     /// </summary>
     public class EnemyManager : IUpdateable
     {
-        private List<Enemy> activeEnemies;
-        private List<BulletSpawner> activeSpawners;
+        private List<LifetimeEntity> activeEnemies;
+        private List<LifetimeEntity> activeSpawners;
         private Game mGame;
         private WaveManager waveManager;
-
+        private LifetimeEntityManager spawnerLifeManager;
+        private LifetimeEntityManager enemyLifeManager;
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
@@ -29,8 +32,10 @@ namespace EverLite.Modules.Enemies
         public EnemyManager(Game game)
         {
             this.mGame = game;
-            this.activeEnemies = new List<Enemy>();
-            this.activeSpawners = new List<BulletSpawner>();
+            this.spawnerLifeManager = new LifetimeEntityManager();
+            this.enemyLifeManager = new LifetimeEntityManager();
+            this.activeEnemies = this.enemyLifeManager.EntityList;
+            this.activeSpawners = this.spawnerLifeManager.EntityList;
             this.waveManager = new WaveManager(game, this.activeEnemies, activeSpawners);
 
         }
@@ -46,36 +51,14 @@ namespace EverLite.Modules.Enemies
         public void Update(GameTime gameTime)
         {
             this.waveManager.Update(gameTime);
-            for (int i = this.activeSpawners.Count - 1; i >= 0; i--)
-            {
-                BulletSpawner s = this.activeSpawners[i];
-                s.Update(gameTime);
-                if (!s.IsAlive)
-                {
-                    this.activeSpawners.Remove(s);
-                }
-            }
-            for (int i = this.activeEnemies.Count - 1; i >= 0; i--)
-            {
-                Enemy e = this.activeEnemies[i];
-                e.Update(gameTime);
-                if (!e.IsAlive)
-                {
-                    this.activeEnemies.Remove(e);
-                }
-            }
+            this.spawnerLifeManager.Update(gameTime);
+            this.enemyLifeManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var e in this.activeEnemies)
-            {
-                e.Draw(spriteBatch);
-            }
-            foreach (var s in activeSpawners)
-            {
-                s.Draw(spriteBatch);
-            }
+            this.enemyLifeManager.Draw(spriteBatch);
+            this.spawnerLifeManager.Draw(spriteBatch);
         }
     }
 }

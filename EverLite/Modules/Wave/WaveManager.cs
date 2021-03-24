@@ -25,15 +25,15 @@ namespace EverLite
         private GameClock clock;
         private WaveQueue queue;
         private Game mGame;
-        private List<Enemy> enemies;
-        private List<BulletSpawner> spawners;
+        private List<LifetimeEntity> enemies;
+        private List<LifetimeEntity> spawners;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveManager"/> class.
         /// </summary>
         /// <param name="game">game ref.</param>
         /// <param name="enemies">list of active enemies.</param>
-        public WaveManager(Game game, List<Enemy> enemies, List<BulletSpawner> spawners)
+        public WaveManager(Game game, List<LifetimeEntity> enemies, List<LifetimeEntity> spawners)
             : base()
         {
             this.clock = new GameClock();

@@ -23,11 +23,11 @@ namespace EverLite.Modules.Wave
         private int totalSpawned;
         private EnemyFactory spawner;
         private double timeElapsed;
-        private List<Enemy> enemyList;
-        private List<BulletSpawner> spawners;
+        private List<LifetimeEntity> enemyList;
+        private List<LifetimeEntity> spawners;
         private BulletSpawner bulletSpawner;
 
-        public Wave(List<Enemy> enemies, List<BulletSpawner> spawners, EnemyFactory spawner, BulletSpawner bulletSpawner, double spawnInterval, int spawnCount, double startTime)
+        public Wave(List<LifetimeEntity> enemies, List<LifetimeEntity> spawners, EnemyFactory spawner, BulletSpawner bulletSpawner, double spawnInterval, int spawnCount, double startTime)
         {
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
