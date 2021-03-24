@@ -23,6 +23,9 @@ namespace EverLite.Modules.Blaster
             : base(new NoSprite(), movementPattern, lifetime)
         {
             this.spawnPattern = spawnPattern;
+            this.lifetime = lifetime;
+            this.movement = movementPattern;
+            this.spawnPattern.IsEnabled = true;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -38,7 +41,7 @@ namespace EverLite.Modules.Blaster
 
         public BulletSpawner Clone()
         {
-            return new BulletSpawner(this.movement, this.lifetime, new SpawnPattern())
+            return new BulletSpawner(this.movement, this.lifetime, spawnPattern.Clone());
         }
     }
 }

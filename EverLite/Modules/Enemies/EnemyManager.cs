@@ -7,6 +7,8 @@ namespace EverLite.Modules.Enemies
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Modules.Blaster;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -16,6 +18,7 @@ namespace EverLite.Modules.Enemies
     public class EnemyManager : IUpdateable
     {
         private List<Enemy> activeEnemies;
+        private List<BulletSpawner> activeSpawners;
         private Game mGame;
         private WaveManager waveManager;
 
@@ -27,7 +30,9 @@ namespace EverLite.Modules.Enemies
         {
             this.mGame = game;
             this.activeEnemies = new List<Enemy>();
-            this.waveManager = new WaveManager(game, this.activeEnemies);
+            this.activeSpawners = new List<BulletSpawner>();
+            this.waveManager = new WaveManager(game, this.activeEnemies, activeSpawners);
+
         }
 
         public event EventHandler<EventArgs> EnabledChanged;
@@ -41,7 +46,10 @@ namespace EverLite.Modules.Enemies
         public void Update(GameTime gameTime)
         {
             this.waveManager.Update(gameTime);
-
+            foreach(var s in activeSpawners)
+            {
+                s.Update(gameTime);
+            }
             for (int i = this.activeEnemies.Count - 1; i >= 0; i--)
             {
                 Enemy e = this.activeEnemies[i];
@@ -58,6 +66,10 @@ namespace EverLite.Modules.Enemies
             foreach (var e in this.activeEnemies)
             {
                 e.Draw(spriteBatch);
+            }
+            foreach (var s in activeSpawners)
+            {
+                s.Draw(spriteBatch);
             }
         }
     }

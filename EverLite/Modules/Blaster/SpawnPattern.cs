@@ -38,20 +38,24 @@ namespace EverLite.Modules.Blaster
         public abstract void Spawn(Vector2 spawnPosition);
 
         protected SpriteN Sprite { get => this.bulletSprite; }
+        protected double Speed { get => this.speed; }
+        protected double SpawnRate { get => spawnRate;}
 
-        public void Update(GameTime gameTime, Vector2 position)
+        protected int TotalBullets => totalBullets;
+
+        public virtual void Update(GameTime gameTime, Vector2 position)
         {
             if (this.IsEnabled)
             {
                 this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if (this.timeElapsed > this.spawnRate)
+                if (this.timeElapsed > this.SpawnRate)
                 {
-                    this.timeElapsed -= this.spawnRate;
+                    this.timeElapsed -= this.SpawnRate;
                     this.Spawn(position);
                     this.numSpawned++;
 
-                    if (this.numSpawned >= this.totalBullets)
+                    if (this.numSpawned >= this.TotalBullets)
                     {
                         this.IsEnabled = false;
                     }

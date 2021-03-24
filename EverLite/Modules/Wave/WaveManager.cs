@@ -26,18 +26,21 @@ namespace EverLite
         private WaveQueue queue;
         private Game mGame;
         private List<Enemy> enemies;
+        private List<BulletSpawner> spawners;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveManager"/> class.
         /// </summary>
         /// <param name="game">game ref.</param>
         /// <param name="enemies">list of active enemies.</param>
-        public WaveManager(Game game, List<Enemy> enemies)
+        public WaveManager(Game game, List<Enemy> enemies, List<BulletSpawner> spawners)
             : base()
         {
             this.clock = new GameClock();
             this.activeWaves = new List<Wave>();
             this.queue = new WaveQueue(this.clock);
             this.enemies = enemies;
+            this.spawners = spawners;
             this.mGame = game;
             this.Initialize();
         }
@@ -67,9 +70,11 @@ namespace EverLite
 
         public void Initialize()
         {
-            var blaster = new EnemyBlaster(Player.Instance(), SpriteLoader.LoadSprite("TinyRed").Texture);
-            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy2"), blaster, new LinearMovement(new Vector2(2000, 200), new Vector2(-30, 800)), 4), 500, 100, 0));
-            this.AddWave(new Wave(this.enemies, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1"), blaster, new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950),new Vector2(500,100)), 4), 500, 100, 0));
+            var linear = new LinearMovement(new Vector2(2000, 200), new Vector2(-30, 800));
+            var curved = new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950), new Vector2(500, 100));
+
+            this.AddWave(new Wave(this.enemies, spawners, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy2"), linear, 4), new BulletSpawner(linear, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("enemy1"), .1f, 20, 2000)), 1000, 100, 0));
+            this.AddWave(new Wave(this.enemies, spawners, new Modules.Wave.EnemyFactory(SpriteLoader.LoadSprite("enemy1"), curved, 4), new BulletSpawner(curved, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("enemy2"), .1f, 20, 2000)), 1000, 100, 0));
         }
 
         public void Update(GameTime gameTime)

@@ -24,9 +24,10 @@ namespace EverLite.Modules.Wave
         private EnemyFactory spawner;
         private double timeElapsed;
         private List<Enemy> enemyList;
+        private List<BulletSpawner> spawners;
         private BulletSpawner bulletSpawner;
 
-        public Wave(List<Enemy> enemies, EnemyFactory spawner, BulletSpawner bulletSpawner, double spawnInterval, int spawnCount, double startTime)
+        public Wave(List<Enemy> enemies, List<BulletSpawner> spawners, EnemyFactory spawner, BulletSpawner bulletSpawner, double spawnInterval, int spawnCount, double startTime)
         {
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
@@ -35,6 +36,7 @@ namespace EverLite.Modules.Wave
             this.timeElapsed = 0;
             this.totalSpawned = 0;
             this.enemyList = enemies;
+            this.spawners = spawners;
             this.bulletSpawner = bulletSpawner;
         }
 
@@ -58,6 +60,7 @@ namespace EverLite.Modules.Wave
                 if (this.totalSpawned < this.spawnCount && this.timeElapsed >= this.spawnInterval)
                 {
                     this.enemyList.Add(this.spawner.Spawn());
+                    this.spawners.Add(this.bulletSpawner.Clone());
                     this.totalSpawned++;
                     this.timeElapsed -= this.spawnInterval;
 
