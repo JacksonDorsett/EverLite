@@ -84,10 +84,5 @@ namespace EverLite.Modules.Behavior
         /// Gets or sets the PadPause command.
         /// </summary>
         public Buttons PadPause { get; set; }
-
-        /// <summary>
-        /// Gets or sets the PadRight command.
-        /// </summary>
-        public GamePadTriggers PadRight { get; set; }
     }
 }
