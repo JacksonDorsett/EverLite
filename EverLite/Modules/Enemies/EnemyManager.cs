@@ -46,9 +46,14 @@ namespace EverLite.Modules.Enemies
         public void Update(GameTime gameTime)
         {
             this.waveManager.Update(gameTime);
-            foreach(var s in activeSpawners)
+            for (int i = this.activeSpawners.Count - 1; i >= 0; i--)
             {
+                BulletSpawner s = this.activeSpawners[i];
                 s.Update(gameTime);
+                if (!s.IsAlive)
+                {
+                    this.activeSpawners.Remove(s);
+                }
             }
             for (int i = this.activeEnemies.Count - 1; i >= 0; i--)
             {
