@@ -16,11 +16,10 @@ namespace EverLite.Modules
     /// <summary>
     /// PlayerSystem manages the player actions, including the bullets created by shooting.
     /// </summary>
-    internal class PlayerSystem
+    internal class PlayerSystem : Controller
     {
         private Player player;
         private Game mGame;
-        private Controller controller;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
@@ -29,8 +28,7 @@ namespace EverLite.Modules
         public PlayerSystem(Game game)
         {
             this.mGame = game;
-            //this.player = Player.Instance();
-            this.controller = new Controller(game, this.player);
+            this.player = Player.Instance();
         }
 
         /// <summary>
@@ -39,7 +37,10 @@ namespace EverLite.Modules
         /// </summary>
         public Player Player
         {
-            get { return this.player; }
+            get
+            {
+                return this.player;
+            }
         }
 
         /// <summary>
@@ -48,8 +49,7 @@ namespace EverLite.Modules
         /// <param name="gameTime">GameTime.</param>
         public void Update(GameTime gameTime)
         {
-            //this.player.Update(gameTime);
-            this.controller.Update(gameTime);
+            this.player.Update(gameTime);
         }
 
         /// <summary>
@@ -63,10 +63,10 @@ namespace EverLite.Modules
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            this.controller.Draw(sprite);
+            this.player.Draw(sprite);
             sprite.End();
 
         }
-    }
 
+    }
 }
