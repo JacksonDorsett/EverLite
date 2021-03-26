@@ -22,13 +22,13 @@ namespace EverLite.Modules
         private Game mGame;
 
         private Player mPlayer;
-        //private BasePlayer mPlayer;
-        private List<Sprite> bullets;
+        private EnemyManager enemyManager;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemySystem"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public EnemySystem(Game game, Player player/*BasePlayer player*/)
+        public EnemySystem(Game game, Player player)
         {
             this.mGame = game;
             this.mPlayer = player;
@@ -41,7 +41,7 @@ namespace EverLite.Modules
         /// <param name="gameTime"> game time.</param>
         public void Update(GameTime gameTime)
         {
-              
+
         }
 
 
@@ -54,7 +54,8 @@ namespace EverLite.Modules
         /// <param name="sprite"> sprite batch.</param>
         public void Draw(SpriteBatch sprite)
         {
-           
+
         }
     }
+
 }

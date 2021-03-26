@@ -9,32 +9,42 @@ namespace EverLite.Modules.Behavior
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
+    using System;
 
     /// <summary>
     /// The Controller class manages the user controls for gameplay.
     /// </summary>
-    public class Controller
+    public class Controller : ButtonControls
     {
-        private static readonly float NORMALSPEED = 15.0f;
-        private static readonly float SLOWSPEED = 5.0f;
-        private IBlaster blaster;
+        private static Controller instance;
         private int screenWidth;
         private int screenHeight;
         private Game game;
         private Player player;
-        //private BasePlayer player;
+        //private Vector2 position;
+        public Vector2 Position
+        {
+            get { return this.player.Position; }
+            set { this.player.Position = value; }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
         /// <param name="g">game reference.</param>
         /// <param name="p">player object.</param>
-        public Controller(Game g, Player p/*BasePlayer p*/)
+        public Controller(Game g, Player p)
         {
             this.player = p;
             this.game = g;
-            this.blaster = new PlayerBlaster(g.Content.Load<Texture2D>("TinyBlue"));
             this.SetGameBoundary();
+        }
+        
+        public Controller(Game g)
+        {
+            this.game = g;
+            this.SetGameBoundary();
+            Player.Initialize(g);
         }
 
         /// <summary>
@@ -48,9 +58,17 @@ namespace EverLite.Modules.Behavior
 
             this.UpdatePlayerPositionGamePad(gamePad);
             this.UpdatePlayerPosition(keyBoard);
-            this.blaster.Update(gameTime);
+        }
+        
+        public static Controller Instance()
+        {
+            if (instance == null)
+                throw new Exception("Controller not initialized.");
+
+            return instance;
         }
 
+        /*
         /// <summary>
         /// Makes the player shoot.
         /// </summary>
@@ -58,6 +76,12 @@ namespace EverLite.Modules.Behavior
         public Sprite ShootLocation()
         {
             return this.blaster.Shoot(this.player.Position);
+        }*/
+        public static void Initialize(Game game)
+        {
+            if (instance != null)
+                throw new Exception("Controller already initialized.");
+            instance = new Controller(game);
         }
 
         /// <summary>
@@ -76,33 +100,34 @@ namespace EverLite.Modules.Behavior
         private void UpdatePlayerPosition(KeyboardState keyBoard)
         {
             // sets the player speed based on the toggle state.
-            this.player.SetsVelocity(this.player.GetPlayerSpeed());
+            //this.player.SetsVelocity(this.player.GetPlayerSpeed());
+            //this.player.Speed = this.player.GetPlayerSpeed();
 
-            if (keyBoard.IsKeyDown(this.player.MoveLeft))
+            if (keyBoard.IsKeyDown(this.MoveLeft))
             {
-                this.player.Position.X -= this.player.GetsVelocity();
-                //this.player.Position = new Vector2(this.player.Position.X - this.player.Speed, this.player.Position.Y);
+                //this.player.Position.X -= this.player.GetsVelocity();
+                this.player.Position = new Vector2(this.player.Position.X - this.player.Speed, this.player.Position.Y);
             }
 
-            if (keyBoard.IsKeyDown(this.player.MoveRight))
+            if (keyBoard.IsKeyDown(this.MoveRight))
             {
-                this.player.Position.X += this.player.GetsVelocity();
-                //this.player.Position = new Vector2(this.player.Position.X + this.player.Speed, this.player.Position.Y);
+                //this.player.Position.X += this.player.GetsVelocity();
+                this.player.Position = new Vector2(this.player.Position.X + this.player.Speed, this.player.Position.Y);
             }
 
-            if (keyBoard.IsKeyDown(this.player.MoveUp))
+            if (keyBoard.IsKeyDown(this.MoveUp))
             {
-                this.player.Position.Y -= this.player.GetsVelocity();
-                //this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y - this.player.Speed);
+                //this.player.Position.Y -= this.player.GetsVelocity();
+                this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y - this.player.Speed);
             }
 
-            if (keyBoard.IsKeyDown(this.player.MoveDown))
+            if (keyBoard.IsKeyDown(this.MoveDown))
             {
-                this.player.Position.Y += this.player.GetsVelocity();
-                //this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y + this.player.Speed);
+                //this.player.Position.Y += this.player.GetsVelocity();
+                this.player.Position = new Vector2(this.player.Position.X, this.player.Position.Y + this.player.Speed);
             }
 
-            this.CheckPlayerBoundry();
+            //this.CheckPlayerBoundry();
         }
 
         /// <summary>
@@ -111,30 +136,30 @@ namespace EverLite.Modules.Behavior
         /// <param name="currentGamePadState">gamepad state.</param>
         private void UpdatePlayerPositionGamePad(GamePadState gamePad)
         {
-            if (gamePad.IsButtonDown(this.player.PadPause))
+            if (gamePad.IsButtonDown(this.PadPause))
             {
                 this.game.Exit();
             }
 
-            if (gamePad.IsButtonDown(this.player.PadSlowSpeed))
+            if (gamePad.IsButtonDown(this.PadSlowSpeed))
             {
-                this.player.SetsVelocity(SLOWSPEED);
-                //this.player.Speed = this.player.SLOWSPEED;
+                //this.player.SetsVelocity(SLOWSPEED);
+                this.player.ChangeSpeed("slow");
             }
 
-            if (gamePad.IsButtonUp(this.player.PadSlowSpeed))
+            if (gamePad.IsButtonUp(this.PadSlowSpeed))
             {
-                this.player.SetsVelocity(NORMALSPEED);
-                //this.player.Speed = this.player.NORMALSPEED;
+                //this.player.SetsVelocity(NORMALSPEED);
+                this.player.ChangeSpeed("normal");
             }
 
-            this.player.Position.X += gamePad.ThumbSticks.Left.X * this.player.GetsVelocity();
+            //this.player.Position.X += gamePad.ThumbSticks.Left.X * this.player.GetsVelocity();
 
-            this.player.Position.Y -= gamePad.ThumbSticks.Left.Y * this.player.GetsVelocity();
+            //this.player.Position.Y -= gamePad.ThumbSticks.Left.Y * this.player.GetsVelocity();
 
-            //this.player.Position += new Vector2(gamePad.ThumbSticks.Left.X * this.player.Speed, this.player.Position.Y);
+            this.player.Position += new Vector2(gamePad.ThumbSticks.Left.X * this.player.Speed, this.player.Position.Y);
 
-            //this.player.Position -= new Vector2(this.player.Position.X, gamePad.ThumbSticks.Left.Y * this.player.Speed);
+            this.player.Position -= new Vector2(this.player.Position.X, gamePad.ThumbSticks.Left.Y * this.player.Speed);
         }
 
         /// <summary>
@@ -147,6 +172,14 @@ namespace EverLite.Modules.Behavior
             this.screenHeight = rect.Height;
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            //Vector2 origin;
+
+            //this.playerSprite.Draw(spriteBatch, this.mPosition, .5f);
+            this.player.playerSprite.Draw(spriteBatch, this.player.Position, this.player.SCALE);
+        }
+
         /// <summary>
         /// Keeps the player forever trapped withen the display.
         /// </summary>
@@ -154,26 +187,26 @@ namespace EverLite.Modules.Behavior
         {
             if (this.player.Position.X <= 15)
             {
-                this.player.Position.X = 15;
-                //this.player.Position = new Vector2(15, this.player.Position.Y);
+                //this.player.Position.X = 15;
+                this.player.Position = new Vector2(15, this.player.Position.Y);
             }
 
             if (this.player.Position.Y <= 45)
             {
-                this.player.Position.Y = 45;
-                //this.player.Position = new Vector2(this.player.Position.X, 15);
+                //this.player.Position.Y = 45;
+                this.player.Position = new Vector2(this.player.Position.X, 15);
             }
 
-            if (this.player.Position.X + this.player.Texture.Width >= this.screenWidth)
+            if (this.player.Position.X + this.player.playerSprite.Texture.Height >= this.screenWidth)
             {
-                this.player.Position.X = this.screenWidth - this.player.Texture.Width;
-                //this.player.Position = new Vector2(this.screenWidth - this.player.Texture.Width, this.player.Position.Y);
+                //this.player.Position.X = this.screenWidth - this.player.Texture.Width;
+                this.player.Position = new Vector2(this.screenWidth - this.player.playerSprite.Texture.Width, this.player.Position.Y);
             }
 
-            if (this.player.Position.Y + this.player.Texture.Height >= this.screenHeight)
+            if (this.player.Position.Y + this.player.playerSprite.Texture.Height >= this.screenHeight)
             {
-                this.player.Position.Y = this.screenHeight - this.player.Texture.Height;
-                //this.player.Position = new Vector2(this.player.Position.X, this.screenHeight - this.player.Texture.Height);
+                //this.player.Position.Y = this.screenHeight - this.player.Texture.Height;
+                this.player.Position = new Vector2(this.player.Position.X, this.screenHeight - this.player.playerSprite.Texture.Height);
             }
         }
     }

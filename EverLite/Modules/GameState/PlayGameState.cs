@@ -11,6 +11,7 @@ namespace EverLite.Modules.GameState
     using EverLite.Audio;
     using EverLite.Modules;
     using EverLite.Modules.Behavior;
+    using EverLite.Modules.Enemies;
     using EverLite.Modules.Graphics;
     using EverLite.Modules.Input;
     using EverLite.Modules.Sprites;
@@ -27,10 +28,9 @@ namespace EverLite.Modules.GameState
         private PlayerSystem playerSystem;
         // private EnemySystem enemySystem;
         private ToggleStatus pauseStatus;
-        //private Sprite player;
-        private BasePlayer player;
-        private List<Sprite> bullets = new List<Sprite>();
-
+        private EnemyManager enemyManager;
+        private BulletManager bulletManager;
+        private Controller controller;
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
         /// </summary>
@@ -38,8 +38,9 @@ namespace EverLite.Modules.GameState
         public PlayGameState(Game1 game)
             : base(game)
         {
-            Player.Initialize(game);
-
+            //Player.Initialize(game);
+            Controller.Initialize(game);
+            //this.controller = new Controller(this.Game);
             this.playerSystem = new PlayerSystem(this.Game);
             this.scrollingBG = new ScrollingBG(game);
             this.pauseStatus = new ToggleStatus(Keys.Space);

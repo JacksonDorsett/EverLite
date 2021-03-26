@@ -17,7 +17,7 @@ namespace EverLite.Modules.Behavior
         public ButtonControls()
         {
             this.Shoot = Keys.D;
-            this.SlowSpeed = Keys.F;
+            this.SlowSpeed = Keys.G;
             this.MoveLeft = Keys.Left;
             this.MoveRight = Keys.Right;
             this.MoveUp = Keys.Up;

@@ -9,12 +9,14 @@ namespace EverLite.Modules.Blaster
 {
     internal class LinearPattern : SpawnPattern
     {
-        private Player mPlayer;
+        //private Player mPlayer;
+        private Controller mPlayer;
 
         public LinearPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate)
             : base(bullets, bulletSprite, speed, totalBullets, spawnRate)
         {
-            this.mPlayer = Player.Instance();
+            //this.mPlayer = Player.Instance();
+            this.mPlayer = Controller.Instance();
         }
 
         public override SpawnPattern Clone()
@@ -24,7 +26,8 @@ namespace EverLite.Modules.Blaster
 
         public override void Spawn(Vector2 spawnPosition)
         {
-            Vector2 dif = this.mPlayer.GetPosition() - spawnPosition;
+            //Vector2 dif = this.mPlayer.Position - spawnPosition;
+            Vector2 dif = this.mPlayer.Position - spawnPosition;
             dif.Normalize();
 
             var p = new LinearMovement(spawnPosition, (spawnPosition + dif * 2000));
