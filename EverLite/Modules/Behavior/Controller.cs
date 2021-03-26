@@ -13,7 +13,7 @@ namespace EverLite.Modules.Behavior
     /// <summary>
     /// The Controller class manages the user controls for gameplay.
     /// </summary>
-    public class Controller /*: ButtonControls*/
+    public class Controller
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
