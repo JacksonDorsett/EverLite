@@ -15,7 +15,7 @@ namespace EverLite.Modules.Sprites
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
-    public class Player : Sprite
+    public class Player
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
@@ -25,10 +25,6 @@ namespace EverLite.Modules.Sprites
         private Game mGame;
         private ToggleStatus slowSpeedStatus;
 
-        static Player()
-        {
-            sPlayerRef = new Dictionary<Game, Player>();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -36,7 +32,6 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="newBulletTexture">The picture of the bullet object.</param>
         public Player()
-            : base(true, 0, NORMALSPEED)
         {
         }
 
@@ -45,7 +40,7 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="game">game reference object.</param>
         public Player(Game game)
-            : base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
+            //: base(0, NORMALSPEED, game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), Vector2.Zero)
         {
             this.mGame = game;
             this.Initialize(game.Content.Load<Texture2D>(EnumToStringFactory.GetEnumToString(FactoryEnum.Player)), this.GetPlayerLocation());
@@ -80,20 +75,24 @@ namespace EverLite.Modules.Sprites
         }
 
         /// <inheritdoc/>
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
+        }
+
+        public Vector2 GetPosition()
+        {
+            return this.mPosition;
         }
 
         /// <summary>
         /// Draws the Player.
         /// </summary>
         /// <param name="spriteBatch">sprite batch being drawn to.</param>
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin;
-            origin.X = this.Texture.Width / 6;
-            origin.Y = this.Texture.Height / 6;
-            spriteBatch.Draw(this.Texture, this.Position, null, Color.White, this.angle, origin, this.scale, SpriteEffects.None, this.layerDepth);
+
+            this.playerSprite.Draw(spriteBatch, this.mPosition,.5f);
         }
 
         private Vector2 GetPlayerLocation()

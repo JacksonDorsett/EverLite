@@ -1,7 +1,7 @@
 ﻿// <copyright file="FinalBoss.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
+/*
 namespace EverLite.Modules.Enemies
 {
     using EverLite.Modules.Blaster;
@@ -31,9 +31,10 @@ namespace EverLite.Modules.Enemies
             : base(newPosition, game, blaster) { }
 
         /// <inheritdoc/>
-        public override string SpriteName { get; set; } = "final-boss";
+        public string SpriteName { get; set; } = "final-boss";
 
         /// <inheritdoc/>
-        public override bool IsVisible { get; set; } = true;
+        public bool IsVisible { get; set; } = true;
     }
 }
+*/

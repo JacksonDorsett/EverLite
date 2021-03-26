@@ -1,0 +1,107 @@
+{
+  "presets": {
+    "movement": {
+      "A": {
+        "Type": "A" //A is a straight line
+        "speed": 10  
+        "points": [
+          [
+            -0.06, //percentage on screen
+            0.12
+          ],
+          [
+            1.05,
+            0.45
+          ]
+        ]
+      },
+      "B": {
+        "Type": "B",
+        "speed": 10,
+        "points": [
+          [ -0.1, 0.5 ],
+          [ 0.5, 0.1 ],
+          [ 1.1, 0.75 ]
+        ]
+      }
+    }
+  },
+  "waves": [
+    {
+      "id": 1,
+      "start": 0,
+      "lifetime": 6000,
+      "enemyType": "A",
+      "enemyAmount": 5,
+      "spawnInterval": 200,
+      "movement": "B",
+      "ShootingPattern": {
+        "color": "red",
+        "type": "A",
+        "interval": 40,
+        "speed": 10,
+        "amount": 15
+      }
+    },
+    {
+      "id": 2,
+      "start": 4000,
+      "lifetime": 5000,
+      "enemyType": "B",
+      "enemyAmount": 3,
+      "spawnInterval": 400,
+      "movement": "A",
+      "ShootingPattern": {
+        "color": "red",
+        "type": "A",
+        "interval": 20,
+        "speed": 30,
+        "amount": 7
+      }
+    },
+    {
+      "id": 3,
+      "startTime": 40000,
+      "lifetime" :  10000,
+      "type": "Boss1",
+      "enemyAmount": 1,
+      "spawnInterval": 0,
+      "movement": {
+        "type": "A",
+        "points": [
+          [ -0.15, 0.15 ],
+          [ 0.5, 0.3 ]
+        ]
+      },
+      "ShootingPattern": {
+        "color": "red",
+        "type": "BS", //boss spiral
+        "interval": 1000,
+        "speed": 10,
+        "amount": 10
+      },
+      {
+        "id": 4,
+        "startTime": 50000,
+        "lifetime": 4000,
+        "type": "Boss1",
+        "enemyAmount": 1,
+        "spawnInterval": 0,
+        "movement": {
+          "type": "A",
+          "points": [
+            [ 0.5, 0.3 ],
+            [ 0.5, 0.3 ]
+          ]
+        },
+        "ShootingPattern": {
+          "color": "red",
+          "type": "BT", //boss target
+          "interval": 2000,
+          "speed": 10,
+          "amount": 2
+        }
+      }
+
+  ]
+}

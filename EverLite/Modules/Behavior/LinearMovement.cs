@@ -26,10 +26,20 @@ namespace EverLite.Modules.Behavior
             this.diff = finalPos - initialPos;
         }
 
-        // inheritdoc
-        public Vector2 GetPosition(float halfLife)
+        public float Angle(double halfLife)
         {
-            return this.mInitialPos + (halfLife * this.diff);
+            if (this.diff.X == 0)
+            {
+                if (this.diff.Y >= 0) return (float)Math.PI / 2;
+                else return 3 * (float)Math.PI / 2;
+            }
+            return (float)Math.Atan((double)this.diff.Y/ (double)this.diff.X);
+        }
+
+        // inheritdoc
+        public Vector2 GetPosition(double halfLife)
+        {
+            return this.mInitialPos + ((float)halfLife * this.diff);
         }
     }
 }

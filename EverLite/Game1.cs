@@ -61,6 +61,7 @@ namespace EverLite
         {
             base.Initialize();
             this.mContext = new GameStateContext(this);
+            SpriteLoader.Initialize(this.Content);
         }
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace EverLite
             this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             this.mGraphics.HardwareModeSwitch = false;
             this.mGraphics.ApplyChanges();
+            SpriteLoader.Initialize(this.Content);
 
         }
 

@@ -20,7 +20,7 @@ namespace EverLite.Utilities
         /// </summary>
         public GameClock()
         {
-            this.isPaused = true;
+            this.isPaused = false;
             this.mTimePassed = new TimeSpan(0);
         }
 

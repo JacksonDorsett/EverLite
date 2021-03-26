@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace EverLiteTests
 {
-    public class Tests
+    public class GameClockTests
     {
         [SetUp]
         public void Setup()
@@ -22,8 +22,7 @@ namespace EverLiteTests
             //test Update
             GameTime gt = new GameTime(new TimeSpan(100), new TimeSpan(100));
 
-            gc.Update(gt);
-            Assert.AreEqual(new TimeSpan(0), gc.ElapsedTime);
+
             //test Update
             gc.Start();
             gc.Update(gt);
