@@ -14,7 +14,6 @@ namespace EverLite.Modules.Sprites
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
 
-
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
@@ -25,7 +24,6 @@ namespace EverLite.Modules.Sprites
         private static Player mInstance;
         // constants
         private Vector2 mPosition;
-        private Game mGame;
         private SpriteN playerSprite;
         private PlayerShoot shooter;
 
