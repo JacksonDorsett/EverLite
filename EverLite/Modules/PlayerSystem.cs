@@ -7,6 +7,7 @@ namespace EverLite.Modules
     using System.Collections.Generic;
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Enums;
+    using EverLite.Modules.Managers;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -16,10 +17,11 @@ namespace EverLite.Modules
     /// <summary>
     /// PlayerSystem manages the player actions, including the bullets created by shooting.
     /// </summary>
-    internal class PlayerSystem : Controller
+    internal class PlayerSystem
     {
         private Player player;
         private Game mGame;
+        private PlayerMovementManager movementManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
@@ -29,6 +31,7 @@ namespace EverLite.Modules
         {
             this.mGame = game;
             this.player = Player.Instance();
+            this.movementManager = new PlayerMovementManager(this.player, game.Window.ClientBounds);
         }
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace EverLite.Modules
         public void Update(GameTime gameTime)
         {
             this.player.Update(gameTime);
+            this.movementManager.Update(gameTime);
         }
 
         /// <summary>

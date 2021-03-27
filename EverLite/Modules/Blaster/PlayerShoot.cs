@@ -1,16 +1,19 @@
-﻿using EverLite.Modules.Behavior;
-using EverLite.Modules.Sprites;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace EverLite.Modules.Blaster
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using EverLite.Modules.Behavior;
+    using EverLite.Modules.Sprites;
+    using Microsoft.Xna.Framework;
+
     public class PlayerShoot : IShootingPattern
     {
         SpriteN bulletSprite;
         BulletManager manager;
+
         public PlayerShoot(SpriteN bulletSprite)
         {
             this.bulletSprite = bulletSprite;

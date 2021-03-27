@@ -30,7 +30,7 @@ namespace EverLite.Modules.GameState
         private ToggleStatus pauseStatus;
         private EnemyManager enemyManager;
         private BulletManager bulletManager;
-        private Controller controller;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
         /// </summary>
@@ -38,9 +38,6 @@ namespace EverLite.Modules.GameState
         public PlayGameState(Game1 game)
             : base(game)
         {
-            //Player.Initialize(game);
-            Controller.Initialize(game);
-            //this.controller = new Controller(this.Game);
             this.playerSystem = new PlayerSystem(this.Game);
             this.scrollingBG = new ScrollingBG(game);
             this.pauseStatus = new ToggleStatus(Keys.Space);
@@ -81,7 +78,6 @@ namespace EverLite.Modules.GameState
             if (!this.pauseStatus.Status)
             {
                 this.playerSystem.Update(gameTime);
-                //this.enemySystem.Update(gameTime);
                 this.scrollingBG.Update(gameTime);
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);

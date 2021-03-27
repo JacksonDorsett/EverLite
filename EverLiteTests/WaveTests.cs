@@ -6,6 +6,7 @@ using EverLite.Modules.Wave;
 using EverLite.Modules.Blaster;
 using EverLite.Modules.Enemies;
 using Microsoft.Xna.Framework;
+using EverLite.Modules.Behavior;
 
 namespace EverLiteTests
 {
@@ -16,8 +17,8 @@ namespace EverLiteTests
         {
             var t1 = new TimeSpan(0, 0, 0, 0, 100);
             var t2 = new TimeSpan(0, 0, 0, 0, 200);
-            List<Enemy> enemies = new List<Enemy>();
-            Wave w = new Wave(enemies, new EnemyFactory(null, null, null, 1), 200d, 3, 0);
+            List<LifetimeEntity> enemies = new List<LifetimeEntity>();
+            Wave w = new Wave(enemies, null, new EnemyFactory(null, null, 1),null,  200d, 3, 0);
             w.Update(new GameTime(t1, t1));
             Assert.AreEqual(0, enemies.Count);
             w.Update(new GameTime(t1, t2));
