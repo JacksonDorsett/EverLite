@@ -1,25 +1,25 @@
-﻿
+﻿// <copyright file="EnemyBlaster.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace EverLite.Modules.Blaster
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Sprites;
-    using EverLite.Utilities;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// Standard Enemy Blaster.
     /// </summary>
-    public class EnemyBlaster : IBlaster
+    public class EnemyBlaster : IBlaster, IHitbox
     {
         private Player player;
         private Game game;
         private Texture2D texture;
         private double rateOfFire;
         private double timeElapsed;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyBlaster"/> class.
         /// </summary>
@@ -56,6 +56,15 @@ namespace EverLite.Modules.Blaster
             //get Magnitude
             diff.Normalize();
             return diff * 10;
+        }
+
+        /// <summary>
+        /// Function that returns a hitbox.
+        /// </summary>
+        /// <returns> hitbox.</returns>
+        Rectangle IHitbox.GetHitBox()
+        {
+            return new Rectangle(texture.Width, texture.Height);
         }
     }
 }

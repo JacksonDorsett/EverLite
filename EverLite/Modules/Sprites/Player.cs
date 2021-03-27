@@ -6,6 +6,7 @@ namespace EverLite.Modules.Sprites
 {
     using System;
     using System.Collections.Generic;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Enums;
     using EverLite.Modules.Input;
@@ -17,7 +18,7 @@ namespace EverLite.Modules.Sprites
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
-    public class Player
+    public class Player: ICollidable
     {
         // instance
         private static Dictionary<Game, Player> sPlayerRef;
@@ -115,6 +116,18 @@ namespace EverLite.Modules.Sprites
             }
 
             return sPlayerRef[game];
+        }
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            if (collidable is PlayerBlaster)
+            {
+                // TODO: implement hit and health stuff.
+            }
         }
 
         private void UpdatePlayerPositionGamePad(GamePadState currentGamePadState)

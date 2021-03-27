@@ -4,9 +4,6 @@
 
 namespace EverLite.Modules.Blaster
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

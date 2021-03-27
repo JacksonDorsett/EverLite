@@ -15,7 +15,7 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    public class Enemy : LifetimeEntity
+    public class Enemy : LifetimeEntity, ICollidable
     {
         private IBlaster blaster;
 
@@ -59,6 +59,17 @@ namespace EverLite.Modules.Enemies
             this.blaster.Update(gameTime);
         }
 
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            if (collidable is PlayerBlaster)
+            {
+                // TODO: implement hit and health stuff.
+            }
+        }
     }
 
 }

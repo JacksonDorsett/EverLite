@@ -4,13 +4,14 @@
 
 namespace EverLite.Modules.Blaster
 {
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
 
     /// <summary>
     /// Blaster Interface.
     /// </summary>
-    public interface IBlaster
+    public interface IBlaster : ICollidable
     {
         /// <summary>
         /// Shoot interface.
@@ -24,5 +25,15 @@ namespace EverLite.Modules.Blaster
         /// </summary>
         /// <param name="gameTime">gametime passed during the cycle.</param>
         public void Update(GameTime gameTime);
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            // TODO: make bullet destroy itself.
+            return;
+        }
     }
 }
