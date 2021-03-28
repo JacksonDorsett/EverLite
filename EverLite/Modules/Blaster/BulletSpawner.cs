@@ -14,7 +14,7 @@ namespace EverLite.Modules.Blaster
     using Microsoft.Xna.Framework.Graphics;
 
 
-    class BulletSpawner : LifetimeEntity
+    public class BulletSpawner : LifetimeEntity
     {
         private SpawnPattern spawnPattern;
         private double lifetime;

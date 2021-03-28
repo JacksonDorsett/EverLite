@@ -1,18 +1,21 @@
-﻿
+﻿// <copyright file="LifetimeEntity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace EverLite.Modules.Behavior
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Lifetime dependent Entity.
     /// </summary>
-    class LifetimeEntity : Entity, ICollidable
+    public class LifetimeEntity : Entity, ICollidable
     {
         private SpriteN mSprite;
         protected IMovement movementPattern;
@@ -36,8 +39,8 @@ namespace EverLite.Modules.Behavior
 
         protected double Halflife { get => this.lifespan.Halflife;  }
 
-        
         public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
+
         public override void Update(GameTime gameTime)
         {
             this.lifespan.Update(gameTime);
@@ -73,7 +76,6 @@ namespace EverLite.Modules.Behavior
         /// <param name="collidable"> object colided with.</param>
         protected virtual void CollidesWith(ICollidable collidable)
         {
-            this.Sprite.HitAnimation();
         }
     }
 }

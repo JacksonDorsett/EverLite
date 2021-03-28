@@ -77,7 +77,7 @@ namespace EverLite.Modules.Sprites
         void ICollidable.CollidesWith(ICollidable collidable)
         {
             // TODO: implement hit and health stuff.
-            this.playerSprite.HitAnimation();
+            //this.playerSprite.HitAnimation();
         }
 
         public static Player Instance()

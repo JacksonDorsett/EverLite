@@ -13,9 +13,8 @@ namespace EverLite.Modules.Blaster
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    class Bullet : LifetimeEntity
+    public class Bullet : LifetimeEntity
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Bullet"/> class.
         /// </summary>
@@ -29,7 +28,6 @@ namespace EverLite.Modules.Blaster
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
         }
 
         /// <summary>

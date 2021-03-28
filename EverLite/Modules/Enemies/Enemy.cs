@@ -7,12 +7,15 @@ namespace EverLite.Modules.Enemies
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+    using System.Timers;
 
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    class Enemy : LifetimeEntity
+    public class Enemy : LifetimeEntity
     {
+        private bool isHit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.
@@ -24,6 +27,7 @@ namespace EverLite.Modules.Enemies
         public Enemy(SpriteN sprite, IMovement movement, float lifespan)
             : base(sprite, movement, (double)lifespan)
         {
+            this.isHit = false;
         }
 
         /// <summary>
@@ -47,6 +51,26 @@ namespace EverLite.Modules.Enemies
         {
             // TODO: implement health system action.
             base.CollidesWith(collidable);
+            this.HitAnimation();
+        }
+
+        public void HitAnimation()
+        {
+            this.isHit = true;
+            Timer timer = new Timer(0.025); // 0.25 seconds
+            timer.Elapsed += (e, o) => { this.isHit = false; };
+            timer.AutoReset = false;
+            timer.Start();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            var c = Color.White;
+            if (this.isHit) c = Color.Red;
+            base.Draw(spriteBatch);
+            spriteBatch.Begin();
+            this.Sprite.Draw(spriteBatch, this.Position, c, rotation: this.movementPattern.Angle(this.Halflife));
+            spriteBatch.End();
         }
     }
 

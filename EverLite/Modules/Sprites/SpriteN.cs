@@ -15,8 +15,6 @@ namespace EverLite.Modules.Sprites
     {
         private Texture2D mTexture;
 
-        public Color Color = Color.White;
-
         public SpriteN(Texture2D texture)
         {
             this.mTexture = texture;
@@ -29,19 +27,16 @@ namespace EverLite.Modules.Sprites
             Vector2 origin = new Vector2(0, 0);
             origin.X = this.mTexture.Width / 2;
             origin.Y = this.mTexture.Height / 2;
-            spriteBatch.Draw(this.mTexture, position, null, this.Color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(this.mTexture, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, 0);
         }
 
-        /// <summary>
-        /// Hit animation
-        /// </summary>
-        public void HitAnimation()
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float scale = 1, float rotation = 0)
         {
-            this.Color = Color.Red;
-            Timer timer = new Timer(0.00025); // 0.25 seconds
-            timer.Elapsed += (e, o) => { this.Color = Color.White; };
-            timer.AutoReset = false;
-            timer.Start();
+            Vector2 origin = new Vector2(0, 0);
+            origin.X = this.mTexture.Width / 2;
+            origin.Y = this.mTexture.Height / 2;
+            spriteBatch.Draw(this.mTexture, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
         }
+
     }
 }

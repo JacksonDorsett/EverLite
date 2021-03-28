@@ -10,20 +10,21 @@ namespace EverLite.Modules.Managers
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
-    class PlayerMovementManager
+    /// <summary>
+    /// Manages the players position.
+    /// </summary>
+    internal class PlayerMovementManager
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
-        private int screenWidth;
-        private int screenHeight;
+        private Rectangle bounds;
         private Player playerRef;
 
         public PlayerMovementManager(Player player, Rectangle bounds)
         {
             this.playerRef = player;
-            this.screenWidth = bounds.Width;
-            this.screenHeight = bounds.Height;
-            playerRef.Position = new Vector2(screenWidth / 2, 3 * screenHeight / 4);
+            this.bounds = bounds;
+            this.playerRef.Position = new Vector2(this.bounds.Width / 2, 3 * this.bounds.Height / 4);
         }
 
         public void Update(GameTime gameTime)
@@ -35,32 +36,32 @@ namespace EverLite.Modules.Managers
         {
             // sets the player speed based on the toggle state.
             float sVelocity = this.GetPlayerSpeed();
-            Vector2 CurrentPosition = this.playerRef.Position;
+            Vector2 currentPosition = this.playerRef.Position;
 
             if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
             {
-                CurrentPosition.X -= sVelocity;
+                currentPosition.X -= sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
             {
-                CurrentPosition.X += sVelocity;
+                currentPosition.X += sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
             {
-                CurrentPosition.Y -= sVelocity;
+                currentPosition.Y -= sVelocity;
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
             {
-                CurrentPosition.Y += sVelocity;
+                currentPosition.Y += sVelocity;
             }
 
             // Adjust position.
-            CurrentPosition = this.CheckPlayerBoundry(CurrentPosition);
+            currentPosition = this.CheckPlayerBoundry(currentPosition);
 
-            this.playerRef.Position = CurrentPosition;
+            this.playerRef.Position = currentPosition;
         }
 
         private Vector2 CheckPlayerBoundry(Vector2 cPosition)
@@ -75,14 +76,14 @@ namespace EverLite.Modules.Managers
                 cPosition.Y = 0;
             }
 
-            if (cPosition.X >= this.screenWidth)
+            if (cPosition.X >= this.bounds.Width)
             {
-                cPosition.X = this.screenWidth;
+                cPosition.X = this.bounds.Width;
             }
 
-            if (cPosition.Y >= this.screenHeight)
+            if (cPosition.Y >= this.bounds.Height)
             {
-                cPosition.Y = this.screenHeight;
+                cPosition.Y = this.bounds.Height;
             }
 
             return cPosition;

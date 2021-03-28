@@ -12,7 +12,7 @@ namespace EverLite.Modules.Blaster
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    abstract class SpawnPattern
+    public abstract class SpawnPattern
     {
         private readonly SpriteN bulletSprite;
         private int numSpawned;

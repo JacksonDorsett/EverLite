@@ -7,7 +7,7 @@ namespace EverLite.Modules.Behavior
     /// <summary>
     /// Interface for collidable objects.
     /// </summary>
-    internal interface ICollidable
+    public interface ICollidable
     {
         /// <summary>
         /// Called when object collided with another object.

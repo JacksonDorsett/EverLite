@@ -16,7 +16,7 @@ namespace EverLite.Modules.Wave
     /// <summary>
     /// Represents a wave.
     /// </summary>
-    class Wave : IComparable
+    public class Wave : IComparable
     {
         private double spawnInterval;
         private int spawnCount;
