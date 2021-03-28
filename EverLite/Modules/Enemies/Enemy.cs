@@ -8,12 +8,13 @@ namespace EverLite.Modules.Enemies
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using System;
     using System.Timers;
 
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    public class Enemy : LifetimeEntity
+    public class Enemy : LifetimeEntity, ICollidable
     {
         private bool isHit;
 
@@ -30,6 +31,7 @@ namespace EverLite.Modules.Enemies
             this.isHit = false;
         }
 
+        public event EventHandler OnCollide;
 
         /// <summary>
         /// Update function to update the enemy.

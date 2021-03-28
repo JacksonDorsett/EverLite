@@ -112,6 +112,7 @@ namespace EverLite.Modules
                 {
                     collidableObjectEnemy.CollidesWith(collidableObjectPlayer);
                     collidableObjectPlayer.CollidesWith(collidableObjectEnemy);
+                    enemy.Die();
                 }
             }
         }

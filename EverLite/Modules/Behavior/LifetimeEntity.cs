@@ -22,6 +22,8 @@ namespace EverLite.Modules.Behavior
         private Lifespan lifespan;
         private bool isAliveFlag;
 
+        public event EventHandler OnCollide;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LifetimeEntity"/> class.
         /// </summary>
@@ -35,7 +37,6 @@ namespace EverLite.Modules.Behavior
         }
 
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
-
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
         protected double Halflife { get => this.lifespan.Halflife;  }

@@ -14,6 +14,7 @@ namespace EverLite.Modules.GameState
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Graphics;
     using EverLite.Modules.Input;
+    using EverLite.Modules.Menu.Commands;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -31,6 +32,7 @@ namespace EverLite.Modules.GameState
         private EnemyManager enemyManager;
         private BulletManager bulletManager;
         private CollisionDetector collisionDetector;
+        private PlayerLifeManager lifeManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
@@ -44,6 +46,7 @@ namespace EverLite.Modules.GameState
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
+           
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
@@ -60,8 +63,9 @@ namespace EverLite.Modules.GameState
             this.scrollingBG.Draw(gameTime);
             this.bulletManager.Draw(SpriteBatch);
             this.playerSystem.Draw(SpriteBatch);
-            //this.enemySystem.Draw(SpriteBatch);
+
             this.enemyManager.Draw(this.SpriteBatch);
+            this.lifeManager.Draw(this.SpriteBatch);
         }
 
         /// <summary>
@@ -70,6 +74,7 @@ namespace EverLite.Modules.GameState
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("DeepSpace");
+            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new MenuState(this.Game)));
         }
 
         /// <summary>

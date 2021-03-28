@@ -27,6 +27,8 @@ namespace EverLite.Modules.Sprites
         private SpriteN playerSprite;
         private PlayerShoot shooter;
 
+        public event EventHandler OnCollide;
+
         public SpriteN PlayerSprite { get => this.playerSprite; }
 
         public Vector2 Position { get => mPosition; set => mPosition = value; }
@@ -40,6 +42,8 @@ namespace EverLite.Modules.Sprites
             this.playerSprite = SpriteLoader.LoadSprite(EnumToStringFactory.GetEnumToString(FactoryEnum.Player));
             this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
         }
+
+        
 
         /// <inheritdoc/>
         public void Update(GameTime gameTime)
@@ -74,16 +78,17 @@ namespace EverLite.Modules.Sprites
         /// Handles collision with an object.
         /// </summary>
         /// <param name="collidable"> object colided with.</param>
-        void ICollidable.CollidesWith(ICollidable collidable)
-        {
-            // TODO: implement hit and health stuff.
-            //this.playerSprite.HitAnimation();
-        }
+
 
         public static Player Instance()
         {
             if (mInstance == null) mInstance = new Player();
             return mInstance;
+        }
+
+        public void CollidesWith(ICollidable collidable)
+        {
+            this.OnCollide?.Invoke(this, new EventArgs());
         }
     }
 }
