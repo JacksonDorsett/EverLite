@@ -35,6 +35,7 @@ namespace EverLite.Modules.Behavior
         }
 
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
+
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
         protected double Halflife { get => this.lifespan.Halflife;  }

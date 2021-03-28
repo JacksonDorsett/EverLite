@@ -30,9 +30,6 @@ namespace EverLite.Modules.Enemies
             this.isHit = false;
         }
 
-        /// <summary>
-        /// gets or sets blaster object.
-        /// </summary>
 
         /// <summary>
         /// Update function to update the enemy.
@@ -54,15 +51,6 @@ namespace EverLite.Modules.Enemies
             this.HitAnimation();
         }
 
-        public void HitAnimation()
-        {
-            this.isHit = true;
-            Timer timer = new Timer(0.025); // 0.25 seconds
-            timer.Elapsed += (e, o) => { this.isHit = false; };
-            timer.AutoReset = false;
-            timer.Start();
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             var c = Color.White;
@@ -71,6 +59,15 @@ namespace EverLite.Modules.Enemies
             spriteBatch.Begin();
             this.Sprite.Draw(spriteBatch, this.Position, c, rotation: this.movementPattern.Angle(this.Halflife));
             spriteBatch.End();
+        }
+
+        private void HitAnimation()
+        {
+            this.isHit = true;
+            Timer timer = new Timer(0.025); // 0.25 seconds
+            timer.Elapsed += (e, o) => { this.isHit = false; };
+            timer.AutoReset = false;
+            timer.Start();
         }
     }
 
