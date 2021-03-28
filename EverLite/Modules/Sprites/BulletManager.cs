@@ -12,16 +12,19 @@ namespace EverLite.Modules.Sprites
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    class BulletManager
+    /// <summary>
+    /// The manager for the bullets.
+    /// </summary>
+    internal class BulletManager
     {
         private static BulletManager mInstance;
         private List<Bullet> mEnemyBullets;
-        private List<Bullet> PlayerBullets;
+        private List<Bullet> mPlayerBullets;
 
         private BulletManager()
         {
             this.mEnemyBullets = new List<Bullet>();
-            this.PlayerBullets = new List<Bullet>();
+            this.mPlayerBullets = new List<Bullet>();
             mInstance = this;
         }
 
@@ -34,15 +37,29 @@ namespace EverLite.Modules.Sprites
             }
         }
 
+        /// <summary>
+        /// Add player bullet to list.
+        /// </summary>
+        /// <param name="b">bullet to be added.</param>
         public void AddPlayerBullet(Bullet b)
         {
             this.PlayerBullets.Add(b);
         }
 
+        /// <summary>
+        /// Gets the list of Enemy bullets.
+        /// </summary>
         public List<Bullet> EnemyBullets{ get => this.mEnemyBullets; }
+
+        public List<Bullet> PlayerBullets { get => this.mPlayerBullets; }
+
+        /// <summary>
+        /// Updates the bullet logic.
+        /// </summary>
+        /// <param name="gameTime">game time elapsed.</param>
         public void Update(GameTime gameTime)
         {
-            foreach (var b in PlayerBullets)
+            foreach (var b in this.PlayerBullets)
             {
                 b.Update(gameTime);
             }
@@ -53,7 +70,7 @@ namespace EverLite.Modules.Sprites
                 if (!l.IsAlive) this.PlayerBullets.Remove(l);
             }
 
-            foreach (var b in EnemyBullets)
+            foreach (var b in this.EnemyBullets)
             {
                 b.Update(gameTime);
             }
@@ -65,6 +82,10 @@ namespace EverLite.Modules.Sprites
             }
         }
 
+        /// <summary>
+        /// Draws the bullets to the screen.
+        /// </summary>
+        /// <param name="spriteBatch">SpriteBatch for drawing.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (var b in this.PlayerBullets)

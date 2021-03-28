@@ -1,13 +1,16 @@
-﻿
+﻿// <copyright file="LifetimeEntity.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace EverLite.Modules.Behavior
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// Lifetime dependent Entity.
@@ -17,6 +20,7 @@ namespace EverLite.Modules.Behavior
         private SpriteN mSprite;
         protected IMovement movementPattern;
         private Lifespan lifespan;
+        private bool isAliveFlag;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LifetimeEntity"/> class.
@@ -27,13 +31,16 @@ namespace EverLite.Modules.Behavior
         {
             this.movementPattern = movement;
             this.lifespan = new Lifespan(lifetime);
+            this.isAliveFlag = true;
         }
 
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
         protected double Halflife { get => this.lifespan.Halflife;  }
-        public bool IsAlive { get => this.lifespan.Halflife < 1; }
+
+        public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
+
         public override void Update(GameTime gameTime)
         {
             this.lifespan.Update(gameTime);
@@ -44,6 +51,11 @@ namespace EverLite.Modules.Behavior
             spriteBatch.Begin();
             this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
             spriteBatch.End();
+        }
+        
+        public void Die()
+        {
+            this.isAliveFlag = false;
         }
     }
 }

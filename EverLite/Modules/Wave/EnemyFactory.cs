@@ -9,6 +9,10 @@ namespace EverLite.Modules.Wave
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Sprites;
+
+    /// <summary>
+    /// Spawns the type of enemies.
+    /// </summary>
     public class EnemyFactory
     {
         private readonly SpriteN sprite;
