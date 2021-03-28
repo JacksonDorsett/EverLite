@@ -17,7 +17,7 @@ namespace EverLite.Modules.Sprites
     /// <summary>
     /// The Player class created will handle the special stuff the player can do.
     /// </summary>
-    public class Player
+    public class Player: ICollidable
     {
         // instance
 
@@ -26,6 +26,8 @@ namespace EverLite.Modules.Sprites
         private Vector2 mPosition;
         private SpriteN playerSprite;
         private PlayerShoot shooter;
+
+        public SpriteN PlayerSprite { get => this.playerSprite; }
 
         public Vector2 Position { get => mPosition; set => mPosition = value; }
 
@@ -67,6 +69,17 @@ namespace EverLite.Modules.Sprites
         /// </summary>
         /// <param name="game">game object.</param>
         /// <returns>returns player associated with the game.</returns>
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            // TODO: implement hit and health stuff.
+            //this.playerSprite.HitAnimation();
+        }
+
         public static Player Instance()
         {
             if (mInstance == null) mInstance = new Player();

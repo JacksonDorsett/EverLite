@@ -17,7 +17,7 @@ namespace EverLite.Modules.Enemies
     /// <summary>
     /// Manages the enemies that are spawned and remove them when their lifespan surpassed.
     /// </summary>
-    public class EnemyManager : IUpdateable
+    class EnemyManager : IUpdateable
     {
         private List<LifetimeEntity> activeEnemies;
         private List<LifetimeEntity> activeSpawners;
@@ -25,6 +25,9 @@ namespace EverLite.Modules.Enemies
         private WaveManager waveManager;
         private LifetimeEntityManager spawnerLifeManager;
         private LifetimeEntityManager enemyLifeManager;
+
+
+        public List<LifetimeEntity> ActiveEnemies { get => this.activeEnemies; }
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>

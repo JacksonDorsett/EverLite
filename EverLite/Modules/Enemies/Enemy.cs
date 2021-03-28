@@ -4,19 +4,18 @@
 
 namespace EverLite.Modules.Enemies
 {
-    using System;
     using EverLite.Modules.Behavior;
-    using EverLite.Modules.Blaster;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Content;
     using Microsoft.Xna.Framework.Graphics;
+    using System.Timers;
 
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
     public class Enemy : LifetimeEntity
     {
+        private bool isHit;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.
@@ -28,12 +27,12 @@ namespace EverLite.Modules.Enemies
         public Enemy(SpriteN sprite, IMovement movement, float lifespan)
             : base(sprite, movement, (double)lifespan)
         {
+            this.isHit = false;
         }
 
         /// <summary>
         /// gets or sets blaster object.
         /// </summary>
-        
 
         /// <summary>
         /// Update function to update the enemy.
@@ -44,7 +43,35 @@ namespace EverLite.Modules.Enemies
             base.Update(gameTime);
 
         }
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        protected override void CollidesWith(ICollidable collidable)
+        {
+            // TODO: implement health system action.
+            base.CollidesWith(collidable);
+            this.HitAnimation();
+        }
 
+        public void HitAnimation()
+        {
+            this.isHit = true;
+            Timer timer = new Timer(0.025); // 0.25 seconds
+            timer.Elapsed += (e, o) => { this.isHit = false; };
+            timer.AutoReset = false;
+            timer.Start();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            var c = Color.White;
+            if (this.isHit) c = Color.Red;
+            base.Draw(spriteBatch);
+            spriteBatch.Begin();
+            this.Sprite.Draw(spriteBatch, this.Position, c, rotation: this.movementPattern.Angle(this.Halflife));
+            spriteBatch.End();
+        }
     }
 
 }

@@ -30,5 +30,13 @@ namespace EverLite.Modules.Blaster
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        protected override void CollidesWith(ICollidable collidable)
+        {
+            this.Die();
+        }
     }
 }

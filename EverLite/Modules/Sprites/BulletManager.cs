@@ -43,7 +43,7 @@ namespace EverLite.Modules.Sprites
         /// <param name="b">bullet to be added.</param>
         public void AddPlayerBullet(Bullet b)
         {
-            this.PlayerBullets.Add(b);
+            this.mPlayerBullets.Add(b);
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace EverLite.Modules.Sprites
                 b.Update(gameTime);
             }
 
-            for (int i = this.PlayerBullets.Count - 1; i >= 0; --i)
+            for (int i = this.mPlayerBullets.Count - 1; i >= 0; --i)
             {
-                Bullet l = this.PlayerBullets[i];
-                if (!l.IsAlive) this.PlayerBullets.Remove(l);
+                Bullet l = this.mPlayerBullets[i];
+                if (!l.IsAlive) this.mPlayerBullets.Remove(l);
             }
 
             foreach (var b in this.EnemyBullets)
@@ -88,7 +88,7 @@ namespace EverLite.Modules.Sprites
         /// <param name="spriteBatch">SpriteBatch for drawing.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var b in this.PlayerBullets)
+            foreach (var b in this.mPlayerBullets)
             {
                 b.Draw(spriteBatch);
             }

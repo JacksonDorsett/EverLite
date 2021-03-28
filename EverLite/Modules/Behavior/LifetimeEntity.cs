@@ -15,7 +15,7 @@ namespace EverLite.Modules.Behavior
     /// <summary>
     /// Lifetime dependent Entity.
     /// </summary>
-    public class LifetimeEntity : Entity
+    public class LifetimeEntity : Entity, ICollidable
     {
         private SpriteN mSprite;
         protected IMovement movementPattern;
@@ -52,10 +52,30 @@ namespace EverLite.Modules.Behavior
             this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
             spriteBatch.End();
         }
-        
+
+        /// <summary>
+        /// Function that flags the entity as dead.
+        /// </summary>
         public void Die()
         {
             this.isAliveFlag = false;
+        }
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            this.CollidesWith(collidable);
+        }
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        protected virtual void CollidesWith(ICollidable collidable)
+        {
         }
     }
 }

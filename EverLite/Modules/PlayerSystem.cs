@@ -71,6 +71,5 @@ namespace EverLite.Modules
             sprite.End();
 
         }
-
     }
 }
