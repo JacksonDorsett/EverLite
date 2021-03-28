@@ -17,7 +17,6 @@ namespace EverLite.Modules.Enemies
     /// </summary>
     public class Enemy : LifetimeEntity, ICollidable
     {
-        private IBlaster blaster;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.
@@ -26,27 +25,15 @@ namespace EverLite.Modules.Enemies
         /// <param name="blaster">blaster pattern.</param>
         /// <param name="movement">movement pattern.</param>
         /// <param name="lifespan">lifespan pattern.</param>
-        public Enemy(SpriteN sprite, IBlaster blaster, IMovement movement, float lifespan)
+        public Enemy(SpriteN sprite, IMovement movement, float lifespan)
             : base(sprite, movement, (double)lifespan)
         {
-            this.Blaster = blaster;
         }
 
         /// <summary>
         /// gets or sets blaster object.
         /// </summary>
-        public IBlaster Blaster
-        {
-            get
-            {
-                return this.blaster;
-            }
-
-            protected set
-            {
-                this.blaster = value;
-            }
-        }
+        
 
         /// <summary>
         /// Update function to update the enemy.
@@ -56,7 +43,6 @@ namespace EverLite.Modules.Enemies
         {
             base.Update(gameTime);
 
-            this.blaster.Update(gameTime);
         }
 
         /// <summary>

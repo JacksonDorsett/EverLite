@@ -5,7 +5,9 @@
 namespace EverLite.Modules
 {
     using System.Collections.Generic;
+    using EverLite.Modules.Behavior;
     using EverLite.Modules.Enums;
+    using EverLite.Modules.Managers;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Content;
@@ -18,8 +20,8 @@ namespace EverLite.Modules
     internal class PlayerSystem
     {
         private Player player;
-        private List<Sprite> bullets = new List<Sprite>();
         private Game mGame;
+        private PlayerMovementManager movementManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
@@ -28,7 +30,8 @@ namespace EverLite.Modules
         public PlayerSystem(Game game)
         {
             this.mGame = game;
-            this.player = Player.Instance(game);
+            this.player = Player.Instance();
+            this.movementManager = new PlayerMovementManager(this.player, game.Window.ClientBounds);
         }
 
         /// <summary>
@@ -50,44 +53,12 @@ namespace EverLite.Modules
         public void Update(GameTime gameTime)
         {
             this.player.Update(gameTime);
-
-            var bullet = player.Shoot();
-            if (this.CanShoot(100) && bullet != null)
-            {
-                this.bullets.Add(bullet);
-            }
-
-            this.UpdateBullets();
-        }
-
-        private bool CanShoot(int maxBullets)
-        {
-            return (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0.0f || Keyboard.GetState().IsKeyDown(Keys.J) || Keyboard.GetState().IsKeyDown(Keys.LeftControl)) && bullets.Count < maxBullets;
+            this.movementManager.Update(gameTime);
         }
 
         /// <summary>
         /// Maintains the bullets visibility.
         /// </summary>
-        public void UpdateBullets()
-        {
-            foreach (Sprite bullet in bullets)
-            {
-                bullet.Position += bullet.Velocity;
-                if (Vector2.Distance(bullet.GetPosition(), player.GetPosition()) > 2000)
-                {
-                    bullet.SetIsVisible(false);
-                }
-            }
-
-            for (int index = 0; index < this.bullets.Count; index++)
-            {
-                if (!this.bullets[index].GetIsVisible())
-                {
-                    this.bullets.RemoveAt(index);
-                    index--;
-                }
-            }
-        }
 
         /// <summary>
         /// Draws shapes in the game.
@@ -96,13 +67,10 @@ namespace EverLite.Modules
         public void Draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            player.Draw(sprite);
-            foreach (Sprite bullet in this.bullets)
-            {
-                bullet.Draw(sprite);
-            }
+            this.player.Draw(sprite);
             sprite.End();
 
         }
+
     }
 }

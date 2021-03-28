@@ -75,10 +75,11 @@ namespace EverLite
 
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
 
-            this.mGraphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            this.mGraphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            this.mGraphics.PreferredBackBufferWidth = 1920;
+            this.mGraphics.PreferredBackBufferHeight = 1080;
             this.mGraphics.HardwareModeSwitch = false;
             this.mGraphics.ApplyChanges();
+            SpriteLoader.Initialize(this.Content);
 
         }
 

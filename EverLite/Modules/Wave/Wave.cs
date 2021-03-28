@@ -7,7 +7,10 @@ namespace EverLite.Modules.Wave
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using EverLite.Modules.Behavior;
+    using EverLite.Modules.Blaster;
     using EverLite.Modules.Enemies;
+    using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
 
     /// <summary>
@@ -20,9 +23,11 @@ namespace EverLite.Modules.Wave
         private int totalSpawned;
         private EnemyFactory spawner;
         private double timeElapsed;
-        private List<Enemy> enemyList;
+        private List<LifetimeEntity> enemyList;
+        private List<LifetimeEntity> spawners;
+        private BulletSpawner bulletSpawner;
 
-        public Wave(List<Enemy> enemies, EnemyFactory spawner, double spawnInterval, int spawnCount, double startTime)
+        public Wave(List<LifetimeEntity> enemies, List<LifetimeEntity> spawners, EnemyFactory spawner, BulletSpawner bulletSpawner, double spawnInterval, int spawnCount, double startTime)
         {
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
@@ -31,6 +36,8 @@ namespace EverLite.Modules.Wave
             this.timeElapsed = 0;
             this.totalSpawned = 0;
             this.enemyList = enemies;
+            this.spawners = spawners;
+            this.bulletSpawner = bulletSpawner;
         }
 
         public double StartTime { get; internal set; }
@@ -53,6 +60,7 @@ namespace EverLite.Modules.Wave
                 if (this.totalSpawned < this.spawnCount && this.timeElapsed >= this.spawnInterval)
                 {
                     this.enemyList.Add(this.spawner.Spawn());
+                    this.spawners.Add(this.bulletSpawner.Clone());
                     this.totalSpawned++;
                     this.timeElapsed -= this.spawnInterval;
 

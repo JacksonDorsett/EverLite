@@ -21,7 +21,7 @@ namespace EverLite.Modules.Sprites
 
         public Texture2D Texture { get { return this.mTexture; } }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float scale = 1, float rotation = 0)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float scale = 1, float rotation = 0)
         {
             Vector2 origin = new Vector2(0, 0);
             origin.X = this.mTexture.Width / 2;
