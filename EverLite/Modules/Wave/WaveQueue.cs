@@ -13,7 +13,7 @@ namespace EverLite.Modules.Wave
     /// <summary>
     /// Stores the Queues to be added.
     /// </summary>
-    public class WaveQueue
+    class WaveQueue
     {
         private SortedList<double, Wave> q;
         private GameClock gameClock;

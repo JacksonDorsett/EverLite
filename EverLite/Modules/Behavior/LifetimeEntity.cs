@@ -12,11 +12,12 @@ namespace EverLite.Modules.Behavior
     /// <summary>
     /// Lifetime dependent Entity.
     /// </summary>
-    public class LifetimeEntity : Entity
+    class LifetimeEntity : Entity, ICollidable
     {
         private SpriteN mSprite;
         protected IMovement movementPattern;
         private Lifespan lifespan;
+        private bool isAliveFlag;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LifetimeEntity"/> class.
@@ -27,13 +28,16 @@ namespace EverLite.Modules.Behavior
         {
             this.movementPattern = movement;
             this.lifespan = new Lifespan(lifetime);
+            this.isAliveFlag = true;
         }
 
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
         protected double Halflife { get => this.lifespan.Halflife;  }
-        public bool IsAlive { get => this.lifespan.Halflife < 1; }
+
+        
+        public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
         public override void Update(GameTime gameTime)
         {
             this.lifespan.Update(gameTime);
@@ -44,6 +48,32 @@ namespace EverLite.Modules.Behavior
             spriteBatch.Begin();
             this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
             spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Function that flags the entity as dead.
+        /// </summary>
+        public void Die()
+        {
+            this.isAliveFlag = false;
+        }
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        void ICollidable.CollidesWith(ICollidable collidable)
+        {
+            this.CollidesWith(collidable);
+        }
+
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        protected virtual void CollidesWith(ICollidable collidable)
+        {
+            this.Sprite.HitAnimation();
         }
     }
 }

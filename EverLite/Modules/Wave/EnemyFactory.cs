@@ -9,7 +9,7 @@ namespace EverLite.Modules.Wave
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Enemies;
     using EverLite.Modules.Sprites;
-    public class EnemyFactory
+    class EnemyFactory
     {
         private readonly SpriteN sprite;
         private readonly IMovement movement;

@@ -30,6 +30,7 @@ namespace EverLite.Modules.GameState
         private ToggleStatus pauseStatus;
         private EnemyManager enemyManager;
         private BulletManager bulletManager;
+        private CollisionDetector collisionDetector;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
@@ -43,6 +44,11 @@ namespace EverLite.Modules.GameState
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
+            this.collisionDetector = new CollisionDetector(
+                this.enemyManager.ActiveEnemies,
+                this.bulletManager.EnemyBullets,
+                this.bulletManager.PlayerBullets,
+                this.playerSystem.Player);
         }
 
         /// <summary>
@@ -81,6 +87,7 @@ namespace EverLite.Modules.GameState
                 this.scrollingBG.Update(gameTime);
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);
+                this.collisionDetector.Update(gameTime);
             }
         }
 

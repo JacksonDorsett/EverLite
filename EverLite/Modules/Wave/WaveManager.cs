@@ -19,7 +19,7 @@ namespace EverLite
     /// The primary responsibility of the wave manager
     /// is to track the active waves queueing up the active waves.
     /// </summary>
-    public class WaveManager
+    class WaveManager
     {
         private List<Wave> activeWaves;
         private GameClock clock;

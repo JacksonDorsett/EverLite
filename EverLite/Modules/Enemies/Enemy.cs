@@ -4,18 +4,14 @@
 
 namespace EverLite.Modules.Enemies
 {
-    using System;
     using EverLite.Modules.Behavior;
-    using EverLite.Modules.Blaster;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Content;
-    using Microsoft.Xna.Framework.Graphics;
 
     /// <summary>
     /// Abstract enemy type.
     /// </summary>
-    public class Enemy : LifetimeEntity, ICollidable
+    class Enemy : LifetimeEntity
     {
 
         /// <summary>
@@ -33,7 +29,6 @@ namespace EverLite.Modules.Enemies
         /// <summary>
         /// gets or sets blaster object.
         /// </summary>
-        
 
         /// <summary>
         /// Update function to update the enemy.
@@ -44,17 +39,14 @@ namespace EverLite.Modules.Enemies
             base.Update(gameTime);
 
         }
-
         /// <summary>
         /// Handles collision with an object.
         /// </summary>
         /// <param name="collidable"> object colided with.</param>
-        void ICollidable.CollidesWith(ICollidable collidable)
+        protected override void CollidesWith(ICollidable collidable)
         {
-            if (collidable is PlayerBlaster)
-            {
-                // TODO: implement hit and health stuff.
-            }
+            // TODO: implement health system action.
+            base.CollidesWith(collidable);
         }
     }
 

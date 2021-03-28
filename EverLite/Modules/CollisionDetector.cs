@@ -19,17 +19,19 @@ namespace EverLite.Modules
         /// <summary>
         /// List of all active enemies that were passed.
         /// </summary>
-        private List<Enemy> activeEnemies;
+        private List<LifetimeEntity> activeEnemies;
 
         /// <summary>
         /// List of all enemy bullets.
         /// </summary>
-        private List<EnemyBlaster> enemyBullets;
+        private List<Bullet> enemyBullets;
 
         /// <summary>
         /// List of all player bullets.
         /// </summary>
-        private List<PlayerBlaster> playerBullets;
+        private List<Bullet> playerBullets;
+
+        private Player player;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CollisionDetector"/> class.
@@ -38,19 +40,79 @@ namespace EverLite.Modules
         /// <param name="enemyBullets">reference to enemy bullets.</param>
         /// <param name="playerBullets">reference to player bullet.</param>
         /// <param name="player">reference to a current player.</param>
-        public CollisionDetector(List<Enemy> activeEnemies, List<EnemyBlaster> enemyBullets, List<PlayerBlaster> playerBullets)
+        public CollisionDetector(List<LifetimeEntity> activeEnemies, List<Bullet> enemyBullets, List<Bullet> playerBullets, Player player)
         {
             this.activeEnemies = activeEnemies;
             this.playerBullets = playerBullets;
             this.enemyBullets = enemyBullets;
+            this.player = player;
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (EnemyBlaster blaster in this.enemyBullets)
+            // Check if enemy bullets collide with the player.
+            foreach (Bullet bullet in this.enemyBullets)
             {
-                ICollidable collidableObject = blaster;
+                ICollidable collidableObjectBullet = bullet;
+                ICollidable collidableObjectPlayer = this.player;
+                Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
+                Rectangle playerBox = new Rectangle(
+                    (int)this.player.Position.X,
+                    (int)this.player.Position.Y,
+                    this.player.PlayerSprite.Texture.Width,
+                    this.player.PlayerSprite.Texture.Height);
 
+                if (bulletBox.Intersects(playerBox))
+                {
+                    collidableObjectPlayer.CollidesWith(collidableObjectBullet);
+                    collidableObjectBullet.CollidesWith(collidableObjectPlayer);
+                }
+            }
+
+            // Check if player bullets collide with the player.
+            foreach (Bullet bullet in this.playerBullets)
+            {
+                foreach (LifetimeEntity enemy in this.activeEnemies)
+                {
+                    ICollidable collidableObjectBullet = bullet;
+                    ICollidable collidableObjectEnemy = enemy;
+                    Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
+                    Rectangle playerBox = new Rectangle(
+                        (int)enemy.Position.X,
+                        (int)enemy.Position.Y,
+                        enemy.Sprite.Texture.Width,
+                        enemy.Sprite.Texture.Height);
+
+                    if (bulletBox.Intersects(playerBox))
+                    {
+                        collidableObjectEnemy.CollidesWith(collidableObjectBullet);
+                        collidableObjectBullet.CollidesWith(collidableObjectEnemy);
+                    }
+                }
+            }
+
+            // Check if player collide with the enemy.
+            foreach (LifetimeEntity enemy in this.activeEnemies)
+            {
+                ICollidable collidableObjectPlayer = this.player;
+                ICollidable collidableObjectEnemy = enemy;
+                Rectangle bulletBox = new Rectangle(
+                    (int)this.player.Position.X,
+                    (int)this.player.Position.Y,
+                    this.player.PlayerSprite.Texture.Width,
+                    this.player.PlayerSprite.Texture.Height);
+
+                Rectangle playerBox = new Rectangle(
+                    (int)enemy.Position.X,
+                    (int)enemy.Position.Y,
+                    enemy.Sprite.Texture.Width,
+                    enemy.Sprite.Texture.Height);
+
+                if (bulletBox.Intersects(playerBox))
+                {
+                    collidableObjectEnemy.CollidesWith(collidableObjectPlayer);
+                    collidableObjectPlayer.CollidesWith(collidableObjectEnemy);
+                }
             }
         }
     }

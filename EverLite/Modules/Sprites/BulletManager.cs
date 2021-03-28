@@ -16,12 +16,12 @@ namespace EverLite.Modules.Sprites
     {
         private static BulletManager mInstance;
         private List<Bullet> mEnemyBullets;
-        private List<Bullet> PlayerBullets;
+        private List<Bullet> playerBullets;
 
         private BulletManager()
         {
             this.mEnemyBullets = new List<Bullet>();
-            this.PlayerBullets = new List<Bullet>();
+            this.playerBullets = new List<Bullet>();
             mInstance = this;
         }
 
@@ -36,21 +36,23 @@ namespace EverLite.Modules.Sprites
 
         public void AddPlayerBullet(Bullet b)
         {
-            this.PlayerBullets.Add(b);
+            this.playerBullets.Add(b);
         }
 
-        public List<Bullet> EnemyBullets{ get => this.mEnemyBullets; }
+        public List<Bullet> EnemyBullets { get => this.mEnemyBullets; }
+        public List<Bullet> PlayerBullets { get => this.playerBullets; }
+
         public void Update(GameTime gameTime)
         {
-            foreach (var b in PlayerBullets)
+            foreach (var b in playerBullets)
             {
                 b.Update(gameTime);
             }
 
-            for (int i = this.PlayerBullets.Count - 1; i >= 0; --i)
+            for (int i = this.playerBullets.Count - 1; i >= 0; --i)
             {
-                Bullet l = this.PlayerBullets[i];
-                if (!l.IsAlive) this.PlayerBullets.Remove(l);
+                Bullet l = this.playerBullets[i];
+                if (!l.IsAlive) this.playerBullets.Remove(l);
             }
 
             foreach (var b in EnemyBullets)
@@ -67,7 +69,7 @@ namespace EverLite.Modules.Sprites
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var b in this.PlayerBullets)
+            foreach (var b in this.playerBullets)
             {
                 b.Draw(spriteBatch);
             }

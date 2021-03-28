@@ -27,6 +27,8 @@ namespace EverLite.Modules.Sprites
         private SpriteN playerSprite;
         private PlayerShoot shooter;
 
+        public SpriteN PlayerSprite { get => this.playerSprite; }
+
         public Vector2 Position { get => mPosition; set => mPosition = value; }
 
         /// <summary>
@@ -74,10 +76,8 @@ namespace EverLite.Modules.Sprites
         /// <param name="collidable"> object colided with.</param>
         void ICollidable.CollidesWith(ICollidable collidable)
         {
-            if (collidable is PlayerBlaster)
-            {
-                // TODO: implement hit and health stuff.
-            }
+            // TODO: implement hit and health stuff.
+            this.playerSprite.HitAnimation();
         }
 
         public static Player Instance()

@@ -13,7 +13,7 @@ namespace EverLite.Modules.Blaster
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    public class Bullet : LifetimeEntity
+    class Bullet : LifetimeEntity
     {
 
         /// <summary>
@@ -32,5 +32,13 @@ namespace EverLite.Modules.Blaster
 
         }
 
+        /// <summary>
+        /// Handles collision with an object.
+        /// </summary>
+        /// <param name="collidable"> object colided with.</param>
+        protected override void CollidesWith(ICollidable collidable)
+        {
+            this.Die();
+        }
     }
 }
