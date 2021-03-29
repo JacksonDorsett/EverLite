@@ -107,6 +107,7 @@ namespace EverLite.Modules.Sprites
             timer.Elapsed += (e, o) => { this.isHit = false; };
             timer.AutoReset = false;
             timer.Start();
+            BulletManager.Instance.Clear();
         }
     }
 }

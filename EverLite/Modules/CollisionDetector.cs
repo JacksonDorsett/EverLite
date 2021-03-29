@@ -66,6 +66,7 @@ namespace EverLite.Modules
                 {
                     collidableObjectPlayer.CollidesWith(collidableObjectBullet);
                     collidableObjectBullet.CollidesWith(collidableObjectPlayer);
+                    break;
                 }
             }
 

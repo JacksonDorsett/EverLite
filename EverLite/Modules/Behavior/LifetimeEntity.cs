@@ -36,6 +36,7 @@ namespace EverLite.Modules.Behavior
             this.isAliveFlag = true;
         }
 
+        public event EventHandler OnDeath;
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
@@ -61,6 +62,7 @@ namespace EverLite.Modules.Behavior
         public void Die()
         {
             this.isAliveFlag = false;
+            this.OnDeath?.Invoke(this, new EventArgs());
         }
 
         /// <summary>

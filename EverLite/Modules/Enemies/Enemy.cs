@@ -33,6 +33,7 @@ namespace EverLite.Modules.Enemies
 
         public event EventHandler OnCollide;
 
+
         /// <summary>
         /// Update function to update the enemy.
         /// </summary>
@@ -66,7 +67,7 @@ namespace EverLite.Modules.Enemies
         private void HitAnimation()
         {
             this.isHit = true;
-            Timer timer = new Timer(0.025); // 0.25 seconds
+            Timer timer = new Timer(250); // 0.25 seconds
             timer.Elapsed += (e, o) => { this.isHit = false; };
             timer.AutoReset = false;
             timer.Start();

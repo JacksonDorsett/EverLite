@@ -98,5 +98,11 @@ namespace EverLite.Modules.Sprites
                 b.Draw(spriteBatch);
             }
         }
+
+        public void Clear()
+        {
+            this.mEnemyBullets.Clear();
+            this.mPlayerBullets.Clear();
+        }
     }
 }

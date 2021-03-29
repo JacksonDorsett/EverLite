@@ -61,9 +61,13 @@ namespace EverLite.Modules.Wave
                 {
                     Enemy e = this.spawner.Spawn();
                     BulletSpawner b = this.bulletSpawner.Clone();
+
                     this.enemyList.Add(e);
                     this.spawners.Add(b);
-
+                    e.OnDeath += (sender, e1) =>
+                    {
+                        this.spawners.Remove(b);
+                    };
                     this.totalSpawned++;
                     this.timeElapsed -= this.spawnInterval;
 
