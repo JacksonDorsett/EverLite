@@ -57,9 +57,9 @@ namespace EverLite.Modules
                 ICollidable collidableObjectPlayer = this.player;
                 Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
                 Rectangle playerBox = new Rectangle(
-                    (int)this.player.Position.X,
+                    (int)this.player.Position.X + this.player.PlayerSprite.Texture.Width / 4,
                     (int)this.player.Position.Y,
-                    this.player.PlayerSprite.Texture.Width,
+                    this.player.PlayerSprite.Texture.Width/2,
                     this.player.PlayerSprite.Texture.Height);
 
                 if (bulletBox.Intersects(playerBox))
