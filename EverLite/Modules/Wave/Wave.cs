@@ -59,8 +59,11 @@ namespace EverLite.Modules.Wave
                 this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (this.totalSpawned < this.spawnCount && this.timeElapsed >= this.spawnInterval)
                 {
-                    this.enemyList.Add(this.spawner.Spawn());
-                    this.spawners.Add(this.bulletSpawner.Clone());
+                    Enemy e = this.spawner.Spawn();
+                    BulletSpawner b = this.bulletSpawner.Clone();
+                    this.enemyList.Add(e);
+                    this.spawners.Add(b);
+
                     this.totalSpawned++;
                     this.timeElapsed -= this.spawnInterval;
 

@@ -1,4 +1,6 @@
-﻿
+﻿// <copyright file="PlayerMovementManager.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace EverLite.Modules.Managers
 {
@@ -24,8 +26,11 @@ namespace EverLite.Modules.Managers
         {
             this.playerRef = player;
             this.bounds = bounds;
-            this.playerRef.Position = new Vector2(this.bounds.Width / 2, 3 * this.bounds.Height / 4);
+            this.playerRef.Position = this.SpawnPoint;
+            this.playerRef.OnCollide += (sender, e) => { this.playerRef.Position = this.SpawnPoint; };
         }
+
+        private Vector2 SpawnPoint { get => new Vector2(this.bounds.Width / 2, 3 * this.bounds.Height / 4); }
 
         public void Update(GameTime gameTime)
         {

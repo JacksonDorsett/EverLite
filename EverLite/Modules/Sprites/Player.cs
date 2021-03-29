@@ -6,6 +6,7 @@ namespace EverLite.Modules.Sprites
 {
     using System;
     using System.Collections.Generic;
+    using System.Timers;
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Blaster;
     using EverLite.Modules.Enums;
@@ -26,6 +27,7 @@ namespace EverLite.Modules.Sprites
         private Vector2 mPosition;
         private SpriteN playerSprite;
         private PlayerShoot shooter;
+        bool isHit;
 
         public event EventHandler OnCollide;
 
@@ -41,6 +43,7 @@ namespace EverLite.Modules.Sprites
         {
             this.playerSprite = SpriteLoader.LoadSprite(EnumToStringFactory.GetEnumToString(FactoryEnum.Player));
             this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
+            this.isHit = false;
         }
 
         
@@ -63,9 +66,11 @@ namespace EverLite.Modules.Sprites
         /// <param name="spriteBatch">sprite batch being drawn to.</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 origin;
+            Color c = Color.White;
+            if (this.isHit) c = Color.Red;
 
-            this.playerSprite.Draw(spriteBatch, this.mPosition, .5f);
+
+            this.playerSprite.Draw(spriteBatch, this.mPosition,c, .5f);
         }
 
         /// <summary>
@@ -88,7 +93,20 @@ namespace EverLite.Modules.Sprites
 
         public void CollidesWith(ICollidable collidable)
         {
-            this.OnCollide?.Invoke(this, new EventArgs());
+            if (!this.isHit)
+            {
+                this.OnCollide?.Invoke(this, new EventArgs());
+                this.Respawn();
+            }
+        }
+
+        private void Respawn()
+        {
+            this.isHit = true;
+            Timer timer = new Timer(2500); // 0.25 seconds
+            timer.Elapsed += (e, o) => { this.isHit = false; };
+            timer.AutoReset = false;
+            timer.Start();
         }
     }
 }
