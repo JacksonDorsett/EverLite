@@ -55,19 +55,26 @@ namespace EverLite.Modules
             {
                 ICollidable collidableObjectBullet = bullet;
                 ICollidable collidableObjectPlayer = this.player;
-                Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
-                Rectangle playerBox = new Rectangle(
-                    (int)this.player.Position.X + this.player.PlayerSprite.Texture.Width / 4,
-                    (int)this.player.Position.Y,
-                    this.player.PlayerSprite.Texture.Width/2,
-                    this.player.PlayerSprite.Texture.Height);
 
-                if (bulletBox.Intersects(playerBox))
+                if (player.HitCircle.Contains(bullet.HitCircle))
                 {
                     collidableObjectPlayer.CollidesWith(collidableObjectBullet);
                     collidableObjectBullet.CollidesWith(collidableObjectPlayer);
                     break;
                 }
+                //Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
+                //Rectangle playerBox = new Rectangle(
+                //    (int)this.player.Position.X + this.player.PlayerSprite.Texture.Width / 4,
+                //    (int)this.player.Position.Y,
+                //    this.player.PlayerSprite.Texture.Width/2,
+                //    this.player.PlayerSprite.Texture.Height);
+
+                //if (bulletBox.Intersects(playerBox))
+                //{
+                //    collidableObjectPlayer.CollidesWith(collidableObjectBullet);
+                //    collidableObjectBullet.CollidesWith(collidableObjectPlayer);
+                //    break;
+                //}
             }
 
             // Check if player bullets collide with the player.

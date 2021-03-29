@@ -35,6 +35,8 @@ namespace EverLite.Modules.Sprites
 
         public Vector2 Position { get => mPosition; set => mPosition = value; }
 
+        public HitCircle HitCircle => new HitCircle(Position, (float)this.PlayerSprite.Texture.Width / 4);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
         /// </summary>

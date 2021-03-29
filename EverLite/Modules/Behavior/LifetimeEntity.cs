@@ -40,9 +40,23 @@ namespace EverLite.Modules.Behavior
         public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
-        protected double Halflife { get => this.lifespan.Halflife;  }
+
+        protected double Halflife { get => this.lifespan.Halflife; }
 
         public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
+
+        public HitCircle HitCircle
+        {
+            get
+            {
+                float r = (float)(this.Sprite.Texture.Width > this.Sprite.Texture.Height ? Sprite.Texture.Height : Sprite.Texture.Width);
+                var p = Position;
+                //p.X += this.Sprite.Texture.Width / 2;
+                //p.Y += this.Sprite.Texture.Height / 2;
+                return new HitCircle(p, r/4);
+
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {

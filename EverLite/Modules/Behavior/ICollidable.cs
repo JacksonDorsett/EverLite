@@ -19,6 +19,6 @@ namespace EverLite.Modules.Behavior
         /// <param name="collidable"> object we colided with</param>
         void CollidesWith(ICollidable collidable);
 
-
+        HitCircle HitCircle { get; }
     }
 }
