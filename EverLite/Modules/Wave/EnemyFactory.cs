@@ -18,6 +18,9 @@ namespace EverLite.Modules.Wave
         private readonly SpriteN sprite;
         private readonly IMovement movement;
         private readonly float lifespan;
+        private List<LifetimeEntity> enemyList;
+        private List<LifetimeEntity> spawnerList;
+        private BulletSpawner bulletSpawnerPrototype;
 
 
         /// <summary>
@@ -31,10 +34,28 @@ namespace EverLite.Modules.Wave
             this.lifespan = lifespan;
 
         }
-
-        public Enemy Spawn()
+        public EnemyFactory(List<LifetimeEntity> enemyList, List<LifetimeEntity> bulletSpawnerList, BulletSpawner spawner, SpriteN sprite, IMovement movement, float lifespan)
         {
-            return new Enemy(this.sprite, this.movement, this.lifespan);
+            this.bulletSpawnerPrototype = spawner;
+            this.enemyList = enemyList;
+            this.spawnerList = bulletSpawnerList;
+            this.sprite = sprite;
+            this.movement = movement;
+            this.lifespan = lifespan;
+
+        }
+
+        public void Spawn()
+        {
+            Enemy e = new Enemy(this.sprite, this.movement, this.lifespan);
+            BulletSpawner b = this.bulletSpawnerPrototype.Clone();
+            this.enemyList.Add(e);
+            this.spawnerList.Add(b);
+            e.OnDeath += (sender, e1) =>
+            {
+                this.spawnerList.Remove(b);
+            };
+
         }
     }
 }
