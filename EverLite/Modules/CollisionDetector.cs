@@ -104,7 +104,7 @@ namespace EverLite.Modules
             {
                 ICollidable collidableObjectPlayer = this.player;
                 ICollidable collidableObjectEnemy = enemy;
-                Rectangle bulletBox = new Rectangle(
+                Rectangle enemyBox = new Rectangle(
                     (int)this.player.Position.X,
                     (int)this.player.Position.Y,
                     this.player.PlayerSprite.Texture.Width,
@@ -116,7 +116,7 @@ namespace EverLite.Modules
                     enemy.Sprite.Texture.Width,
                     enemy.Sprite.Texture.Height);
 
-                if (bulletBox.Intersects(playerBox))
+                if (enemyBox.Intersects(playerBox))
                 {
                     collidableObjectEnemy.CollidesWith(collidableObjectPlayer);
                     collidableObjectPlayer.CollidesWith(collidableObjectEnemy);
