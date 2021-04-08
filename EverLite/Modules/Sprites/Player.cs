@@ -41,7 +41,7 @@ namespace EverLite.Modules.Sprites
         /// Initializes a new instance of the <see cref="Player"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public Player()
+        private Player()
         {
             this.playerSprite = SpriteLoader.LoadSprite(EnumToStringFactory.GetEnumToString(FactoryEnum.Player));
             this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));

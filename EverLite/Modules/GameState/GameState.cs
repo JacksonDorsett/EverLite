@@ -92,6 +92,6 @@ namespace EverLite.Modules.GameState
         /// <summary>
         /// Called by subclass to determine exit state behavior.
         /// </summary>
-        protected abstract void OnExit();
+        public abstract void OnExit();
     }
 }

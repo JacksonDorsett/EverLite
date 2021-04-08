@@ -40,7 +40,7 @@ namespace EverLite.Modules.Enemies
             this.activeEnemies = this.enemyLifeManager.EntityList;
             this.activeSpawners = this.spawnerLifeManager.EntityList;
             this.waveManager = new WaveManager(game, this.activeEnemies, activeSpawners);
-
+            
         }
 
         public event EventHandler<EventArgs> EnabledChanged;
@@ -50,6 +50,14 @@ namespace EverLite.Modules.Enemies
         public bool Enabled => true;
 
         public int UpdateOrder => 1;
+
+        public bool IsActive
+        {
+            get
+            {
+                return !(waveManager.CountActive == 0 && waveManager.CountQueued == 0 && this.activeEnemies.Count == 0);
+            }
+        }
 
         public void Update(GameTime gameTime)
         {

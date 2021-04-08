@@ -46,12 +46,13 @@ namespace EverLite.Modules.GameState
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
-           
+
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
                 this.bulletManager.PlayerBullets,
                 this.playerSystem.Player);
+
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace EverLite.Modules.GameState
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("DeepSpace");
-            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new MenuState(this.Game)));
+            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new GameOverGameState(Game)));
         }
 
         /// <summary>
@@ -93,15 +94,21 @@ namespace EverLite.Modules.GameState
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);
                 this.collisionDetector.Update(gameTime);
+                OnWin();
             }
         }
 
         /// <summary>
-        /// Stopps the BGM on destruction.
+        /// Stops the BGM on destruction.
         /// </summary>
-        protected override void OnExit()
+        public override void OnExit()
         {
             BGM.Instance(this.Game).Stop();
+        }
+
+        private void OnWin()
+        {
+            if (!this.enemyManager.IsActive) new ChangeStateCommand(Game, new WinGameState(Game)).Execute();
         }
     }
 }

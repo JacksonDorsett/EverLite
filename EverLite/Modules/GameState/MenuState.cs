@@ -19,7 +19,7 @@ namespace EverLite.Modules.GameState
     /// </summary>
     internal class MenuState : GameState
     {
-        private string[] menuOptions;
+
         private SpriteFont mFont;
         private Menu menu;
 
@@ -30,7 +30,6 @@ namespace EverLite.Modules.GameState
         public MenuState(Game1 game)
             : base(game)
         {
-            menuOptions = new string[2];
             mFont = Game.Content.Load<SpriteFont>("Default");
             InitMenu();
         }
@@ -65,7 +64,7 @@ namespace EverLite.Modules.GameState
         /// <summary>
         /// Called on destruction.
         /// </summary>
-        protected override void OnExit()
+        public override void OnExit()
         {
         }
 

@@ -50,18 +50,17 @@ namespace EverLite.Modules.Wave
 
         public void Update(GameTime gameTime)
         {
-            if (this.IsWaveActive)
-            {
-                // update clock
-                this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (this.timeElapsed >= this.spawnInterval)
-                {
-                    spawner.Spawn();
-                    this.totalSpawned++;
-                    this.timeElapsed -= this.spawnInterval;
+            if (!this.IsWaveActive) return;
 
-                }
+            // update clock
+            this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (this.timeElapsed >= this.spawnInterval)
+            {
+                this.spawner.Spawn();
+                this.totalSpawned++;
+                this.timeElapsed -= this.spawnInterval;
             }
+
         }
     }
 }

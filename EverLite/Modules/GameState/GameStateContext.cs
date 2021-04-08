@@ -76,9 +76,13 @@ namespace EverLite.Modules.GameState
         {
             if (nextState != null)
             {
+                currentState.OnExit();
+                nextState.OnEnter();
                 currentState = nextState;
                 nextState = null;
-                currentState.OnEnter();
+
+                
+                
             }
         }
     }
