@@ -44,7 +44,7 @@ namespace EverLite.Modules.Behavior
 
         //public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
 
-        public bool IsAlive { get => this.move.PathCompleted && this.isAliveFlag; }
+        public bool IsAlive { get => !this.move.PathCompleted && this.isAliveFlag; }
 
         public HitCircle HitCircle
         {
@@ -52,8 +52,6 @@ namespace EverLite.Modules.Behavior
             {
                 float r = (float)(this.Sprite.Texture.Width > this.Sprite.Texture.Height ? Sprite.Texture.Height : Sprite.Texture.Width);
                 var p = Position;
-                //p.X += this.Sprite.Texture.Width / 2;
-                //p.Y += this.Sprite.Texture.Height / 2;
                 return new HitCircle(p, r/4);
 
             }
@@ -71,7 +69,6 @@ namespace EverLite.Modules.Behavior
         {
             spriteBatch.Begin();
             this.Sprite.Draw(spriteBatch, this.Position, rotation: this.move.Angle);
-            //this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
             spriteBatch.End();
         }
 

@@ -74,8 +74,8 @@ namespace EverLite
             var curved1 = new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950), new Vector2(500, 100));
             var curved = new LifeTimeMovement(5, curved1);
             var linear = new LifeTimeMovement(5, linear1);
-            //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved1, 5), 1000, 10, 0));
-            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(linear, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 1)), SpriteLoader.LoadSprite("enemy2"), linear1, 5), 1000, 10, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved1, 5), 1000, 10, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(linear, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy2"), linear1, 5), 1000, 10, 0));
         }
 
         public void Update(GameTime gameTime)

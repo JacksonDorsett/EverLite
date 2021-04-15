@@ -33,7 +33,7 @@ namespace EverLite.Modules.Behavior
 
         public override float Angle => movement.Angle((double)lifeSpan.Halflife);
 
-        public override bool PathCompleted => lifeSpan.Halflife < 1;
+        public override bool PathCompleted => lifeSpan.Halflife >= 1;
 
         public override Movement Clone()
         {
