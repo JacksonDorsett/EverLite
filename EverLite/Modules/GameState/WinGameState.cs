@@ -19,7 +19,7 @@ namespace EverLite.Modules.GameState
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch.Begin();
-            SpriteBatch.DrawString(mFont, "You Win!", new Vector2(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 4), Color.Green, 0, new Vector2(.5f, .5f), 1, SpriteEffects.None, 0);
+            SpriteBatch.DrawString(mFont, "You Win!", new Vector2(Game.Window.ClientBounds.Width / 2, this.Game.Window.ClientBounds.Height / 4), Color.Green, 0, new Vector2(.5f, .5f), 1, SpriteEffects.None, 0);
             SpriteBatch.End();
         }
 

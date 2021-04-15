@@ -22,18 +22,6 @@ namespace EverLite.Modules.Wave
         private List<LifetimeEntity> spawnerList;
         private BulletSpawner bulletSpawnerPrototype;
 
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EnemyFactory"/> class.
-        /// </summary>
-        /// <param name=""></param>
-        public EnemyFactory(SpriteN sprite, IMovement movement, float lifespan)
-        {
-            this.sprite = sprite;
-            this.movement = movement;
-            this.lifespan = lifespan;
-
-        }
         public EnemyFactory(List<LifetimeEntity> enemyList, List<LifetimeEntity> bulletSpawnerList, BulletSpawner spawner, SpriteN sprite, IMovement movement, float lifespan)
         {
             this.bulletSpawnerPrototype = spawner;
@@ -45,13 +33,14 @@ namespace EverLite.Modules.Wave
 
         }
 
+
         public void Spawn()
         {
-            Enemy e = new Enemy(this.sprite, this.movement, this.lifespan);
+            Enemy e2 = new Enemy(this.sprite, new LifeTimeMovement(this.lifespan, this.movement));
             BulletSpawner b = this.bulletSpawnerPrototype.Clone();
-            this.enemyList.Add(e);
+            this.enemyList.Add(e2);
             this.spawnerList.Add(b);
-            e.OnDeath += (sender, e1) =>
+            e2.OnDeath += (sender, e1) =>
             {
                 this.spawnerList.Remove(b);
             };

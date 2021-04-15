@@ -18,32 +18,33 @@ namespace EverLite.Modules.Behavior
     public class LifetimeEntity : Entity, ICollidable
     {
         private SpriteN mSprite;
-        protected IMovement movementPattern;
+        //protected IMovement movementPattern;
         private Lifespan lifespan;
         private bool isAliveFlag;
-
+        Movement move;
         public event EventHandler OnCollide;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LifetimeEntity"/> class.
-        /// </summary>
-        /// <param name="sprite"></param>
-        public LifetimeEntity(SpriteN sprite, IMovement movement, double lifetime)
+
+        public LifetimeEntity(SpriteN sprite, Movement movement)
             : base(sprite)
         {
-            this.movementPattern = movement;
-            this.lifespan = new Lifespan(lifetime);
+            this.move = movement;
             this.isAliveFlag = true;
         }
 
+
         public event EventHandler OnDeath;
-        public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
+
+        public override Vector2 Position { get => move.Position; protected set => throw new NotImplementedException(); }
+        //public override Vector2 Position { get => this.movementPattern.GetPosition(this.lifespan.Halflife); protected set => throw new NotImplementedException(); }
         public override SpriteN Sprite { get => this.mSprite; protected set => this.mSprite = value; }
 
 
         protected double Halflife { get => this.lifespan.Halflife; }
 
-        public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
+        //public bool IsAlive { get => this.lifespan.Halflife < 1 && this.isAliveFlag; }
+
+        public bool IsAlive { get => this.move.PathCompleted && this.isAliveFlag; }
 
         public HitCircle HitCircle
         {
@@ -57,16 +58,20 @@ namespace EverLite.Modules.Behavior
 
             }
         }
+        
+        protected Movement Movement { get => this.move; }
 
         public override void Update(GameTime gameTime)
         {
-            this.lifespan.Update(gameTime);
+            //this.lifespan.Update(gameTime);
+            move.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
+            this.Sprite.Draw(spriteBatch, this.Position, rotation: this.move.Angle);
+            //this.Sprite.Draw(spriteBatch, this.Position, rotation: this.movementPattern.Angle(this.lifespan.Halflife));
             spriteBatch.End();
         }
 

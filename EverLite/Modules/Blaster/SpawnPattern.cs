@@ -47,7 +47,7 @@ namespace EverLite.Modules.Blaster
         {
             if (this.IsEnabled)
             {
-                this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+                this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (this.timeElapsed > this.SpawnRate)
                 {

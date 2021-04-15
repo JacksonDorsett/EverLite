@@ -30,7 +30,7 @@ namespace EverLite.Modules.Blaster
             dif.Normalize();
 
             var p = new LinearMovement(spawnPosition, (spawnPosition + dif * 2000));
-             var b = new Bullet(this.Sprite, p, 5);
+            var b = new Bullet(this.Sprite, new LifeTimeMovement(5, p));
             this.bulletList.Add(b);
         }
 

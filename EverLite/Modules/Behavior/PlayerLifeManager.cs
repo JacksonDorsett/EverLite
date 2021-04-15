@@ -19,7 +19,7 @@ namespace EverLite.Modules.Behavior
         private ICommand commandOnDeath;
         public PlayerLifeManager(ICommand command)
         {
-            this.lives = new PlayerLives(3);
+            this.lives = new PlayerLives(6);
             this.player = Player.Instance();
             this.display = new PlayerLivesDisplay(this.lives);
             this.commandOnDeath = command;

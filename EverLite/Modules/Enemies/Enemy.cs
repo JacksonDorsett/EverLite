@@ -26,8 +26,10 @@ namespace EverLite.Modules.Enemies
         /// <param name="blaster">blaster pattern.</param>
         /// <param name="movement">movement pattern.</param>
         /// <param name="lifespan">lifespan pattern.</param>
-        public Enemy(SpriteN sprite, IMovement movement, float lifespan, int health = 100)
-            : base(sprite, movement, (double)lifespan)
+
+
+        public Enemy(SpriteN sprite, Movement movement, int health = 100)
+                : base(sprite, movement)
         {
             this.isHit = false;
             this.health = new Health(health);
@@ -64,7 +66,7 @@ namespace EverLite.Modules.Enemies
             if (this.isHit) c = Color.Red;
             base.Draw(spriteBatch);
             spriteBatch.Begin();
-            this.Sprite.Draw(spriteBatch, this.Position, c, rotation: this.movementPattern.Angle(this.Halflife));
+            this.Sprite.Draw(spriteBatch, this.Position, c, rotation: this.Movement.Angle);
             spriteBatch.End();
         }
 

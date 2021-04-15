@@ -18,12 +18,14 @@ namespace EverLite.Modules.Blaster
         private SpawnPattern spawnPattern;
         private double lifetime;
         private IMovement movement;
-        public BulletSpawner(IMovement movementPattern, double lifetime, SpawnPattern spawnPattern)
-            : base(new NoSprite(), movementPattern, lifetime)
+        Movement move;
+        public BulletSpawner(Movement movement, SpawnPattern spawnPattern)
+            : base(new NoSprite(), movement)
         {
             this.spawnPattern = spawnPattern;
             this.lifetime = lifetime;
-            this.movement = movementPattern;
+            //this.movement = movementPattern;
+            this.move = movement;
             this.spawnPattern.IsEnabled = true;
         }
 
@@ -40,7 +42,7 @@ namespace EverLite.Modules.Blaster
 
         public BulletSpawner Clone()
         {
-            return new BulletSpawner(this.movement, this.lifetime, spawnPattern.Clone());
+            return new BulletSpawner(Movement.Clone(), spawnPattern.Clone());
         }
     }
 }

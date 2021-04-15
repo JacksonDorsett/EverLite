@@ -24,7 +24,7 @@ namespace EverLite.Modules.Blaster
         {
             var fpos = position;
             fpos.Y -= 1000;
-            this.manager.AddPlayerBullet(new Bullet(this.bulletSprite, new LinearMovement(position, fpos), .7));
+            this.manager.AddPlayerBullet(new Bullet(this.bulletSprite, new LifeTimeMovement (.7f, new LinearMovement(position, fpos))));
         }
     }
 }

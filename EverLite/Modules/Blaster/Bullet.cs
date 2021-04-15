@@ -20,8 +20,8 @@ namespace EverLite.Modules.Blaster
         /// </summary>
         /// <param name="sprite">bullet sprite.</param>
         /// <param name="movementPattern">movement pattern of bullet.</param>
-        public Bullet(SpriteN sprite, IMovement movementPattern, double lifespan)
-            : base(sprite, movementPattern, lifespan)
+        public Bullet(SpriteN sprite, Movement movement)
+            : base(sprite, movement)
         {
         }
 
