@@ -14,8 +14,10 @@ namespace EverLite
     /// </summary>
     public class Game1 : Game
     {
+        // The Sprite fonts are setup here and accessed where needed through 'this.Game.fontName'.
         public SpriteFont fontOriginTech;
         public SpriteFont fontOriginTechSmall;
+        // The GameScore instance is here so that all the other game states can access it.
         public GameScore score;
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;

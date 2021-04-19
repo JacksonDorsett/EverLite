@@ -14,7 +14,7 @@ namespace EverLite
     public class GameScore
     {
         public static uint mScore = 0;
-        public static uint topScore;
+        public static uint topScore = 0;
         private static GameScore mInstance;
 
         /// <summary>
@@ -48,6 +48,9 @@ namespace EverLite
             get { return GameScore.mScore; }
         }
 
+        /// <summary>
+        /// Gets the TopScore for the game.
+        /// </summary>
         public uint TopScore
         {
             get { return GameScore.topScore; }
@@ -60,7 +63,12 @@ namespace EverLite
         public void Add(uint points)
         {
             GameScore.mScore += points;
-            if (GameScore.mScore > GameScore.topScore)
+        }
+
+
+        public void AddTopScore(uint points)
+        {
+            if (points > GameScore.topScore)
                 GameScore.topScore = GameScore.mScore;
         }
 

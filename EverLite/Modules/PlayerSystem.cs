@@ -21,10 +21,7 @@ namespace EverLite.Modules
     internal class PlayerSystem
     {
         private Player player;
-        private Game mGame;
         private PlayerMovementManager movementManager;
-        Rectangle border;
-        Rectangle board;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.
@@ -32,7 +29,6 @@ namespace EverLite.Modules
         /// <param name="game">game Reference object.</param>
         public PlayerSystem(Game game)
         {
-            this.mGame = game;
             this.player = Player.Instance();
             this.movementManager = new PlayerMovementManager(this.player, game.Window.ClientBounds);
         }

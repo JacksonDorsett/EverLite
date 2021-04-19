@@ -33,6 +33,7 @@ namespace EverLite
         /// </summary>
         /// <param name="game">game ref.</param>
         /// <param name="enemies">list of active enemies.</param>
+        /// <param name="spawners">list of spawners.</param>
         public WaveManager(Game game, List<LifetimeEntity> enemies, List<LifetimeEntity> spawners)
             : base()
         {
@@ -70,11 +71,9 @@ namespace EverLite
 
         public void Initialize()
         {
-            //var linear = new LinearMovement(new Vector2(2000, 200), new Vector2(-30, 800));
-            //var curved = new CurvedMovement(new Vector2(-30, 700), new Vector2(2000, 950), new Vector2(500, 100));
-            var linear = new LinearMovement(new Vector2(2000, 200), new Vector2(480, 800));
+            // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
+            var linear = new LinearMovement(new Vector2(2000, 480), new Vector2(480, 800));
             var curved = new CurvedMovement(new Vector2(480, 700), new Vector2(2000, 950), new Vector2(1000, 100));
-
 
             this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 2000)), SpriteLoader.LoadSprite("enemy1"), curved, 4), 1000, 10, 0));
             this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(linear, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 2000)), SpriteLoader.LoadSprite("enemy2"), linear, 4), 1000, 10, 0));
