@@ -32,6 +32,7 @@ namespace EverLite.Modules
         private List<Bullet> playerBullets;
 
         private Player player;
+        private Game1 scoreKeeper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CollisionDetector"/> class.
@@ -40,12 +41,13 @@ namespace EverLite.Modules
         /// <param name="enemyBullets">reference to enemy bullets.</param>
         /// <param name="playerBullets">reference to player bullet.</param>
         /// <param name="player">reference to a current player.</param>
-        public CollisionDetector(List<LifetimeEntity> activeEnemies, List<Bullet> enemyBullets, List<Bullet> playerBullets, Player player)
+        public CollisionDetector(List<LifetimeEntity> activeEnemies, List<Bullet> enemyBullets, List<Bullet> playerBullets, Player player, Game1 score)
         {
             this.activeEnemies = activeEnemies;
             this.playerBullets = playerBullets;
             this.enemyBullets = enemyBullets;
             this.player = player;
+            this.scoreKeeper = score;
         }
 
         public void Update(GameTime gameTime)
@@ -84,6 +86,8 @@ namespace EverLite.Modules
                 {
                     ICollidable collidableObjectBullet = bullet;
                     ICollidable collidableObjectEnemy = enemy;
+
+
                     Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
                     Rectangle playerBox = new Rectangle(
                         (int)enemy.Position.X,
@@ -95,6 +99,7 @@ namespace EverLite.Modules
                     {
                         collidableObjectEnemy.CollidesWith(collidableObjectBullet);
                         collidableObjectBullet.CollidesWith(collidableObjectEnemy);
+                        this.scoreKeeper.score.Add(10);
                     }
                 }
             }
@@ -102,6 +107,7 @@ namespace EverLite.Modules
             // Check if player collide with the enemy.
             foreach (LifetimeEntity enemy in this.activeEnemies)
             {
+
                 ICollidable collidableObjectPlayer = this.player;
                 ICollidable collidableObjectEnemy = enemy;
                 Rectangle enemyBox = new Rectangle(

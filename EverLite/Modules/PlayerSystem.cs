@@ -7,6 +7,7 @@ namespace EverLite.Modules
     using System.Collections.Generic;
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Enums;
+    using EverLite.Modules.GameState;
     using EverLite.Modules.Managers;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
@@ -22,6 +23,8 @@ namespace EverLite.Modules
         private Player player;
         private Game mGame;
         private PlayerMovementManager movementManager;
+        Rectangle border;
+        Rectangle board;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSystem"/> class.

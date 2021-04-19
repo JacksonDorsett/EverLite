@@ -21,15 +21,19 @@ namespace EverLite
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
-
+        public SpriteFont fontCourierNew, fontBlox, fontBloxSmall, fontArial;
+        public GameScore score;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
         /// </summary>
         public Game1()
         {
+
             this.mGraphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
+            this.score = GameScore.Instance;
         }
 
         /// <summary>
@@ -71,7 +75,10 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            this.fontCourierNew = this.Content.Load<SpriteFont>(@"Fonts\font_courier_new");
+            this.fontBlox = this.Content.Load<SpriteFont>(@"Fonts\font_blox");
+            this.fontBloxSmall = this.Content.Load<SpriteFont>(@"Fonts\font_blox_small");
+            this.fontArial = this.Content.Load<SpriteFont>(@"Fonts\Arial");
 
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
 

@@ -33,7 +33,8 @@ namespace EverLite.Modules.GameState
         private BulletManager bulletManager;
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
-
+        private SideGamePanel sidePanel;
+        private Game1 score;
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
         /// </summary>
@@ -46,13 +47,13 @@ namespace EverLite.Modules.GameState
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
-
+            this.sidePanel = new SideGamePanel(game);
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
                 this.bulletManager.PlayerBullets,
-                this.playerSystem.Player);
-
+                this.playerSystem.Player,
+                game);
         }
 
         /// <summary>
@@ -62,10 +63,11 @@ namespace EverLite.Modules.GameState
         public override void Draw(GameTime gameTime)
         {
             this.scrollingBG.Draw(gameTime);
-            this.bulletManager.Draw(SpriteBatch);
-            this.playerSystem.Draw(SpriteBatch);
+            this.bulletManager.Draw(this.SpriteBatch);
+            this.playerSystem.Draw(this.SpriteBatch);
 
             this.enemyManager.Draw(this.SpriteBatch);
+            this.sidePanel.Draw(this.SpriteBatch);
             this.lifeManager.Draw(this.SpriteBatch);
         }
 
@@ -75,7 +77,8 @@ namespace EverLite.Modules.GameState
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("DeepSpace");
-            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new GameOverGameState(Game)));
+            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new GameOverGameState(this.Game)));
+
         }
 
         /// <summary>
@@ -86,7 +89,6 @@ namespace EverLite.Modules.GameState
         {
             // check if game is paused.
             this.pauseStatus.Update();
-
             if (!this.pauseStatus.Status)
             {
                 this.playerSystem.Update(gameTime);
@@ -96,6 +98,8 @@ namespace EverLite.Modules.GameState
                 this.collisionDetector.Update(gameTime);
                 OnWin();
             }
+
+
         }
 
         /// <summary>

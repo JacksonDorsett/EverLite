@@ -7,6 +7,7 @@ namespace EverLite.Modules.Managers
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Modules.GameState;
     using EverLite.Modules.Input;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
@@ -30,7 +31,7 @@ namespace EverLite.Modules.Managers
             this.playerRef.OnCollide += (sender, e) => { this.playerRef.Position = this.SpawnPoint; };
         }
 
-        private Vector2 SpawnPoint { get => new Vector2(this.bounds.Width / 2, 3 * this.bounds.Height / 4); }
+        private Vector2 SpawnPoint { get => new Vector2((this.bounds.Width+100) / 2, 3 * this.bounds.Height / 4); }
 
         public void Update(GameTime gameTime)
         {
@@ -71,9 +72,9 @@ namespace EverLite.Modules.Managers
 
         private Vector2 CheckPlayerBoundry(Vector2 cPosition)
         {
-            if (cPosition.X <= 15)
+            if (cPosition.X <= 500)
             {
-                cPosition.X = 15;
+                cPosition.X = 500;
             }
 
             if (cPosition.Y <= 0)

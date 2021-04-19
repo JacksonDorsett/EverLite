@@ -30,13 +30,15 @@ namespace EverLiteTests
             {
             }
 
-            protected override void OnExit()
-            {
-            }
 
             public void Transition()
             {
 
+            }
+
+            public override void OnExit()
+            {
+                throw new NotImplementedException();
             }
         }
         [SetUp]

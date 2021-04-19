@@ -7,6 +7,7 @@ namespace EverLite.Modules.Behavior
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using EverLite.Modules.GameState;
     using EverLite.Modules.Menu.Commands;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework.Graphics;
@@ -17,6 +18,7 @@ namespace EverLite.Modules.Behavior
         private Player player;
         private PlayerLivesDisplay display;
         private ICommand commandOnDeath;
+
         public PlayerLifeManager(ICommand command)
         {
             this.lives = new PlayerLives(3);

@@ -11,6 +11,7 @@ namespace EverLite.Modules.Behavior
     {
         SpriteN playerSprite;
         PlayerLives playerLives;
+
         public PlayerLivesDisplay(PlayerLives playerLives)
         {
             this.playerSprite = Player.Instance().PlayerSprite;
@@ -21,12 +22,12 @@ namespace EverLite.Modules.Behavior
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 2, this.playerSprite.Texture.Height / 2);
+            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 4, this.playerSprite.Texture.Height / 4);
             spriteBatch.Begin();
             for (int i = 0; i < this.CurrentLives; i++)
             {
                 this.playerSprite.Draw(spriteBatch, position, .4f);
-                position.X += playerSprite.Texture.Width;
+                position.X += this.playerSprite.Texture.Width / 2;
             }
             spriteBatch.End();
         }
