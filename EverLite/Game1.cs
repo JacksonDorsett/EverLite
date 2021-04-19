@@ -4,10 +4,6 @@
 
 namespace EverLite
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using EverLite.Modules;
     using EverLite.Modules.GameState;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
@@ -18,6 +14,11 @@ namespace EverLite
     /// </summary>
     public class Game1 : Game
     {
+        // The Sprite fonts are setup here and accessed where needed through 'this.Game.fontName'.
+        public SpriteFont fontOriginTech;
+        public SpriteFont fontOriginTechSmall;
+        // The GameScore instance is here so that all the other game states can access it.
+        public GameScore score;
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
         private GameStateContext mContext;
@@ -27,9 +28,11 @@ namespace EverLite
         /// </summary>
         public Game1()
         {
+
             this.mGraphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
+            this.score = GameScore.Instance;
         }
 
         /// <summary>
@@ -71,8 +74,8 @@ namespace EverLite
         {
             this.mSpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
+            this.fontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
+            this.fontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
             this.mGraphics.GraphicsProfile = GraphicsProfile.Reach;
 
             this.mGraphics.PreferredBackBufferWidth = 1920;

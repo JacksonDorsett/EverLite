@@ -13,15 +13,15 @@ namespace EverLite
     /// </summary>
     public class GameScore
     {
+        public static uint mScore = 0;
+        public static uint topScore = 0;
         private static GameScore mInstance;
-        private uint mScore;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScore"/> class.
         /// </summary>
         private GameScore()
         {
-            this.mScore = 0;
         }
 
         /// <summary>
@@ -45,10 +45,15 @@ namespace EverLite
         /// </summary>
         public uint Score
         {
-            get
-            {
-                return this.mScore;
-            }
+            get { return GameScore.mScore; }
+        }
+
+        /// <summary>
+        /// Gets the TopScore for the game.
+        /// </summary>
+        public uint TopScore
+        {
+            get { return GameScore.topScore; }
         }
 
         /// <summary>
@@ -57,7 +62,14 @@ namespace EverLite
         /// <param name="points">total points earned.</param>
         public void Add(uint points)
         {
-            this.mScore += points;
+            GameScore.mScore += points;
+        }
+
+
+        public void AddTopScore(uint points)
+        {
+            if (points > GameScore.topScore)
+                GameScore.topScore = GameScore.mScore;
         }
 
         /// <summary>
@@ -65,7 +77,7 @@ namespace EverLite
         /// </summary>
         public void Reset()
         {
-            this.mScore = 0;
+            GameScore.mScore = 0;
         }
     }
 }

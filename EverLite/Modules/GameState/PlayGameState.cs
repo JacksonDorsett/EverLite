@@ -4,9 +4,6 @@
 
 namespace EverLite.Modules.GameState
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using EverLite;
     using EverLite.Audio;
     using EverLite.Modules;
@@ -17,7 +14,6 @@ namespace EverLite.Modules.GameState
     using EverLite.Modules.Menu.Commands;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
 
     /// <summary>
@@ -27,12 +23,14 @@ namespace EverLite.Modules.GameState
     {
         private ScrollingBG scrollingBG;
         private PlayerSystem playerSystem;
-        // private EnemySystem enemySystem;
         private ToggleStatus pauseStatus;
         private EnemyManager enemyManager;
         private BulletManager bulletManager;
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
+
+        // Manages the gamescore that is shown in the game play window.
+        private SideGamePanel sidePanel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
@@ -46,13 +44,13 @@ namespace EverLite.Modules.GameState
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
-
+            this.sidePanel = new SideGamePanel(game);
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
                 this.bulletManager.PlayerBullets,
-                this.playerSystem.Player);
-
+                this.playerSystem.Player,
+                game); // Game1 game is passed to the collisioDetector can access the gamescore instance
         }
 
         /// <summary>
@@ -62,10 +60,13 @@ namespace EverLite.Modules.GameState
         public override void Draw(GameTime gameTime)
         {
             this.scrollingBG.Draw(gameTime);
-            this.bulletManager.Draw(SpriteBatch);
-            this.playerSystem.Draw(SpriteBatch);
+            this.bulletManager.Draw(this.SpriteBatch);
+            this.playerSystem.Draw(this.SpriteBatch);
 
             this.enemyManager.Draw(this.SpriteBatch);
+
+            // SidePanel is drawn first so that the extra lives appear above the sidepanel background.
+            this.sidePanel.Draw(gameTime);
             this.lifeManager.Draw(this.SpriteBatch);
         }
 
@@ -75,7 +76,7 @@ namespace EverLite.Modules.GameState
         public override void OnEnter()
         {
             BGM.Instance(this.Game).Load("DeepSpace");
-            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new GameOverGameState(Game)));
+            this.lifeManager = new PlayerLifeManager(new ChangeStateCommand(this.Game, new GameOverGameState(this.Game)));
         }
 
         /// <summary>
@@ -86,7 +87,6 @@ namespace EverLite.Modules.GameState
         {
             // check if game is paused.
             this.pauseStatus.Update();
-
             if (!this.pauseStatus.Status)
             {
                 this.playerSystem.Update(gameTime);
@@ -94,7 +94,7 @@ namespace EverLite.Modules.GameState
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);
                 this.collisionDetector.Update(gameTime);
-                OnWin();
+                this.OnWin();
             }
         }
 
@@ -106,9 +106,15 @@ namespace EverLite.Modules.GameState
             BGM.Instance(this.Game).Stop();
         }
 
+        /// <summary>
+        /// Changes game state to the Winner window.
+        /// </summary>
         private void OnWin()
         {
-            if (!this.enemyManager.IsActive) new ChangeStateCommand(Game, new WinGameState(Game)).Execute();
+            if (!this.enemyManager.IsActive)
+            {
+                new ChangeStateCommand(this.Game, new WinGameState(this.Game)).Execute();
+            }
         }
     }
 }

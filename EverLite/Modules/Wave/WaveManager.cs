@@ -33,6 +33,7 @@ namespace EverLite
         /// </summary>
         /// <param name="game">game ref.</param>
         /// <param name="enemies">list of active enemies.</param>
+        /// <param name="spawners">list of spawners.</param>
         public WaveManager(Game game, List<LifetimeEntity> enemies, List<LifetimeEntity> spawners)
             : base()
         {
@@ -76,6 +77,12 @@ namespace EverLite
             var linear = new LifeTimeMovement(5, linear1);
             this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved1, 5), 1000, 10, 0));
             this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(linear, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy2"), linear1, 5), 1000, 10, 0));
+            // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
+            var linear = new LinearMovement(new Vector2(2000, 480), new Vector2(480, 800));
+            var curved = new CurvedMovement(new Vector2(480, 700), new Vector2(2000, 950), new Vector2(1000, 100));
+
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 2000)), SpriteLoader.LoadSprite("enemy1"), curved, 4), 1000, 10, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(linear, 4, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), .1f, 20, 2000)), SpriteLoader.LoadSprite("enemy2"), linear, 4), 1000, 10, 0));
         }
 
         public void Update(GameTime gameTime)

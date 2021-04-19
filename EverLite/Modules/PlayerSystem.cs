@@ -7,6 +7,7 @@ namespace EverLite.Modules
     using System.Collections.Generic;
     using EverLite.Modules.Behavior;
     using EverLite.Modules.Enums;
+    using EverLite.Modules.GameState;
     using EverLite.Modules.Managers;
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
@@ -20,7 +21,6 @@ namespace EverLite.Modules
     internal class PlayerSystem
     {
         private Player player;
-        private Game mGame;
         private PlayerMovementManager movementManager;
 
         /// <summary>
@@ -29,7 +29,6 @@ namespace EverLite.Modules
         /// <param name="game">game Reference object.</param>
         public PlayerSystem(Game game)
         {
-            this.mGame = game;
             this.player = Player.Instance();
             this.movementManager = new PlayerMovementManager(this.player, game.Window.ClientBounds);
         }

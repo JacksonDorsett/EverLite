@@ -1,33 +1,40 @@
-﻿using EverLite.Modules.Sprites;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// <copyright file="PlayerLivesDisplay.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace EverLite.Modules.Behavior
 {
+    using EverLite.Modules.Sprites;
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
+    /// <summary>
+    /// Manages the drawing of the player's extra lives.
+    /// </summary>
     class PlayerLivesDisplay
     {
-        SpriteN playerSprite;
-        PlayerLives playerLives;
+        private SpriteN playerSprite;
+        private PlayerLives playerLives;
+
         public PlayerLivesDisplay(PlayerLives playerLives)
         {
             this.playerSprite = Player.Instance().PlayerSprite;
             this.playerLives = playerLives;
         }
 
-        private int CurrentLives { get => playerLives.Lives; }
+        private int CurrentLives { get => this.playerLives.Lives; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 2, this.playerSprite.Texture.Height / 2);
+            // Adjusted the sprite size and spawn pattern to fit in the sideGamePanel background nicely.
+            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 4, this.playerSprite.Texture.Height / 4);
             spriteBatch.Begin();
             for (int i = 0; i < this.CurrentLives; i++)
             {
                 this.playerSprite.Draw(spriteBatch, position, .4f);
-                position.X += playerSprite.Texture.Width;
+                position.X += this.playerSprite.Texture.Width / 2;
             }
+
             spriteBatch.End();
         }
     }
