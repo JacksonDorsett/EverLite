@@ -34,7 +34,6 @@ namespace EverLite.Modules.GameState
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
         private SideGamePanel sidePanel;
-        private Game1 score;
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameState"/> class.
         /// </summary>
@@ -67,7 +66,7 @@ namespace EverLite.Modules.GameState
             this.playerSystem.Draw(this.SpriteBatch);
 
             this.enemyManager.Draw(this.SpriteBatch);
-            this.sidePanel.Draw(this.SpriteBatch);
+            this.sidePanel.Draw(gameTime);
             this.lifeManager.Draw(this.SpriteBatch);
         }
 

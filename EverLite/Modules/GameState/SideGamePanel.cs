@@ -1,43 +1,47 @@
-﻿namespace EverLite.Modules.GameState
+﻿// <copyright file="SideGamePanel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace EverLite.Modules.GameState
 {
-    using System;
-    using EverLite.Modules.Behavior;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
-    public class SideGamePanel
+    public class SideGamePanel : GameState
     {
-        private Game1 game;
-        //private GameScore score;
         private Texture2D background;
         private Rectangle r1;
         private Rectangle r2;
-        /*
-        public SideGamePanel(Game1 g, GameScore s)
-        {
-            this.game = g;
-            this.score = s;
-            this.background = this.game.Content.Load<Texture2D>("background_narrowspace");
-            this.r1 = this.background.Bounds;
-            this.r2 = this.r1;
-        }*/
 
-        public SideGamePanel(Game1 g)
+        public SideGamePanel(Game1 game) 
+            : base(game)
         {
-            this.game = g;
-            //this.score = g.score;
-            this.background = this.game.Content.Load<Texture2D>("background_narrowspace");
+            this.background = this.Game.Content.Load<Texture2D>("background_narrowspace");
             this.r1 = this.background.Bounds;
             this.r2 = this.r1;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(this.background, this.r1, this.r2, Color.White * 0.8f);
-            spriteBatch.DrawString(this.game.fontBloxSmall, "sCoRe ", new Vector2(80, 120), Color.Yellow);
-            spriteBatch.DrawString(this.game.fontBloxSmall, this.game.score.Score.ToString(), new Vector2(80, 160), Color.Yellow);
-            spriteBatch.End();
+            this.SpriteBatch.Begin();
+            this.SpriteBatch.Draw(this.background, this.r1, this.r2, Color.White * 0.8f);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, "SCORE", new Vector2(80, 120), Color.Yellow);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, this.Game.score.Score.ToString(), new Vector2(80, 160), Color.Yellow);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, "Top Scores", new Vector2(80, 220), Color.Blue);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, this.Game.score.TopScore.ToString(), new Vector2(80, 260), Color.Blue);
+            this.SpriteBatch.End();
+        }
+
+        public override void OnEnter()
+        {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void OnExit()
+        {
         }
     }
 }

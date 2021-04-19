@@ -4,23 +4,16 @@
 
 namespace EverLite.Modules.GameState
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using EverLite;
     using EverLite.Modules.Menu;
     using EverLite.Modules.Menu.Commands;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Represents when the game is in the main menu.
     /// </summary>
     internal class MenuState : GameState
     {
-
-        private SpriteFont mFont;
         private Menu menu;
 
         /// <summary>
@@ -30,8 +23,7 @@ namespace EverLite.Modules.GameState
         public MenuState(Game1 game)
             : base(game)
         {
-            mFont = Game.Content.Load<SpriteFont>("Default");
-            InitMenu();
+            this.InitMenu();
         }
 
         /// <summary>
@@ -40,9 +32,9 @@ namespace EverLite.Modules.GameState
         /// <param name="gameTime">Time elapsed in cycle.</param>
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch.Begin();
-            menu.Draw(SpriteBatch, mFont);
-            SpriteBatch.End();
+            this.SpriteBatch.Begin();
+            this.menu.Draw(this.SpriteBatch, this.Game.fontOriginTech);
+            this.SpriteBatch.End();
         }
 
         /// <summary>
@@ -58,7 +50,7 @@ namespace EverLite.Modules.GameState
         /// <param name="gameTime">Time elapsed during cycle.</param>
         public override void Update(GameTime gameTime)
         {
-            menu.Update();
+            this.menu.Update();
         }
 
         /// <summary>
@@ -70,11 +62,10 @@ namespace EverLite.Modules.GameState
 
         private void InitMenu()
         {
-            // Add any menu options here.
-            menu = new Menu();
-            menu.AddMenuItem(new MenuItem("Play", new ChangeStateCommand(Game, new PlayGameState(Game))));
-            menu.AddMenuItem(new MenuItem("Test", new QuitCommand(Game)));
-            menu.AddMenuItem(new MenuItem("Quit", new QuitCommand(Game)));
+            this.menu = new Menu();
+            this.menu.AddMenuItem(new MenuItem("Play", new ChangeStateCommand(this.Game, new PlayGameState(this.Game))));
+            this.menu.AddMenuItem(new MenuItem("Test", new QuitCommand(this.Game)));
+            this.menu.AddMenuItem(new MenuItem("Quit", new QuitCommand(this.Game)));
         }
     }
 }
