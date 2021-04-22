@@ -1,8 +1,4 @@
-﻿// <copyright file="GameScore.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace EverLite
+﻿namespace EverLite
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +9,7 @@ namespace EverLite
     /// </summary>
     public class GameScore
     {
-        public static uint mScore = 0;
+        public static uint score = 0;
         public static uint topScore = 0;
         private static GameScore mInstance;
 
@@ -45,7 +41,7 @@ namespace EverLite
         /// </summary>
         public uint Score
         {
-            get { return GameScore.mScore; }
+            get { return GameScore.score; }
         }
 
         /// <summary>
@@ -62,14 +58,14 @@ namespace EverLite
         /// <param name="points">total points earned.</param>
         public void Add(uint points)
         {
-            GameScore.mScore += points;
+            GameScore.score += points;
         }
 
 
         public void AddTopScore(uint points)
         {
             if (points > GameScore.topScore)
-                GameScore.topScore = GameScore.mScore;
+                GameScore.topScore = GameScore.score;
         }
 
         /// <summary>
@@ -77,7 +73,12 @@ namespace EverLite
         /// </summary>
         public void Reset()
         {
-            GameScore.mScore = 0;
+            GameScore.score = 0;
+        }
+
+        public void ResetTopTen()
+        {
+            GameScore.topScore = 0;
         }
     }
 }
