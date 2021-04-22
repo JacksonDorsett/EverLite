@@ -65,8 +65,8 @@
             this.game.spriteBatch.Begin();
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "SCORE", new Vector2(80, 120), Color.Yellow);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(80, 160), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Top Scores", new Vector2(80, 220), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 260), Color.Blue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Top Scores", new Vector2(80, 240), Color.Blue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 280), Color.Blue);
             this.game.spriteBatch.End();
             //this.lifeManager.Draw(this.game.spriteBatch);
 

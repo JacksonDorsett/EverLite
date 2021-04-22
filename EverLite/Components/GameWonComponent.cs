@@ -23,8 +23,8 @@
             
             this.game.spriteBatch.DrawString(this.game.FontOriginTech, "SCORE ", new Vector2(400, 210), Color.Blue);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(400, 260), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top Scores", new Vector2(400, 310), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(400, 360), Color.Yellow);
+            //this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top Scores", new Vector2(400, 310), Color.Blue);
+            //this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(400, 360), Color.Yellow);
             this.game.spriteBatch.End();
         }
 
