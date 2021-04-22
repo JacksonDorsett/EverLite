@@ -21,7 +21,7 @@
 
         protected override void LoadContent()
         {
-            this.planetView = this.game.Content.Load<Texture2D>(@"space");
+            this.planetView = this.game.Content.Load<Texture2D>(@"Sprites\space");
 
             base.LoadContent();
         }
