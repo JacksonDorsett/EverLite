@@ -131,6 +131,7 @@
             this.SolarSystem = Content.Load<Song>(@"Sounds\Solar System");
             SpriteLoader.Initialize(this.Content);
             MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.2f;
             ChangeMusic(this.SolarSystem);
             SwitchScene(this.MenuScene);
         }
