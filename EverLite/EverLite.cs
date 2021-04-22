@@ -16,12 +16,14 @@
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
 
+        // GameScenes for each window.
         public GameScene MenuScene;
         public GameScene LevelScene;
         public GameScene TopTenScene;
         public GameScene GameWonScene;
         public GameScene GameOverScene;
 
+        // Maintains the score keeping for game.
         public GameScore score;
 
         public Song DeepSpace;
@@ -32,6 +34,7 @@
 
         public SpriteBatch spriteBatch;
         
+        // Needed to check for NewKey()
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
 
@@ -51,7 +54,7 @@
             ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(this);
             PlanetBackgroundComponent planetBackground = new PlanetBackgroundComponent(this);
             PlanetExplodeBackgroundComponent planetExplodeBackground = new PlanetExplodeBackgroundComponent(this);
-            
+            PlanetRingsBackgroundCompnent planetRingsBackground = new PlanetRingsBackgroundCompnent(this);
             // creating window components
             PlayGameComponent level = new PlayGameComponent(this);
             TopTenComponent topTen = new TopTenComponent(this);
@@ -59,16 +62,17 @@
             GameOverComponent gameOver = new GameOverComponent(this);
             MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(700, 250), Color.Red, Color.Yellow);
 
+            // Listing menu options. Room to grow if we want more options.
             menuItems.AddItem("Play");
             menuItems.AddItem("Top Scores");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(this, menuItems);
 
-            // game scenes
+            // Putting together the GameScenes, each using a background component and a window component.
             this.MenuScene = new GameScene(this, planetBackground, menu);
             this.LevelScene = new GameScene(this, starfield, level);
             this.TopTenScene = new GameScene(this, planetBackground, topTen);
-            this.GameWonScene = new GameScene(this, planetExplodeBackground, gameWon);
+            this.GameWonScene = new GameScene(this, planetRingsBackground, gameWon);
             this.GameOverScene = new GameScene(this, planetExplodeBackground, gameOver);
             this.MenuScene = new GameScene(this, planetBackground, menu, menuItems);
 
@@ -83,12 +87,12 @@
             this.graphics.PreferredBackBufferHeight = WindowHeight;
             this.graphics.GraphicsProfile = GraphicsProfile.Reach;
             this.graphics.IsFullScreen = false;
-
             this.graphics.ApplyChanges();
 
             base.Initialize();
         }
 
+        // Resets the levelScene (where the game is played) when player wants to play again.
         public void NewGame()
         {
             PlayGameComponent level = new PlayGameComponent(this);
@@ -96,6 +100,7 @@
             this.LevelScene = new GameScene(this, starfield, level);
         }
 
+        // Manages the components state for the scenes so that only enabled scenes show.
         private void ChangeComponentState(GameComponent component, bool enabled)
         {
             component.Enabled = enabled;
@@ -103,6 +108,7 @@
                 ((DrawableGameComponent)component).Visible = enabled;
         }
 
+        // Switches to new windows
         public void SwitchScene(GameScene scene)
         {
             GameComponent[] usedComponents = scene.ReturnComponents();
@@ -114,6 +120,7 @@
             previousKeyboardState = keyboardState;
         }
 
+        // Checks for the keys to not cause unwanted runoff when playing.
         public bool NewKey(Keys key)
         {
             return this.keyboardState.IsKeyDown(key) && this.previousKeyboardState.IsKeyUp(key);
@@ -123,19 +130,26 @@
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Assigns fancy font.
             this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
 
+            // Assigns music
             this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");
             this.SolarSystem = Content.Load<Song>(@"Sounds\Solar System");
+            
             SpriteLoader.Initialize(this.Content);
+            
+            // MediaPlayer volume set at 10%
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0.1f;
+
             ChangeMusic(this.SolarSystem);
             SwitchScene(this.MenuScene);
         }
 
+        // Changes the music played
         public void ChangeMusic(Song song)
         {
             // Isn't the same song already playing?

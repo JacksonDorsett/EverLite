@@ -16,7 +16,7 @@
             this.player = Player.Instance();
             this.display = new PlayerLivesDisplay(this.lives);
             this.player.OnCollide += (sender, e) => { this.lives.TakeDamage(); };
-            this.lives.OnDeath += (sender, e) => { this.game.SwitchScene(this.game.GameOverScene); };
+            this.lives.OnDeath += (sender, e) => { this.game.ChangeMusic(this.game.Megalovania);  this.game.SwitchScene(this.game.GameOverScene); };
         }
 
         public void Draw(SpriteBatch spriteBatch)

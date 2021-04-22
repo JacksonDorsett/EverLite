@@ -35,6 +35,7 @@
             {
                 this.game.NewGame();
                 this.game.score.Reset();
+                this.game.ChangeMusic(this.game.SolarSystem);
                 this.game.SwitchScene(this.game.MenuScene);
             }
 
