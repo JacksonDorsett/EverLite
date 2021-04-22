@@ -16,18 +16,47 @@ namespace EverLite.Modules.Menu
     /// </summary>
     public class Menu
     {
+        private KeyboardState keyboardState;
+        private KeyboardState previousKeyboardState;
+
         private List<MenuItem> menuOptions;
         private int mSelectedIndex;
-        private bool isKeyDown;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Menu"/> class.
         /// </summary>
         public Menu()
         {
-            mSelectedIndex = 0;
-            menuOptions = new List<MenuItem>();
-            isKeyDown = false;
+            this.mSelectedIndex = 0;
+            this.menuOptions = new List<MenuItem>();
+        }
+
+        /// <summary>
+        /// Selects the next menu option.
+        /// </summary>
+        public void SelectNext()
+        {
+            if (this.mSelectedIndex < this.menuOptions.Count - 1)
+                this.mSelectedIndex++;
+        }
+
+        /// <summary>
+        /// Selects previous menu option.
+        /// </summary>
+        public void SelectPrevious()
+        {
+            if (this.mSelectedIndex > 0)
+                this.mSelectedIndex--;
+        }
+
+        /// <summary>
+        /// Checks the key and previous key status.
+        /// </summary>
+        /// <param name="key">Key state.</param>
+        /// <returns>True or False.</returns>
+        public bool NewKey(Keys key)
+        {
+            return this.keyboardState.IsKeyDown(key) && this.previousKeyboardState.IsKeyUp(key);
         }
 
         /// <summary>
@@ -36,29 +65,20 @@ namespace EverLite.Modules.Menu
         /// <param name="gameTime">Gametime passed.</param>
         public void Update()
         {
-            if (menuOptions.Count != 0 && !isKeyDown)
+            // keyboard state
+            this.previousKeyboardState = this.keyboardState;
+            this.keyboardState = Keyboard.GetState();
+
+            if (this.menuOptions.Count != 0)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Down) && mSelectedIndex < menuOptions.Count - 1)
-                {
-                    mSelectedIndex++;
-                }
+                if (this.NewKey(Keys.Down))
+                    this.SelectNext();
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Up) && mSelectedIndex > 0)
-                {
-                    mSelectedIndex--;
-                }
+                if (this.NewKey(Keys.Up))
+                    this.SelectPrevious();
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                {
-                    menuOptions[mSelectedIndex].Select();
-                }
-
-                isKeyDown = true;
-            }
-
-            if (!Keyboard.GetState().IsKeyDown(Keys.Down) && !Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                isKeyDown = false;
+                if (this.NewKey(Keys.Enter))
+                    this.menuOptions[this.mSelectedIndex].Select();
             }
         }
 
@@ -69,10 +89,10 @@ namespace EverLite.Modules.Menu
         /// <param name="font">Font of menu.</param>
         public void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            for (int i = 0; i < menuOptions.Count; i++)
+            for (int i = 0; i < this.menuOptions.Count; i++)
             {
                 Color c;
-                if (i != mSelectedIndex)
+                if (i != this.mSelectedIndex)
                 {
                     c = Color.Red;
                 }
@@ -81,7 +101,7 @@ namespace EverLite.Modules.Menu
                     c = Color.White;
                 }
 
-                spriteBatch.DrawString(font, menuOptions[i].Name, new Vector2(100, 100 + i * 100), c);
+                spriteBatch.DrawString(font, this.menuOptions[i].Name, new Vector2(100, 100 + (i * 100)), c);
             }
         }
 
@@ -91,7 +111,7 @@ namespace EverLite.Modules.Menu
         /// <param name="item">item added.</param>
         public void AddMenuItem(MenuItem item)
         {
-            menuOptions.Add(item);
+            this.menuOptions.Add(item);
         }
     }
 }

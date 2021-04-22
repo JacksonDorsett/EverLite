@@ -8,6 +8,7 @@ namespace EverLite
     using EverLite.Modules.Sprites;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Main game class.
@@ -17,11 +18,15 @@ namespace EverLite
         // The Sprite fonts are setup here and accessed where needed through 'this.Game.fontName'.
         public SpriteFont fontOriginTech;
         public SpriteFont fontOriginTechSmall;
+
         // The GameScore instance is here so that all the other game states can access it.
         public GameScore score;
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
-        private GameStateContext mContext;
+        public GameStateContext mContext;
+
+        private KeyboardState keyboardState;
+        private KeyboardState previousKeyboardState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game1"/> class.
@@ -47,6 +52,16 @@ namespace EverLite
         }
 
         /// <summary>
+        /// Checks the key and previous key status.
+        /// </summary>
+        /// <param name="key">Key state.</param>
+        /// <returns>True or False.</returns>
+        public bool NewKey(Keys key)
+        {
+            return this.keyboardState.IsKeyDown(key) && this.previousKeyboardState.IsKeyUp(key);
+        }
+
+        /// <summary>
         /// Gets current GameState.
         /// </summary>
         internal GameStateContext StateContext
@@ -54,6 +69,10 @@ namespace EverLite
             get
             {
                 return this.mContext;
+            }
+            set
+            {
+                this.mContext = value;
             }
         }
 
@@ -63,6 +82,12 @@ namespace EverLite
         protected override void Initialize()
         {
             base.Initialize();
+            this.mContext = new GameStateContext(this);
+            SpriteLoader.Initialize(this.Content);
+        }
+
+        public void GoToMain()
+        {
             this.mContext = new GameStateContext(this);
             SpriteLoader.Initialize(this.Content);
         }
@@ -83,7 +108,6 @@ namespace EverLite
             this.mGraphics.HardwareModeSwitch = false;
             this.mGraphics.ApplyChanges();
             SpriteLoader.Initialize(this.Content);
-
         }
 
         /// <summary>
@@ -93,7 +117,11 @@ namespace EverLite
         protected override void Update(GameTime gameTime)
         {
             this.mContext.Update(gameTime);
-            // TODO: Add your update logic here
+
+            // keyboard state
+            this.previousKeyboardState = this.keyboardState;
+            this.keyboardState = Keyboard.GetState();
+
             base.Update(gameTime);
         }
 

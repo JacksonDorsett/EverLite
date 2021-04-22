@@ -1,15 +1,8 @@
-﻿// <copyright file="GameClock.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace EverLite.Utilities
+﻿namespace EverLite
 {
     using System;
     using Microsoft.Xna.Framework;
 
-    /// <summary>
-    /// Game Clock stores the time.
-    /// </summary>
     public class GameClock
     {
         private bool isPaused;

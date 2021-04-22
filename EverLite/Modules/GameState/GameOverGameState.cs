@@ -4,7 +4,9 @@
 
 namespace EverLite.Modules.GameState
 {
+    using EverLite.Audio;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Game Over window. Displays player score and high score.
@@ -28,11 +30,12 @@ namespace EverLite.Modules.GameState
         {
             this.Game.score.AddTopScore(this.Game.score.Score);
             this.SpriteBatch.Begin();
-            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "GAME OVER", new Vector2(this.Game.Window.ClientBounds.X / 2, this.Game.Window.ClientBounds.Y / 2), Color.Red);
-            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "SCORE ", new Vector2(this.Game.Window.ClientBounds.Width / 2, (this.Game.Window.ClientBounds.Height / 4) + 120), Color.Blue);
-            this.SpriteBatch.DrawString(this.Game.fontOriginTech, this.Game.score.Score.ToString(), new Vector2(this.Game.Window.ClientBounds.Width / 2, (this.Game.Window.ClientBounds.Height / 4) + 180), Color.Yellow);
-            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "Top Scores", new Vector2(this.Game.Window.ClientBounds.Width / 2, (this.Game.Window.ClientBounds.Height / 4) + 240), Color.Blue);
-            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, this.Game.score.TopScore.ToString(), new Vector2(this.Game.Window.ClientBounds.Width / 2, (this.Game.Window.ClientBounds.Height / 4) + 300), Color.Yellow);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "Play again (Y/N)?", new Vector2(1000, 500), Color.Green);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "GAME OVER", new Vector2(500, 150), Color.Red);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "SCORE ", new Vector2(500, 210), Color.Blue);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, this.Game.score.Score.ToString(), new Vector2(500, 250), Color.Yellow);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTech, "Top Scores", new Vector2(500, 300), Color.Blue);
+            this.SpriteBatch.DrawString(this.Game.fontOriginTechSmall, this.Game.score.TopScore.ToString(), new Vector2(500, 350), Color.Yellow);
             this.SpriteBatch.End();
         }
 
@@ -42,13 +45,19 @@ namespace EverLite.Modules.GameState
         }
 
         /// <inheritdoc/>
-        public override void Update(GameTime gameTime)
+        public override void OnExit()
         {
+            BGM.Instance(this.Game).Stop();
         }
 
         /// <inheritdoc/>
-        public override void OnExit()
+        public override void Update(GameTime gameTime)
         {
+            if (this.Game.NewKey(Keys.Y))
+            {
+                //this.Game.StateContext = new GameStateContext(this.Game);
+                this.Game.GoToMain();
+            }
         }
     }
 }
