@@ -10,6 +10,7 @@ namespace EverLite.Modules.GameState
     using EverLite;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Represents game state.
@@ -17,16 +18,15 @@ namespace EverLite.Modules.GameState
     public abstract class GameState
     {
         private SpriteBatch spriteBatch;
-        private GameStateContext mContext;
+        //private GameStateContext mContext;
         private Game1 mGame;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GameState"/> class.
         /// </summary>
         /// <param name="game">context for gamestate.</param>
         public GameState(Game1 game)
         {
-            mContext = game.StateContext;
+            //mContext = game.StateContext;
             mGame = game;
             spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }

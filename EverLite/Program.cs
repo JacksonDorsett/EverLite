@@ -1,26 +1,14 @@
-﻿// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using System;
 
 namespace EverLite
 {
-    using System;
-
-    /// <summary>
-    /// Main program running game object.
-    /// </summary>
     public static class Program
     {
-        /// <summary>
-        /// Main function calling game object.
-        /// </summary>
         [STAThread]
-        public static void Main()
+        static void Main()
         {
-            using (var game = new Game1())
-            {
+            using (var game = new EverLite())
                 game.Run();
-            }
         }
     }
 }

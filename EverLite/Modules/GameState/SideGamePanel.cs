@@ -1,4 +1,5 @@
-﻿// <copyright file="SideGamePanel.cs" company="PlaceholderCompany">
+﻿
+// <copyright file="SideGamePanel.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

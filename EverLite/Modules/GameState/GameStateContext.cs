@@ -17,6 +17,7 @@ namespace EverLite.Modules.GameState
     {
         private GameState currentState;
         private GameState nextState;
+        private GameState menuState;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateContext"/> class.
@@ -24,7 +25,8 @@ namespace EverLite.Modules.GameState
         /// <param name="game">context game object.</param>
         public GameStateContext(Game1 game)
         {
-            currentState = new MenuState(game);
+            this.currentState = new MenuState(game);
+            this.menuState = this.currentState;
         }
 
         /// <summary>
@@ -35,13 +37,18 @@ namespace EverLite.Modules.GameState
         {
             get
             {
-                return currentState;
+                return this.currentState;
             }
 
             set
             {
-                currentState = value;
+                this.currentState = value;
             }
+        }
+
+        public GameState GoToMenuState
+        {
+            get { return this.menuState; }
         }
 
         /// <summary>
@@ -80,9 +87,6 @@ namespace EverLite.Modules.GameState
                 nextState.OnEnter();
                 currentState = nextState;
                 nextState = null;
-
-                
-                
             }
         }
     }
