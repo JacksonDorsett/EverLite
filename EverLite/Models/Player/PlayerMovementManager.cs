@@ -3,7 +3,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
-    internal class PlayerMovementManager
+    internal class PlayerMovementManager : PlayerSettings
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
@@ -24,30 +24,31 @@
         public void Update(GameTime gameTime)
         {
             this.UpdatePlayerPosition(Keyboard.GetState());
+            //this.UpdatePlayerPosition();
         }
 
         private void UpdatePlayerPosition(KeyboardState currentKeyboardState)
         {
             // sets the player speed based on the toggle state.
             float sVelocity = this.GetPlayerSpeed();
-            Vector2 currentPosition = this.playerRef.Position;
-
-            if (currentKeyboardState.IsKeyDown(Keys.Left) || currentKeyboardState.IsKeyDown(Keys.A))
+            Vector2 currentPosition = this.playerRef.Position; // currentKeyboardState.IsKeyDown(Keys.A)
+            
+            if (currentKeyboardState.IsKeyDown(this.MoveLeft))
             {
                 currentPosition.X -= sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Right) || currentKeyboardState.IsKeyDown(Keys.D))
+            if (currentKeyboardState.IsKeyDown(this.MoveRight))
             {
                 currentPosition.X += sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Up) || currentKeyboardState.IsKeyDown(Keys.W))
+            if (currentKeyboardState.IsKeyDown(this.MoveUp))
             {
                 currentPosition.Y -= sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.Down) || currentKeyboardState.IsKeyDown(Keys.S))
+            if (currentKeyboardState.IsKeyDown(this.MoveDown))
             {
                 currentPosition.Y += sVelocity;
             }
@@ -83,10 +84,10 @@
 
             return cPosition;
         }
-
+        
         private float GetPlayerSpeed()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.G)) return SLOWSPEED;
+            if (Keyboard.GetState().IsKeyDown(this.SlowSpeed)) return SLOWSPEED;
             return NORMALSPEED;
         }
     }

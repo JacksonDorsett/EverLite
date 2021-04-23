@@ -17,6 +17,7 @@
 
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
+        public SpriteFont FontOriginTechTiny;
 
         // Maintains the score keeping for game.
         public GameScore score;
@@ -32,6 +33,7 @@
         // Needed to check for NewKey()
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
+        public PlayerSettings playerSettings;
 
         public EverLite()
         {
@@ -74,7 +76,7 @@
             // Assigns fancy font.
             this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
-
+            this.FontOriginTechTiny = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
             // Assigns music
             this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");

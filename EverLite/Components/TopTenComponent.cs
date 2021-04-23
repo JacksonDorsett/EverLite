@@ -7,7 +7,8 @@
     {
         private EverLite game;
 
-        public TopTenComponent(EverLite game) : base(game)
+        public TopTenComponent(EverLite game) 
+            : base(game)
         {
             this.game = game;
         }

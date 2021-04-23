@@ -6,7 +6,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
 
-    public class Player : ICollidable
+    public class Player : PlayerSettings, ICollidable
     {
         // instance
         private static Player mInstance;
