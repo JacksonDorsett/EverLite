@@ -15,6 +15,7 @@
 
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
+        public SpriteFont FontOriginTechTiny;
 
         // GameScenes for each window.
         public GameScene MenuScene;
@@ -37,6 +38,7 @@
         // Needed to check for NewKey()
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
+        public PlayerSettings playerSettings;
 
         public EverLite()
         {
@@ -44,6 +46,7 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
+            this.playerSettings = new PlayerSettings();
         }
 
         protected override void Initialize()
@@ -65,6 +68,7 @@
             // Listing menu options. Room to grow if we want more options.
             menuItems.AddItem("Play");
             menuItems.AddItem("Top Scores");
+            menuItems.AddItem("Player settings");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(this, menuItems);
 
@@ -133,7 +137,7 @@
             // Assigns fancy font.
             this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
-
+            this.FontOriginTechTiny = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
             // Assigns music
             this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");
