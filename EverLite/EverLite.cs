@@ -1,5 +1,6 @@
 ﻿namespace EverLite
 {
+    using global::EverLite.Components;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
@@ -13,16 +14,10 @@
         public int WindowWidth = 1920;
         public int WindowHeight = 1000;
 
+
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
         public SpriteFont FontOriginTechTiny;
-
-        // GameScenes for each window.
-        public GameScene MenuScene;
-        public GameScene LevelScene;
-        public GameScene TopTenScene;
-        public GameScene GameWonScene;
-        public GameScene GameOverScene;
 
         // Maintains the score keeping for game.
         public GameScore score;
@@ -46,8 +41,10 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
-            this.playerSettings = new PlayerSettings();
+            
         }
+
+        public SceneManager SceneManager { get; private set; }
 
         protected override void Initialize()
         {
@@ -68,7 +65,6 @@
             // Listing menu options. Room to grow if we want more options.
             menuItems.AddItem("Play");
             menuItems.AddItem("Top Scores");
-            menuItems.AddItem("Player settings");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(this, menuItems);
 
@@ -92,37 +88,12 @@
             this.graphics.GraphicsProfile = GraphicsProfile.Reach;
             this.graphics.IsFullScreen = false;
             this.graphics.ApplyChanges();
-
+            this.SceneManager = new SceneManager(this);
+            
             base.Initialize();
         }
 
-        // Resets the levelScene (where the game is played) when player wants to play again.
-        public void NewGame()
-        {
-            PlayGameComponent level = new PlayGameComponent(this);
-            ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(this);
-            this.LevelScene = new GameScene(this, starfield, level);
-        }
-
-        // Manages the components state for the scenes so that only enabled scenes show.
-        private void ChangeComponentState(GameComponent component, bool enabled)
-        {
-            component.Enabled = enabled;
-            if (component is DrawableGameComponent)
-                ((DrawableGameComponent)component).Visible = enabled;
-        }
-
-        // Switches to new windows
-        public void SwitchScene(GameScene scene)
-        {
-            GameComponent[] usedComponents = scene.ReturnComponents();
-            foreach (GameComponent component in Components)
-            {
-                bool isUsed = usedComponents.Contains(component);
-                ChangeComponentState(component, isUsed);
-            }
-            previousKeyboardState = keyboardState;
-        }
+        
 
         // Checks for the keys to not cause unwanted runoff when playing.
         public bool NewKey(Keys key)
@@ -150,7 +121,8 @@
             MediaPlayer.Volume = 0.1f;
 
             ChangeMusic(this.SolarSystem);
-            SwitchScene(this.MenuScene);
+            this.SceneManager.SwitchScene(this.SceneManager.Menu);
+
         }
 
         // Changes the music played

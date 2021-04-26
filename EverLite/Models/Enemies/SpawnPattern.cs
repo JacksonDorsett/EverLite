@@ -23,6 +23,7 @@
             this.IsEnabled = false;
             this.timeElapsed = 0;
             this.speed = speed;
+            
         }
 
         public bool IsEnabled { get; set; }
