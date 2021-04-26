@@ -23,7 +23,12 @@
             if (game.NewKey(Keys.D))
                 this.game.score.ResetTopTen();
             if (game.NewKey(Keys.Enter))
-                this.game.SwitchScene(this.game.MenuScene);
+            {
+                //this.game.SwitchScene(this.game.MenuScene);
+                this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
+            }
+                
+                
 
             base.Update(gameTime);
         }

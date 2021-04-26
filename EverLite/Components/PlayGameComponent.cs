@@ -78,7 +78,8 @@
             if (!this.enemyManager.IsActive)
             {
                 this.game.ChangeMusic(this.game.Megalovania);
-                this.game.SwitchScene(this.game.GameWonScene);
+
+                this.game.SceneManager.SwitchScene(this.game.SceneManager.GameWin);
             }
         }
     }

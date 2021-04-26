@@ -1,5 +1,6 @@
 ﻿namespace EverLite
 {
+    using global::EverLite.Components;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
@@ -13,15 +14,9 @@
         public int WindowWidth = 1920;
         public int WindowHeight = 1000;
 
+
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
-
-        // GameScenes for each window.
-        public GameScene MenuScene;
-        public GameScene LevelScene;
-        public GameScene TopTenScene;
-        public GameScene GameWonScene;
-        public GameScene GameOverScene;
 
         // Maintains the score keeping for game.
         public GameScore score;
@@ -44,43 +39,14 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
+            
         }
+
+        public SceneManager SceneManager { get; private set; }
 
         protected override void Initialize()
         {
             SpriteLoader.Initialize(this.Content);
-
-            // creating background components
-            ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(this);
-            PlanetBackgroundComponent planetBackground = new PlanetBackgroundComponent(this);
-            PlanetExplodeBackgroundComponent planetExplodeBackground = new PlanetExplodeBackgroundComponent(this);
-            PlanetRingsBackgroundCompnent planetRingsBackground = new PlanetRingsBackgroundCompnent(this);
-            // creating window components
-            PlayGameComponent level = new PlayGameComponent(this);
-            TopTenComponent topTen = new TopTenComponent(this);
-            GameWonComponent gameWon = new GameWonComponent(this);
-            GameOverComponent gameOver = new GameOverComponent(this);
-            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(700, 250), Color.Red, Color.Yellow);
-
-            // Listing menu options. Room to grow if we want more options.
-            menuItems.AddItem("Play");
-            menuItems.AddItem("Top Scores");
-            menuItems.AddItem("Quit");
-            MenuComponent menu = new MenuComponent(this, menuItems);
-
-            // Putting together the GameScenes, each using a background component and a window component.
-            this.MenuScene = new GameScene(this, planetBackground, menu);
-            this.LevelScene = new GameScene(this, starfield, level);
-            this.TopTenScene = new GameScene(this, planetBackground, topTen);
-            this.GameWonScene = new GameScene(this, planetRingsBackground, gameWon);
-            this.GameOverScene = new GameScene(this, planetExplodeBackground, gameOver);
-            this.MenuScene = new GameScene(this, planetBackground, menu, menuItems);
-
-            // disabling components
-            foreach (GameComponent component in Components)
-            {
-                ChangeComponentState(component, false);
-            }
 
             // window size
             this.graphics.PreferredBackBufferWidth = WindowWidth;
@@ -88,37 +54,12 @@
             this.graphics.GraphicsProfile = GraphicsProfile.Reach;
             this.graphics.IsFullScreen = false;
             this.graphics.ApplyChanges();
-
+            this.SceneManager = new SceneManager(this);
+            
             base.Initialize();
         }
 
-        // Resets the levelScene (where the game is played) when player wants to play again.
-        public void NewGame()
-        {
-            PlayGameComponent level = new PlayGameComponent(this);
-            ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(this);
-            this.LevelScene = new GameScene(this, starfield, level);
-        }
-
-        // Manages the components state for the scenes so that only enabled scenes show.
-        private void ChangeComponentState(GameComponent component, bool enabled)
-        {
-            component.Enabled = enabled;
-            if (component is DrawableGameComponent)
-                ((DrawableGameComponent)component).Visible = enabled;
-        }
-
-        // Switches to new windows
-        public void SwitchScene(GameScene scene)
-        {
-            GameComponent[] usedComponents = scene.ReturnComponents();
-            foreach (GameComponent component in Components)
-            {
-                bool isUsed = usedComponents.Contains(component);
-                ChangeComponentState(component, isUsed);
-            }
-            previousKeyboardState = keyboardState;
-        }
+        
 
         // Checks for the keys to not cause unwanted runoff when playing.
         public bool NewKey(Keys key)
@@ -146,7 +87,8 @@
             MediaPlayer.Volume = 0.1f;
 
             ChangeMusic(this.SolarSystem);
-            SwitchScene(this.MenuScene);
+            this.SceneManager.SwitchScene(this.SceneManager.Menu);
+
         }
 
         // Changes the music played

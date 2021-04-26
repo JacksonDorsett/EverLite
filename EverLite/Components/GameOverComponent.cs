@@ -33,10 +33,9 @@
             // key pressing
             if (game.NewKey(Keys.Enter))
             {
-                this.game.NewGame();
                 this.game.score.Reset();
                 this.game.ChangeMusic(this.game.SolarSystem);
-                this.game.SwitchScene(this.game.MenuScene);
+                this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
 
             base.Update(gameTime);
