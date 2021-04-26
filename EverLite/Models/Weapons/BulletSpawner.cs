@@ -10,22 +10,28 @@
         //private double lifetime;
         Movement move;
         Timer delayTimer;
+        double delay;
+        bool DelayTimerStarted;
         public BulletSpawner(Movement movement, SpawnPattern spawnPattern, double shootDelay = 0)
             : base(new NoSprite(), movement)
         {
             this.spawnPattern = spawnPattern;
 
             this.move = movement;
-            this.spawnPattern.IsEnabled = true;
+            delay = shootDelay;
+            delayTimer = new Timer();
+
             if (shootDelay > 0)
             {
                 spawnPattern.IsEnabled = false;
-                delayTimer = new Timer(shootDelay);
-                delayTimer.Elapsed += delegate { spawnPattern.IsEnabled = true; };
+                delayTimer.Interval = delay;
+                delayTimer.Elapsed += delegate
+                {
+                    spawnPattern.IsEnabled = true;
+                };
                 delayTimer.AutoReset = false;
-                delayTimer.Start();
             }
-            
+            else spawnPattern.IsEnabled = true;
 
         }
 
@@ -37,12 +43,26 @@
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            this.spawnPattern.Update(gameTime, this.Position);
+            if (!DelayTimerStarted)
+            {
+                DelayTimerStarted = true;
+
+                if (delay > 0)
+                {
+                    this.delayTimer.Start();
+                }
+
+            }
+            if (spawnPattern.IsEnabled)
+            {
+                this.spawnPattern.Update(gameTime, this.Position);
+            }
+            
         }
 
         public BulletSpawner Clone()
         {
-            return new BulletSpawner(Movement.Clone(), spawnPattern.Clone());
+            return new BulletSpawner(Movement.Clone(), spawnPattern.Clone(), delay);
         }
     }
 }
