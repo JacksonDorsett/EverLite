@@ -2,12 +2,9 @@
 {
     using global::EverLite.Components;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
-    using System;
-    using System.Linq;
 
     public class EverLite : Game
     {
@@ -41,7 +38,7 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
-            
+            this.playerSettings = PlayerSettings.Instance;
         }
 
         public SceneManager SceneManager { get; private set; }
@@ -88,18 +85,18 @@
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.1f;
 
-            ChangeMusic(this.SolarSystem);
+            this.SceneManager.ChangeMusic(this.SolarSystem);
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
 
         }
-
+        /*
         // Changes the music played
         public void ChangeMusic(Song song)
         {
             // Isn't the same song already playing?
             if (MediaPlayer.Queue.ActiveSong != song)
                 MediaPlayer.Play(song);
-        }
+        }*/
 
         protected override void Update(GameTime gameTime)
         {

@@ -6,11 +6,21 @@
     /// Class holds the mapped button controls for the player.
     /// </summary>
     public class PlayerSettings
-    {`
-        public PlayerSettings()
+    {
+        private static PlayerSettings instance;
+        private PlayerSettings()
         {
         }
 
+        public static PlayerSettings Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new PlayerSettings();
+                return instance;
+            }
+        }
         /// <summary>
         /// Gets or sets the Shoot command.
         /// </summary>

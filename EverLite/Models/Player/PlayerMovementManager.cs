@@ -3,15 +3,17 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
-    internal class PlayerMovementManager : PlayerSettings
+    internal class PlayerMovementManager
     {
         private static readonly float NORMALSPEED = 15.0f;
         private static readonly float SLOWSPEED = 5.0f;
         private Rectangle bounds;
         private Player playerRef;
+        private PlayerSettings playerSettings;
 
         public PlayerMovementManager(Player player, Rectangle bounds)
         {
+            this.playerSettings = PlayerSettings.Instance;
             this.playerRef = player;
             this.bounds = bounds;
             this.playerRef.Position = this.SpawnPoint;
@@ -33,22 +35,22 @@
             float sVelocity = this.GetPlayerSpeed();
             Vector2 currentPosition = this.playerRef.Position; // currentKeyboardState.IsKeyDown(Keys.A)
             
-            if (currentKeyboardState.IsKeyDown(this.MoveLeft))
+            if (currentKeyboardState.IsKeyDown(this.playerSettings.MoveLeft))
             {
                 currentPosition.X -= sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(this.MoveRight))
+            if (currentKeyboardState.IsKeyDown(this.playerSettings.MoveRight))
             {
                 currentPosition.X += sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(this.MoveUp))
+            if (currentKeyboardState.IsKeyDown(this.playerSettings.MoveUp))
             {
                 currentPosition.Y -= sVelocity;
             }
 
-            if (currentKeyboardState.IsKeyDown(this.MoveDown))
+            if (currentKeyboardState.IsKeyDown(this.playerSettings.MoveDown))
             {
                 currentPosition.Y += sVelocity;
             }
@@ -87,7 +89,7 @@
         
         private float GetPlayerSpeed()
         {
-            if (Keyboard.GetState().IsKeyDown(this.SlowSpeed)) return SLOWSPEED;
+            if (Keyboard.GetState().IsKeyDown(this.playerSettings.SlowSpeed)) return SLOWSPEED;
             return NORMALSPEED;
         }
     }
