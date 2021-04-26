@@ -10,8 +10,24 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Fonts\Arial.spritefont" />
+    <None Remove="Content\Fonts\File.spritefont" />
+    <None Remove="Content\Fonts\font_blox.spritefont" />
+    <None Remove="Content\Fonts\font_blox_small.spritefont" />
+    <None Remove="Content\Fonts\font_courier_new.spritefont" />
+    <None Remove="Content\Fonts\font_original_tech_small.spritefont" />
+    <None Remove="Content\Fonts\font_origin_tech.spritefont" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Fonts\Arial.spritefont" />
+    <Content Include="Content\Fonts\File.spritefont" />
+    <Content Include="Content\Fonts\font_blox.spritefont" />
+    <Content Include="Content\Fonts\font_blox_small.spritefont" />
+    <Content Include="Content\Fonts\font_courier_new.spritefont" />
+    <Content Include="Content\Fonts\font_original_tech_small.spritefont" />
+    <Content Include="Content\Fonts\font_origin_tech.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
