@@ -2,20 +2,37 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using System.Timers;
 
     public class BulletSpawner : LifetimeEntity
     {
         private SpawnPattern spawnPattern;
-        private double lifetime;
-        private IMovement movement;
+        //private double lifetime;
         Movement move;
-        public BulletSpawner(Movement movement, SpawnPattern spawnPattern)
+        Timer delayTimer;
+        double delay;
+        bool DelayTimerStarted;
+        public BulletSpawner(Movement movement, SpawnPattern spawnPattern, double shootDelay = 0)
             : base(new NoSprite(), movement)
         {
             this.spawnPattern = spawnPattern;
-            this.lifetime = lifetime;
+
             this.move = movement;
-            this.spawnPattern.IsEnabled = true;
+            delay = shootDelay;
+            delayTimer = new Timer();
+
+            if (shootDelay > 0)
+            {
+                spawnPattern.IsEnabled = false;
+                delayTimer.Interval = delay;
+                delayTimer.Elapsed += delegate
+                {
+                    spawnPattern.IsEnabled = true;
+                };
+                delayTimer.AutoReset = false;
+            }
+            else spawnPattern.IsEnabled = true;
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -26,12 +43,26 @@
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            this.spawnPattern.Update(gameTime, this.Position);
+            if (!DelayTimerStarted)
+            {
+                DelayTimerStarted = true;
+
+                if (delay > 0)
+                {
+                    this.delayTimer.Start();
+                }
+
+            }
+            if (spawnPattern.IsEnabled)
+            {
+                this.spawnPattern.Update(gameTime, this.Position);
+            }
+            
         }
 
         public BulletSpawner Clone()
         {
-            return new BulletSpawner(Movement.Clone(), spawnPattern.Clone());
+            return new BulletSpawner(Movement.Clone(), spawnPattern.Clone(), delay);
         }
     }
 }
