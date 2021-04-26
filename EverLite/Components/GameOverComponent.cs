@@ -34,7 +34,7 @@
             if (game.NewKey(Keys.Enter))
             {
                 this.game.score.Reset();
-                this.game.ChangeMusic(this.game.SolarSystem);
+                this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
 

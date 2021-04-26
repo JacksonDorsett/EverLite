@@ -12,12 +12,14 @@
         private BulletManager bulletManager;
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
+        private PlayerSettings playerSettings;
         
         public PlayGameComponent(EverLite game)
             : base(game)
         {
             this.game = game;
-            this.pauseStatus = new ToggleStatus(Keys.Space);
+            this.playerSettings = PlayerSettings.Instance;
+            this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
             this.playerSystem = new PlayerSystem(this.Game);
             this.enemyManager = new EnemyManager(this.Game);
             this.bulletManager = BulletManager.Instance;
@@ -70,17 +72,17 @@
 
             // Control layout
             this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Move: ", new Vector2(100, 640), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.MoveUp.ToString(), new Vector2(325, 600), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.MoveLeft.ToString(), new Vector2(300, 640), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.MoveDown.ToString(), new Vector2(330, 680), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.MoveRight.ToString(), new Vector2(350, 640), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(325, 600), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(300, 640), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(330, 680), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(350, 640), Color.Red);
 
             this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Shoot: ", new Vector2(100, 750), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.Shoot.ToString(), new Vector2(330, 750), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(330, 750), Color.Red);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Slow Down: ", new Vector2(60, 800), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.SlowSpeed.ToString(), new Vector2(330, 800), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(330, 800), Color.Red);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Change Weapon: ", new Vector2(40, 850), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.playerSettings.SwitchWeapon.ToString(), new Vector2(330, 850), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(330, 850), Color.Red);
 
             this.game.spriteBatch.End();
             //this.lifeManager.Draw(this.game.spriteBatch);
@@ -92,7 +94,7 @@
         {
             if (!this.enemyManager.IsActive)
             {
-                this.game.ChangeMusic(this.game.Megalovania);
+                this.game.SceneManager.ChangeMusic(this.game.Megalovania);
 
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.GameWin);
             }

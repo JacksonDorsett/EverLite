@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,8 @@ namespace EverLite.Components
             {
                 ChangeComponentState(component, false);
             }
+
+            ChangeMusic(this.game.SolarSystem);
         }
 
         // Resets the levelScene (where the game is played) when player wants to play again.
@@ -86,6 +89,14 @@ namespace EverLite.Components
             component.Enabled = enabled;
             if (component is DrawableGameComponent)
                 ((DrawableGameComponent)component).Visible = enabled;
+        }
+
+        // Changes the music played
+        public void ChangeMusic(Song song)
+        {
+            // Isn't the same song already playing?
+            if (MediaPlayer.Queue.ActiveSong != song)
+                MediaPlayer.Play(song);
         }
 
         // Switches to new windows

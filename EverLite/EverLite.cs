@@ -2,12 +2,9 @@
 {
     using global::EverLite.Components;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
-    using System;
-    using System.Linq;
 
     public class EverLite : Game
     {
@@ -41,7 +38,7 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
-            
+            this.playerSettings = PlayerSettings.Instance;
         }
 
         public SceneManager SceneManager { get; private set; }
@@ -49,39 +46,7 @@
         protected override void Initialize()
         {
             SpriteLoader.Initialize(this.Content);
-
-            // creating background components
-            ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(this);
-            PlanetBackgroundComponent planetBackground = new PlanetBackgroundComponent(this);
-            PlanetExplodeBackgroundComponent planetExplodeBackground = new PlanetExplodeBackgroundComponent(this);
-            PlanetRingsBackgroundCompnent planetRingsBackground = new PlanetRingsBackgroundCompnent(this);
-            // creating window components
-            PlayGameComponent level = new PlayGameComponent(this);
-            TopTenComponent topTen = new TopTenComponent(this);
-            GameWonComponent gameWon = new GameWonComponent(this);
-            GameOverComponent gameOver = new GameOverComponent(this);
-            MenuItemsComponent menuItems = new MenuItemsComponent(this, new Vector2(700, 250), Color.Red, Color.Yellow);
-
-            // Listing menu options. Room to grow if we want more options.
-            menuItems.AddItem("Play");
-            menuItems.AddItem("Top Scores");
-            menuItems.AddItem("Quit");
-            MenuComponent menu = new MenuComponent(this, menuItems);
-
-            // Putting together the GameScenes, each using a background component and a window component.
-            this.MenuScene = new GameScene(this, planetBackground, menu);
-            this.LevelScene = new GameScene(this, starfield, level);
-            this.TopTenScene = new GameScene(this, planetBackground, topTen);
-            this.GameWonScene = new GameScene(this, planetRingsBackground, gameWon);
-            this.GameOverScene = new GameScene(this, planetExplodeBackground, gameOver);
-            this.MenuScene = new GameScene(this, planetBackground, menu, menuItems);
-
-            // disabling components
-            foreach (GameComponent component in Components)
-            {
-                ChangeComponentState(component, false);
-            }
-
+            
             // window size
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
@@ -120,18 +85,18 @@
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.1f;
 
-            ChangeMusic(this.SolarSystem);
+            this.SceneManager.ChangeMusic(this.SolarSystem);
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
 
         }
-
+        /*
         // Changes the music played
         public void ChangeMusic(Song song)
         {
             // Isn't the same song already playing?
             if (MediaPlayer.Queue.ActiveSong != song)
                 MediaPlayer.Play(song);
-        }
+        }*/
 
         protected override void Update(GameTime gameTime)
         {
