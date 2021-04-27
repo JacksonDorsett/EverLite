@@ -58,8 +58,6 @@
             base.Initialize();
         }
 
-        
-
         // Checks for the keys to not cause unwanted runoff when playing.
         public bool NewKey(Keys key)
         {
@@ -83,20 +81,12 @@
             
             // MediaPlayer volume set at 10%
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Volume = 0.0f;
 
             this.SceneManager.ChangeMusic(this.SolarSystem);
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
 
         }
-        /*
-        // Changes the music played
-        public void ChangeMusic(Song song)
-        {
-            // Isn't the same song already playing?
-            if (MediaPlayer.Queue.ActiveSong != song)
-                MediaPlayer.Play(song);
-        }*/
 
         protected override void Update(GameTime gameTime)
         {

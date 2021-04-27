@@ -38,8 +38,12 @@
         {
             this.game.spriteBatch.Begin();
 
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 170), Color.Yellow);
+
+            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "SCORE ", new Vector2(400, 210), Color.Blue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.PlayerName, new Vector2(400, 260), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(600, 260), Color.Yellow);
+            //this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
+            //this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 170), Color.Yellow);
 
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' to", new Vector2(900, 600), Color.Yellow);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(950, 650), Color.Yellow);

@@ -12,7 +12,8 @@
         public static uint score = 0;
         public static uint topScore = 0;
         private static GameScore mInstance;
-
+        private static string playerName;
+        public static List<uint> scoreList;
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScore"/> class.
         /// </summary>
@@ -30,6 +31,8 @@
                 if (mInstance == null)
                 {
                     mInstance = new GameScore();
+                    playerName = string.Empty;
+                    scoreList = new List<uint>();
                 }
 
                 return mInstance;
@@ -52,6 +55,11 @@
             get { return GameScore.topScore; }
         }
 
+        public string PlayerName
+        {
+            get { return GameScore.playerName; }
+        }
+
         /// <summary>
         /// Adds points to total score.
         /// </summary>
@@ -66,6 +74,11 @@
         {
             if (points > GameScore.topScore)
                 GameScore.topScore = GameScore.score;
+        }
+
+        public void AddPlayerInitials(string name)
+        {
+            GameScore.playerName = name;
         }
 
         /// <summary>
