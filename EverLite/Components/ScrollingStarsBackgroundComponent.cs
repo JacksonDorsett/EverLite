@@ -3,6 +3,9 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
+    /// <summary>
+    /// Manages the background for the GameScenesk.
+    /// </summary>
     public class ScrollingStarsBackgroundComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {        
         private static readonly int SPEED = 250;
@@ -13,12 +16,19 @@
         private Texture2D sidePanel;
         private ScrollState currentState;
 
+        /// <summary>
+        /// Enum to cycle through scroll state.
+        /// </summary>
         private enum ScrollState
         {
             Stop,
             Start,
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScrollingStarsBackgroundComponent"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public ScrollingStarsBackgroundComponent(EverLite game)
             : base(game)
         {
@@ -31,16 +41,19 @@
             this.currentState = ScrollState.Start;
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
         }
 
+        /// <inheritdoc/>
         protected override void LoadContent()
         {
             //this.stars = this.game.Content.Load<Texture2D>(@"Sprites\background_stars");
             base.LoadContent();
         }
 
+        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
             if (this.currentState == ScrollState.Start)
@@ -76,6 +89,10 @@
             this.currentState = ScrollState.Stop;
         }
 
+        /// <summary>
+        /// Gets the window size.
+        /// </summary>
+        /// <returns>Window size parameters in triangle.</returns>
         private Rectangle GetWindowSize()
         {
             Rectangle r = this.game.Window.ClientBounds;
@@ -84,6 +101,7 @@
             return r;
         }
 
+        /// <inheritdoc/>
         public override void Draw(GameTime gameTime)
         {
             this.game.spriteBatch.Begin();

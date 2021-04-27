@@ -1,21 +1,20 @@
 ﻿namespace EverLite
 {
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
-    /// Manages the background for the GameScenesk.
+    /// Manages the player setting logic for the PlayerSettingsScene.
     /// </summary>
-    public class PlanetBackgroundComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class PlayerSettingsComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private EverLite game;
-        private Texture2D planetView;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PlanetBackgroundComponent"/> class.
+        /// Initializes a new instance of the <see cref="PlayerSettingsComponent"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public PlanetBackgroundComponent(EverLite game)
+        public PlayerSettingsComponent(EverLite game) 
             : base(game)
         {
             this.game = game;
@@ -28,11 +27,11 @@
         }
 
         /// <inheritdoc/>
-        protected override void LoadContent()
+        public override void Update(GameTime gameTime)
         {
-            this.planetView = this.game.Content.Load<Texture2D>(@"Sprites\space");
 
-            base.LoadContent();
+
+            base.Update(gameTime);
         }
 
         /// <inheritdoc/>
@@ -40,10 +39,15 @@
         {
             this.game.spriteBatch.Begin();
 
-            this.game.spriteBatch.Draw(this.planetView, new Vector2(0, 0), Color.White);
 
             this.game.spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        /// <inheritdoc/>
+        protected override void LoadContent()
+        {
+            base.LoadContent();
         }
     }
 }

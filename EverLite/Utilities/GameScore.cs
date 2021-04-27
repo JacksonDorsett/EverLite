@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -10,9 +11,9 @@
     public class GameScore
     {
         public static uint score = 0;
-        public static uint topScore = 0;
         private static GameScore mInstance;
-
+        private static string playerName;
+        public static List<Tuple<uint,string>> scoreList;
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScore"/> class.
         /// </summary>
@@ -30,6 +31,13 @@
                 if (mInstance == null)
                 {
                     mInstance = new GameScore();
+                    playerName = string.Empty;
+                    scoreList = new List<Tuple<uint, string>>();
+                    scoreList.Add(new Tuple<uint, string>(50, "BOB"));
+                    scoreList.Add(new Tuple<uint, string>(40, "ABC"));
+                    scoreList.Add(new Tuple<uint, string>(30, "ABC"));
+                    scoreList.Add(new Tuple<uint, string>(20, "MOB"));
+                    scoreList.Add(new Tuple<uint, string>(10, "NOM"));
                 }
 
                 return mInstance;
@@ -45,11 +53,11 @@
         }
 
         /// <summary>
-        /// Gets the TopScore for the game.
+        /// Gets the player's initials.
         /// </summary>
-        public uint TopScore
+        public string PlayerName
         {
-            get { return GameScore.topScore; }
+            get { return GameScore.playerName; }
         }
 
         /// <summary>
@@ -61,11 +69,32 @@
             GameScore.score += points;
         }
 
-
-        public void AddTopScore(uint points)
+        /// <summary>
+        /// Returns tuple list of top scores and players' initials.
+        /// </summary>
+        /// <returns>List of top scores.</returns>
+        public List<Tuple<uint, string>> GetScoreList()
         {
-            if (points > GameScore.topScore)
-                GameScore.topScore = GameScore.score;
+            GameScore.scoreList = GameScore.scoreList.OrderByDescending(t => t.Item1).ToList();
+            return GameScore.scoreList;
+        }
+
+        /// <summary>
+        /// Adds the score and player initials from just finished game.
+        /// </summary>
+        /// <param name="points">Points the player finished with.</param>
+        public void AddToScoreList(uint points)
+        {
+            GameScore.scoreList.Add(new Tuple<uint, string>(points, GameScore.playerName));
+        }
+
+        /// <summary>
+        /// Adds the player's initials to playerName.
+        /// </summary>
+        /// <param name="name">String of 3 characters.</param>
+        public void AddPlayerInitials(string name)
+        {
+            GameScore.playerName = name;
         }
 
         /// <summary>
@@ -76,9 +105,17 @@
             GameScore.score = 0;
         }
 
+        /// <summary>
+        /// Resets the top 10 scores.
+        /// </summary>
         public void ResetTopTen()
         {
-            GameScore.topScore = 0;
+            GameScore.scoreList.Clear();
+            scoreList.Add(new Tuple<uint, string>(50, "BOB"));
+            scoreList.Add(new Tuple<uint, string>(40, "ABC"));
+            scoreList.Add(new Tuple<uint, string>(30, "ABC"));
+            scoreList.Add(new Tuple<uint, string>(20, "MOB"));
+            scoreList.Add(new Tuple<uint, string>(10, "NOM"));
         }
     }
 }

@@ -2,12 +2,9 @@
 {
     using global::EverLite.Components;
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
-    using System;
-    using System.Linq;
 
     public class EverLite : Game
     {
@@ -17,6 +14,7 @@
 
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
+        public SpriteFont FontOriginTechTiny;
 
         // Maintains the score keeping for game.
         public GameScore score;
@@ -32,6 +30,7 @@
         // Needed to check for NewKey()
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
+        public PlayerSettings playerSettings;
 
         public EverLite()
         {
@@ -39,7 +38,7 @@
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
-            
+            this.playerSettings = PlayerSettings.Instance;
         }
 
         public SceneManager SceneManager { get; private set; }
@@ -47,7 +46,7 @@
         protected override void Initialize()
         {
             SpriteLoader.Initialize(this.Content);
-
+            
             // window size
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
@@ -58,8 +57,6 @@
             
             base.Initialize();
         }
-
-        
 
         // Checks for the keys to not cause unwanted runoff when playing.
         public bool NewKey(Keys key)
@@ -74,7 +71,7 @@
             // Assigns fancy font.
             this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
-
+            this.FontOriginTechTiny = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
             // Assigns music
             this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");
@@ -84,19 +81,11 @@
             
             // MediaPlayer volume set at 10%
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Volume = 0.0f;
 
-            ChangeMusic(this.SolarSystem);
+            this.SceneManager.ChangeMusic(this.SolarSystem);
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
 
-        }
-
-        // Changes the music played
-        public void ChangeMusic(Song song)
-        {
-            // Isn't the same song already playing?
-            if (MediaPlayer.Queue.ActiveSong != song)
-                MediaPlayer.Play(song);
         }
 
         protected override void Update(GameTime gameTime)

@@ -10,6 +10,7 @@
     {
         // instance
         private static Player mInstance;
+        private PlayerSettings playerSettings;
         // constants
         private Vector2 mPosition;
         private SpriteN playerSprite;
@@ -33,6 +34,7 @@
             this.playerSprite = SpriteLoader.LoadSprite("Rocket");
             this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
             this.isHit = false;
+            this.playerSettings = PlayerSettings.Instance;
         }
 
 
@@ -43,7 +45,7 @@
 
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
-            if (currentKeyboardState.IsKeyDown(Keys.J))
+            if (currentKeyboardState.IsKeyDown(this.playerSettings.Shoot))
             {
                 this.shooter.Shoot(this.Position);
             }
