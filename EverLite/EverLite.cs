@@ -46,7 +46,7 @@
         protected override void Initialize()
         {
             SpriteLoader.Initialize(this.Content);
-
+            
             // window size
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
