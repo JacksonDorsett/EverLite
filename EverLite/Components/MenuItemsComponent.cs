@@ -4,6 +4,9 @@
     using Microsoft.Xna.Framework.Input;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Manages the menu items logic for the MenuScene.
+    /// </summary>
     public class MenuItemsComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private EverLite game;
@@ -14,6 +17,10 @@
         private Color selectedItemColor;
         private int textSize;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuComponent"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public MenuItemsComponent(EverLite game, Vector2 position, Color itemColor, Color selectedItemColor) : base(game)
         {
             this.game = game;
@@ -25,6 +32,10 @@
             this.textSize = 80;
         }
 
+        /// <summary>
+        /// Adds a menuItem to the list of menu choices.
+        /// </summary>
+        /// <param name="text">Name of the menuItem.</param>
         public void AddItem(string text)
         {
             // setting up the position according to the item's collection index
@@ -36,6 +47,9 @@
                 selectedItem = item;
         }
 
+        /// <summary>
+        /// Cycles through the menuOptions.
+        /// </summary>
         public void SelectNext()
         {
             int index = items.IndexOf(selectedItem);
@@ -45,6 +59,9 @@
                 selectedItem = items[0];
         }
 
+        /// <summary>
+        /// Cycles through the menuOptions.
+        /// </summary>
         public void SelectPrevious()
         {
             int index = items.IndexOf(selectedItem);
@@ -54,16 +71,19 @@
                 selectedItem = items[items.Count - 1];
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             base.Initialize();
         }
 
+        /// <inheritdoc/>
         protected override void LoadContent()
         {
             base.LoadContent();
         }
 
+        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
             // key pressing
@@ -75,6 +95,7 @@
             base.Update(gameTime);
         }
 
+        /// <inheritdoc/>
         public override void Draw(GameTime gameTime)
         {
             game.spriteBatch.Begin();

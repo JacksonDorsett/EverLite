@@ -1,8 +1,10 @@
 ﻿namespace EverLite
 {
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Input;
 
+    /// <summary>
+    /// Manages the game logic for the PlayGameScene.
+    /// </summary>
     public class PlayGameComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private EverLite game;
@@ -13,11 +15,17 @@
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
         private PlayerSettings playerSettings;
-        
+        private SidePanelComponent sidePanel;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public PlayGameComponent(EverLite game)
             : base(game)
         {
             this.game = game;
+            this.sidePanel = new SidePanelComponent(game);
             this.playerSettings = PlayerSettings.Instance;
             this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
             this.playerSystem = new PlayerSystem(this.Game);
@@ -31,17 +39,13 @@
                 this.game); // Game1 game is passed to the collisioDetector can access the gamescore instance
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            this.lifeManager = new PlayerLifeManager(this.game);
-            base.LoadContent();
-        }
-
+        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
             this.pauseStatus.Update();
@@ -57,45 +61,33 @@
             base.Update(gameTime);
         }
 
+        /// <inheritdoc/>
         public override void Draw(GameTime gameTime)
         {
             this.bulletManager.Draw(this.game.spriteBatch);
             this.playerSystem.Draw(this.game.spriteBatch);
             this.enemyManager.Draw(this.game.spriteBatch);
             this.lifeManager.Draw(this.game.spriteBatch);
-            // SidePanel is drawn first so that the extra lives appear above the sidepanel background.
-            this.game.spriteBatch.Begin();
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "SCORE", new Vector2(80, 120), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(80, 160), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Top Scores", new Vector2(80, 240), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 280), Color.Blue);
-
-            // Control layout
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Move: ", new Vector2(100, 640), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(325, 600), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(300, 640), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(330, 680), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(350, 640), Color.Red);
-
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Shoot: ", new Vector2(100, 750), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(330, 750), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Slow Down: ", new Vector2(60, 800), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(330, 800), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechTiny, "Change Weapon: ", new Vector2(40, 850), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(330, 850), Color.Red);
-
-            this.game.spriteBatch.End();
-            //this.lifeManager.Draw(this.game.spriteBatch);
+            this.sidePanel.Draw(gameTime);
 
             base.Draw(gameTime);
         }
 
+        /// <inheritdoc/>
+        protected override void LoadContent()
+        {
+            this.lifeManager = new PlayerLifeManager(this.game);
+            base.LoadContent();
+        }
+
+        /// <summary>
+        /// Switches PlayGameScene to the GameWonScene.
+        /// </summary>
         private void OnWin()
         {
             if (!this.enemyManager.IsActive)
             {
                 this.game.SceneManager.ChangeMusic(this.game.Megalovania);
-
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.GameWin);
             }
         }

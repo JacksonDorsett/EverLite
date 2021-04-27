@@ -3,21 +3,30 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
+    /// <summary>
+    /// Manages the player setting logic for the PlayerSettingsScene.
+    /// </summary>
     public class PlayerSettingsComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private EverLite game;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerSettingsComponent"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public PlayerSettingsComponent(EverLite game) 
             : base(game)
         {
             this.game = game;
         }
 
+        /// <inheritdoc/>
         public override void Initialize()
         {
             base.Initialize();
         }
 
+        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
 
@@ -25,18 +34,17 @@
             base.Update(gameTime);
         }
 
+        /// <inheritdoc/>
         public override void Draw(GameTime gameTime)
         {
             this.game.spriteBatch.Begin();
-
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 170), Color.Yellow);
 
 
             this.game.spriteBatch.End();
             base.Draw(gameTime);
         }
 
+        /// <inheritdoc/>
         protected override void LoadContent()
         {
             base.LoadContent();

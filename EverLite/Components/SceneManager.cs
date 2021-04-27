@@ -1,44 +1,65 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EverLite.Components
+﻿namespace EverLite.Components
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework.Media;
+    using System;
+    using System.Linq;
+
+    /// <summary>
+    /// Manages the gameScenes.
+    /// </summary>
     public class SceneManager
     {
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
-
+        private EverLite game;
 
         // GameScenes for each window.
         private GameScene MenuScene;
         private GameScene TopTenScene;
         private GameScene GameWonScene;
         private GameScene GameOverScene;
-        EverLite game;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SceneManager"/> class.
+        /// </summary>
+        /// <param name="game">game reference object.</param>
         public SceneManager(EverLite game)
         {
             this.game = game;
             Initialize();
         }
 
+        /// <summary>
+        /// Gets the MenuScene.
+        /// </summary>
         public GameScene Menu => MenuScene;
 
+        /// <summary>
+        /// Gets the GameOverScene.
+        /// </summary>
         public GameScene GameOver => GameOverScene;
 
+        /// <summary>
+        /// Gets the GameWonScene.
+        /// </summary>
         public GameScene GameWin => GameWonScene;
 
+        /// <summary>
+        /// Gets the TopTenScene.
+        /// </summary>
         public GameScene TopTen => TopTenScene;
 
+        /// <summary>
+        /// Gets the PlayGameScene.
+        /// </summary>
         public GameScene NewGame => CreateNewGame();
 
-
-
+        /// <summary>
+        /// Initializes all the gameScenes.
+        /// Sets the menuScene as the active scene.
+        /// </summary>
         private void Initialize()
         {
             // creating background components
@@ -75,7 +96,10 @@ namespace EverLite.Components
             ChangeMusic(this.game.SolarSystem);
         }
 
-        // Resets the levelScene (where the game is played) when player wants to play again.
+        /// <summary>
+        /// Creates the PlayGameScene.
+        /// </summary>
+        /// <returns>New PlayGameScene.</returns>
         public GameScene CreateNewGame()
         {
             PlayGameComponent level = new PlayGameComponent(game);
@@ -83,7 +107,11 @@ namespace EverLite.Components
             return new GameScene(game, starfield, level);
         }
 
-        // Manages the components state for the scenes so that only enabled scenes show.
+        /// <summary>
+        /// Changes the active gameScene to a different gameScene.
+        /// </summary>
+        /// <param name="component">GameComponent.</param>
+        /// <param name="enabled">T or F if component is part of active scene.</param>
         private void ChangeComponentState(GameComponent component, bool enabled)
         {
             component.Enabled = enabled;
@@ -91,7 +119,10 @@ namespace EverLite.Components
                 ((DrawableGameComponent)component).Visible = enabled;
         }
 
-        // Changes the music played
+        /// <summary>
+        /// Changes the music for the gameScenes.
+        /// </summary>
+        /// <param name="song"></param>
         public void ChangeMusic(Song song)
         {
             // Isn't the same song already playing?
@@ -99,7 +130,10 @@ namespace EverLite.Components
                 MediaPlayer.Play(song);
         }
 
-        // Switches to new windows
+        /// <summary>
+        /// Switches the active scene to the next gameScene.
+        /// </summary>
+        /// <param name="scene"></param>
         public void SwitchScene(GameScene scene)
         {
             GameComponent[] usedComponents = scene.ReturnComponents();

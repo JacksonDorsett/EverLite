@@ -2,6 +2,8 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
+    using System;
+    using System.Collections.Generic;
 
     public class TopTenComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
@@ -25,7 +27,6 @@
                 this.game.score.ResetTopTen();
             if (game.NewKey(Keys.Enter))
             {
-                //this.game.SwitchScene(this.game.MenuScene);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
                 
@@ -38,12 +39,15 @@
         {
             this.game.spriteBatch.Begin();
 
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
 
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "SCORE ", new Vector2(400, 210), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.PlayerName, new Vector2(400, 260), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(600, 260), Color.Yellow);
-            //this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
-            //this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.TopScore.ToString(), new Vector2(80, 170), Color.Yellow);
+            int position = 170;
+            for(int index = 0; index < 5; index++)
+            {
+                this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.GetScoreList()[index].Item2, new Vector2(80, position), Color.Yellow);
+                this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.GetScoreList()[index].Item1.ToString(), new Vector2(200, position), Color.Yellow);
+                position += 50;
+            }
 
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' to", new Vector2(900, 600), Color.Yellow);
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(950, 650), Color.Yellow);
