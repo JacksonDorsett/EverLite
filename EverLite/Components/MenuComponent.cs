@@ -36,12 +36,10 @@
                 {
                     case "Play":
                         this.game.SceneManager.ChangeMusic(this.game.DeepSpace);
-                        //this.game.SwitchScene(this.game.LevelScene);
                         this.game.SceneManager.SwitchScene(game.SceneManager.NewGame);
                         break;
                     case "Top Scores":
                         this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
-                        //this.game.SwitchScene(this.game.TopTenScene);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
                     case "Quit":

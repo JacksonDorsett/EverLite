@@ -1,6 +1,7 @@
 ﻿namespace EverLite
 {
     using Microsoft.Xna.Framework.Input;
+    using System.Text;
 
     /// <summary>
     /// Class holds the mapped button controls for the player.
@@ -8,6 +9,8 @@
     public class PlayerSettings
     {
         private static PlayerSettings instance;
+        private static string playerName;
+
         private PlayerSettings()
         {
         }
@@ -17,10 +20,23 @@
             get
             {
                 if (instance == null)
+                {
                     instance = new PlayerSettings();
+                    playerName = string.Empty;
+                }
                 return instance;
             }
         }
+
+        public void SetPlayerName(string name)
+        {
+            StringBuilder builder = new StringBuilder(PlayerSettings.playerName);
+            builder.Append(name);
+
+            PlayerSettings.playerName = builder.ToString();
+        }
+
+        public string Name { get; set; } = string.Empty;
         /// <summary>
         /// Gets or sets the Shoot command.
         /// </summary>
