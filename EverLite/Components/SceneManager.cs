@@ -20,6 +20,7 @@
         private GameScene TopTenScene;
         private GameScene GameWonScene;
         private GameScene GameOverScene;
+        private GameScene PlayerSettingsScene;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
@@ -51,6 +52,8 @@
         /// </summary>
         public GameScene TopTen => TopTenScene;
 
+        public GameScene PlayerSettings => PlayerSettingsScene;
+
         /// <summary>
         /// Gets the PlayGameScene.
         /// </summary>
@@ -63,20 +66,20 @@
         private void Initialize()
         {
             // creating background components
-            ScrollingStarsBackgroundComponent starfield = new ScrollingStarsBackgroundComponent(game);
             PlanetBackgroundComponent planetBackground = new PlanetBackgroundComponent(game);
             PlanetExplodeBackgroundComponent planetExplodeBackground = new PlanetExplodeBackgroundComponent(game);
             PlanetRingsBackgroundCompnent planetRingsBackground = new PlanetRingsBackgroundCompnent(game);
             // creating window components
-            PlayGameComponent level = new PlayGameComponent(game);
             TopTenComponent topTen = new TopTenComponent(game);
             GameWonComponent gameWon = new GameWonComponent(game);
             GameOverComponent gameOver = new GameOverComponent(game);
+            PlayerSettingsComponent playerSettings = new PlayerSettingsComponent(game);
             MenuItemsComponent menuItems = new MenuItemsComponent(game, new Vector2(700, 250), Color.Red, Color.Yellow);
 
             // Listing menu options. Room to grow if we want more options.
             menuItems.AddItem("Play");
             menuItems.AddItem("Top Scores");
+            menuItems.AddItem("Player Settings");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(game, menuItems);
 
@@ -85,6 +88,7 @@
             this.TopTenScene = new GameScene(game, planetBackground, topTen);
             this.GameWonScene = new GameScene(game, planetRingsBackground, gameWon);
             this.GameOverScene = new GameScene(game, planetExplodeBackground, gameOver);
+            this.PlayerSettingsScene = new GameScene(game, planetRingsBackground, playerSettings);
             this.MenuScene = new GameScene(game, planetBackground, menu, menuItems);
 
             // disabling components
