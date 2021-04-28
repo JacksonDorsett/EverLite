@@ -52,6 +52,10 @@
                         this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
+                    case "Player Settings":
+                        this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
+                        this.game.SceneManager.SwitchScene(game.SceneManager.PlayerSettings);
+                        break;
                     case "Quit":
                         this.game.Exit();
                         break;

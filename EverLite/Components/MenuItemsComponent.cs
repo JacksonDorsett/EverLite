@@ -21,7 +21,8 @@
         /// Initializes a new instance of the <see cref="MenuComponent"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
-        public MenuItemsComponent(EverLite game, Vector2 position, Color itemColor, Color selectedItemColor) : base(game)
+        public MenuItemsComponent(EverLite game, Vector2 position, Color itemColor, Color selectedItemColor)
+            : base(game)
         {
             this.game = game;
             this.position = position;
