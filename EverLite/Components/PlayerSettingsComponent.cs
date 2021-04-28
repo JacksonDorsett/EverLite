@@ -33,7 +33,7 @@
         {
             this.game = game;
             this.playerSettings = PlayerSettings.Instance;
-            this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Slow Down:", "Change Weapon:" };
+            this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Slow Down:", "Change Weapon:", "Pause:" };
             this.itemColor = Color.Red;
             this.selectedItemColor = Color.Yellow;
             this.selectedControl = "Move Up:";
@@ -161,7 +161,9 @@
                 return Keys.LeftControl;
             if (k.IsKeyDown(Keys.RightControl))
                 return Keys.RightControl;
-            return Keys.A;
+            if (k.IsKeyDown(Keys.Space))
+                return Keys.Space;
+            return Keys.OemTilde;
         }
 
         /// <summary>
@@ -195,6 +197,9 @@
                 case "Change Weapon:":
                     this.playerSettings.SwitchWeapon = k;
                     return true;
+                case "Pause:":
+                    this.playerSettings.Pause = k;
+                    return true;
                 default:
                     return false;
             }
@@ -206,28 +211,32 @@
             this.game.spriteBatch.Begin();
 
             // Player settings for mapping.
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[0], new Vector2(100, 200), colorStatus("Move Up:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(500, 200), colorStatus("Move Up:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[1], new Vector2(100, 300), colorStatus("Move Left:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(500,300), colorStatus("Move Left:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[2], new Vector2(100, 400), colorStatus("Move Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(500, 400), colorStatus("Move Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[3], new Vector2(100, 500), colorStatus("Move Right:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(500, 500), colorStatus("Move Right:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[4], new Vector2(100, 600), colorStatus("Shoot:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(500, 600), colorStatus("Shoot:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[5], new Vector2(100, 700), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 700), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[6], new Vector2(100, 800), colorStatus("Change Weapon:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 800), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[0], new Vector2(100, 100), colorStatus("Move Up:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(500, 100), colorStatus("Move Up:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[1], new Vector2(100, 200), colorStatus("Move Left:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(500,200), colorStatus("Move Left:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[2], new Vector2(100, 300), colorStatus("Move Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(500, 300), colorStatus("Move Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[3], new Vector2(100, 400), colorStatus("Move Right:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(500, 400), colorStatus("Move Right:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[4], new Vector2(100, 500), colorStatus("Shoot:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(500, 500), colorStatus("Shoot:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[5], new Vector2(100, 600), colorStatus("Slow Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 600), colorStatus("Slow Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[6], new Vector2(100, 700), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 700), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[7], new Vector2(100, 800), colorStatus("Pause:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Pause.ToString(), new Vector2(500, 800), colorStatus("Pause:"));
 
             // Instructions
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press Up or Down to select", new Vector2(900, 200), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "setting you want to change.", new Vector2(950, 250), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' once, then", new Vector2(900, 400), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "press key you want mapped.", new Vector2(950, 450), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Esc' to", new Vector2(900, 600), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(950, 650), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press Up or Down to select", new Vector2(900, 250), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "setting you want to change.", new Vector2(950, 300), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' once, then", new Vector2(900, 450), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "press key you want mapped.", new Vector2(950, 500), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "(letters, arrow keys,", new Vector2(950, 550), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, " control, shift, spacebar)", new Vector2(960, 600), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Esc' to", new Vector2(1350, 850), Color.DeepSkyBlue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(1200, 900), Color.DeepSkyBlue);
 
             this.game.spriteBatch.End();
             base.Draw(gameTime);

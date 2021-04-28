@@ -39,14 +39,14 @@
         {
             this.game.spriteBatch.Begin();
 
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Top 10 Scores", new Vector2(80, 120), Color.Blue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 5 Scores", new Vector2(80, 120), Color.DeepSkyBlue);
 
-            int position = 170;
+            int position = 200;
             for(int index = 0; index < 5; index++)
             {
-                this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.GetScoreList()[index].Item2, new Vector2(80, position), Color.Yellow);
-                this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.GetScoreList()[index].Item1.ToString(), new Vector2(200, position), Color.Yellow);
-                position += 50;
+                this.game.spriteBatch.DrawString(this.game.FontOriginTech, this.game.score.GetScoreList()[index].Item2, new Vector2(80, position), Color.Yellow);
+                this.game.spriteBatch.DrawString(this.game.FontOriginTech, this.game.score.GetScoreList()[index].Item1.ToString(), new Vector2(250, position), Color.Yellow);
+                position += 70;
             }
 
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' to", new Vector2(900, 600), Color.Yellow);
