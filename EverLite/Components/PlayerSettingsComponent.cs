@@ -177,29 +177,61 @@
             switch(choice)
             {
                 case "Move Up:":
-                    this.playerSettings.MoveUp = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.MoveUp = k;
+                        return true;
+                    }
+                    return false;
                 case "Move Left:":
-                    this.playerSettings.MoveLeft = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.MoveLeft = k;
+                        return true;
+                    }
+                    return false;
                 case "Move Down:":
-                    this.playerSettings.MoveDown = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.MoveDown = k;
+                        return true;
+                    }
+                    return false;
                 case "Move Right:":
-                    this.playerSettings.MoveRight = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.MoveRight = k;
+                        return true;
+                    }
+                    return false;
                 case "Shoot:":
-                    this.playerSettings.Shoot = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.Shoot = k;
+                        return true;
+                    }
+                    return false;
                 case "Slow Down:":
-                    this.playerSettings.SlowSpeed = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.SlowSpeed = k;
+                        return true;
+                    }
+                    return false;
                 case "Change Weapon:":
-                    this.playerSettings.SwitchWeapon = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.SwitchWeapon = k;
+                        return true;
+                    }
+                    return false;
                 case "Pause:":
-                    this.playerSettings.Pause = k;
-                    return true;
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.Pause = k;
+                        return true;
+                    }
+                    return false;
                 default:
                     return false;
             }
