@@ -1,9 +1,9 @@
-using NUnit.Framework;
 using EverLite.Utilities;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NUnit.Framework;
+using System;
 
 namespace EverLiteTests
 {

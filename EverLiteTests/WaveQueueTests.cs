@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using EverLite.Modules.Wave;
 using EverLite.Utilities;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using EverLite.Modules.Wave;
+using NUnit.Framework;
+using System;
 
 namespace EverLiteTests
 {
@@ -15,10 +15,10 @@ namespace EverLiteTests
         {
             GameClock clock = new GameClock();
             WaveQueue q = new WaveQueue(clock);
-            Assert.Throws<Exception>(()=>q.PopWave());
+            Assert.Throws<Exception>(() => q.PopWave());
             //q.Add(new Wave(null, null, null,null, 0, 0, 100));
             Assert.Throws<Exception>(() => q.PopWave());
-            
+
         }
 
         [Test]
