@@ -1,10 +1,11 @@
-﻿namespace EverLite.Components
+﻿namespace EverLite
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
     using Microsoft.Xna.Framework.Media;
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Manages the gameScenes.
@@ -29,6 +30,9 @@
         public SceneManager(EverLite game)
         {
             this.game = game;
+
+
+            // Task<bool> result = InsertData(); // Only run this once
             Initialize();
         }
 
