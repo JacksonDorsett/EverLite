@@ -18,6 +18,7 @@
         private KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
         private eGameState gameState;
+        
         enum eGameState
         {
             Playing,
@@ -85,7 +86,50 @@
 
             base.Update(gameTime);
         }
-        
+
+        /// <inheritdoc/>
+        public override void Draw(GameTime gameTime)
+        {
+            this.game.spriteBatch.Begin();
+
+            // Player settings for mapping.
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[0], new Vector2(100, 100), colorStatus("Move Up:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(500, 100), colorStatus("Move Up:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[1], new Vector2(100, 200), colorStatus("Move Left:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(500, 200), colorStatus("Move Left:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[2], new Vector2(100, 300), colorStatus("Move Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(500, 300), colorStatus("Move Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[3], new Vector2(100, 400), colorStatus("Move Right:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(500, 400), colorStatus("Move Right:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[4], new Vector2(100, 500), colorStatus("Shoot:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(500, 500), colorStatus("Shoot:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[5], new Vector2(100, 600), colorStatus("Slow Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 600), colorStatus("Slow Down:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[6], new Vector2(100, 700), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 700), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[7], new Vector2(100, 800), colorStatus("Pause:"));
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Pause.ToString(), new Vector2(500, 800), colorStatus("Pause:"));
+
+            // Instructions
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press Up or Down to select", new Vector2(900, 250), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "setting you want to change.", new Vector2(950, 300), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' once, then", new Vector2(900, 450), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "press key you want mapped.", new Vector2(950, 500), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "(letters, arrow keys,", new Vector2(950, 550), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, " control, shift, spacebar)", new Vector2(960, 600), Color.MediumVioletRed);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Esc' to", new Vector2(1350, 850), Color.DeepSkyBlue);
+            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(1200, 900), Color.DeepSkyBlue);
+
+            this.game.spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
+        /// <inheritdoc/>
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+        }
+
         /// <summary>
         /// Returns a key value that matches the user's choice.
         /// </summary>
@@ -235,49 +279,6 @@
                 default:
                     return false;
             }
-        }
-
-        /// <inheritdoc/>
-        public override void Draw(GameTime gameTime)
-        {
-            this.game.spriteBatch.Begin();
-
-            // Player settings for mapping.
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[0], new Vector2(100, 100), colorStatus("Move Up:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(500, 100), colorStatus("Move Up:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[1], new Vector2(100, 200), colorStatus("Move Left:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(500,200), colorStatus("Move Left:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[2], new Vector2(100, 300), colorStatus("Move Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(500, 300), colorStatus("Move Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[3], new Vector2(100, 400), colorStatus("Move Right:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(500, 400), colorStatus("Move Right:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[4], new Vector2(100, 500), colorStatus("Shoot:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(500, 500), colorStatus("Shoot:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[5], new Vector2(100, 600), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 600), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[6], new Vector2(100, 700), colorStatus("Change Weapon:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 700), colorStatus("Change Weapon:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.controlList[7], new Vector2(100, 800), colorStatus("Pause:"));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.playerSettings.Pause.ToString(), new Vector2(500, 800), colorStatus("Pause:"));
-
-            // Instructions
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press Up or Down to select", new Vector2(900, 250), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "setting you want to change.", new Vector2(950, 300), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' once, then", new Vector2(900, 450), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "press key you want mapped.", new Vector2(950, 500), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "(letters, arrow keys,", new Vector2(950, 550), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, " control, shift, spacebar)", new Vector2(960, 600), Color.MediumVioletRed);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Esc' to", new Vector2(1350, 850), Color.DeepSkyBlue);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(1200, 900), Color.DeepSkyBlue);
-
-            this.game.spriteBatch.End();
-            base.Draw(gameTime);
-        }
-
-        /// <inheritdoc/>
-        protected override void LoadContent()
-        {
-            base.LoadContent();
         }
 
         /// <summary>

@@ -4,6 +4,7 @@
     using Microsoft.Xna.Framework.Input;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Manages the game logic for the GameWonScene.
@@ -76,6 +77,7 @@
             {
                 this.game.score.AddPlayerInitials(playerInitials());
                 this.game.score.AddToScoreList(this.game.score.Score);
+                Task<bool> result = this.game.InsertHighScore();
                 this.game.score.Reset();
                 this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
