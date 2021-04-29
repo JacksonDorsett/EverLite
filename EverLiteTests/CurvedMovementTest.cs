@@ -1,9 +1,9 @@
-﻿using System;
+﻿using EverLite.Modules.Behavior;
+using Microsoft.Xna.Framework;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using NUnit.Framework;
-using EverLite.Modules.Behavior;
-using Microsoft.Xna.Framework;
 
 namespace EverLiteTests
 {

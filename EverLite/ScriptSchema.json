@@ -1,0 +1,35 @@
+{
+  "Wave": {
+    "type": "Text", //if boss type then use Boss Spawner to make health global.
+    "sprite": "Char -> loaded SpriteName",
+    "health": "Int",
+    "startTime": "Int",
+    "spawnCount": "Int",
+    "interval": "Int",
+    "movement": "List of movement objects or Char -> Preset Movement Object",
+    "shootPattern": "ShootingPattern Object or Char -> preset",
+    //only for boss wave
+    "bossId": "Int"
+  },
+  "Movement": {
+    "type": "Char", // A = linear, B = curved
+    "time": "Int", //time moving from point a to point b
+    "points": "List of points 2 for A and 3 for B" //if type is B and there are only 2 points convert to C, if there is one point make stationary for timespan
+  },
+
+
+  "ShootingPattern": {
+    "type": "Char",
+    "delay": "Int",
+    "amount": "Int",
+    "speed": "Int",
+    "interval": "Int",
+    "color": "Text"
+  },
+
+  "MovementExample": {
+    "type": "A", // A = linear, B = curved
+    "time": 3000, //time moving from point a to point b
+    "points": [ [1.55,1.33] ] //if type is B and there are only 2 points convert to C, if there is one point make stationary for timespan
+  }
+}

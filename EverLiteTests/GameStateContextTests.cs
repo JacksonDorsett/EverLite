@@ -1,11 +1,11 @@
-﻿using NUnit.Framework;
+﻿using EverLite;
+using EverLite.Modules.GameState;
 using EverLite.Utilities;
-using EverLite;
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using EverLite.Modules.GameState;
+using NUnit.Framework;
+using System;
 
 namespace EverLiteTests
 {

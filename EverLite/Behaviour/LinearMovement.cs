@@ -19,6 +19,8 @@
             this.diff = finalPos - initialPos;
         }
 
+        public float Distance => (float)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y);
+
         public float Angle(double halfLife)
         {
             if (this.diff.X == 0)
@@ -26,7 +28,9 @@
                 if (this.diff.Y >= 0) return (float)Math.PI / 2;
                 else return 3 * (float)Math.PI / 2;
             }
-            return (float)Math.Atan((double)this.diff.Y / (double)this.diff.X);
+            var angle = (float)Math.Atan((double)this.diff.Y / (double)this.diff.X);
+            if (diff.X >= 0) angle += (float)Math.PI;
+            return angle;
         }
 
         // inheritdoc

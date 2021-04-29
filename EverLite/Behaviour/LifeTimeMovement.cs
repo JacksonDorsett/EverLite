@@ -27,7 +27,13 @@
             }
         }
 
+        public double LifeTime => totalLifeSpan;
+
+        public float Distance => this.movement.Distance;
+
         public override float Angle => movement.Angle((double)lifeSpan.Halflife);
+        
+        protected IMovement Movement { get => this.movement; }
 
         public override bool PathCompleted => lifeSpan.Halflife >= 1;
 

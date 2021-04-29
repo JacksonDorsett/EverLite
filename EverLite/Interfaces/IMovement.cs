@@ -16,5 +16,7 @@
         Vector2 GetPosition(double halfLife);
 
         float Angle(double halfLife);
+
+        float Distance { get; }
     }
 }

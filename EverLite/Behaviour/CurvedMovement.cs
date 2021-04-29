@@ -13,6 +13,7 @@
         private Curve curve;
         private Vector2 start;
         private Vector2 end;
+        private Vector2 mid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CurvedMovement"/> class.
@@ -24,6 +25,7 @@
         {
             this.start = start;
             this.end = end;
+            this.mid = midPoint;
             this.curve = new Curve();
             this.keyCollection = this.curve.Keys;
             this.keyCollection.Add(new CurveKey(start.X, start.Y));
@@ -31,6 +33,14 @@
             this.keyCollection.Add(new CurveKey(end.X, end.Y));
         }
 
+        public float Distance {
+            get
+            {
+                var dif1 = mid - start;
+                var dif2 = end - mid;
+                return (mid - start).Length() + (end - mid).Length();
+            }
+        }
         public float Angle(double halfLife)
         {
             var dif = this.GetPosition(halfLife) - this.GetPosition(halfLife - .0001d);
@@ -40,7 +50,9 @@
                 if (dif.Y >= 0) return (float)Math.PI / 2;
                 else return 3 * (float)Math.PI / 2;
             }
-            return (float)Math.Atan((double)dif.Y / (double)dif.X);
+            var angle = (float)Math.Atan((double)dif.Y / (double)dif.X);
+            if (dif.X > 0) angle += (float)Math.PI;
+            return angle;
         }
 
         public Vector2 GetPosition(double halfLife)

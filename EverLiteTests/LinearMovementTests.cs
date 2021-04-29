@@ -1,15 +1,14 @@
-﻿using System;
+﻿using EverLite.Modules.Behavior;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EverLiteTests
 {
-    using NUnit.Framework;
-    using EverLite.Modules.Behavior;
-    using System;
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
     class LinearMovementTests
     {
         [Test]
@@ -22,10 +21,10 @@ namespace EverLiteTests
         }
         public void TestHorizontalLine()
         {
-            LinearMovement t = new LinearMovement(Vector2.Zero, new Vector2(10,0));
+            LinearMovement t = new LinearMovement(Vector2.Zero, new Vector2(10, 0));
             Assert.AreEqual(new Vector2(0, 0), t.GetPosition(0));
-            Assert.AreEqual(new Vector2(10,0), t.GetPosition(1));
-            Assert.AreEqual(new Vector2(5,0), t.GetPosition(.5f));
+            Assert.AreEqual(new Vector2(10, 0), t.GetPosition(1));
+            Assert.AreEqual(new Vector2(5, 0), t.GetPosition(.5f));
         }
     }
 }

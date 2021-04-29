@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Framework;
-using EverLite.Modules.Wave;
+﻿using EverLite.Modules.Behavior;
 using EverLite.Modules.Blaster;
 using EverLite.Modules.Enemies;
+using EverLite.Modules.Wave;
 using Microsoft.Xna.Framework;
-using EverLite.Modules.Behavior;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace EverLiteTests
 {
