@@ -31,7 +31,7 @@
 
         public bool IsAlive { get => !this.move.PathCompleted && this.isAliveFlag; }
 
-        public HitCircle HitCircle
+        virtual public HitCircle HitCircle
         {
             get
             {

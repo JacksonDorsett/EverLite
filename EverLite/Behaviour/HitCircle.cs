@@ -6,12 +6,18 @@
     public class HitCircle
     {
         private Vector2 mPosition;
-        private float mRadius;
+        protected float mRadius;
 
         public HitCircle(Vector2 position, float radius)
         {
             this.mPosition = position;
             this.mRadius = radius;
+        }
+
+        public HitCircle(HitCircle other)
+        {
+            this.mPosition = other.mPosition;
+            this.mRadius = other.mRadius;
         }
 
         public float Radius { get => this.mRadius; }

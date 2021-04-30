@@ -2,6 +2,7 @@
 {
     using System;
     using System.Timers;
+    using global::EverLite.Behaviour;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -9,6 +10,13 @@
     {
         private bool isHit;
         private Health health;
+        public override HitCircle HitCircle
+        {
+            get
+            {
+                return new EnemyHitCircle(base.HitCircle);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.

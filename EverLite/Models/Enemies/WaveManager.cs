@@ -78,7 +78,7 @@
             var curved = new LifeTimeMovement(5, curved1);
             var linear = new LifeTimeMovement(10, linear1);
             //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved), 1000, 10, 0));
-            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(path, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy2"), path), 1000, 1, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(path, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy1"), path), 1000, 1, 0));
         }
 
         public void Update(GameTime gameTime)
