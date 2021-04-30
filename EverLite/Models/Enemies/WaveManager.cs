@@ -1,6 +1,7 @@
 ﻿namespace EverLite
 {
     using System.Collections.Generic;
+    using System.Linq;
     using global::EverLite.Behaviour;
     using global::EverLite.Models.Weapons;
     using global::EverLite.ScriptInterperiter;
@@ -59,6 +60,8 @@
 
         public void Initialize()
         {
+            Vector2[] pts = { new Vector2(0, 0), new Vector2(400, 400), new Vector2(1500, 1000) , new Vector2(500,500), new Vector2(0, 100)};
+            var path = MovementFactory.Create("B", 8, pts.ToList());
             MovementInterperiter mi = new MovementInterperiter();
             mi.Interperit(JObject.Parse("{\"type\" : \"A\", \"time\" : 1000, \"points\" : [ [10.5,23.5], [100.5, 21.4]] }"));
             var l1 = new LinearMovement(new Vector2(2000, 400), new Vector2(1000, 1000));
@@ -75,7 +78,7 @@
             var curved = new LifeTimeMovement(5, curved1);
             var linear = new LifeTimeMovement(10, linear1);
             //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved), 1000, 10, 0));
-            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(a, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy2"), a), 1000, 3, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(path, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy2"), path), 1000, 1, 0));
         }
 
         public void Update(GameTime gameTime)
