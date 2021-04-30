@@ -3,17 +3,20 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Tracks the players current score.
     /// </summary>
     public class GameScore
     {
-        public static uint score = 0;
+        private static uint score = 0;
         private static GameScore mInstance;
         private static string playerName;
-        public static List<Tuple<uint,string>> scoreList;
+        private static List<HighScore> scoreList1;
+        public static HighScore highScore;
+        private static bool isLoaded;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScore"/> class.
         /// </summary>
@@ -32,16 +35,20 @@
                 {
                     mInstance = new GameScore();
                     playerName = string.Empty;
-                    scoreList = new List<Tuple<uint, string>>();
-                    scoreList.Add(new Tuple<uint, string>(50, "BOB"));
-                    scoreList.Add(new Tuple<uint, string>(40, "ABC"));
-                    scoreList.Add(new Tuple<uint, string>(30, "ABC"));
-                    scoreList.Add(new Tuple<uint, string>(20, "MOB"));
-                    scoreList.Add(new Tuple<uint, string>(10, "NOM"));
+                    scoreList1 = new List<HighScore>();
+                    isLoaded = false;
                 }
 
                 return mInstance;
             }
+        }
+
+        /// <summary>
+        /// Gets the HighScore entity from GameScore.
+        /// </summary>
+        public HighScore HighScore
+        {
+            get { return GameScore.highScore; }
         }
 
         /// <summary>
@@ -51,13 +58,36 @@
         {
             get { return GameScore.score; }
         }
-
+        
         /// <summary>
         /// Gets the player's initials.
         /// </summary>
         public string PlayerName
         {
             get { return GameScore.playerName; }
+        }
+
+        /// <summary>
+        /// T or F Sql Data was successfully loaded.
+        /// </summary>
+        public bool IsLoaded
+        {
+            get { return GameScore.isLoaded; }
+        }
+
+        /// <summary>
+        /// Loads the local high score list from the Sql DB.
+        /// </summary>
+        /// <param name="score">Sql DB.</param>
+        public void GetSqlData(List<HighScore> score)
+        {
+            foreach (HighScore s in score)
+                GameScore.scoreList1.Add(s);
+            List<HighScore> sorted = GameScore.scoreList1.OrderByDescending(o => o.Score).ToList();
+            GameScore.scoreList1.Clear();
+            GameScore.scoreList1 = sorted;
+            if(GameScore.scoreList1.Count > 0)
+                GameScore.isLoaded = true;
         }
 
         /// <summary>
@@ -70,13 +100,12 @@
         }
 
         /// <summary>
-        /// Returns tuple list of top scores and players' initials.
+        /// Gets the local high score list.
         /// </summary>
-        /// <returns>List of top scores.</returns>
-        public List<Tuple<uint, string>> GetScoreList()
+        /// <returns>Local high score list.</returns>
+        public List<HighScore> GetScoreList()
         {
-            GameScore.scoreList = GameScore.scoreList.OrderByDescending(t => t.Item1).ToList();
-            return GameScore.scoreList;
+            return GameScore.scoreList1;
         }
 
         /// <summary>
@@ -85,7 +114,27 @@
         /// <param name="points">Points the player finished with.</param>
         public void AddToScoreList(uint points)
         {
-            GameScore.scoreList.Add(new Tuple<uint, string>(points, GameScore.playerName));
+            highScore = new HighScore { Id = GetNextId(), Name = GameScore.playerName, Score = points };
+            GameScore.scoreList1.Add(highScore);
+            
+            List<HighScore> sorted = GameScore.scoreList1.OrderByDescending(o => o.Score).ToList();
+            GameScore.scoreList1.Clear();
+            GameScore.scoreList1 = sorted;
+        }
+
+        /// <summary>
+        /// Assigns the next high score unique id.
+        /// </summary>
+        /// <returns>Returns the next available unique id.</returns>
+        public int GetNextId()
+        {
+            int temp = 0;
+            foreach (HighScore h in GameScore.scoreList1)
+            {
+                if (temp < h.Id)
+                    temp = h.Id;
+            }
+            return temp + 1;
         }
 
         /// <summary>
@@ -103,19 +152,6 @@
         public void Reset()
         {
             GameScore.score = 0;
-        }
-
-        /// <summary>
-        /// Resets the top 10 scores.
-        /// </summary>
-        public void ResetTopTen()
-        {
-            GameScore.scoreList.Clear();
-            scoreList.Add(new Tuple<uint, string>(50, "BOB"));
-            scoreList.Add(new Tuple<uint, string>(40, "ABC"));
-            scoreList.Add(new Tuple<uint, string>(30, "ABC"));
-            scoreList.Add(new Tuple<uint, string>(20, "MOB"));
-            scoreList.Add(new Tuple<uint, string>(10, "NOM"));
         }
     }
 }

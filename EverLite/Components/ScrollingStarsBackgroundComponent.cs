@@ -13,7 +13,6 @@
         private Rectangle r1;
         private Rectangle r2;
         private Texture2D texture;
-        private Texture2D sidePanel;
         private ScrollState currentState;
 
         /// <summary>
@@ -34,7 +33,6 @@
         {
             this.game = game;
             this.texture = this.game.Content.Load<Texture2D>(@"Sprites\background_stars");
-            this.sidePanel = this.game.Content.Load<Texture2D>(@"Sprites\background_narrowspace");
             this.r1 = this.texture.Bounds;
             this.r2 = this.r1;
             this.r1.Y = -this.r1.Height;
@@ -49,7 +47,6 @@
         /// <inheritdoc/>
         protected override void LoadContent()
         {
-            //this.stars = this.game.Content.Load<Texture2D>(@"Sprites\background_stars");
             base.LoadContent();
         }
 
@@ -110,8 +107,6 @@
             this.game.spriteBatch.Draw(this.texture, r1, Color.White);
             this.game.spriteBatch.Draw(this.texture, r2, Color.White);
 
-            // Draws the planet side panel background.
-            this.game.spriteBatch.Draw(this.sidePanel, new Vector2(0,0), Color.White * 0.8f);
             this.game.spriteBatch.End();
 
             base.Draw(gameTime);

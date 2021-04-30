@@ -22,7 +22,7 @@
         public void Draw(SpriteBatch spriteBatch)
         {
             // Adjusted the sprite size and spawn pattern to fit in the sideGamePanel background nicely.
-            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 4, this.playerSprite.Texture.Height / 4);
+            Vector2 position = new Vector2((this.playerSprite.Texture.Width / 4) + 1520, this.playerSprite.Texture.Height / 4);
             spriteBatch.Begin();
             for (int i = 0; i < this.CurrentLives; i++)
             {
