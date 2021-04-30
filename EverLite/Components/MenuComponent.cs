@@ -40,20 +40,21 @@
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
+
             if (game.NewKey(Keys.Enter))
             {
                 switch (this.menuItems.selectedItem.text)
                 {
                     case "Play":
-                        this.game.SceneManager.ChangeMusic(this.game.DeepSpace);
+                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.DeepSpace);
                         this.game.SceneManager.SwitchScene(game.SceneManager.NewGame);
                         break;
                     case "Top Scores":
-                        this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
+                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.SolarSystem);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
                     case "Player Settings":
-                        this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
+                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.SolarSystem);
                         this.game.SceneManager.SwitchScene(game.SceneManager.PlayerSettings);
                         break;
                     case "Quit":

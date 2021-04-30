@@ -82,6 +82,7 @@
         /// </summary>
         public void Play()
         {
+            if (MediaPlayer.State == MediaState.Playing) return;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(this.sInstance);
         }

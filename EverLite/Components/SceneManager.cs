@@ -23,6 +23,11 @@
         private GameScene GameOverScene;
         private GameScene PlayerSettingsScene;
 
+        public Song DeepSpace;
+        public Song Megalovania;
+        public Song SolarSystem;
+        public Song MenuBG;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
         /// </summary>
@@ -86,7 +91,11 @@
             menuItems.AddItem("Player Settings");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(game, menuItems);
-
+            // Assigns music
+            this.DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
+            this.Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
+            this.SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
+            this.MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
             // Putting together the GameScenes, each using a background component and a window component.
             this.MenuScene = new GameScene(game, planetBackground, menu);
             this.TopTenScene = new GameScene(game, planetBackground, topTen);
@@ -100,8 +109,8 @@
             {
                 ChangeComponentState(component, false);
             }
-
-            ChangeMusic(this.game.SolarSystem);
+            float f = MediaPlayer.Volume;
+            ChangeMusic(this.SolarSystem);
         }
 
         /// <summary>

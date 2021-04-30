@@ -81,6 +81,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Megalovania.mp3
 
+#begin Sounds/MenuBG.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/MenuBG.mp3
+
 #begin Sounds/Solar System.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
