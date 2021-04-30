@@ -36,15 +36,12 @@
         /// </summary>
         public EverLite()
         {
-            Task<bool> result;
             this.graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.score = GameScore.Instance;
             this.playerSettings = PlayerSettings.Instance;
             this.highScores = new HighScoreDataStore();
-            if (this.score.GetScoreList().Count <= 0)
-                result = InsertData();// Only run this once
         }
 
         public SceneManager SceneManager { get; private set; }
@@ -77,47 +74,27 @@
         }
 
         /// <summary>
-        /// Builds the initial high score database.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> InsertData()
-        {
-            try
-            {
-                await highScores.AddAsync(new HighScore() { Id = 0, Name = "BOB", Score = 1000 });
-                await highScores.AddAsync(new HighScore() { Id = 1, Name = "NOM", Score = 90 });
-                await highScores.AddAsync(new HighScore() { Id = 2, Name = "NOM", Score = 80 });
-                await highScores.AddAsync(new HighScore() { Id = 3, Name = "NOM", Score = 70 });
-                await highScores.AddAsync(new HighScore() { Id = 4, Name = "WOW", Score = 60 });
-                await highScores.AddAsync(new HighScore() { Id = 5, Name = "NOM", Score = 50 });
-                await highScores.AddAsync(new HighScore() { Id = 6, Name = "NOM", Score = 40 });
-                await highScores.AddAsync(new HighScore() { Id = 7, Name = "NOM", Score = 30 });
-                await highScores.AddAsync(new HighScore() { Id = 8, Name = "NOM", Score = 20 });
-                await highScores.AddAsync(new HighScore() { Id = 9, Name = "HUH", Score = 10 });
-            }
-            catch
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Initializes the local highscore list.
         /// </summary>
         protected async void InitializeSql()
         {
+            Task<bool> result;
             List<HighScore> scores = await highScores.GetAsync(false);
+            if(scores.Count <= 0)
+            {
+                scores = await highScores.GetAsync(false);
+            }
             List<HighScore> sorted = scores.OrderByDescending(o => o.Score).ToList();
-            this.score.GetSqlData(scores);
+
+            this.score.GetSqlData(sorted);
         }
 
         /// <inheritdoc/>
         protected override void Initialize()
         {
             SpriteLoader.Initialize(this.Content);
-            
+            this.InitializeSql();
+
             // window size
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
@@ -138,11 +115,12 @@
             this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
             this.FontOriginTechTiny = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
+
             // Assigns music
             this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");
             this.SolarSystem = Content.Load<Song>(@"Sounds\Solar System");
-            this.InitializeSql();
+            
             SpriteLoader.Initialize(this.Content);
             
             // MediaPlayer volume set at 10%

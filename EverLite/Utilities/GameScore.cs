@@ -15,6 +15,7 @@
         private static string playerName;
         private static List<HighScore> scoreList1;
         public static HighScore highScore;
+        private static bool isLoaded;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameScore"/> class.
@@ -35,6 +36,7 @@
                     mInstance = new GameScore();
                     playerName = string.Empty;
                     scoreList1 = new List<HighScore>();
+                    isLoaded = false;
                 }
 
                 return mInstance;
@@ -66,17 +68,26 @@
         }
 
         /// <summary>
+        /// T or F Sql Data was successfully loaded.
+        /// </summary>
+        public bool IsLoaded
+        {
+            get { return GameScore.isLoaded; }
+        }
+
+        /// <summary>
         /// Loads the local high score list from the Sql DB.
         /// </summary>
         /// <param name="score">Sql DB.</param>
         public void GetSqlData(List<HighScore> score)
         {
-            GameScore.scoreList1.Clear();
             foreach (HighScore s in score)
                 GameScore.scoreList1.Add(s);
             List<HighScore> sorted = GameScore.scoreList1.OrderByDescending(o => o.Score).ToList();
             GameScore.scoreList1.Clear();
             GameScore.scoreList1 = sorted;
+            if(GameScore.scoreList1.Count > 0)
+                GameScore.isLoaded = true;
         }
 
         /// <summary>

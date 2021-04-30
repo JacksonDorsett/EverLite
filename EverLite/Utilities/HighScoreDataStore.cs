@@ -18,7 +18,7 @@
         public HighScoreDataStore()
         {
             string dbPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
-            dbPath = Path.Combine(dbPath, "highscorelist.sqlite");
+            dbPath = Path.Combine(dbPath, "keeperofscores.sqlite");
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<HighScore>().Wait();
         }
