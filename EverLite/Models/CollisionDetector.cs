@@ -23,6 +23,11 @@
         /// </summary>
         private List<Bullet> playerBullets;
 
+        /// <summary>
+        /// List of all items.
+        /// </summary>
+        private List<Item> items;
+
         private Player player;
 
         /// <summary>
@@ -38,95 +43,88 @@
         /// <param name="playerBullets">reference to player bullet.</param>
         /// <param name="player">reference to a current player.</param>
         /// <param name="score">reference to GameScore instance.</param>
-        public CollisionDetector(List<LifetimeEntity> activeEnemies, List<Bullet> enemyBullets, List<Bullet> playerBullets, Player player, EverLite score)
+        public CollisionDetector(List<LifetimeEntity> activeEnemies, List<Bullet> enemyBullets, List<Bullet> playerBullets, List<Item> items, Player player, EverLite score)
         {
             this.activeEnemies = activeEnemies;
             this.playerBullets = playerBullets;
             this.enemyBullets = enemyBullets;
+            this.items = items;
             this.player = player;
             this.scoreKeeper = score;
         }
 
         public void Update(GameTime gameTime)
         {
+            this.CheckEnemyBulletsPlayerCollision();
+
+            this.CheckPlayerBulletsEnemyCollision();
+
+            this.CheckPlayerEnemyCollision();
+
+            this.CheckItemPlayerCollision();
+        }
+
+
+        private void CheckEnemyBulletsPlayerCollision()
+        {
             // Check if enemy bullets collide with the player.
             foreach (Bullet bullet in this.enemyBullets)
             {
-                ICollidable collidableObjectBullet = bullet;
-                ICollidable collidableObjectPlayer = this.player;
 
                 if (this.player.HitCircle.Contains(bullet.HitCircle))
                 {
-                    collidableObjectPlayer.CollidesWith(collidableObjectBullet);
-                    collidableObjectBullet.CollidesWith(collidableObjectPlayer);
+                    this.player.CollidesWith(bullet);
+                    bullet.CollidesWith(this.player);
                     break;
                 }
-                //Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
-                //Rectangle playerBox = new Rectangle(
-                //    (int)this.player.Position.X + this.player.PlayerSprite.Texture.Width / 4,
-                //    (int)this.player.Position.Y,
-                //    this.player.PlayerSprite.Texture.Width/2,
-                //    this.player.PlayerSprite.Texture.Height);
-
-                //if (bulletBox.Intersects(playerBox))
-                //{
-                //    collidableObjectPlayer.CollidesWith(collidableObjectBullet);
-                //    collidableObjectBullet.CollidesWith(collidableObjectPlayer);
-                //    break;
-                //}
             }
+        }
 
+        /// <summary>
+        /// Checks if player bullets collide with any enemies.
+        /// </summary>
+        private void CheckPlayerBulletsEnemyCollision()
+        {
             // Check if player bullets collide with the player.
             foreach (Bullet bullet in this.playerBullets)
             {
                 foreach (LifetimeEntity enemy in this.activeEnemies)
                 {
-                    ICollidable collidableObjectBullet = bullet;
-                    ICollidable collidableObjectEnemy = enemy;
-
-
-                    Rectangle bulletBox = new Rectangle((int)bullet.Position.X, (int)bullet.Position.Y, bullet.Sprite.Texture.Width, bullet.Sprite.Texture.Height);
-                    Rectangle playerBox = new Rectangle(
-                        (int)enemy.Position.X,
-                        (int)enemy.Position.Y,
-                        enemy.Sprite.Texture.Width,
-                        enemy.Sprite.Texture.Height);
-
-                    if (bulletBox.Intersects(playerBox))
+                    if (bullet.HitCircle.Contains(enemy.HitCircle))
                     {
-                        collidableObjectEnemy.CollidesWith(collidableObjectBullet);
-                        collidableObjectBullet.CollidesWith(collidableObjectEnemy);
+                        enemy.CollidesWith(bullet);
+                        bullet.CollidesWith(enemy);
 
                         // Currently setup to add 10 points per hit. Simplist solution that still awards more points for tougher enemies.
                         this.scoreKeeper.score.Add(10);
                     }
                 }
             }
+        }
 
+        private void CheckPlayerEnemyCollision()
+        {
             // Check if player collide with the enemy.
             foreach (LifetimeEntity enemy in this.activeEnemies)
             {
-
-                ICollidable collidableObjectPlayer = this.player;
-                ICollidable collidableObjectEnemy = enemy;
-                Rectangle enemyBox = new Rectangle(
-                    (int)this.player.Position.X,
-                    (int)this.player.Position.Y,
-                    this.player.PlayerSprite.Texture.Width,
-                    this.player.PlayerSprite.Texture.Height);
-
-                Rectangle playerBox = new Rectangle(
-                    (int)enemy.Position.X,
-                    (int)enemy.Position.Y,
-                    enemy.Sprite.Texture.Width,
-                    enemy.Sprite.Texture.Height);
-
-                if (enemyBox.Intersects(playerBox))
+                if (enemy.HitCircle.Contains(this.player.HitCircle))
                 {
-                    collidableObjectEnemy.CollidesWith(collidableObjectPlayer);
-                    collidableObjectPlayer.CollidesWith(collidableObjectEnemy);
+                    enemy.CollidesWith(this.player);
+                    this.player.CollidesWith(enemy);
                     enemy.Die();
 
+                }
+            }
+        }
+
+        private void CheckItemPlayerCollision()
+        {
+            // Check if player collide with the enemy.
+            foreach (Item item in this.items)
+            {
+                if (this.player.HitCircle.Contains(item.HitCircle))
+                {
+                    item.CollidesWith(this.player);
                 }
             }
         }

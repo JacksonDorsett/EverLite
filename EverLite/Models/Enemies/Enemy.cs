@@ -9,13 +9,13 @@
     {
         private bool isHit;
         private Health health;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Enemy"/> class.
         /// </summary>
         /// <param name="sprite">sprite of the enemy.</param>
-        /// <param name="blaster">blaster pattern.</param>
         /// <param name="movement">movement pattern.</param>
-        /// <param name="lifespan">lifespan pattern.</param>
+        /// <param name="health">health of the enemy.</param>
 
 
         public Enemy(SpriteN sprite, Movement movement, int health = 100)
@@ -42,7 +42,7 @@
         /// Handles collision with an object.
         /// </summary>
         /// <param name="collidable"> object colided with.</param>
-        protected override void CollidesWith(ICollidable collidable)
+        public override void CollidesWith(ICollidable collidable)
         {
             // TODO: implement health system action.
             base.CollidesWith(collidable);

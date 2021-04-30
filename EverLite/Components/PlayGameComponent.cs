@@ -16,6 +16,7 @@
         private PlayerLifeManager lifeManager;
         private PlayerSettings playerSettings;
         private SidePanelComponent sidePanel;
+        private ItemsManager itemsManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
@@ -30,11 +31,13 @@
             this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
             this.playerSystem = new PlayerSystem(this.Game);
             this.enemyManager = new EnemyManager(this.Game);
+            this.itemsManager = new ItemsManager();
             this.bulletManager = BulletManager.Instance;
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
                 this.bulletManager.PlayerBullets,
+                this.itemsManager.Items,
                 this.playerSystem.Player,
                 this.game); // Game1 game is passed to the collisioDetector can access the gamescore instance
         }
@@ -55,6 +58,7 @@
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);
                 this.collisionDetector.Update(gameTime);
+                this.itemsManager.Update(gameTime);
                 this.OnWin();
             }
 
@@ -69,6 +73,7 @@
             this.enemyManager.Draw(this.game.spriteBatch);
             this.sidePanel.Draw(gameTime);
             this.lifeManager.Draw(this.game.spriteBatch);
+            this.itemsManager.Draw(this.game.spriteBatch);
 
             base.Draw(gameTime);
         }

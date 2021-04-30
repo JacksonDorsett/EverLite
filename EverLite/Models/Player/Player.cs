@@ -1,6 +1,7 @@
 ﻿namespace EverLite
 {
     using System;
+    using System.Collections.Generic;
     using System.Timers;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -16,6 +17,16 @@
         private SpriteN playerSprite;
         private PlayerShoot shooter;
         bool isHit;
+
+        private List<SeismicCharge> seismicCharges = new List<SeismicCharge>() { };
+
+        internal List<SeismicCharge> SeismicCharges
+        {
+            get
+            {
+                return this.seismicCharges;
+            }
+        }
 
         public event EventHandler OnCollide;
 
@@ -76,6 +87,14 @@
             {
                 this.OnCollide?.Invoke(this, new EventArgs());
                 this.Respawn();
+            }
+        }
+
+        internal void PickUpItem(Item item)
+        {
+            if (item is SeismicCharge)
+            {
+
             }
         }
 

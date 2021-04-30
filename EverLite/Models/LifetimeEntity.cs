@@ -78,7 +78,7 @@
         /// Handles collision with an object.
         /// </summary>
         /// <param name="collidable"> object colided with.</param>
-        protected virtual void CollidesWith(ICollidable collidable)
+        public virtual void CollidesWith(ICollidable collidable)
         {
         }
     }
