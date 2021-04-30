@@ -67,8 +67,8 @@
             this.bulletManager.Draw(this.game.spriteBatch);
             this.playerSystem.Draw(this.game.spriteBatch);
             this.enemyManager.Draw(this.game.spriteBatch);
-            this.lifeManager.Draw(this.game.spriteBatch);
             this.sidePanel.Draw(gameTime);
+            this.lifeManager.Draw(this.game.spriteBatch);
 
             base.Draw(gameTime);
         }
