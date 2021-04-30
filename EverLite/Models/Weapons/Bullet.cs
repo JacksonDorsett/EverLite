@@ -23,7 +23,7 @@
         /// Handles collision with an object.
         /// </summary>
         /// <param name="collidable"> object colided with.</param>
-        protected override void CollidesWith(ICollidable collidable)
+        public override void CollidesWith(ICollidable collidable)
         {
             this.Die();
         }

@@ -12,6 +12,7 @@
         private BulletManager bulletManager;
         private CollisionDetector collisionDetector;
         private PlayerLifeManager lifeManager;
+        private ItemsManager itemsManager;
         
         public PlayGameComponent(EverLite game)
             : base(game)
@@ -20,11 +21,13 @@
             this.pauseStatus = new ToggleStatus(Keys.Space);
             this.playerSystem = new PlayerSystem(this.Game);
             this.enemyManager = new EnemyManager(this.Game);
+            this.itemsManager = new ItemsManager();
             this.bulletManager = BulletManager.Instance;
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
                 this.bulletManager.EnemyBullets,
                 this.bulletManager.PlayerBullets,
+                this.itemsManager.Items,
                 this.playerSystem.Player,
                 this.game); // Game1 game is passed to the collisioDetector can access the gamescore instance
         }
@@ -49,6 +52,7 @@
                 this.enemyManager.Update(gameTime);
                 this.bulletManager.Update(gameTime);
                 this.collisionDetector.Update(gameTime);
+                this.itemsManager.Update(gameTime);
                 this.OnWin();
             }
 
@@ -61,6 +65,7 @@
             this.playerSystem.Draw(this.game.spriteBatch);
             this.enemyManager.Draw(this.game.spriteBatch);
             this.lifeManager.Draw(this.game.spriteBatch);
+            this.itemsManager.Draw(this.game.spriteBatch);
             // SidePanel is drawn first so that the extra lives appear above the sidepanel background.
             this.game.spriteBatch.Begin();
             this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "SCORE", new Vector2(80, 120), Color.Yellow);
