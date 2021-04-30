@@ -63,10 +63,12 @@
             mi.Interperit(JObject.Parse("{\"type\" : \"A\", \"time\" : 1000, \"points\" : [ [10.5,23.5], [100.5, 21.4]] }"));
             var l1 = new LinearMovement(new Vector2(2000, 400), new Vector2(1000, 1000));
             var l2 = new LinearMovement(new Vector2(1000, 1000), new Vector2(0, 0));
-            var l3 = new CurvedMovement(new Vector2(0, 0), new Vector2(1000, 2000), new Vector2(500, 200));
-            LifeTimeMovement[] mv = { new LifeTimeMovement(5, l1), new LifeTimeMovement(5,l2), new LifeTimeMovement(4, l3) };
-            AggregateMovement a = new AggregateMovement(mv);
-
+            var l3 = new CurvedMovement(new Vector2(0, 0), new Vector2(2000, 1000), new Vector2(500, 200));
+            var l4 = new LinearMovement(new Vector2(2000, 1000), new Vector2(2000, 400));
+            LifeTimeMovement[] mv = { new LifeTimeMovement(5, l1), new LifeTimeMovement(5,l2), new LifeTimeMovement(4, l3), new LifeTimeMovement(2, l4) };
+            AggregateMovement a2 = new AggregateMovement(mv);
+            Movement[] mv2 = { a2, a2.Clone() };
+            AggregateMovement a = new AggregateMovement(mv2);
             // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
             var linear1 = new LinearMovement(new Vector2(2000, 480), new Vector2(480, 200));
             var curved1 = new CurvedMovement(new Vector2(480, 700), new Vector2(2000, 950), new Vector2(1000, 100));
