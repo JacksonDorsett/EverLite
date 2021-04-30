@@ -63,25 +63,26 @@
 
         private Vector2 CheckPlayerBoundry(Vector2 cPosition)
         {
+            var pb = this.playerRef.PlayerSprite.Texture.Bounds;
             // Adjusted to prevent player from moving under the sideGamePanel.
-            if (cPosition.X <= 500)
+            if (cPosition.X <= pb.Width/4)
             {
-                cPosition.X = 500;
+                cPosition.X = pb.Width/4;
             }
 
-            if (cPosition.Y <= 0)
+            if (cPosition.Y <= pb.Height/4)
             {
-                cPosition.Y = 0;
+                cPosition.Y = pb.Height/4;
             }
 
-            if (cPosition.X >= this.bounds.Width)
+            if (cPosition.X >= this.bounds.Width - pb.Width / 4)
             {
-                cPosition.X = this.bounds.Width;
+                cPosition.X = this.bounds.Width - pb.Width / 4;
             }
 
-            if (cPosition.Y >= this.bounds.Height)
+            if (cPosition.Y >= this.bounds.Height - pb.Height / 4)
             {
-                cPosition.Y = this.bounds.Height;
+                cPosition.Y = this.bounds.Height - pb.Height / 4;
             }
 
             return cPosition;

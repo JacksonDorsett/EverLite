@@ -71,11 +71,11 @@
             AggregateMovement a = new AggregateMovement(mv2);
             // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
             var linear1 = new LinearMovement(new Vector2(2000, 480), new Vector2(480, 200));
-            var curved1 = new CurvedMovement(new Vector2(480, 700), new Vector2(2000, 950), new Vector2(1000, 100));
+            var curved1 = new CurvedMovement(new Vector2(0, 700), new Vector2(2000, 950), new Vector2(1000, 100));
             var curved = new LifeTimeMovement(5, curved1);
             var linear = new LifeTimeMovement(10, linear1);
-            //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved1, 5), 1000, 10, 0));
-            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(a, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy2"), a), 1000, 1, 0));
+            //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved), 1000, 10, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(a, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("enemy2"), a), 1000, 3, 0));
         }
 
         public void Update(GameTime gameTime)

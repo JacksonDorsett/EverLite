@@ -15,7 +15,7 @@
         public PlayerSystem(Game game)
         {
             this.player = Player.Instance();
-            this.movementManager = new PlayerMovementManager(this.player, new Rectangle(0, 0, 1920, 1000));
+            this.movementManager = new PlayerMovementManager(this.player, new Rectangle(0, 0, 1500, 1000));
         }
 
         /// <summary>
