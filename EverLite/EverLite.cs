@@ -15,21 +15,10 @@
         public GameScore score;
         public int WindowWidth = 1920;
         public int WindowHeight = 1000;
-
-        public SpriteFont FontOriginTech;
-        public SpriteFont FontOriginTechSmall;
-        public SpriteFont FontOriginTechTiny;
-
-        public Song DeepSpace;
-        public Song Megalovania;
-        public Song SolarSystem;
-
-        private GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-        
-        // Needed to check for NewKey()
         public KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
+        private GraphicsDeviceManager graphics;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EverLite"/> class.
@@ -111,25 +100,12 @@
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Assigns fancy font.
-            this.FontOriginTech = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
-            this.FontOriginTechSmall = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
-            this.FontOriginTechTiny = this.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
-
-            // Assigns music
-            this.DeepSpace = Content.Load<Song>(@"Sounds\DeepSpace");
-            this.Megalovania = Content.Load<Song>(@"Sounds\Megalovania");
-            this.SolarSystem = Content.Load<Song>(@"Sounds\Solar System");
-            
             SpriteLoader.Initialize(this.Content);
             
-            // MediaPlayer volume set at 10%
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.0f;
+            MediaPlayer.Volume = 0.2f;
 
-            this.SceneManager.ChangeMusic(this.SolarSystem);
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
-
         }
 
         /// <inheritdoc/>

@@ -16,8 +16,7 @@
             this.player = Player.Instance();
             this.display = new PlayerLivesDisplay(this.lives);
             this.player.OnCollide += (sender, e) => { this.lives.TakeDamage(); };
-            //this.lives.OnDeath += (sender, e) => { this.game.ChangeMusic(this.game.Megalovania);  this.game.SwitchScene(this.game.GameOverScene); };
-            this.lives.OnDeath += (sender, e) => { this.game.SceneManager.ChangeMusic(this.game.Megalovania); this.game.SceneManager.SwitchScene(this.game.SceneManager.GameOver); };
+            this.lives.OnDeath += (sender, e) => { this.game.SceneManager.ChangeMusic(this.game.SceneManager.Megalovania); this.game.SceneManager.SwitchScene(this.game.SceneManager.GameOver); };
         }
 
         public void Draw(SpriteBatch spriteBatch)

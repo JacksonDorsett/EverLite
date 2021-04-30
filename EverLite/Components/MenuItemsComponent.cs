@@ -105,7 +105,7 @@
                 Color color = itemColor;
                 if (item == selectedItem)
                     color = selectedItemColor;
-                this.game.spriteBatch.DrawString(this.game.FontOriginTech, item.text, item.position, color);
+                this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, item.text, item.position, color);
             }
             game.spriteBatch.End();
 

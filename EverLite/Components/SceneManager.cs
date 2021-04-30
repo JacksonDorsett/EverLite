@@ -1,32 +1,31 @@
 ﻿namespace EverLite
 {
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Input;
+    using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Media;
     using System;
     using System.Linq;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Manages the gameScenes.
     /// </summary>
     public class SceneManager
     {
-        public KeyboardState keyboardState;
-        private KeyboardState previousKeyboardState;
-        private EverLite game;
+        public SpriteFont FontOriginTech;
+        public SpriteFont FontOriginTechSmall;
+        public SpriteFont FontOriginTechTiny;
+        public Song DeepSpace;
+        public Song Megalovania;
+        public Song SolarSystem;
+        public Song MenuBG;
 
-        // GameScenes for each window.
+        private EverLite game;
         private GameScene MenuScene;
         private GameScene TopTenScene;
         private GameScene GameWonScene;
         private GameScene GameOverScene;
         private GameScene PlayerSettingsScene;
 
-        public Song DeepSpace;
-        public Song Megalovania;
-        public Song SolarSystem;
-        public Song MenuBG;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
@@ -35,9 +34,6 @@
         public SceneManager(EverLite game)
         {
             this.game = game;
-
-
-            // Task<bool> result = InsertData(); // Only run this once
             Initialize();
         }
 
@@ -78,6 +74,7 @@
             PlanetBackgroundComponent planetBackground = new PlanetBackgroundComponent(game);
             PlanetExplodeBackgroundComponent planetExplodeBackground = new PlanetExplodeBackgroundComponent(game);
             PlanetRingsBackgroundCompnent planetRingsBackground = new PlanetRingsBackgroundCompnent(game);
+
             // creating window components
             TopTenComponent topTen = new TopTenComponent(game);
             GameWonComponent gameWon = new GameWonComponent(game);
@@ -91,11 +88,18 @@
             menuItems.AddItem("Player Settings");
             menuItems.AddItem("Quit");
             MenuComponent menu = new MenuComponent(game, menuItems);
+
             // Assigns music
             this.DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
             this.Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
             this.SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
             this.MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
+
+            // Assigns fancy font.
+            this.FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
+            this.FontOriginTechSmall = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
+            this.FontOriginTechTiny = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
+
             // Putting together the GameScenes, each using a background component and a window component.
             this.MenuScene = new GameScene(game, planetBackground, menu);
             this.TopTenScene = new GameScene(game, planetBackground, topTen);
@@ -110,7 +114,7 @@
                 ChangeComponentState(component, false);
             }
             float f = MediaPlayer.Volume;
-            ChangeMusic(this.SolarSystem);
+            ChangeMusic(this.MenuBG);
         }
 
         /// <summary>
@@ -142,7 +146,6 @@
         /// <param name="song"></param>
         public void ChangeMusic(Song song)
         {
-            // Isn't the same song already playing?
             if (MediaPlayer.Queue.ActiveSong != song)
                 MediaPlayer.Play(song);
         }
@@ -159,7 +162,6 @@
                 bool isUsed = usedComponents.Contains(component);
                 ChangeComponentState(component, isUsed);
             }
-            previousKeyboardState = keyboardState;
         }
     }
 }

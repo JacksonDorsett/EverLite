@@ -92,7 +92,7 @@
         {
             if (!this.enemyManager.IsActive)
             {
-                this.game.SceneManager.ChangeMusic(this.game.Megalovania);
+                this.game.SceneManager.ChangeMusic(this.game.SceneManager.Megalovania);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.GameWin);
             }
         }

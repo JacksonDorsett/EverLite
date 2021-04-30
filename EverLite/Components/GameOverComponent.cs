@@ -53,19 +53,19 @@
             this.game.spriteBatch.Begin();
 
             // Directions to leave screen.
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' to", new Vector2(1200, 700), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(1250, 750), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Press 'Enter' to", new Vector2(1200, 700), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "return to main screen", new Vector2(1250, 750), Color.Yellow);
 
             // Score stuff.
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "GAME OVER", new Vector2(400, 150), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "SCORE - ", new Vector2(400, 210), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(600, 210), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, "GAME OVER", new Vector2(400, 150), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "SCORE - ", new Vector2(400, 210), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(600, 210), Color.Yellow);
             
             // Player initials
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Player Initials", new Vector2(400, 300), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.letter1, new Vector2(400, 350), colorStatus(ListName.letters1));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.letter2, new Vector2(440, 350), colorStatus(ListName.letters2));
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, this.letter3, new Vector2(480, 350), colorStatus(ListName.letters3));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Player Initials", new Vector2(400, 300), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.letter1, new Vector2(400, 350), colorStatus(ListName.letters1));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.letter2, new Vector2(440, 350), colorStatus(ListName.letters2));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.letter3, new Vector2(480, 350), colorStatus(ListName.letters3));
             
             this.game.spriteBatch.End();
         }
@@ -79,7 +79,7 @@
                 this.game.score.AddToScoreList(this.game.score.Score);
                 Task<bool> result = this.game.InsertHighScore();
                 this.game.score.Reset();
-                this.game.SceneManager.ChangeMusic(this.game.SolarSystem);
+                this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
             

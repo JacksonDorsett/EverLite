@@ -34,6 +34,7 @@
 
             if (game.NewKey(Keys.Enter))
             {
+                this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
 
@@ -48,20 +49,20 @@
 
             this.game.spriteBatch.Begin();
 
-            this.game.spriteBatch.DrawString(this.game.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.DeepSkyBlue);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, "Top 10 Scores", new Vector2(80, 120), Color.DeepSkyBlue);
             
             foreach (HighScore s in this.game.score.GetScoreList())
             {
-                this.game.spriteBatch.DrawString(this.game.FontOriginTech, s.Name, new Vector2(80, position), Color.Yellow);
-                this.game.spriteBatch.DrawString(this.game.FontOriginTech, s.Score.ToString(), new Vector2(250, position), Color.Yellow);
+                this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, s.Name, new Vector2(80, position), Color.Yellow);
+                this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, s.Score.ToString(), new Vector2(250, position), Color.Yellow);
                 position += 70;
                 count++;
                 if (count > 10)
                     break;
             }
 
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'Enter' to", new Vector2(900, 600), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "return to main screen", new Vector2(950, 650), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Press 'Enter' to", new Vector2(900, 600), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "return to main screen", new Vector2(950, 650), Color.Yellow);
             //this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "Press 'D' to reset", new Vector2(900, 700), Color.Red);
             //this.game.spriteBatch.DrawString(this.game.FontOriginTechSmall, "top scores.", new Vector2(950, 750), Color.Red);
             this.game.spriteBatch.End();

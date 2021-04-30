@@ -56,14 +56,10 @@
             if (this.currentState == ScrollState.Start)
             {
                 if (this.r1.Top > this.r1.Height)
-                {
                     this.r1.Y = this.r2.Top - this.r1.Height;
-                }
 
                 if (this.r2.Top > this.r1.Height)
-                {
                     this.r2.Y = this.r1.Top - this.r1.Height;
-                }
 
                 this.r1.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
                 this.r2.Y += (int)(SPEED * gameTime.ElapsedGameTime.TotalSeconds);
