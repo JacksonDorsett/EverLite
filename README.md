@@ -11,32 +11,32 @@ EverLite is a space themed bullet hell game where the player must survive multip
 
 ## Menu Options
 
- - 'Play' Begin a new game.
- - 'Top Scores' View the top 10 scores.
- - 'Player Settings' Change the player controls
- - 'Quit' Exits the game.
+ - `Play` Begin a new game.
+ - `Top Scores` View the top 10 scores.
+ - `Player Settings` Change the player controls
+ - `Quit` Exits the game.
 
 ## Player  Settings
 
 The player settings initially are:
 
- - 'W' Move Up
- - 'A' Move Left
- - 'S' Move Down
- - 'D' Move Right
- - 'J' Shoot
- - 'T' Switch Weapon
- - 'Spacebar' Pause Game
- - 'G' Slow Speed
+ - `W` Move Up
+ - `A` Move Left
+ - `S` Move Down
+ - `D` Move Right
+ - `J` Shoot
+ - `T` Switch Weapon
+ - `Spacebar` Pause Game
+ - `G` Slow Speed
 
 To change the settings, arrow up or down to the setting you want to change. Once highlighted, press 'enter' once, followed by the new key. That's it. It really is that easy.
 The keys must be one of the following:
 
- - 'arrow'
- - 'letter'
- - 'control'
- - 'shift'
- - 'spacebar'
+ - `arrow`
+ - `letter`
+ - `control`
+ - `shift`
+ - `spacebar`
 
 ```sh
 Warning: There is no checks in place to prevent multiple settings using the same key.
@@ -44,9 +44,9 @@ Warning: There is no checks in place to prevent multiple settings using the same
 
 ## Volume Controls
 
- - '+' Volume Up
- - '-' Volume Down
- - '0' Mute
+ - `+` Volume Up
+ - `-` Volume Down
+ - `0` Mute
 
 ## KC Studios Team
 
