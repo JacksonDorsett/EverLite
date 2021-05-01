@@ -27,9 +27,9 @@
             
         }
 
-        public bool IsEnabled { get; set; }
+        public virtual bool IsEnabled { get; set; }
 
-        public abstract void Spawn(Vector2 spawnPosition);
+        protected abstract void Spawn(Vector2 spawnPosition);
 
         protected SpriteN Sprite { get => this.bulletSprite; }
         

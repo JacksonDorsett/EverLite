@@ -21,7 +21,7 @@
             return new LinearPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate);
         }
 
-        public override void Spawn(Vector2 spawnPosition)
+        protected override void Spawn(Vector2 spawnPosition)
         {
             Vector2 dif = mPlayer.Position - spawnPosition;
             dif.Normalize();

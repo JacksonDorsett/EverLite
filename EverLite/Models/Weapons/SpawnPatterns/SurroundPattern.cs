@@ -21,7 +21,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             return new SurroundPattern(bulletList, Sprite, (float)Speed, TotalBullets, (float)SpawnRate, fireCount);
         }
 
-        public override void Spawn(Vector2 spawnPosition)
+        protected override void Spawn(Vector2 spawnPosition)
         {
             var dif = rPlayer.Position - spawnPosition;
             float iTheta = (float)Math.Atan(dif.Y / dif.X);

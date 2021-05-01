@@ -18,7 +18,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             return new NoShootPattern(bulletList, Sprite, delay);
         }
 
-        public override void Spawn(Vector2 spawnPosition)
+        protected override void Spawn(Vector2 spawnPosition)
         {
             return;
         }

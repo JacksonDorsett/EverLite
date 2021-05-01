@@ -26,7 +26,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             return new SpiralPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate, rotations, (float)finalDistance);
         }
 
-        public override void Spawn(Vector2 spawnPosition)
+        protected override void Spawn(Vector2 spawnPosition)
         {
             Vector2 dif = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
             dif.Normalize();
