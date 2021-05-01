@@ -1,8 +1,9 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.PlayerModel
 {
     using System;
     using System.Collections.Generic;
     using System.Timers;
+    using global::EverLite.Models.Weapons;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -24,17 +25,17 @@
         {
             get
             {
-                return this.seismicCharges;
+                return seismicCharges;
             }
         }
 
         public event EventHandler OnCollide;
 
-        public SpriteN PlayerSprite { get => this.playerSprite; }
+        public SpriteN PlayerSprite { get => playerSprite; }
 
         public Vector2 Position { get => mPosition; set => mPosition = value; }
 
-        public HitCircle HitCircle => new HitCircle(Position, (float)this.PlayerSprite.Texture.Width / 4);
+        public HitCircle HitCircle => new HitCircle(Position, (float)PlayerSprite.Texture.Width / 4);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -42,10 +43,10 @@
         /// <param name="game">game reference object.</param>
         private Player()
         {
-            this.playerSprite = SpriteLoader.LoadSprite("Rocket");
-            this.shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
-            this.isHit = false;
-            this.playerSettings = PlayerSettings.Instance;
+            playerSprite = SpriteLoader.LoadSprite("Rocket");
+            shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
+            isHit = false;
+            playerSettings = PlayerSettings.Instance;
         }
 
 
@@ -56,9 +57,9 @@
 
             KeyboardState currentKeyboardState = Keyboard.GetState();
 
-            if (currentKeyboardState.IsKeyDown(this.playerSettings.Shoot))
+            if (currentKeyboardState.IsKeyDown(playerSettings.Shoot))
             {
-                this.shooter.Shoot(this.Position);
+                shooter.Shoot(Position);
             }
         }
 
@@ -69,10 +70,10 @@
         public void Draw(SpriteBatch spriteBatch)
         {
             Color c = Color.White;
-            if (this.isHit) c = Color.Red;
+            if (isHit) c = Color.Red;
 
 
-            this.playerSprite.Draw(spriteBatch, this.mPosition, c, .5f);
+            playerSprite.Draw(spriteBatch, mPosition, c, .5f);
         }
 
         public static Player Instance()
@@ -83,10 +84,10 @@
 
         public void CollidesWith(ICollidable collidable)
         {
-            if (!this.isHit)
+            if (!isHit)
             {
-                this.OnCollide?.Invoke(this, new EventArgs());
-                this.Respawn();
+                OnCollide?.Invoke(this, new EventArgs());
+                Respawn();
             }
         }
 
@@ -100,9 +101,9 @@
 
         private void Respawn()
         {
-            this.isHit = true;
+            isHit = true;
             Timer timer = new Timer(2500); // 0.25 seconds
-            timer.Elapsed += (e, o) => { this.isHit = false; };
+            timer.Elapsed += (e, o) => { isHit = false; };
             timer.AutoReset = false;
             timer.Start();
             BulletManager.Instance.Clear();

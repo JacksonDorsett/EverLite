@@ -1,20 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EverLite.Models.PlayerModel;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EverLite.Models.Weapons
+namespace EverLite.Models.Weapons.SpawnPatterns
 {
     class SpiralPattern : SpawnPattern
     {
         double angle;
         double distance;
         double finalDistance;
-        
+
         int rotations;
         public SpiralPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate, int rotations = 1, float finalDist = 300) : base(bullets, bulletSprite, speed, totalBullets, spawnRate)
         {
-            this.finalDistance = finalDist;
+            finalDistance = finalDist;
             this.rotations = rotations;
         }
 
@@ -22,7 +23,7 @@ namespace EverLite.Models.Weapons
         private double DistanceDif => finalDistance / TotalBullets;
         public override SpawnPattern Clone()
         {
-            return new SpiralPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate,rotations, (float)finalDistance);
+            return new SpiralPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate, rotations, (float)finalDistance);
         }
 
         public override void Spawn(Vector2 spawnPosition)

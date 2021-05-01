@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Weapons
 {
     using Microsoft.Xna.Framework;
 
@@ -10,14 +10,14 @@
         public PlayerShoot(SpriteN bulletSprite)
         {
             this.bulletSprite = bulletSprite;
-            this.manager = BulletManager.Instance;
+            manager = BulletManager.Instance;
         }
 
         public void Shoot(Vector2 position)
         {
             var fpos = position;
             fpos.Y -= 1000;
-            this.manager.AddPlayerBullet(new Bullet(this.bulletSprite, new LifeTimeMovement(.7f, new LinearMovement(position, fpos))));
+            manager.AddPlayerBullet(new Bullet(bulletSprite, new LifeTimeMovement(.7f, new LinearMovement(position, fpos))));
         }
     }
 }

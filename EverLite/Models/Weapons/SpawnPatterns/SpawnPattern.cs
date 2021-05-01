@@ -1,5 +1,6 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Weapons.SpawnPatterns
 {
+    using System;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
 
@@ -38,6 +39,8 @@
 
         protected int TotalBullets => totalBullets;
 
+        public event EventHandler OnComplete;
+
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
             if (this.IsEnabled)
@@ -53,6 +56,7 @@
                     if (this.numSpawned >= this.TotalBullets)
                     {
                         this.IsEnabled = false;
+                        this.OnComplete?.Invoke(this, new EventArgs());
                     }
                 }
             }

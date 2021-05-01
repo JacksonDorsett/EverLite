@@ -1,5 +1,6 @@
 ﻿namespace EverLite
 {
+    using global::EverLite.Models.Weapons.SpawnPatterns;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;

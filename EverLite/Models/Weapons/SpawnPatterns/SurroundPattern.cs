@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using EverLite.Models.PlayerModel;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EverLite.Models.Weapons
+namespace EverLite.Models.Weapons.SpawnPatterns
 {
     class SurroundPattern : SpawnPattern
     {
@@ -17,15 +18,15 @@ namespace EverLite.Models.Weapons
         }
         public override SpawnPattern Clone()
         {
-            return new SurroundPattern(bulletList, this.Sprite, (float)Speed, this.TotalBullets, (float)this.SpawnRate, fireCount);
+            return new SurroundPattern(bulletList, Sprite, (float)Speed, TotalBullets, (float)SpawnRate, fireCount);
         }
 
         public override void Spawn(Vector2 spawnPosition)
         {
             var dif = rPlayer.Position - spawnPosition;
-            float iTheta = (float)Math.Atan((double)(dif.Y / dif.X));
-            float dTheta = (float)(2 * Math.PI) / (float)this.fireCount;
-            for(int i = 0; i < this.fireCount; i++)
+            float iTheta = (float)Math.Atan(dif.Y / dif.X);
+            float dTheta = (float)(2 * Math.PI) / fireCount;
+            for (int i = 0; i < fireCount; i++)
             {
                 bulletList.Add(CreateBullet(iTheta + dTheta * i, spawnPosition));
             }
@@ -34,8 +35,8 @@ namespace EverLite.Models.Weapons
 
         private Bullet CreateBullet(float angle, Vector2 startPosition)
         {
-            Vector2 final = new Vector2((float)Math.Cos((double)angle), (float)Math.Sin((double)angle)) * 10 + startPosition;
-            LinearVectorMovement m = new LinearVectorMovement(startPosition, final, (float)this.Speed);
+            Vector2 final = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * 10 + startPosition;
+            LinearVectorMovement m = new LinearVectorMovement(startPosition, final, (float)Speed);
 
             return new Bullet(Sprite, m);
         }

@@ -1,5 +1,6 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Weapons.SpawnPatterns
 {
+    using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
     using System.Collections.Generic;
 
@@ -11,25 +12,25 @@
         public LinearPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate)
             : base(bullets, bulletSprite, speed, totalBullets, spawnRate)
         {
-            this.mPlayer = Player.Instance();
+            mPlayer = Player.Instance();
 
         }
 
         public override SpawnPattern Clone()
         {
-            return new LinearPattern(this.bulletList, this.Sprite, (float)this.Speed, this.TotalBullets, this.SpawnRate);
+            return new LinearPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate);
         }
 
         public override void Spawn(Vector2 spawnPosition)
         {
-            Vector2 dif = this.mPlayer.Position - spawnPosition;
+            Vector2 dif = mPlayer.Position - spawnPosition;
             dif.Normalize();
 
-            var p = new LinearMovement(spawnPosition, (spawnPosition + dif * 2000));
+            var p = new LinearMovement(spawnPosition, spawnPosition + dif * 2000);
 
             //var b = new Bullet(this.Sprite, new LifeTimeMovement(5, p));
-            var b = new Bullet(this.Sprite, new LinearVectorMovement(spawnPosition, mPlayer.Position, (float)Speed));
-            this.bulletList.Add(b);
+            var b = new Bullet(Sprite, new LinearVectorMovement(spawnPosition, mPlayer.Position, (float)Speed));
+            bulletList.Add(b);
         }
 
         public override void Update(GameTime gameTime, Vector2 position)

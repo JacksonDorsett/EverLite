@@ -1,5 +1,6 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Enemies
 {
+    using global::EverLite.Models.Weapons.SpawnPatterns;
     using System.Collections.Generic;
 
     public class EnemyFactory
@@ -14,11 +15,11 @@
 
         public EnemyFactory(List<LifetimeEntity> enemyList, List<LifetimeEntity> bulletSpawnerList, SpawnPattern pattern, SpriteN sprite, Movement movement, float delay = 0)
         {
-            this.spawnPattern = pattern;
+            spawnPattern = pattern;
             this.enemyList = enemyList;
-            this.spawnerList = bulletSpawnerList;
+            spawnerList = bulletSpawnerList;
             this.sprite = sprite;
-            this.mMovement = movement;
+            mMovement = movement;
             this.delay = delay;
 
         }
@@ -26,13 +27,13 @@
 
         public void Spawn()
         {
-            Enemy e2 = new Enemy(this.sprite, mMovement.Clone());
-            BulletSpawner b = new BulletSpawner(mMovement.Clone(), this.spawnPattern,delay);
-            this.enemyList.Add(e2);
-            this.spawnerList.Add(b);
+            Enemy e2 = new Enemy(sprite, mMovement.Clone());
+            BulletSpawner b = new BulletSpawner(mMovement.Clone(), this.spawnPattern, delay);
+            enemyList.Add(e2);
+            spawnerList.Add(b);
             e2.OnDeath += (sender, e1) =>
             {
-                this.spawnerList.Remove(b);
+                spawnerList.Remove(b);
             };
         }
     }
