@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using EverLite.Behaviour;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json.Linq;
 namespace EverLite.ScriptInterperiter
@@ -11,9 +12,8 @@ namespace EverLite.ScriptInterperiter
         {
         }
 
-        public Movement Interperit(JToken json)
+        public  Movement Interperit(JToken json)
         {
-            Movement move;
             if (json.Type == JTokenType.Object)
             {
                 string type = json["type"].ToString();
@@ -24,13 +24,17 @@ namespace EverLite.ScriptInterperiter
                     points.Add(new Vector2(p[0].ToObject<float>(), p[1].ToObject<float>()));
                 }
                 Console.WriteLine($"type: {type}, lifetime: {lifetime}, points: {string.Join(',', points)}");
-
+                return MovementFactory.Create(type, lifetime, points);
             }
             else
             {
-
+                List<Movement> move = new List<Movement>();
+                foreach(JToken p in json)
+                {
+                    move.Add(Interperit(p));
+                }
+                return new AggregateMovement(move.ToArray());
             }
-            return null;
         }
         
         

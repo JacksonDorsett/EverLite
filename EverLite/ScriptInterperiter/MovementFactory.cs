@@ -24,6 +24,7 @@ namespace EverLite.ScriptInterperiter
         private static Movement makeLinear(string type, int time, List<Vector2> points)
         {
             if (points.Count < 2) throw new Exception("at least 2 points must be given");
+            if (points.Count == 2) return new LifeTimeMovement(time, new LinearMovement(points[0], points[1]));
             List<float> l = new List<float>();
             float total = 0;
             for(int i = 1; i < points.Count; i++)
