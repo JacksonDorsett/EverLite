@@ -14,7 +14,8 @@ EverLite is a space themed `bullet hell` game where the player must survive mult
 During gameplay the player flies his spaceship, armed only with a plasma blaster and nerves of steel. As the game progresses the player will have the opportunity to pick up new weapons and extra lives to assist in survival.
 
 ```sh
-WARNING: The enemy waves will attack you from multiple directions and fly in seemingly random patterns... (or is there a reason behind there alien thinking?)
+WARNING: The enemy waves will attack you from multiple directions and fly in seemingly random patterns... 
+         (or is there a reason behind there alien thinking?)
 ```
 
 ## Menu Options
@@ -58,7 +59,12 @@ WARNING: There are currently no checks in place to prevent multiple settings usi
 
 ## About
 
-EverLite is built on C# using MonoGame platform on Visual Studio 19. The NuGet packets used are `MonoGame.Content.Builder.Task`, `MonoGame.Framework.DesktopGL`, `Newtonsoft.Json`, `NUnit`, and `sqlite-net-pcl`.
+EverLite is built on C# using MonoGame platform on Visual Studio 19. The NuGet packets used are:
+ - `MonoGame.Content.Builder.Task`
+ - `MonoGame.Framework.DesktopGL`
+ - `Newtonsoft.Json`
+ - `NUnit`
+ - `sqlite-net-pcl`
 
 ## KC Studios Team
 
