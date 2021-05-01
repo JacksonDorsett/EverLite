@@ -10,6 +10,7 @@
     public class TopTenComponent : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private EverLite game;
+        private VolumeManager volume;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TopTenComponent"/> class.
@@ -19,6 +20,7 @@
             : base(game)
         {
             this.game = game;
+            this.volume = VolumeManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -30,13 +32,19 @@
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-            Task<bool> result;
-
             if (game.NewKey(Keys.Enter))
             {
                 this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
+
+            // Volume control
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                this.volume.VolumeUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                this.volume.VolumeDown();
+            if (this.game.NewKey(Keys.D0))
+                this.volume.Mute();
 
             base.Update(gameTime);
         }

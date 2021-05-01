@@ -21,6 +21,7 @@
         private Color itemColor;
         private Color selectedItemColor;
         private ListName listName;
+        private VolumeManager volume;
 
         /// <summary>
         /// Enum to cycle through the 3 alphabet lists used for the player's initials.
@@ -45,6 +46,7 @@
             this.itemColor = Color.Red;
             this.selectedItemColor = Color.Yellow;
             this.listName = ListName.letters1;
+            this.volume = VolumeManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -91,7 +93,15 @@
                 SelectLeft(this.listName);
             if (this.game.NewKey(Keys.Right) || this.game.NewKey(this.game.playerSettings.MoveRight))
                 SelectRight(this.listName);
-            
+
+            // Volume control
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                this.volume.VolumeUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                this.volume.VolumeDown();
+            if (this.game.NewKey(Keys.D0))
+                this.volume.Mute();
+
             base.Update(gameTime);
         }
         

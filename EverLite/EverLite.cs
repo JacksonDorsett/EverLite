@@ -103,7 +103,6 @@
             SpriteLoader.Initialize(this.Content);
             
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.2f;
 
             this.SceneManager.SwitchScene(this.SceneManager.Menu);
         }
