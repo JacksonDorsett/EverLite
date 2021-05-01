@@ -11,9 +11,7 @@
         private int totalSpawned;
         private EnemyFactory spawner;
         private double timeElapsed;
-        private List<LifetimeEntity> enemyList;
-        private List<LifetimeEntity> spawners;
-        private BulletSpawner bulletSpawner;
+
 
         public Wave(EnemyFactory spawner, double spawnInterval, int spawnCount, double startTime)
         {
@@ -41,7 +39,7 @@
             if (!this.IsWaveActive) return;
 
             // update clock
-            this.timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+            this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
             if (this.timeElapsed >= this.spawnInterval)
             {
                 this.spawner.Spawn();

@@ -2,10 +2,12 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using System;
     using System.Timers;
 
     public class BulletSpawner : LifetimeEntity
     {
+        bool completedflag = false; //indicates if the on complete has been fired.
         private SpawnPattern spawnPattern;
         //private double lifetime;
         Movement move;
@@ -16,7 +18,6 @@
             : base(new NoSprite(), movement)
         {
             this.spawnPattern = spawnPattern;
-
             this.move = movement;
             delay = shootDelay;
             delayTimer = new Timer();
@@ -24,17 +25,21 @@
             if (shootDelay > 0)
             {
                 spawnPattern.IsEnabled = false;
-                delayTimer.Interval = delay;
+                delayTimer.Interval = delay * 1000;
                 delayTimer.Elapsed += delegate
                 {
                     spawnPattern.IsEnabled = true;
+                    delayTimer.AutoReset = false;
                 };
-                delayTimer.AutoReset = false;
+                
             }
             else spawnPattern.IsEnabled = true;
 
         }
 
+        public bool IsComplete => !delayTimer.Enabled && !this.spawnPattern.IsEnabled;
+
+        public event EventHandler OnComplete;
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
@@ -57,7 +62,10 @@
             {
                 this.spawnPattern.Update(gameTime, this.Position);
             }
-            
+            if(IsComplete && !this.completedflag)
+            {
+                this.OnComplete?.Invoke(this, new EventArgs());
+            }
         }
 
         public BulletSpawner Clone()

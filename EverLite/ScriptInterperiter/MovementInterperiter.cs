@@ -12,7 +12,7 @@ namespace EverLite.ScriptInterperiter
         {
         }
 
-        public Movement Interperit(JToken json)
+        public  Movement Interperit(JToken json)
         {
             if (json.Type == JTokenType.Object)
             {
