@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Enemies
 {
     using System;
     using System.Collections.Generic;
@@ -18,33 +18,33 @@
             this.spawnInterval = spawnInterval;
             this.spawnCount = spawnCount;
             this.spawner = spawner;
-            this.StartTime = startTime;
-            this.timeElapsed = 0;
-            this.totalSpawned = 0;
+            StartTime = startTime;
+            timeElapsed = 0;
+            totalSpawned = 0;
         }
 
         public double StartTime { get; internal set; }
 
-        public bool IsWaveActive { get => this.spawnCount > this.totalSpawned; }
+        public bool IsWaveActive { get => spawnCount > totalSpawned; }
 
         public int CompareTo(object obj)
         {
-            if ((obj as Wave).StartTime == this.StartTime) return 0;
-            if ((obj as Wave).StartTime > this.StartTime) return -1;
+            if ((obj as Wave).StartTime == StartTime) return 0;
+            if ((obj as Wave).StartTime > StartTime) return -1;
             return 1;
         }
 
         public void Update(GameTime gameTime)
         {
-            if (!this.IsWaveActive) return;
+            if (!IsWaveActive) return;
 
             // update clock
-            this.timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
-            if (this.timeElapsed >= this.spawnInterval)
+            timeElapsed += gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeElapsed >= spawnInterval)
             {
-                this.spawner.Spawn();
-                this.totalSpawned++;
-                this.timeElapsed -= this.spawnInterval;
+                spawner.Spawn();
+                totalSpawned++;
+                timeElapsed -= spawnInterval;
             }
         }
     }

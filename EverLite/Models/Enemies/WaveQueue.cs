@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Enemies
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@
         public WaveQueue(GameClock clock)
         {
             q = new SortedList<double, Wave>();
-            this.gameClock = clock; // could be refactored into Wave Queue.
+            gameClock = clock; // could be refactored into Wave Queue.
         }
 
         /// <summary>
@@ -25,7 +25,7 @@
         {
             get
             {
-                if (this.q.Count != 0 && this.gameClock.ElapsedTime.TotalSeconds >= this.q.Values[0].StartTime)
+                if (q.Count != 0 && gameClock.ElapsedTime.TotalSeconds >= q.Values[0].StartTime)
                 {
                     return true;
                 }
@@ -37,7 +37,7 @@
         /// <summary>
         /// Gets the number of queued waves.
         /// </summary>
-        public int Count { get => this.q.Count; }
+        public int Count { get => q.Count; }
 
         /// <summary>
         /// Precondition: time passed must exceed head wave.
@@ -46,10 +46,10 @@
         public Wave PopWave()
         {
             if (q.Count == 0) throw new Exception("Cannot pop from queue since there are no entries");
-            if (!this.IsReady) throw new Exception("Wave cannot be poped yet. Please use IsReady Property to verify before calling PopWave()");
+            if (!IsReady) throw new Exception("Wave cannot be poped yet. Please use IsReady Property to verify before calling PopWave()");
 
-            var wave = this.q.Values[0];
-            this.q.RemoveAt(0);
+            var wave = q.Values[0];
+            q.RemoveAt(0);
             return wave;
         }
 
@@ -59,11 +59,11 @@
         /// <param name="wave">wave to be added.</param>
         public void Add(Wave wave)
         {
-            while (this.q.ContainsKey(wave.StartTime))
+            while (q.ContainsKey(wave.StartTime))
             {
                 wave.StartTime += 0.0001d;
             }
-            this.q.Add(wave.StartTime, wave);
+            q.Add(wave.StartTime, wave);
         }
     }
 }

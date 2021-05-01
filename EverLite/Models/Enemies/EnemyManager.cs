@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Enemies
 {
     using System;
     using System.Collections.Generic;
@@ -15,19 +15,19 @@
         private LifetimeEntityManager enemyLifeManager;
 
 
-        public List<LifetimeEntity> ActiveEnemies { get => this.activeEnemies; }
+        public List<LifetimeEntity> ActiveEnemies { get => activeEnemies; }
         /// <summary>
         /// Initializes a new instance of the <see cref="EnemyManager"/> class.
         /// </summary>
         /// <param name="game">game reference object.</param>
         public EnemyManager(Game game)
         {
-            this.mGame = game;
-            this.spawnerLifeManager = new LifetimeEntityManager();
-            this.enemyLifeManager = new LifetimeEntityManager();
-            this.activeEnemies = this.enemyLifeManager.EntityList;
-            this.activeSpawners = this.spawnerLifeManager.EntityList;
-            this.waveManager = new WaveManager(game, this.activeEnemies, activeSpawners);
+            mGame = game;
+            spawnerLifeManager = new LifetimeEntityManager();
+            enemyLifeManager = new LifetimeEntityManager();
+            activeEnemies = enemyLifeManager.EntityList;
+            activeSpawners = spawnerLifeManager.EntityList;
+            waveManager = new WaveManager(game, activeEnemies, activeSpawners);
 
         }
 
@@ -43,21 +43,21 @@
         {
             get
             {
-                return !(waveManager.CountActive == 0 && waveManager.CountQueued == 0 && this.activeEnemies.Count == 0);
+                return !(waveManager.CountActive == 0 && waveManager.CountQueued == 0 && activeEnemies.Count == 0);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            this.waveManager.Update(gameTime);
-            this.spawnerLifeManager.Update(gameTime);
-            this.enemyLifeManager.Update(gameTime);
+            waveManager.Update(gameTime);
+            spawnerLifeManager.Update(gameTime);
+            enemyLifeManager.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.enemyLifeManager.Draw(spriteBatch);
-            this.spawnerLifeManager.Draw(spriteBatch);
+            enemyLifeManager.Draw(spriteBatch);
+            spawnerLifeManager.Draw(spriteBatch);
         }
     }
 }

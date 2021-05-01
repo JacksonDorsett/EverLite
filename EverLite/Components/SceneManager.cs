@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Components
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -92,29 +92,30 @@
             MenuComponent menu = new MenuComponent(game, menuItems);
 
             // Assigns music
-            this.DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
-            this.Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
-            this.SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
-            this.MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
+            DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
+            Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
+            SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
+            MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
 
             // Assigns fancy font.
-            this.FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
-            this.FontOriginTechSmall = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
-            this.FontOriginTechTiny = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
+            FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
+            FontOriginTechSmall = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");
+            FontOriginTechTiny = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_tiny");
 
             // Putting together the GameScenes, each using a background component and a window component.
-            this.MenuScene = new GameScene(game, planetBackground, menu);
-            this.TopTenScene = new GameScene(game, planetBackground, topTen);
-            this.GameWonScene = new GameScene(game, planetRingsBackground, gameWon);
-            this.GameOverScene = new GameScene(game, planetExplodeBackground, gameOver);
-            this.PlayerSettingsScene = new GameScene(game, planetRingsBackground, playerSettings);
-            this.MenuScene = new GameScene(game, planetBackground, menu, menuItems);
+            MenuScene = new GameScene(game, planetBackground, menu);
+            TopTenScene = new GameScene(game, planetBackground, topTen);
+            GameWonScene = new GameScene(game, planetRingsBackground, gameWon);
+            GameOverScene = new GameScene(game, planetExplodeBackground, gameOver);
+            PlayerSettingsScene = new GameScene(game, planetRingsBackground, playerSettings);
+            MenuScene = new GameScene(game, planetBackground, menu, menuItems);
 
             // disabling components
             foreach (GameComponent component in game.Components)
             {
                 ChangeComponentState(component, false);
             }
+
             
             ChangeMusic(this.MenuBG);
         }

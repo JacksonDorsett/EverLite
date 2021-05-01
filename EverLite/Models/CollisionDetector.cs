@@ -1,6 +1,7 @@
 ﻿namespace EverLite
 {
     using System.Collections.Generic;
+    using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
 
     /// <summary>

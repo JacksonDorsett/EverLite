@@ -1,5 +1,6 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Weapons.SpawnPatterns
 {
+    using System;
     using System.Collections.Generic;
     using Microsoft.Xna.Framework;
 
@@ -26,9 +27,9 @@
             
         }
 
-        public bool IsEnabled { get; set; }
+        public virtual bool IsEnabled { get; set; }
 
-        public abstract void Spawn(Vector2 spawnPosition);
+        protected abstract void Spawn(Vector2 spawnPosition);
 
         protected SpriteN Sprite { get => this.bulletSprite; }
         
@@ -37,6 +38,8 @@
         protected double SpawnRate { get => spawnRate; }
 
         protected int TotalBullets => totalBullets;
+
+        public event EventHandler OnComplete;
 
         public virtual void Update(GameTime gameTime, Vector2 position)
         {
@@ -53,6 +56,7 @@
                     if (this.numSpawned >= this.TotalBullets)
                     {
                         this.IsEnabled = false;
+                        this.OnComplete?.Invoke(this, new EventArgs());
                     }
                 }
             }

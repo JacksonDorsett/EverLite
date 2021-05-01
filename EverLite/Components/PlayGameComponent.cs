@@ -1,12 +1,14 @@
-﻿namespace EverLite
+﻿namespace EverLite.Components
 {
+    using global::EverLite.Models.Enemies;
+    using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Manages the game logic for the PlayGameScene.
     /// </summary>
-    public class PlayGameComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class PlayGameComponent : DrawableGameComponent
     {
         private EverLite game;
         private PlayerSystem playerSystem;
@@ -54,15 +56,15 @@
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-            this.pauseStatus.Update();
-            if (!this.pauseStatus.Status)
+            pauseStatus.Update();
+            if (!pauseStatus.Status)
             {
-                this.playerSystem.Update(gameTime);
-                this.enemyManager.Update(gameTime);
-                this.bulletManager.Update(gameTime);
-                this.collisionDetector.Update(gameTime);
-                this.itemsManager.Update(gameTime);
-                this.OnWin();
+                playerSystem.Update(gameTime);
+                enemyManager.Update(gameTime);
+                bulletManager.Update(gameTime);
+                collisionDetector.Update(gameTime);
+                itemsManager.Update(gameTime);
+                OnWin();
             }
 
             // Volume control
@@ -78,12 +80,12 @@
         /// <inheritdoc/>
         public override void Draw(GameTime gameTime)
         {
-            this.bulletManager.Draw(this.game.spriteBatch);
-            this.playerSystem.Draw(this.game.spriteBatch);
-            this.enemyManager.Draw(this.game.spriteBatch);
-            this.sidePanel.Draw(gameTime);
-            this.lifeManager.Draw(this.game.spriteBatch);
-            this.itemsManager.Draw(this.game.spriteBatch);
+            bulletManager.Draw(game.spriteBatch);
+            playerSystem.Draw(game.spriteBatch);
+            enemyManager.Draw(game.spriteBatch);
+            sidePanel.Draw(gameTime);
+            lifeManager.Draw(game.spriteBatch);
+            itemsManager.Draw(game.spriteBatch);
 
             base.Draw(gameTime);
         }
@@ -91,7 +93,7 @@
         /// <inheritdoc/>
         protected override void LoadContent()
         {
-            this.lifeManager = new PlayerLifeManager(this.game);
+            lifeManager = new PlayerLifeManager(game);
             base.LoadContent();
         }
 
@@ -100,10 +102,10 @@
         /// </summary>
         private void OnWin()
         {
-            if (!this.enemyManager.IsActive)
+            if (!enemyManager.IsActive)
             {
-                this.game.SceneManager.ChangeMusic(this.game.SceneManager.Megalovania);
-                this.game.SceneManager.SwitchScene(this.game.SceneManager.GameWin);
+                game.SceneManager.ChangeMusic(game.SceneManager.Megalovania);
+                game.SceneManager.SwitchScene(game.SceneManager.GameWin);
             }
         }
     }
