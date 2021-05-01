@@ -21,6 +21,9 @@ namespace EverLite.Models.Weapons.SpawnPatterns
 
         private double AngleDif => rotations * 2 * Math.PI / TotalBullets;
         private double DistanceDif => finalDistance / TotalBullets;
+
+
+
         public override SpawnPattern Clone()
         {
             return new SpiralPattern(bulletList, Sprite, (float)Speed, TotalBullets, SpawnRate, rotations, (float)finalDistance);

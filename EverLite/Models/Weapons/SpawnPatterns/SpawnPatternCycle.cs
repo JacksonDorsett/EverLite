@@ -11,6 +11,8 @@ namespace EverLite.Models.Weapons.SpawnPatterns
         private SpawnPattern[] spawnPatterns;
         private IEnumerator current;
         private bool currentStatus;
+        int index = 0;
+
         public SpawnPatternCycle(List<Bullet> bullets, SpawnPattern[] patterns) : base(bullets, new NoSprite(), 0, 0, 0)
         {
             this.spawnPatterns = patterns;
@@ -20,9 +22,10 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             }
             current = patterns.GetEnumerator();
             currentStatus = current.MoveNext();
+
         }
 
-        public override bool IsEnabled { get => base.IsEnabled && currentStatus; set => base.IsEnabled = value; }
+        public override bool IsEnabled { get => currentStatus; set { if (current != null) (current.Current as SpawnPattern).IsEnabled = value; } }
 
         public override SpawnPattern Clone()
         {
@@ -41,13 +44,19 @@ namespace EverLite.Models.Weapons.SpawnPatterns
 
         public override void Update(GameTime gameTime, Vector2 position)
         {
-            (this.current.Current as SpawnPattern).Update(gameTime, position);
+            var c = this.current.Current as SpawnPattern;
+            if (currentStatus) c.Update(gameTime, position);
             
         }
 
         private void MoveNext(object o, EventArgs e)
         {
             currentStatus = current.MoveNext();
+            if (currentStatus)
+            {
+                //this.Invoke();
+                (current.Current as SpawnPattern).IsEnabled = true;
+            }
         }
     }
 }
