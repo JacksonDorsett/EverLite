@@ -63,7 +63,7 @@
             Vector2[] pts = { new Vector2(0, 0), new Vector2(400, 400), new Vector2(1500, 1000) , new Vector2(500,500), new Vector2(0, 100)};
             var path = MovementFactory.Create("B", 8, pts.ToList());
             MovementInterperiter mi = new MovementInterperiter();
-            mi.Interperit(JObject.Parse("{\"type\" : \"A\", \"time\" : 1000, \"points\" : [ [10.5,23.5], [100.5, 21.4]] }"));
+            var im = mi.Interperit(JToken.Parse("[{\"type\" : \"A\", \"time\" : 6, \"points\" : [ [0,0], [1000, 1000], [500,0], [0,0]] },{\"type\" : \"A\", \"time\" : 2, \"points\" : [ [0,0], [1000, 1000], [500,0], [0,0]] }]"));
             var l1 = new LinearMovement(new Vector2(2000, 400), new Vector2(1000, 1000));
             var l2 = new LinearMovement(new Vector2(1000, 1000), new Vector2(0, 0));
             var l3 = new CurvedMovement(new Vector2(0, 0), new Vector2(2000, 1000), new Vector2(500, 200));
@@ -78,7 +78,7 @@
             var curved = new LifeTimeMovement(5, curved1);
             var linear = new LifeTimeMovement(10, linear1);
             //this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(curved, new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 20, 1)), SpriteLoader.LoadSprite("enemy1"), curved), 1000, 10, 0));
-            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(path, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("mid-boss"), path), 1000, 1, 0));
+            this.AddWave(new Wave(new EnemyFactory(this.enemies, this.spawners, new BulletSpawner(im, new SpiralPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10f, 60, .05f, 4, 300), shootDelay: 5000), SpriteLoader.LoadSprite("mid-boss"), im), 1000, 1, 0));
         }
 
         public void Update(GameTime gameTime)
