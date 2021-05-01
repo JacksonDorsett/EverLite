@@ -5,9 +5,9 @@
  - [Player  Settings](#Player Settings)
  - [Volume Controls](#Volume Controls)
 
-## EverLite
+## About EverLite
 
-EverLite is a space themed bullet hell game where the player must survive multiple waves of enemy ships and boss ships to go down in history as the best space pilot ever (at least in the game, this is not The Last Starfighter after all).
+EverLite is a space themed bullet hell game where the player must survive multiple waves of enemy ships and boss ships to go down in history as the best space pilot ever (at least in the game, this is not `The Last Starfighter` after all).
 
 ## Menu Options
 
