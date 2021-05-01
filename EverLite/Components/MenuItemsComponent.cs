@@ -79,12 +79,6 @@
         }
 
         /// <inheritdoc/>
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-        }
-
-        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
             // key pressing
@@ -110,6 +104,12 @@
             game.spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <inheritdoc/>
+        protected override void LoadContent()
+        {
+            base.LoadContent();
         }
     }
 }

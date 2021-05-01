@@ -2,6 +2,7 @@
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Manages the side panel component for the PlayGameScene.
@@ -12,6 +13,8 @@
         private PlayerSettings playerSettings;
         private Texture2D sidePanel;
         private HighScore highScore;
+        private VolumeManager volume;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SidePanelComponent"/> class.
         /// </summary>
@@ -23,6 +26,7 @@
             this.playerSettings = PlayerSettings.Instance;
             this.sidePanel = this.game.Content.Load<Texture2D>(@"Sprites\background_narrowspace");
             this.highScore = new HighScore { Id = 0, Name = "AAA", Score = 0 };
+            this.volume = VolumeManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -63,19 +67,19 @@
             
             // player controls map
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Move: ", new Vector2(1520, 640), Color.Yellow);
-            if (this.playerSettings.MoveUp == Microsoft.Xna.Framework.Input.Keys.Up)
+            if (this.playerSettings.MoveUp == Keys.Up)
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(1740, 600), Color.Red);
             else
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(1825, 600), Color.Red);
-            if (this.playerSettings.MoveLeft == Microsoft.Xna.Framework.Input.Keys.Left)
+            if (this.playerSettings.MoveLeft == Keys.Left)
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(1660, 640), Color.Red);
             else
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(1800, 640), Color.Red);
-            if (this.playerSettings.MoveDown == Microsoft.Xna.Framework.Input.Keys.Down)
+            if (this.playerSettings.MoveDown == Keys.Down)
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(1710, 680), Color.Red);
             else
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(1830, 680), Color.Red);
-            if (this.playerSettings.MoveRight == Microsoft.Xna.Framework.Input.Keys.Right)
+            if (this.playerSettings.MoveRight == Keys.Right)
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(1770, 640), Color.Red);
             else
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(1860, 640), Color.Red);
@@ -83,8 +87,11 @@
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(1830, 750), Color.Red);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Slow Down: ", new Vector2(1520, 800), Color.Yellow);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(1830, 800), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Change Weapon: ", new Vector2(1520, 850), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(1830, 850), Color.Red);
+
+            // volume level
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Volume: ", new Vector2(1600, 900), Color.Chartreuse);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, this.volume.VolumeLevel.ToString(), new Vector2(1750, 900), Color.Chartreuse);
+
             this.game.spriteBatch.End();
         }
     }

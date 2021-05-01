@@ -18,7 +18,8 @@
         private KeyboardState keyboardState;
         private KeyboardState previousKeyboardState;
         private eGameState gameState;
-        
+        private VolumeManager volume;
+
         enum eGameState
         {
             Playing,
@@ -34,6 +35,7 @@
         {
             this.game = game;
             this.playerSettings = PlayerSettings.Instance;
+            this.volume = VolumeManager.Instance;
             this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Slow Down:", "Change Weapon:", "Pause:" };
             this.itemColor = Color.Red;
             this.selectedItemColor = Color.Yellow;
@@ -62,6 +64,7 @@
                     this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
                 }
 
+                // Switch active player settings
                 if (this.game.NewKey(Keys.Up))
                     SelectPrevious();
                 if (this.game.NewKey(Keys.Down))
@@ -69,6 +72,14 @@
 
                 if (this.game.NewKey(Keys.Enter))
                     this.gameState = eGameState.Pause;
+
+                // Volume control
+                if (this.keyboardState.IsKeyDown(Keys.OemPlus))
+                    this.volume.VolumeUp();
+                if (this.keyboardState.IsKeyDown(Keys.OemMinus))
+                    this.volume.VolumeDown();
+                if (this.game.NewKey(Keys.D0))
+                    this.volume.Mute();
             }
 
             // This sections is for changing the selected player setting to new key.
@@ -123,6 +134,12 @@
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Press 'Esc' to", new Vector2(1350, 850), Color.DeepSkyBlue);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "return to main screen", new Vector2(1200, 900), Color.DeepSkyBlue);
 
+            // Volume control
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Mute: 0", new Vector2(1470, 50), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Vol Up: -", new Vector2(1450, 80), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Vol Down: +", new Vector2(1400, 110), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Volume", new Vector2(1700, 50), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, this.volume.VolumeLevel.ToString(), new Vector2(1760, 100), Color.Red);
             this.game.spriteBatch.End();
             base.Draw(gameTime);
         }

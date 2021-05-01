@@ -25,7 +25,7 @@
         private GameScene GameWonScene;
         private GameScene GameOverScene;
         private GameScene PlayerSettingsScene;
-
+        private VolumeManager volume;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
@@ -34,9 +34,11 @@
         public SceneManager(EverLite game)
         {
             this.game = game;
+            this.volume = VolumeManager.Instance;
             Initialize();
         }
 
+        public VolumeManager Volume => volume;
         /// <summary>
         /// Gets the MenuScene.
         /// </summary>
@@ -113,8 +115,9 @@
             {
                 ChangeComponentState(component, false);
             }
-            float f = MediaPlayer.Volume;
-            ChangeMusic(MenuBG);
+
+            
+            ChangeMusic(this.MenuBG);
         }
 
         /// <summary>

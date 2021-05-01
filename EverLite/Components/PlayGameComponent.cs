@@ -3,6 +3,7 @@
     using global::EverLite.Models.Enemies;
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// Manages the game logic for the PlayGameScene.
@@ -19,6 +20,7 @@
         private PlayerSettings playerSettings;
         private SidePanelComponent sidePanel;
         private ItemsManager itemsManager;
+        private VolumeManager volume;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
@@ -28,19 +30,20 @@
             : base(game)
         {
             this.game = game;
-            sidePanel = new SidePanelComponent(game);
-            playerSettings = PlayerSettings.Instance;
-            pauseStatus = new ToggleStatus(playerSettings.Pause);
-            playerSystem = new PlayerSystem(Game);
-            enemyManager = new EnemyManager(Game);
-            itemsManager = new ItemsManager();
-            bulletManager = BulletManager.Instance;
-            collisionDetector = new CollisionDetector(
-                enemyManager.ActiveEnemies,
-                bulletManager.EnemyBullets,
-                bulletManager.PlayerBullets,
-                itemsManager.Items,
-                playerSystem.Player,
+            this.volume = VolumeManager.Instance;
+            this.sidePanel = new SidePanelComponent(game);
+            this.playerSettings = PlayerSettings.Instance;
+            this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
+            this.playerSystem = new PlayerSystem(this.Game);
+            this.enemyManager = new EnemyManager(this.Game);
+            this.itemsManager = new ItemsManager();
+            this.bulletManager = BulletManager.Instance;
+            this.collisionDetector = new CollisionDetector(
+                this.enemyManager.ActiveEnemies,
+                this.bulletManager.EnemyBullets,
+                this.bulletManager.PlayerBullets,
+                this.itemsManager.Items,
+                this.playerSystem.Player,
                 this.game); // Game1 game is passed to the collisioDetector can access the gamescore instance
         }
 
@@ -64,6 +67,13 @@
                 OnWin();
             }
 
+            // Volume control
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                this.volume.VolumeUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                this.volume.VolumeDown();
+            if (this.game.NewKey(Keys.D0))
+                this.volume.Mute();
             base.Update(gameTime);
         }
 

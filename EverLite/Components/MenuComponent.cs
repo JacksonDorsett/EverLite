@@ -12,6 +12,7 @@
         private EverLite game;
         private Texture2D background;
         private MenuItemsComponent menuItems;
+        private VolumeManager volume;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuComponent"/> class.
@@ -22,6 +23,7 @@
         {
             this.game = game;
             this.menuItems = menuItems;
+            this.volume = VolumeManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -40,7 +42,6 @@
         /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
-
             if (game.NewKey(Keys.Enter))
             {
                 switch (this.menuItems.selectedItem.text)
@@ -62,6 +63,14 @@
                         break;
                 }
             }
+
+            // Volume control
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+                this.volume.VolumeUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+                this.volume.VolumeDown();
+            if (this.game.NewKey(Keys.D0))
+                this.volume.Mute();
 
             base.Update(gameTime);
         }
