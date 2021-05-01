@@ -56,12 +56,15 @@
                     if (this.numSpawned >= this.TotalBullets)
                     {
                         this.IsEnabled = false;
-                        this.OnComplete?.Invoke(this, new EventArgs());
+                        Invoke();
                     }
                 }
             }
         }
-
+        protected void Invoke()
+        {
+            this.OnComplete.Invoke(this, new EventArgs());
+        }
         public abstract SpawnPattern Clone();
     }
 }

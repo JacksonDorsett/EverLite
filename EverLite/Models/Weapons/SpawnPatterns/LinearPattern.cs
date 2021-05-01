@@ -2,12 +2,12 @@
 {
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
+    using System;
     using System.Collections.Generic;
 
     internal class LinearPattern : SpawnPattern
     {
         private Player mPlayer;
-
 
         public LinearPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate)
             : base(bullets, bulletSprite, speed, totalBullets, spawnRate)
