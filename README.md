@@ -29,18 +29,24 @@ WARNING: The enemy waves will attack you from multiple directions and fly in see
 
 The player settings initially are:
 
- - `W` Move Up				 - `J` Shoot
- - `A` Move Left			 - `G` Slow Speed
- - `S` Move Down			 - `T` Switch Weapon
- - `D` Move Right			 - `Spacebar` Pause Game
+ - `W` Move Up
+ - `A` Move Left
+ - `S` Move Down
+ - `D` Move Right
  - `J` Shoot
-
+ - `U` Use Bomb
+ - `G` Slow Speed
+ - `T` Switch Weapon
+ - `Spacebar` Pause Game
+ 
 To change the settings, arrow up or down to the setting you want to change. Once highlighted, press 'enter' once, followed by the new key. That's it. It really is that easy.
 
 The keys must be one of the following:
 
- - `arrow`					 - `control`
- - `letter`					 - `shift`
+ - `arrow`
+ - `letter`
+ - `shift`
+ - `control`
  - `spacebar`
 
 ```sh
