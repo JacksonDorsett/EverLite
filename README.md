@@ -15,7 +15,7 @@ During gameplay the player flies his spaceship, armed only with a plasma blaster
 
 ```sh
 WARNING: The enemy waves will attack you from multiple directions and fly in seemingly random patterns... 
-         (or is there a reason behind there alien thinking?)
+         (Or is their a reason behind there alien thinking?)
 ```
 
 ## Menu Options
@@ -29,22 +29,18 @@ WARNING: The enemy waves will attack you from multiple directions and fly in see
 
 The player settings initially are:
 
- - `W` Move Up
- - `A` Move Left
- - `S` Move Down
- - `D` Move Right
+ - `W` Move Up				 - `J` Shoot
+ - `A` Move Left			 - `G` Slow Speed
+ - `S` Move Down			 - `T` Switch Weapon
+ - `D` Move Right			 - `Spacebar` Pause Game
  - `J` Shoot
- - `G` Slow Speed
- - `T` Switch Weapon
- - `Spacebar` Pause Game
- 
+
 To change the settings, arrow up or down to the setting you want to change. Once highlighted, press 'enter' once, followed by the new key. That's it. It really is that easy.
+
 The keys must be one of the following:
 
- - `arrow`
- - `letter`
- - `control`
- - `shift`
+ - `arrow`					 - `control`
+ - `letter`					 - `shift`
  - `spacebar`
 
 ```sh
@@ -59,12 +55,15 @@ WARNING: There are currently no checks in place to prevent multiple settings usi
 
 ## About
 
-EverLite is built on C# using MonoGame platform on Visual Studio 19. The NuGet packets used are:
- - `MonoGame.Content.Builder.Task`
- - `MonoGame.Framework.DesktopGL`
- - `Newtonsoft.Json`
- - `NUnit`
- - `sqlite-net-pcl`
+EverLite is built in Visual Studio 19 using C# and MonoGame platform. 
+
+The NuGet packets used are:
+
+ - MonoGame.Content.Builder.Task
+ - MonoGame.Framework.DesktopGL
+ - Newtonsoft.Json
+ - NUnit
+ - sqlite-net-pcl
 
 ## KC Studios Team
 

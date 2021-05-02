@@ -85,12 +85,14 @@
                 this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(1860, 640), Color.Red);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Shoot: ", new Vector2(1520, 750), Color.Yellow);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(1830, 750), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Slow Down: ", new Vector2(1520, 800), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(1830, 800), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Use Bomb: ", new Vector2(1520, 800), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.UseBomb.ToString(), new Vector2(1830, 800), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Slow Down: ", new Vector2(1520, 850), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(1830, 850), Color.Red);
 
             // volume level
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Volume: ", new Vector2(1600, 900), Color.Chartreuse);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, this.volume.VolumeLevel.ToString(), new Vector2(1750, 900), Color.Chartreuse);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Volume: ", new Vector2(1600, 920), Color.Chartreuse);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, this.volume.VolumeLevel.ToString(), new Vector2(1750, 920), Color.Chartreuse);
 
             this.game.spriteBatch.End();
         }
