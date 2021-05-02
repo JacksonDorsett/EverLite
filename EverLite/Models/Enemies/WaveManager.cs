@@ -66,7 +66,7 @@
             MovementInterperiter mi = new MovementInterperiter();
             var im = mi.Interperit(JToken.Parse("[{\"type\" : \"A\", \"time\" : 60, \"points\" : [ [0,0], [1000, 1000], [500,0], [0,0]] },{\"type\" : \"A\", \"time\" : 2, \"points\" : [ [0,0], [1000, 1000], [500,0], [0,0]] }]"));
             BulletSpawnerInterpereter bsi = new BulletSpawnerInterpereter(im);
-            var spawner = bsi.Interperet(JToken.Parse("{ \"delay\": 2,\"isLooping\": false, \"patterns\": [ { \"type\": \"spiral\", \"amount\": 60, \"speed\": 10, \"interval\": 0.05, \"rotations\": 2, \"distance\": 250 },{ \"type\": \"linear\", \"amount\": 20, \"speed\": 10, \"interval\": 0.1 },{\"type\" : \"none\", \"time\" : 3},{ \"type\": \"surround\", \"amount\": 10, \"speed\": 10, \"interval\": 0.1, \"fireCount\" : 10 }]}"));
+            var spawner = bsi.Interperet(JToken.Parse("{ \"delay\": 2,\"isLooping\": true, \"patterns\": [ { \"type\": \"spiral\", \"amount\": 60, \"speed\": 10, \"interval\": 0.05, \"rotations\": 2, \"distance\": 250 },{ \"type\": \"linear\", \"amount\": 20, \"speed\": 10, \"interval\": 0.1 },{\"type\" : \"none\", \"time\" : 3},{ \"type\": \"surround\", \"amount\": 10, \"speed\": 10, \"interval\": 0.1, \"fireCount\" : 10 }]}"));
             // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
             var s1 = new LinearPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), 10, 10, .2);
             var s2 = new NoShootPattern(BulletManager.Instance.EnemyBullets, 4);

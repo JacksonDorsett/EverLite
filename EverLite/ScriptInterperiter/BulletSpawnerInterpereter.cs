@@ -20,9 +20,10 @@ namespace EverLite.ScriptInterperiter
             {
                 l.Add(InterperetPattern(t));
             }
-            if(!obj["isLooping"].ToObject<bool>()) return new BulletSpawner(movement, new SpawnPatternCycle(BulletManager.Instance.EnemyBullets,l.ToArray()), obj["delay"].ToObject<double>());
+            return new BulletSpawner(movement, new SpawnPatternCycle(BulletManager.Instance.EnemyBullets, l.ToArray(), obj["isLooping"].ToObject<bool>()), obj["delay"].ToObject<double>());
+            if (!obj["isLooping"].ToObject<bool>()) return new BulletSpawner(movement, new SpawnPatternCycle(BulletManager.Instance.EnemyBullets,l.ToArray()), obj["delay"].ToObject<double>());
 
-            return null;
+            return new BulletSpawner(movement,new SpawnPatternLoop(BulletManager.Instance.EnemyBullets, l.ToArray()), obj["delay"].ToObject<double>());
         }
         private SpawnPattern InterperetPattern(JToken obj)
         {
