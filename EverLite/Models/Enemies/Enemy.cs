@@ -18,14 +18,6 @@
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Enemy"/> class.
-        /// </summary>
-        /// <param name="sprite">sprite of the enemy.</param>
-        /// <param name="movement">movement pattern.</param>
-        /// <param name="health">health of the enemy.</param>
-
-
         public Enemy(SpriteN sprite, Movement movement, int health = 100)
                 : base(sprite, movement)
         {
