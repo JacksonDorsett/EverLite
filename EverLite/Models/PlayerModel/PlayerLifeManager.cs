@@ -13,7 +13,7 @@
         public PlayerLifeManager(EverLite game)
         {
             this.game = game;
-            lives = new PlayerLives(1);
+            lives = new PlayerLives(4);
             player = Player.Instance();
             display = new PlayerLivesDisplay(lives);
             player.OnCollide += (sender, e) => { lives.TakeDamage(); };

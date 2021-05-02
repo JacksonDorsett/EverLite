@@ -1,0 +1,68 @@
+{
+  "waves": [
+    {
+      "type": "A",
+      "health": 100,
+      "startTime": 0,
+      "spawnCount": 5,
+      "interval": 1,
+      "shootingPattern": {
+        "delay": 2,
+        "isLooping": false,
+        "patterns": [
+          //{
+          //  "type": "spiral",
+          //  "amount": 60,
+          //  "speed": 10,
+          //  "interval": 0.05,
+          //  "rotations": 2,
+          //  "distance": 250
+          //},
+          {
+            "type": "linear",
+            "amount": 20,
+            "speed": 10,
+            "interval": 0.1
+          },
+          {
+            "type": "surround",
+            "amount": 15,
+            "speed": 10,
+            "interval": 0.1,
+            "fireCount": 15
+          },
+          {
+            "type": "none",
+            "time": 3
+          }
+        ]
+      },
+      "movement": [
+        {
+          "type": "A",
+          "time": 15,
+          "points": [
+            [ 0, 0 ],
+            [ 1000, 1000 ],
+            [ 500, 0 ],
+            [ 0, 0 ]
+          ]
+
+        },
+        {
+          "type": "A",
+          "time": 2,
+          "points": [
+
+            [ 0, 0 ],
+            [ 1000, 1000 ],
+            [ 500, 0 ],
+            [ 0, 0 ]
+          ]
+
+        }
+      ]
+    }
+  ]
+
+}

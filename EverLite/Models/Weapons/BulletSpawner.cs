@@ -10,8 +10,6 @@
     {
         bool completedflag = false; //indicates if the on complete has been fired.
         private SpawnPattern spawnPattern;
-        //private double lifetime;
-        Movement move;
         Timer delayTimer;
         double delay;
         bool DelayTimerStarted;
@@ -19,7 +17,6 @@
             : base(new NoSprite(), movement)
         {
             this.spawnPattern = spawnPattern;
-            this.move = movement;
             delay = shootDelay;
             delayTimer = new Timer();
 
