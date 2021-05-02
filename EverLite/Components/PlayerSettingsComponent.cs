@@ -36,7 +36,7 @@
             this.game = game;
             this.playerSettings = PlayerSettings.Instance;
             this.volume = VolumeManager.Instance;
-            this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Slow Down:", "Change Weapon:", "Pause:" };
+            this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Use Bomb:", "Slow Down:", "Change Weapon:", "Pause:" };
             this.itemColor = Color.Red;
             this.selectedItemColor = Color.Yellow;
             this.selectedControl = "Move Up:";
@@ -88,14 +88,10 @@
                 bool success = false;
 
                 if (this.game.NewKey(GetKey(this.keyboardState)))
-                {
                     success = this.SetPlayerSetting(this.selectedControl, GetKey(this.keyboardState));
-                }
 
                 if (success)
-                {
                     this.gameState = eGameState.Playing;
-                }
             }
 
             base.Update(gameTime);
@@ -109,20 +105,30 @@
             // Player settings for mapping.
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[0], new Vector2(100, 100), colorStatus("Move Up:"));
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveUp.ToString(), new Vector2(500, 100), colorStatus("Move Up:"));
+
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[1], new Vector2(100, 200), colorStatus("Move Left:"));
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveLeft.ToString(), new Vector2(500, 200), colorStatus("Move Left:"));
+
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[2], new Vector2(100, 300), colorStatus("Move Down:"));
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveDown.ToString(), new Vector2(500, 300), colorStatus("Move Down:"));
+
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[3], new Vector2(100, 400), colorStatus("Move Right:"));
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.MoveRight.ToString(), new Vector2(500, 400), colorStatus("Move Right:"));
+
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[4], new Vector2(100, 500), colorStatus("Shoot:"));
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.Shoot.ToString(), new Vector2(500, 500), colorStatus("Shoot:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[5], new Vector2(100, 600), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 600), colorStatus("Slow Down:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[6], new Vector2(100, 700), colorStatus("Change Weapon:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 700), colorStatus("Change Weapon:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[7], new Vector2(100, 800), colorStatus("Pause:"));
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.Pause.ToString(), new Vector2(500, 800), colorStatus("Pause:"));
+
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[5], new Vector2(100, 600), colorStatus("Use Bomb:"));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.UseBomb.ToString(), new Vector2(500, 600), colorStatus("Use Bomb:"));
+
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[6], new Vector2(100, 700), colorStatus("Slow Down:"));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SlowSpeed.ToString(), new Vector2(500, 700), colorStatus("Slow Down:"));
+
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[7], new Vector2(100, 800), colorStatus("Change Weapon:"));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.SwitchWeapon.ToString(), new Vector2(500, 800), colorStatus("Change Weapon:"));
+
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.controlList[8], new Vector2(100, 900), colorStatus("Pause:"));
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.playerSettings.Pause.ToString(), new Vector2(500, 900), colorStatus("Pause:"));
 
             // Instructions
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Press Up or Down to select", new Vector2(900, 250), Color.Yellow);
@@ -272,6 +278,13 @@
                     if (k != Keys.OemTilde)
                     {
                         this.playerSettings.Shoot = k;
+                        return true;
+                    }
+                    return false;
+                case "Use Bomb:":
+                    if (k != Keys.OemTilde)
+                    {
+                        this.playerSettings.UseBomb = k;
                         return true;
                     }
                     return false;

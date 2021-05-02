@@ -9,10 +9,16 @@
     {
         private static PlayerSettings instance;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerSettings"/> class.
+        /// </summary>
         private PlayerSettings()
         {
         }
 
+        /// <summary>
+        /// Gets instance of PlayerSettings.
+        /// </summary>
         public static PlayerSettings Instance
         {
             get
@@ -27,6 +33,11 @@
         /// Gets or sets the Shoot command.
         /// </summary>
         public Keys Shoot { get; set; } = Keys.J;
+
+        /// <summary>
+        /// Gets or sets the Shoot command.
+        /// </summary>
+        public Keys UseBomb { get; set; } = Keys.U;
 
         /// <summary>
         /// Gets or sets the SlowSpeed command.
