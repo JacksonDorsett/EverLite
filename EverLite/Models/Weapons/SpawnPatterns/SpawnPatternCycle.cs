@@ -11,7 +11,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
         private SpawnPattern[] spawnPatterns;
         private IEnumerator current;
         protected bool currentStatus;
-
+        bool isLooping;
         public SpawnPatternCycle(List<Bullet> bullets, SpawnPattern[] patterns, bool isLooping = false) : base(bullets, new NoSprite(), 0, 0, 0)
         {
             this.spawnPatterns = patterns;
@@ -21,7 +21,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             }
             current = patterns.GetEnumerator();
             currentStatus = current.MoveNext();
-
+            this.isLooping = isLooping;
         }
 
         public override bool IsEnabled { get => currentStatus; set { if (current != null) (current.Current as SpawnPattern).IsEnabled = value; } }
@@ -58,7 +58,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             }
             else
             {
-                Reset();
+                if (!isLooping) Reset();
             }
         }
         protected void Reset()
