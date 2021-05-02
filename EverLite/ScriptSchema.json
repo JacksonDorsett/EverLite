@@ -8,15 +8,44 @@
     "interval": "Int",
     "movement": "List of movement objects or Char -> Preset Movement Object",
     "shootPattern": "ShootingPattern Object or Char -> preset",
-    //only for boss wave
-    "bossId": "Int"
+
   },
   "Movement": {
     "type": "Char", // A = linear, B = curved
     "time": "Int", //time moving from point a to point b
     "points": "List of points 2 for A and 3 for B" //if type is B and there are only 2 points convert to C, if there is one point make stationary for timespan
   },
-
+  "ShootingPattern": {
+    "delay": 2,
+    "isLooping": false,
+    "patterns": [
+      {
+        "type": "spiral",
+        "amount": 60,
+        "speed": 10,
+        "interval": 0.05,
+        "rotations": 2,
+        "distance": 250
+      },
+      {
+        "type": "linear",
+        "amount": 20,
+        "speed": 10,
+        "interval": 0.1
+      },
+      {
+        "type": "surround",
+        "amount": 15,
+        "speed": 10,
+        "interval": 0.1,
+        "fireCount": 15
+      },
+      {
+        "type": "none",
+        "time": 3
+      }
+    ]
+  }
 
   "ShootingPattern": {
     "type": "Char",
