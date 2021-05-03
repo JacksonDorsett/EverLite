@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using EverLite.Behaviour;
 using Microsoft.Xna.Framework;
@@ -8,11 +9,26 @@ namespace EverLite.ScriptInterperiter
 {
     public class MovementInterperiter
     {
+        static Dictionary<string, Movement> presets;
         public MovementInterperiter()
         {
+            if (presets == null)
+            {
+                presets = new Dictionary<string, Movement>();
+                InitPresets();
+            }
         }
 
-        public  Movement Interperit(JToken json)
+        private void InitPresets()
+        {
+            JObject obj = JObject.Parse(File.ReadAllText("MovementPreset.json"));
+            foreach (KeyValuePair<string,JToken> pair in obj)
+            {
+                presets[pair.Key] = Interperit(obj[pair.Key]);
+            }
+        }
+
+        public Movement Interperit(JToken json)
         {
             if (json.Type == JTokenType.Object)
             {
@@ -25,6 +41,10 @@ namespace EverLite.ScriptInterperiter
                 }
                 Console.WriteLine($"type: {type}, lifetime: {lifetime}, points: {string.Join(',', points)}");
                 return MovementFactory.Create(type, lifetime, points);
+            }
+            if(json.Type == JTokenType.String)
+            {
+                return presets[json.ToString()].Clone();
             }
             else
             {

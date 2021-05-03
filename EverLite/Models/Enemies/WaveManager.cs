@@ -62,6 +62,7 @@
 
         public void Initialize()
         {
+            
             // Adjusted spawn locations and the curve point so that they do not spawn/shoot under the sideGamePanel.
             WaveBuilder builder = new WaveBuilder(enemies, spawners);
             foreach (Wave w in builder.ParseWaves("waves.json"))
