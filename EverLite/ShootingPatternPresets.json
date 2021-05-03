@@ -1,0 +1,30 @@
+{
+  "A": {
+    "type": "linear",
+    "amount": 20,
+    "speed": 10,
+    "interval": 0.1
+  },
+  "B": {
+    "type": "surround",
+    "amount": 10,
+    "speed": 10,
+    "interval": 0.5,
+    "fireCount": 10
+  },
+  "C": {
+    "type": "spiral",
+    "amount": 60,
+    "speed": 10,
+    "interval": 0.05,
+    "rotations": 2,
+    "distance": 250
+  },
+  "X": {
+    "type": "none",
+    "time": 1
+  }
+
+
+
+}

@@ -58,7 +58,7 @@ namespace EverLite.Models.Weapons.SpawnPatterns
             }
             else
             {
-                if (!isLooping) Reset();
+                if (isLooping) Reset();
             }
         }
         protected void Reset()

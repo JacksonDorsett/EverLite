@@ -1,6 +1,7 @@
 {
   "A": {
     "type": "A",
+    "desc": "diaglonal left to right",
     "time": 5,
     "points": [
       [ 0, 0 ],
@@ -9,9 +10,10 @@
   },
   "B": {
     "type": "B",
+    "desc": "swoop right to left",
     "time": 5,
     "points": [
-      [ 1000, 0 ],
+      [ 1600, 0 ],
       [ 500, 500 ],
       [200, 1300]
     ]

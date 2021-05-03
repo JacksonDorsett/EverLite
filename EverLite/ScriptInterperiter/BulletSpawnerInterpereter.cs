@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using global::EverLite.Models.Weapons.SpawnPatterns;
 using Newtonsoft.Json.Linq;
@@ -8,9 +9,24 @@ namespace EverLite.ScriptInterperiter
     class BulletSpawnerInterpereter
     {
         Movement movement;
+        static Dictionary<string, SpawnPattern> presets;
         public BulletSpawnerInterpereter(Movement movement)
         {
             this.movement = movement;
+            if (presets == null)
+            {
+                presets = new Dictionary<string, SpawnPattern>();
+                InitPresets();
+            }
+        }
+
+        private void InitPresets()
+        {
+            JObject obj = JObject.Parse(File.ReadAllText("ShootingPatternPresets.json"));
+            foreach (KeyValuePair<string, JToken> p in obj)
+            {
+                presets[p.Key] = InterperetPattern(p.Value);
+            }
         }
 
         public BulletSpawner Interperet(JToken obj)
@@ -24,6 +40,7 @@ namespace EverLite.ScriptInterperiter
         }
         private SpawnPattern InterperetPattern(JToken obj)
         {
+            if (obj.Type == JTokenType.String) return presets[obj.ToString()];
             switch (obj["type"].ToString())
             {
                 case "spiral":

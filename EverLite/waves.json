@@ -4,7 +4,7 @@
       "type": "A",
       "health": 100,
       "startTime": 0,
-      "spawnCount": 5,
+      "spawnCount": 3,
       "interval": 1,
       "shootingPattern": {
         "delay": 2,
@@ -18,18 +18,18 @@
           //  "rotations": 2,
           //  "distance": 250
           //},
-          {
-            "type": "linear",
-            "amount": 20,
-            "speed": 10,
-            "interval": 0.1
-          },
+          //{
+          //  "type": "linear",
+          //  "amount": 20,
+          //  "speed": 10,
+          //  "interval": 0.1
+          //},
           {
             "type": "surround",
-            "amount": 15,
+            "amount": 10,
             "speed": 10,
-            "interval": 0.1,
-            "fireCount": 15
+            "interval": 0.5,
+            "fireCount": 10
           },
           {
             "type": "none",
@@ -62,6 +62,23 @@
 
         }
       ]
+    },
+    {
+      "type": "A",
+      "health": 100,
+      "startTime": 0,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "B",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A",
+          "C"
+        ]
+      }
+
     }
   ]
 
