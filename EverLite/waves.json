@@ -40,7 +40,7 @@
       "movement": [
         {
           "type": "A",
-          "time": 15,
+          "time": 10,
           "points": [
             [ 0, 0 ],
             [ 1000, 1000 ],
@@ -51,7 +51,7 @@
         },
         {
           "type": "A",
-          "time": 2,
+          "time": 3,
           "points": [
 
             [ 0, 0 ],
@@ -66,7 +66,7 @@
     {
       "type": "A",
       "health": 100,
-      "startTime": 0,
+      "startTime": 15,
       "spawnCount": 3,
       "interval": 1,
       "movement": "B",
@@ -75,7 +75,28 @@
         "isLooping": false,
         "patterns": [
           "A",
+          "X",
+          "X",
           "C"
+        ]
+      }
+
+    },
+    {
+      "type": "B",
+      "health": 100,
+      "startTime": 15,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "C",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A",
+          "X",
+          "X",
+          "B"
         ]
       }
 
