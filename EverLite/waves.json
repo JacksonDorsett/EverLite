@@ -80,15 +80,14 @@
           "C"
         ]
       }
-
     },
     {
       "type": "B",
       "health": 100,
-      "startTime": 15,
+      "startTime": 12,
       "spawnCount": 3,
       "interval": 1,
-      "movement": "C",
+      "movement": "D",
       "shootingPattern": {
         "delay": 1,
         "isLooping": false,
