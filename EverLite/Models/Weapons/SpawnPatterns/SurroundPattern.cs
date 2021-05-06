@@ -10,12 +10,14 @@ namespace EverLite.Models.Weapons.SpawnPatterns
     {
         private readonly Player rPlayer;
         private int fireCount;
+
         public SurroundPattern(List<Bullet> bulletList, SpriteN bulletSprite, float speed, int spawnCount, float spawnRate, int fireCount = 10)
             : base(bulletList, bulletSprite, speed, spawnCount, spawnRate)
         {
             rPlayer = Player.Instance();
             this.fireCount = fireCount;
         }
+
         public override SpawnPattern Clone()
         {
             return new SurroundPattern(bulletList, Sprite, (float)Speed, TotalBullets, (float)SpawnRate, fireCount);

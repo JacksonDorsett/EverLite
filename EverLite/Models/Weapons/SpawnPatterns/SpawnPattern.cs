@@ -13,6 +13,7 @@
         protected List<Bullet> bulletList;
         private double timeElapsed;
         private double speed;
+        private SoundManager sound;
 
         public SpawnPattern(List<Bullet> bullets, SpriteN bulletSprite, float speed, int totalBullets, double spawnRate)
         {
@@ -24,7 +25,7 @@
             this.IsEnabled = false;
             this.timeElapsed = 0;
             this.speed = speed;
-            
+            this.sound = SoundManager.Instance;
         }
 
         public virtual bool IsEnabled { get; set; }
@@ -51,6 +52,9 @@
                 {
                     this.timeElapsed -= this.SpawnRate;
                     this.Spawn(position);
+
+                    this.sound.GunShot.Play();
+
                     this.numSpawned++;
 
                     if (this.numSpawned >= this.TotalBullets)
