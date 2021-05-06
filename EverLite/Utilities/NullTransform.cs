@@ -7,7 +7,7 @@ namespace EverLite.Utilities
 {
     class NullTransform : TransformAction
     {
-        public override Matrix matrix => Matrix.Identity;
+        public override Matrix TransformMatrix => Matrix.Identity;
 
         public override float Angle => 0;
 

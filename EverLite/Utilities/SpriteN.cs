@@ -48,7 +48,7 @@
             Vector2 origin = new Vector2(0, 0);
             origin.X = this.mTexture.Width / 2;
             origin.Y = this.mTexture.Height / 2;
-            spriteBatch.Draw(this.mTexture, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(this.mTexture, Vector2.Transform(position, TransformManager.Transform), null, color, rotation + TransformManager.Angle, origin, scale, SpriteEffects.None, 0);
         }
     }
 }

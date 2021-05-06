@@ -11,7 +11,7 @@ namespace EverLite.Utilities
         private TransformAction current;
         private TransformManager()
         {
-            current = new NullTransform();
+            current = new FullRotationTransform(3, 3);
             mInstance = this;
         }
 
@@ -35,6 +35,6 @@ namespace EverLite.Utilities
         public bool IsTransformActive { get => !current.IsComplete; }
 
         public float Angle { get => this.current.Angle; }
-        public Matrix Transform { get => this.current.matrix; }
+        public Matrix Transform { get => this.current.TransformMatrix; }
     }
 }
