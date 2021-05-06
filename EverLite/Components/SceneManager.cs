@@ -15,10 +15,6 @@
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
         public SpriteFont FontOriginTechTiny;
-        //public Song DeepSpace;
-        //public Song Megalovania;
-        //public Song SolarSystem;
-        //public Song MenuBG;
 
         private SoundManager soundManager;
         private EverLite game;
@@ -97,18 +93,19 @@
             MenuComponent menu = new MenuComponent(game, menuItems);
 
             // Assigns music
-            //DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
-            //Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
-            //SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
-            //MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
             soundManager.SetDeepSpaceMusic(game.Content.Load<Song>(@"Sounds\DeepSpace"));
             soundManager.SetMegalovaniaMusic(game.Content.Load<Song>(@"Sounds\Megalovania"));
             soundManager.SetSolarSystemMusic(game.Content.Load<Song>(@"Sounds\Solar System"));
             soundManager.SetMenuBGMusic(game.Content.Load<Song>(@"Sounds\MenuBG"));
+            
             // Assigns sound effects
-            soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
+            soundManager.SetGunShotSound(game.Content.Load<SoundEffect>(@"Sounds\gunShot"));
             soundManager.SetExplosionSound(game.Content.Load<SoundEffect>(@"Sounds\explosion"));
+            soundManager.SetExplosion1Sound(game.Content.Load<SoundEffect>(@"Sounds\explosion1"));
             soundManager.SetLaserShotSound(game.Content.Load<SoundEffect>(@"Sounds\laserShot"));
+            soundManager.SetLaserShot1Sound(game.Content.Load<SoundEffect>(@"Sounds\laserShot1"));
+            soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
+            
             // Assigns fancy font.
             FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             FontOriginTechSmall = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");

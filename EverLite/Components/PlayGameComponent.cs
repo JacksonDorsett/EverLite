@@ -69,9 +69,6 @@
                 OnWin();
             }
 
-            //Laser noises
-            if (Keyboard.GetState().IsKeyDown(this.playerSettings.Shoot))
-                this.sound.LaserShot.Play();
 
             // Volume control
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))

@@ -81,11 +81,29 @@
 /processorParam:Quality=Best
 /build:Sounds/explosion.wav
 
+#begin Sounds/explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion1.wav
+
+#begin Sounds/gunShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/gunShot.wav
+
 #begin Sounds/laserShot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/laserShot.wav
+
+#begin Sounds/laserShot1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laserShot1.wav
 
 #begin Sounds/losing.wav
 /importer:WavImporter
