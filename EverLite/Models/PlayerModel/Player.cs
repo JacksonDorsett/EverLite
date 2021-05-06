@@ -90,6 +90,7 @@
             if (!isHit)
             {
                 OnCollide?.Invoke(this, new EventArgs());
+                sound.Explosion.Play();
                 Respawn();
             }
         }

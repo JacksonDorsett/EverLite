@@ -102,10 +102,14 @@
             soundManager.SetGunShotSound(game.Content.Load<SoundEffect>(@"Sounds\gunShot"));
             soundManager.SetExplosionSound(game.Content.Load<SoundEffect>(@"Sounds\explosion"));
             soundManager.SetExplosion1Sound(game.Content.Load<SoundEffect>(@"Sounds\explosion1"));
+            soundManager.SetExplosion2Sound(game.Content.Load<SoundEffect>(@"Sounds\explosion2"));
+            soundManager.SetExplosionAggressiveSound(game.Content.Load<SoundEffect>(@"Sounds\explosion_aggresive"));
+            soundManager.SetExplosionTinySound(game.Content.Load<SoundEffect>(@"Sounds\explosion_tiny"));
+            soundManager.SetExplosionUnderwaterSound(game.Content.Load<SoundEffect>(@"Sounds\explosion_underwater"));
             soundManager.SetLaserShotSound(game.Content.Load<SoundEffect>(@"Sounds\laserShot"));
             soundManager.SetLaserShot1Sound(game.Content.Load<SoundEffect>(@"Sounds\laserShot1"));
             soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
-            
+
             // Assigns fancy font.
             FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
             FontOriginTechSmall = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech_small");

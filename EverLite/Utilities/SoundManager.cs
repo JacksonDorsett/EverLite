@@ -9,6 +9,10 @@
         
         private static SoundEffect explosion;
         private static SoundEffect explosion1;
+        private static SoundEffect explosion2;
+        private static SoundEffect explosion_aggressive;
+        private static SoundEffect explosion_tiny;
+        private static SoundEffect explosion_underwater;
         private static SoundEffect gunShot;
         private static SoundEffect laserShot;
         private static SoundEffect laserShot1;
@@ -64,6 +68,26 @@
         public SoundEffect Explosion1
         {
             get { return SoundManager.explosion1; }
+        }
+
+        public SoundEffect Explosion2
+        {
+            get { return SoundManager.explosion2; }
+        }
+
+        public SoundEffect Explosion_tiny
+        {
+            get { return SoundManager.explosion_tiny; }
+        }
+
+        public SoundEffect Explosion_aggressive
+        {
+            get { return SoundManager.explosion_aggressive; }
+        }
+
+        public SoundEffect Explosion_underwater
+        {
+            get { return SoundManager.explosion_underwater; }
         }
 
         public SoundEffect GunShot
@@ -126,6 +150,30 @@
         {
             if (SoundManager.explosion1 == null)
                 SoundManager.explosion1 = se;
+        }
+
+        public void SetExplosion2Sound(SoundEffect se)
+        {
+            if (SoundManager.explosion2 == null)
+                SoundManager.explosion2 = se;
+        }
+
+        public void SetExplosionAggressiveSound(SoundEffect se)
+        {
+            if (SoundManager.explosion_aggressive == null)
+                SoundManager.explosion_aggressive = se;
+        }
+
+        public void SetExplosionTinySound(SoundEffect se)
+        {
+            if (SoundManager.explosion_tiny == null)
+                SoundManager.explosion_tiny = se;
+        }
+
+        public void SetExplosionUnderwaterSound(SoundEffect se)
+        {
+            if (SoundManager.explosion_underwater == null)
+                SoundManager.explosion_underwater = se;
         }
 
         public void SetLaserShotSound(SoundEffect se)

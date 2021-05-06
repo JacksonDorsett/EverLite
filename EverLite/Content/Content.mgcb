@@ -81,11 +81,35 @@
 /processorParam:Quality=Best
 /build:Sounds/explosion.wav
 
+#begin Sounds/explosion_aggresive.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_aggresive.wav
+
+#begin Sounds/explosion_tiny.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_tiny.wav
+
+#begin Sounds/explosion_underwater.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_underwater.wav
+
 #begin Sounds/explosion1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/explosion1.wav
+
+#begin Sounds/explosion2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion2.wav
 
 #begin Sounds/gunShot.wav
 /importer:WavImporter
