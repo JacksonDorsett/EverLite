@@ -17,6 +17,8 @@
         private Vector2 mPosition;
         private SpriteN playerSprite;
         private PlayerShoot shooter;
+        private SoundManager sound;
+        private VolumeManager volume;
         bool isHit;
 
         private List<SeismicCharge> seismicCharges = new List<SeismicCharge>() { };
@@ -47,6 +49,8 @@
             shooter = new PlayerShoot(SpriteLoader.LoadSprite("TinyBlue"));
             isHit = false;
             playerSettings = PlayerSettings.Instance;
+            sound = SoundManager.Instance;
+            volume = VolumeManager.Instance;
         }
 
 
@@ -59,6 +63,7 @@
 
             if (currentKeyboardState.IsKeyDown(playerSettings.Shoot))
             {
+                sound.LaserShot.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 shooter.Shoot(Position);
             }
         }
@@ -87,6 +92,7 @@
             if (!isHit)
             {
                 OnCollide?.Invoke(this, new EventArgs());
+                sound.Explosion.Play(volume.SoundLevel, 0.0f, 0.0f);
                 Respawn();
             }
         }

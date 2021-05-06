@@ -11,6 +11,8 @@
         private Rectangle bounds;
         private Player playerRef;
         private PlayerSettings playerSettings;
+        private SoundManager sound;
+        private VolumeManager volume;
 
         public PlayerMovementManager(Player player, Rectangle bounds)
         {
@@ -18,7 +20,9 @@
             this.playerRef = player;
             this.bounds = bounds;
             this.playerRef.Position = this.SpawnPoint;
-            this.playerRef.OnCollide += (sender, e) => { this.playerRef.Position = this.SpawnPoint; };
+            this.sound = SoundManager.Instance;
+            this.volume = VolumeManager.Instance;
+            this.playerRef.OnCollide += (sender, e) => { this.sound.Explosion1.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);  this.playerRef.Position = this.SpawnPoint; };
         }
 
         // Adjuested the X-axis spawn point to reflect sideGamePanel taking up some of the game space.

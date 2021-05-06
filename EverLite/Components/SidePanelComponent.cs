@@ -93,7 +93,8 @@
             // volume level
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Volume: ", new Vector2(1600, 920), Color.Chartreuse);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, this.volume.VolumeLevel.ToString(), new Vector2(1750, 920), Color.Chartreuse);
-
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "SFX: ", new Vector2(1600, 960), Color.Chartreuse);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, (this.volume.SoundLevel*20).ToString(), new Vector2(1750, 960), Color.Chartreuse);
             this.game.spriteBatch.End();
         }
     }

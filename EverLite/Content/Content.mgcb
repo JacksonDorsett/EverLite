@@ -75,6 +75,66 @@
 /processorParam:Quality=Best
 /build:Sounds/DeepSpace.mp3
 
+#begin Sounds/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion.wav
+
+#begin Sounds/explosion_aggresive.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_aggresive.wav
+
+#begin Sounds/explosion_tiny.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_tiny.wav
+
+#begin Sounds/explosion_underwater.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion_underwater.wav
+
+#begin Sounds/explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion1.wav
+
+#begin Sounds/explosion2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion2.wav
+
+#begin Sounds/gunShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/gunShot.wav
+
+#begin Sounds/laserShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laserShot.wav
+
+#begin Sounds/laserShot1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laserShot1.wav
+
+#begin Sounds/losing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/losing.wav
+
 #begin Sounds/Megalovania.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -87,11 +147,23 @@
 /processorParam:Quality=Best
 /build:Sounds/MenuBG.mp3
 
+#begin Sounds/pickUpItem.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/pickUpItem.wav
+
 #begin Sounds/Solar System.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sounds/Solar System.mp3
+
+#begin Sounds/startUpSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/startUpSound.wav
 
 #begin Sprites/background_narrowspace.png
 /importer:TextureImporter

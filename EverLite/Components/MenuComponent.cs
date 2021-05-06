@@ -13,6 +13,7 @@
         private Texture2D background;
         private MenuItemsComponent menuItems;
         private VolumeManager volume;
+        private SoundManager sound;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuComponent"/> class.
@@ -24,6 +25,7 @@
             this.game = game;
             this.menuItems = menuItems;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -36,6 +38,7 @@
         protected override void LoadContent()
         {
             background = game.Content.Load<Texture2D>(@"Sprites\space");
+            this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
             base.LoadContent();
         }
 
@@ -47,15 +50,17 @@
                 switch (this.menuItems.selectedItem.text)
                 {
                     case "Play":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.DeepSpace);
+                        this.game.SceneManager.ChangeMusic(this.sound.DeepSpace);
                         this.game.SceneManager.SwitchScene(game.SceneManager.NewGame);
                         break;
                     case "Top Scores":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                        this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
+                        this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
                     case "Player Settings":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                        this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
+                        this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.PlayerSettings);
                         break;
                     case "Quit":
@@ -69,6 +74,10 @@
                 this.volume.VolumeUp();
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
                 this.volume.VolumeDown();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+                this.volume.SoundUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+                this.volume.SoundDown();
             if (this.game.NewKey(Keys.D0))
                 this.volume.Mute();
 
