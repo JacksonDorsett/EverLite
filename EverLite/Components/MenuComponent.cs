@@ -38,6 +38,7 @@
         protected override void LoadContent()
         {
             background = game.Content.Load<Texture2D>(@"Sprites\space");
+            this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
             base.LoadContent();
         }
 
@@ -53,10 +54,12 @@
                         this.game.SceneManager.SwitchScene(game.SceneManager.NewGame);
                         break;
                     case "Top Scores":
+                        this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                         this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
                     case "Player Settings":
+                        this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                         this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.PlayerSettings);
                         break;
@@ -71,6 +74,10 @@
                 this.volume.VolumeUp();
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
                 this.volume.VolumeDown();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+                this.volume.SoundUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+                this.volume.SoundDown();
             if (this.game.NewKey(Keys.D0))
                 this.volume.Mute();
 

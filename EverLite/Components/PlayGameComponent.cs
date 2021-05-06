@@ -75,6 +75,10 @@
                 this.volume.VolumeUp();
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
                 this.volume.VolumeDown();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+                this.volume.SoundUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+                this.volume.SoundDown();
             if (this.game.NewKey(Keys.D0))
                 this.volume.Mute();
             base.Update(gameTime);
@@ -107,6 +111,7 @@
         {
             if (!enemyManager.IsActive)
             {
+                sound.Losing.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 game.SceneManager.ChangeMusic(sound.Megalovania);
                 game.SceneManager.SwitchScene(game.SceneManager.GameWin);
             }

@@ -109,6 +109,8 @@
             soundManager.SetLaserShotSound(game.Content.Load<SoundEffect>(@"Sounds\laserShot"));
             soundManager.SetLaserShot1Sound(game.Content.Load<SoundEffect>(@"Sounds\laserShot1"));
             soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
+            soundManager.SetPickUpItemSound(game.Content.Load<SoundEffect>(@"Sounds\pickUpItem"));
+            soundManager.SetStartUpSound(game.Content.Load<SoundEffect>(@"Sounds\startUpSound"));
 
             // Assigns fancy font.
             FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");

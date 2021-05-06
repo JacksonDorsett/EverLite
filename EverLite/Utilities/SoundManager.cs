@@ -17,6 +17,8 @@
         private static SoundEffect laserShot;
         private static SoundEffect laserShot1;
         private static SoundEffect losing;
+        private static SoundEffect startUpSound;
+        private static SoundEffect pickUpItem;
 
         private static Song deepSpace;
         private static Song megalovania;
@@ -110,6 +112,16 @@
             get { return SoundManager.laserShot1; }
         }
 
+        public SoundEffect StartUpSound
+        {
+            get { return SoundManager.startUpSound; }
+        }
+
+        public SoundEffect PickUpItem
+        {
+            get { return SoundManager.pickUpItem; }
+        }
+
         public void SetDeepSpaceMusic(Song s)
         {
             if (SoundManager.deepSpace == null)
@@ -192,6 +204,18 @@
         {
             if (SoundManager.losing == null)
                 SoundManager.losing = se;
+        }
+
+        public void SetStartUpSound(SoundEffect se)
+        {
+            if (SoundManager.startUpSound == null)
+                SoundManager.startUpSound = se;
+        }
+
+        public void SetPickUpItemSound(SoundEffect se)
+        {
+            if (SoundManager.pickUpItem == null)
+                SoundManager.pickUpItem = se;
         }
     }
 }

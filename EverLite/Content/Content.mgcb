@@ -147,11 +147,23 @@
 /processorParam:Quality=Best
 /build:Sounds/MenuBG.mp3
 
+#begin Sounds/pickUpItem.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/pickUpItem.wav
+
 #begin Sounds/Solar System.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Sounds/Solar System.mp3
+
+#begin Sounds/startUpSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/startUpSound.wav
 
 #begin Sprites/background_narrowspace.png
 /importer:TextureImporter

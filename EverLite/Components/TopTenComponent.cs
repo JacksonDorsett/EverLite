@@ -36,6 +36,7 @@
         {
             if (game.NewKey(Keys.Enter))
             {
+                this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
@@ -45,6 +46,10 @@
                 this.volume.VolumeUp();
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
                 this.volume.VolumeDown();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+                this.volume.SoundUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+                this.volume.SoundDown();
             if (this.game.NewKey(Keys.D0))
                 this.volume.Mute();
 

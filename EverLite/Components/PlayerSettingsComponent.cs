@@ -62,6 +62,7 @@
             {
                 if (this.game.NewKey(Keys.Escape))
                 {
+                    this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                     this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                     this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
                 }
@@ -75,11 +76,15 @@
                 if (this.game.NewKey(Keys.Enter))
                     this.gameState = eGameState.Pause;
 
-                // Volume control
+                // Volume and sound control
                 if (this.keyboardState.IsKeyDown(Keys.OemPlus))
                     this.volume.VolumeUp();
                 if (this.keyboardState.IsKeyDown(Keys.OemMinus))
                     this.volume.VolumeDown();
+                if (this.keyboardState.IsKeyDown(Keys.OemCloseBrackets))
+                    this.volume.SoundUp();
+                if (this.keyboardState.IsKeyDown(Keys.OemOpenBrackets))
+                    this.volume.SoundDown();
                 if (this.game.NewKey(Keys.D0))
                     this.volume.Mute();
             }
@@ -147,7 +152,11 @@
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Vol Up: -", new Vector2(1450, 80), Color.Red);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Vol Down: +", new Vector2(1400, 110), Color.Red);
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Volume", new Vector2(1700, 50), Color.Red);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTech, this.volume.VolumeLevel.ToString(), new Vector2(1760, 100), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.volume.VolumeLevel.ToString(), new Vector2(1760, 100), Color.DarkRed);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "SFX Up: [", new Vector2(1450, 140), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "SFX Down: ]", new Vector2(1400, 170), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "SFX Vol", new Vector2(1700, 150), Color.Red);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, (this.volume.SoundLevel*20).ToString(), new Vector2(1760, 200), Color.DarkRed);
             this.game.spriteBatch.End();
             base.Draw(gameTime);
         }

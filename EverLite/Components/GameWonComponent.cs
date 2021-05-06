@@ -83,6 +83,7 @@
                 this.game.score.AddToScoreList(this.game.score.Score);
                 Task<bool> result = this.game.InsertHighScore();
                 this.game.score.Reset();
+                this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
