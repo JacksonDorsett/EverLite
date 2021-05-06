@@ -11,6 +11,7 @@
     {
         private EverLite game;
         private VolumeManager volume;
+        private SoundManager sound;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TopTenComponent"/> class.
@@ -21,6 +22,7 @@
         {
             this.game = game;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -34,7 +36,7 @@
         {
             if (game.NewKey(Keys.Enter))
             {
-                this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
 

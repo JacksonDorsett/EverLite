@@ -19,6 +19,7 @@
         private KeyboardState previousKeyboardState;
         private eGameState gameState;
         private VolumeManager volume;
+        private SoundManager sound;
 
         enum eGameState
         {
@@ -36,6 +37,7 @@
             this.game = game;
             this.playerSettings = PlayerSettings.Instance;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
             this.controlList = new List<string> { "Move Up:", "Move Left:", "Move Down:", "Move Right:", "Shoot:", "Use Bomb:", "Slow Down:", "Change Weapon:", "Pause:" };
             this.itemColor = Color.Red;
             this.selectedItemColor = Color.Yellow;
@@ -60,7 +62,7 @@
             {
                 if (this.game.NewKey(Keys.Escape))
                 {
-                    this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                    this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                     this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
                 }
 

@@ -75,6 +75,24 @@
 /processorParam:Quality=Best
 /build:Sounds/DeepSpace.mp3
 
+#begin Sounds/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion.wav
+
+#begin Sounds/laserShot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/laserShot.wav
+
+#begin Sounds/losing.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/losing.wav
+
 #begin Sounds/Megalovania.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

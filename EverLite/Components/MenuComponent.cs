@@ -13,6 +13,7 @@
         private Texture2D background;
         private MenuItemsComponent menuItems;
         private VolumeManager volume;
+        private SoundManager sound;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuComponent"/> class.
@@ -24,6 +25,7 @@
             this.game = game;
             this.menuItems = menuItems;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -47,15 +49,15 @@
                 switch (this.menuItems.selectedItem.text)
                 {
                     case "Play":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.DeepSpace);
+                        this.game.SceneManager.ChangeMusic(this.sound.DeepSpace);
                         this.game.SceneManager.SwitchScene(game.SceneManager.NewGame);
                         break;
                     case "Top Scores":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                        this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.TopTen);
                         break;
                     case "Player Settings":
-                        this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                        this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                         this.game.SceneManager.SwitchScene(game.SceneManager.PlayerSettings);
                         break;
                     case "Quit":

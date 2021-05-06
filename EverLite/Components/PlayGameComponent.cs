@@ -3,6 +3,7 @@
     using global::EverLite.Models.Enemies;
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Input;
 
     /// <summary>
@@ -21,7 +22,7 @@
         private SidePanelComponent sidePanel;
         private ItemsManager itemsManager;
         private VolumeManager volume;
-
+        private SoundManager sound;
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
         /// </summary>
@@ -31,6 +32,7 @@
         {
             this.game = game;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
             this.sidePanel = new SidePanelComponent(game);
             this.playerSettings = PlayerSettings.Instance;
             this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
@@ -66,6 +68,10 @@
                 itemsManager.Update(gameTime);
                 OnWin();
             }
+
+            //Laser noises
+            if (Keyboard.GetState().IsKeyDown(this.playerSettings.Shoot))
+                this.sound.LaserShot.Play();
 
             // Volume control
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
@@ -104,7 +110,7 @@
         {
             if (!enemyManager.IsActive)
             {
-                game.SceneManager.ChangeMusic(game.SceneManager.Megalovania);
+                game.SceneManager.ChangeMusic(sound.Megalovania);
                 game.SceneManager.SwitchScene(game.SceneManager.GameWin);
             }
         }
