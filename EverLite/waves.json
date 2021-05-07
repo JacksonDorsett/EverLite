@@ -10,20 +10,6 @@
         "delay": 2,
         "isLooping": false,
         "patterns": [
-          //{
-          //  "type": "spiral",
-          //  "amount": 60,
-          //  "speed": 10,
-          //  "interval": 0.05,
-          //  "rotations": 2,
-          //  "distance": 250
-          //},
-          //{
-          //  "type": "linear",
-          //  "amount": 20,
-          //  "speed": 10,
-          //  "interval": 0.1
-          //},
           {
             "type": "linear",
             "amount": 5,
@@ -164,7 +150,360 @@
         ]
       }
     },
-
+    {
+      "type": "A",
+      "health": 500,
+      "startTime": 40,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "A",
+          "desc": "move back and forth.",
+          "time": 10,
+          "points": [
+            [ 1500, 400 ],
+            [ 0, 300 ],
+            [ 1000, 200 ],
+            [ 100, 300 ],
+            [ 1600, 500 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          {
+            "type": "surround",
+            "amount": 10,
+            "speed": 10,
+            "interval": 0.2,
+            "fireCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 45,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "A",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "B",
+      "health": 300,
+      "startTime": 50,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "B",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 50,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "A",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 60,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "D",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 70,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "A",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 76,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "A",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "B"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 82,
+      "spawnCount": 2,
+      "interval": 1,
+      "movement": "C",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "B"
+        ]
+      }
+    },
+    {
+      "type": "B",
+      "health": 300,
+      "startTime": 90,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "F",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "B",
+      "health": 300,
+      "startTime": 95,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "B",
+          "desc": "move back and forth.",
+          "time": 10,
+          "points": [
+            [ 200, -400 ],
+            [ 500, 500 ],
+            [ 1000, 500 ],
+            [ 1200, 2000 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 300,
+      "startTime": 105,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "B",
+          "desc": "move back and forth.",
+          "time": 10,
+          "points": [
+            [ 200, -400 ],
+            [ 500, 500 ],
+            [ 1000, 500 ],
+            [ 1200, 2000 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "X",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "A",
+      "health": 200,
+      "startTime": 115,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "A",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "MB",
+      "health": 1000,
+      "startTime": 126,
+      "spawnCount": 1,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "B",
+          "time": 4,
+          "points": [
+            [ 0, 300 ],
+            [ 500, 400 ],
+            [ 600, 500 ]
+          ]
+        },
+        {
+          "type": "A",
+          "time": 20,
+          "points": [
+            [ 600, 500 ],
+            [ 600, 499 ]
+          ]
+        },
+        {
+          "type": "B",
+          "time": 3,
+          "points": [
+            [ 600, 500 ],
+            [ 700, 800 ],
+            [ 900, 200 ]
+          ]
+        },
+        {
+          "type": "A",
+          "time": 6,
+          "points": [
+            [ 900, 200 ],
+            [ 200, 200 ],
+            [ 900, 200 ],
+            [ 200, 200 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A",
+          "X",
+          "B",
+          "C",
+          "R",
+          "A",
+          "B",
+          "A",
+          "C",
+          "A"
+        ]
+      }
+    },
+    {
+      "type": "FB",
+      "health": 2000,
+      "startTime": 150,
+      "spawnCount": 1,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "B",
+          "time": 4,
+          "points": [
+            [ 0, 300 ],
+            [ 500, 400 ],
+            [ 600, 500 ]
+          ]
+        },
+        {
+          "type": "A",
+          "time": 15,
+          "points": [
+            [ 600, 500 ],
+            [ 600, 499 ]
+          ]
+        },
+        {
+          "type": "B",
+          "time": 3,
+          "points": [
+            [ 600, 500 ],
+            [ 700, 800 ],
+            [ 900, 200 ]
+          ]
+        },
+        {
+          "type": "A",
+          "time": 6,
+          "points": [
+            [ 900, 200 ],
+            [ 200, 200 ],
+            [ 900, 200 ],
+            [ 200, 200 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "A",
+          "X",
+          "B",
+          "C",
+          "FX",
+          "A",
+          "B",
+          "A",
+          "C",
+          "A",
+          "FY",
+          "B"
+        ]
+      }
+    }
   ]
 
 }

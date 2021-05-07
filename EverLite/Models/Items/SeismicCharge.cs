@@ -35,7 +35,7 @@ namespace EverLite.Models.Items
         {
             float r = (float)(this.Sprite.Texture.Width > this.Sprite.Texture.Height ? Sprite.Texture.Height : Sprite.Texture.Width);
             var p = Position;
-            this.hitCircle = new HitCircle(p, r / 4);
+            this.hitCircle = new HitCircle(p, r / 2);
         }
 
         public override HitCircle HitCircle
@@ -81,7 +81,7 @@ namespace EverLite.Models.Items
                 originalSize = waveSize = (float)(this.Sprite.Texture.Width > this.Sprite.Texture.Height ? Sprite.Texture.Height : Sprite.Texture.Width);
                 float r = (float)(this.Sprite.Texture.Width > this.Sprite.Texture.Height ? Sprite.Texture.Height : Sprite.Texture.Width);
                 var p = Position;
-                this.hitCircle = new HitCircle(p, r / 4);
+                this.hitCircle = new HitCircle(p, r / 2);
                 SoundManager managerRef = SoundManager.Instance;
                 VolumeManager volumeManager = VolumeManager.Instance;
                 managerRef.Explosion1.Play(volume: volumeManager.SoundLevel, pitch: 0.0f, pan: 0.0f);

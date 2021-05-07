@@ -14,7 +14,7 @@ namespace EverLite.Utilities
         private TransformManager()
         {
             //defaultTransform = new NullTransform();
-            defaultTransform = new HorizontalRotateTransform(3, 3);
+            defaultTransform = new NullTransform();
             mInstance = this;
             transformQueue = new Queue<TransformAction>();
         }
