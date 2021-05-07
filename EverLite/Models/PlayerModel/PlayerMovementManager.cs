@@ -6,7 +6,7 @@
 
     internal class PlayerMovementManager
     {
-        private static readonly float NORMALSPEED = 15.0f;
+        private static readonly float NORMALSPEED = 10.0f;
         private static readonly float SLOWSPEED = 5.0f;
         private Rectangle bounds;
         private Player playerRef;

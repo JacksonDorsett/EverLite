@@ -129,8 +129,42 @@
           "A"
         ]
       }
+    },
+    {
+      "type": "B",
+      "health": 700,
+      "startTime": 30,
+      "spawnCount": 1,
+      "interval": 1,
+      "movement": [
+        {
+          "type": "B",
+          "desc": "move back and forth.",
+          "time": 8,
+          "points": [
+            [ 1500, 400 ],
+            [ 0, 300 ],
+            [ 1000, 200 ],
+            [ 100, 300 ],
+            [ 1600, 500 ]
+          ]
+        }
+      ],
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          {
+            "type": "surround",
+            "amount": 100,
+            "speed": 10,
+            "interval": 0.2,
+            "fireCount": 5
+          }
+        ]
+      }
+    },
 
-    }
   ]
 
 }
