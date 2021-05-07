@@ -3,7 +3,7 @@
     {
       "type": "A",
       "health": 100,
-      "startTime": 0,
+      "startTime": 0.3,
       "spawnCount": 3,
       "interval": 1,
       "shootingPattern": {
@@ -28,9 +28,10 @@
             "type": "surround",
             "amount": 10,
             "speed": 10,
-            "interval": 0.5,
+            "interval": 0.25,
             "fireCount": 10
           },
+          "F",
           {
             "type": "none",
             "time": 3

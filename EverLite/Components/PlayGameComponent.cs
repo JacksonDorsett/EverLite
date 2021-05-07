@@ -2,6 +2,7 @@
 {
     using global::EverLite.Models.Enemies;
     using global::EverLite.Models.PlayerModel;
+    using global::EverLite.Utilities;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Input;
@@ -22,7 +23,9 @@
         private SidePanelComponent sidePanel;
         private ItemsManager itemsManager;
         private VolumeManager volume;
+        private TransformManager transformManager;
         private SoundManager sound;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
         /// </summary>
@@ -47,6 +50,7 @@
                 this.itemsManager.Items,
                 this.playerSystem.Player,
                 this.game); // Game1 game is passed to the collisioDetector can access the gamescore instance
+            this.transformManager = TransformManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -66,6 +70,7 @@
                 bulletManager.Update(gameTime);
                 collisionDetector.Update(gameTime);
                 itemsManager.Update(gameTime);
+                transformManager.Update(gameTime);
                 OnWin();
             }
 

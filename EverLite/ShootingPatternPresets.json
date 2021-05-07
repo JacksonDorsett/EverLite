@@ -23,6 +23,11 @@
   "X": {
     "type": "none",
     "time": 1
+  },
+  "F": {
+    "type": "rotate",
+    "rotationSpeed": 3,
+    "pauseDelay": 5
   }
 
 

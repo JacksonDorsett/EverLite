@@ -1,5 +1,6 @@
 ﻿namespace EverLite
 {
+    using global::EverLite.Utilities;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +15,7 @@
         private Rectangle r2;
         private Texture2D texture;
         private ScrollState currentState;
+        TransformManager transformManager;
 
         /// <summary>
         /// Enum to cycle through scroll state.
@@ -37,6 +39,7 @@
             this.r2 = this.r1;
             this.r1.Y = -this.r1.Height;
             this.currentState = ScrollState.Start;
+            this.transformManager = TransformManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -99,9 +102,12 @@
         {
             this.game.spriteBatch.Begin();
 
+            this.game.spriteBatch.Draw(this.texture, Vector2.Transform(new Vector2(r1.X + r1.Width/2, r1.Y + r1.Height/2), transformManager.Transform), null, Color.White, this.transformManager.Angle, new Vector2(r1.Width/2,r1.Height/2),1.3f,SpriteEffects.None,.3f);
+            this.game.spriteBatch.Draw(this.texture, Vector2.Transform(new Vector2(r2.X + r2.Width / 2, r2.Y + r2.Height / 2), transformManager.Transform), null, Color.White, this.transformManager.Angle, new Vector2(r2.Width / 2, r2.Height / 2), 1.3f, SpriteEffects.None, .3f);
+            //this.game.spriteBatch.Draw(this.texture, Vector2.Transform(new Vector2(r2.X + r2.Width/2, r2.Y + r2.Height/2), transformManager.Transform), Color.White);
             // Draws the scrolling stars background.
-            this.game.spriteBatch.Draw(this.texture, r1, Color.White);
-            this.game.spriteBatch.Draw(this.texture, r2, Color.White);
+            //this.game.spriteBatch.Draw(this.texture, r1, Color.White);
+            //this.game.spriteBatch.Draw(this.texture, r2, Color.White);
 
             this.game.spriteBatch.End();
 

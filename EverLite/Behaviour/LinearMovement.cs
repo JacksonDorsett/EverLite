@@ -29,7 +29,8 @@
                 else return 3 * (float)Math.PI / 2;
             }
             var angle = (float)Math.Atan((double)this.diff.Y / (double)this.diff.X);
-            if (diff.X >= 0) angle += (float)Math.PI;
+            if (diff.X >= 0) angle -= (float)Math.PI;
+
             return angle;
         }
 

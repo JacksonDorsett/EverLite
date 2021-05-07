@@ -3,6 +3,7 @@
     using global::EverLite.Utilities;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using System;
 
     public class SpriteN
     {
@@ -40,7 +41,8 @@
             var m = Matrix.Identity;
             var npos = Vector2.Transform(position, m);
             var nOrigin = Vector2.Transform(origin, m);
-            spriteBatch.Draw(this.mTexture, Vector2.Transform(position, TransformManager.Transform), null, Color.White, rotation + TransformManager.Angle, origin, scale, SpriteEffects.None, 0);
+
+            spriteBatch.Draw(this.mTexture, Vector2.Transform(position, TransformManager.Transform), null, Color.White, rotation + TransformManager.Angle, origin, scale, this.TransformManager.SpriteEffect, 0);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float scale = 1, float rotation = 0)
@@ -48,7 +50,7 @@
             Vector2 origin = new Vector2(0, 0);
             origin.X = this.mTexture.Width / 2;
             origin.Y = this.mTexture.Height / 2;
-            spriteBatch.Draw(this.mTexture, position, null, color, rotation, origin, scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(this.mTexture, Vector2.Transform(position, TransformManager.Transform), null, color, rotation + TransformManager.Angle, origin, scale, this.TransformManager.SpriteEffect, 0);
         }
     }
 }
