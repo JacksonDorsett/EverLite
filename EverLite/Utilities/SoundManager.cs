@@ -17,6 +17,7 @@
         private static SoundEffect laserShot;
         private static SoundEffect laserShot1;
         private static SoundEffect losing;
+        private static SoundEffect winning;
         private static SoundEffect startUpSound;
         private static SoundEffect pickUpItem;
 
@@ -100,6 +101,11 @@
         public SoundEffect Losing
         {
             get { return SoundManager.losing; }
+        }
+
+        public SoundEffect Winning
+        {
+            get { return SoundManager.winning; }
         }
 
         public SoundEffect LaserShot
@@ -204,6 +210,12 @@
         {
             if (SoundManager.losing == null)
                 SoundManager.losing = se;
+        }
+
+        public void SetWinningSound(SoundEffect se)
+        {
+            if (SoundManager.winning == null)
+                SoundManager.winning = se;
         }
 
         public void SetStartUpSound(SoundEffect se)
