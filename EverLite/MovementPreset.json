@@ -43,12 +43,22 @@
   "E": {
     "type": "A",
     "desc": "move back and forth.",
-    "time": 15,
+    "time": 10,
     "points": [
       [ 0, 300 ],
       [ 1000, 200 ],
       [ 100, 300 ],
       [ 1600, 500 ]
+    ]
+  },
+  "F": {
+    "type": "B",
+    "desc": "swoop right to left",
+    "time": 5,
+    "points": [
+      [ 0, 0 ],
+      [ 600, 500 ],
+      [1400, 1400]
     ]
   }
 

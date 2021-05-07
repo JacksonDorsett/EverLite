@@ -51,6 +51,10 @@ namespace EverLite.ScriptInterperiter
                     return new SurroundPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), obj["speed"].ToObject<float>(), obj["amount"].ToObject<int>(), obj["interval"].ToObject<float>(), obj["fireCount"].ToObject<int>());
                 case "rotate":
                     return new RotateScreenPattern(obj["rotationSpeed"].ToObject<float>(), obj["pauseDelay"].ToObject<float>());
+                case "flipX":
+                    return new FlipXScreenPattern(obj["rotationSpeed"].ToObject<float>(), obj["pauseDelay"].ToObject<float>());
+                case "flipY":
+                    return new HorizontalRotationPattern(obj["rotationSpeed"].ToObject<float>(), obj["pauseDelay"].ToObject<float>());
                 case "none":
                     return new NoShootPattern(BulletManager.Instance.EnemyBullets, obj["time"].ToObject<double>());
             }

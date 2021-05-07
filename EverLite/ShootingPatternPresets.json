@@ -24,10 +24,20 @@
     "type": "none",
     "time": 1
   },
-  "F": {
+  "R": {
     "type": "rotate",
     "rotationSpeed": 3,
     "pauseDelay": 5
+  },
+  "FX": {
+    "type": "flipX",
+    "rotationSpeed": 3,
+    "pauseDelay": 5
+  },
+  "FY": {
+    "type": "flipY",
+    "rotationSpeed": 3,
+    "pauseDelay": 3
   }
 
 
