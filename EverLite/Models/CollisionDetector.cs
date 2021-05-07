@@ -162,7 +162,7 @@
                     Enemy enemy = (Enemy)entity;
                     if (entity.HitCircle.Contains(charge.HitCircle) && !charge.HitEnemies.Contains(enemy))
                     {
-                        enemy.TakeDamage(100);
+                        enemy.TakeDamage(500);
                         charge.HitEnemies.Add(enemy);
                         GameScore gameScore = GameScore.Instance;
                         gameScore.Add(10);
