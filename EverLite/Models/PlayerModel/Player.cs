@@ -36,8 +36,8 @@
         public SpriteN PlayerSprite { get => playerSprite; }
 
         public Vector2 Position { get => mPosition; set => mPosition = value; }
-
-        public HitCircle HitCircle => new HitCircle(Position, (float)PlayerSprite.Texture.Width / 4);
+        public bool IsDodging { get; set; }
+        public HitCircle HitCircle { get { if (IsDodging) return new HitCircle(Position, (float)PlayerSprite.Texture.Width / 8); return new HitCircle(Position, (float)PlayerSprite.Texture.Width / 4); } }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Player"/> class.
@@ -51,6 +51,7 @@
             playerSettings = PlayerSettings.Instance;
             sound = SoundManager.Instance;
             volume = VolumeManager.Instance;
+            IsDodging = false;
         }
 
 

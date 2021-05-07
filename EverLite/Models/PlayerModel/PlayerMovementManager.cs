@@ -95,7 +95,13 @@
         
         private float GetPlayerSpeed()
         {
-            if (Keyboard.GetState().IsKeyDown(this.playerSettings.SlowSpeed)) return SLOWSPEED;
+            if (Keyboard.GetState().IsKeyDown(this.playerSettings.SlowSpeed))
+            {
+                playerRef.IsDodging = true;
+                return SLOWSPEED;
+            }
+            playerRef.IsDodging = false;
+
             return NORMALSPEED;
         }
     }
