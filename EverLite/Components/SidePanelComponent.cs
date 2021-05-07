@@ -55,15 +55,14 @@
 
             this.game.spriteBatch.Begin();
             this.game.spriteBatch.Draw(this.sidePanel, new Vector2(1500, 0), Color.White * 0.8f);
-
             // player score
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "SCORE", new Vector2(1520, 120), Color.Yellow);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(1520, 160), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "SCORE", new Vector2(1520, 160), Color.Yellow);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.game.score.Score.ToString(), new Vector2(1520, 200), Color.Yellow);
             
             // top score
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Top Score", new Vector2(1520, 240), Color.Blue);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.highScore.Name, new Vector2(1520, 280), Color.BlueViolet);
-            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.highScore.Score.ToString(), new Vector2(1650, 280), Color.BlueViolet);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, "Top Score", new Vector2(1520, 280), Color.Blue);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.highScore.Name, new Vector2(1520, 320), Color.BlueViolet);
+            this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechSmall, this.highScore.Score.ToString(), new Vector2(1650, 320), Color.BlueViolet);
             
             // player controls map
             this.game.spriteBatch.DrawString(this.game.SceneManager.FontOriginTechTiny, "Move: ", new Vector2(1520, 640), Color.Yellow);

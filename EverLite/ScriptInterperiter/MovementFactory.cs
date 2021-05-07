@@ -16,10 +16,19 @@ namespace EverLite.ScriptInterperiter
                     return makeLinear(type, time, points);
                 case "B":
                     return makeCurved(type, time, points);
+                case "Stationary":
+                    return makeStationary(type, points);
                 default:
                     throw new Exception();
             }
         }
+
+        private static Movement makeStationary(string type, List<Vector2> points)
+        {
+            if (points.Count == 0) throw new ArgumentException("requires one point as original position!");
+            return new StationaryMovement(points[0]);
+        }
+
 
         private static Movement makeLinear(string type, int time, List<Vector2> points)
         {

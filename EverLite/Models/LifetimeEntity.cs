@@ -9,7 +9,7 @@
         private SpriteN mSprite;
         private Lifespan lifespan;
         private bool isAliveFlag;
-        Movement move;
+        protected Movement move;
         public event EventHandler OnCollide;
 
 
