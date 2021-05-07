@@ -30,7 +30,7 @@ namespace EverLite.Models.Items
             charges = new SeismicChargeCount(3);
             player = Player.Instance();
             display = new SeismicChargesDisplay(charges);
-            player.OnBombPress += (sender, e) => { this.deployedBombs.Add(charges.SpawnBomb(this.player.Position)); };
+            player.OnBombPress += (sender, e) => { if (this.charges.Charges > 0) this.deployedBombs.Add(charges.SpawnBomb(this.player.Position)); };
             player.OnBombPickup += (sender, e) => { this.charges.AddCharge(); };
         }
 
