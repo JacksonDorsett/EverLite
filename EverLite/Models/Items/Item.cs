@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Items
 {
     using System;
     using System.Timers;

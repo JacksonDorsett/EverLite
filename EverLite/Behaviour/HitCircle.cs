@@ -20,7 +20,7 @@
             this.mRadius = other.mRadius;
         }
 
-        public float Radius { get => this.mRadius; }
+        public float Radius { get => this.mRadius; set => this.mRadius = value; }
 
         public bool Contains(HitCircle other)
         {

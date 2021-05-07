@@ -48,7 +48,12 @@
             // TODO: implement health system action.
             base.CollidesWith(collidable);
             this.HitAnimation();
-            health.TakeDamage(10);
+            this.TakeDamage(10);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            this.health.TakeDamage(damage);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

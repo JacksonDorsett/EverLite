@@ -1,4 +1,4 @@
-﻿namespace EverLite
+﻿namespace EverLite.Models.Items
 {
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
@@ -9,26 +9,26 @@
     /// </summary>
     class SeismicChargesDisplay
     {
-        private SpriteN playerSprite;
-        private PlayerLives playerLives;
+        private SpriteN chargeSprite;
+        private SeismicChargeCount seismicChargeCount;
 
-        public SeismicChargesDisplay(PlayerLives playerLives)
+        public SeismicChargesDisplay(SeismicChargeCount seismicChargeCount)
         {
-            this.playerSprite = Player.Instance().PlayerSprite;
-            this.playerLives = playerLives;
+            this.chargeSprite = ItemsSpriteFactory.Create("seismic");
+            this.seismicChargeCount = seismicChargeCount;
         }
 
-        private int CurrentLives { get => this.playerLives.Lives; }
+        private int CurrentCharges { get => this.seismicChargeCount.Charges; }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             // Adjusted the sprite size and spawn pattern to fit in the sideGamePanel background nicely.
-            Vector2 position = new Vector2(this.playerSprite.Texture.Width / 4, this.playerSprite.Texture.Height / 4);
+            Vector2 position = new Vector2((this.chargeSprite.Texture.Width / 2) + 1500, (this.chargeSprite.Texture.Height / 2) + 90);
             spriteBatch.Begin();
-            for (int i = 0; i < this.CurrentLives; i++)
+            for (int i = 0; i < this.CurrentCharges; i++)
             {
-                this.playerSprite.Draw(spriteBatch, position, .4f);
-                position.X += this.playerSprite.Texture.Width / 2;
+                this.chargeSprite.Draw(spriteBatch, position);
+                position.X += this.chargeSprite.Texture.Width / 2;
             }
 
             spriteBatch.End();

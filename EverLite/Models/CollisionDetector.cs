@@ -1,6 +1,7 @@
 ﻿namespace EverLite
 {
     using System.Collections.Generic;
+    using global::EverLite.Models.Items;
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
 
@@ -38,6 +39,8 @@
 
         private SoundManager sound;
 
+        private List<SeismicCharge> deployedBombs;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CollisionDetector"/> class.
         /// </summary>
@@ -57,6 +60,11 @@
             this.sound = SoundManager.Instance;
         }
 
+        public void SetSeismicList(List<SeismicCharge> charges)
+        {
+            this.deployedBombs = charges;
+        }
+
         public void Update(GameTime gameTime)
         {
             this.CheckEnemyBulletsPlayerCollision();
@@ -66,6 +74,8 @@
             this.CheckPlayerEnemyCollision();
 
             this.CheckItemPlayerCollision();
+
+            this.CheckEnemyBombCollision();
         }
 
 
@@ -126,11 +136,43 @@
             // Check if player collide with the enemy.
             foreach (Item item in this.items)
             {
+                if (item is SeismicCharge)
+                {
+                    SeismicCharge charge = (SeismicCharge)item;
+                    if (charge.IsPrimed)
+                    {
+                        return;
+                    }
+                }
+
                 if (this.player.HitCircle.Contains(item.HitCircle))
                 {
+                    player.PickUpItem(item);
                     item.CollidesWith(this.player);
                 }
             }
+        }
+
+        private void CheckEnemyBombCollision()
+        {
+            foreach (LifetimeEntity entity in this.activeEnemies)
+            {
+                foreach (SeismicCharge charge in this.deployedBombs)
+                {
+                    Enemy enemy = (Enemy)entity;
+                    if (entity.HitCircle.Contains(charge.HitCircle) && !charge.HitEnemies.Contains(enemy))
+                    {
+                        enemy.TakeDamage(100);
+                        charge.HitEnemies.Add(enemy);
+                    }
+                }
+                
+            }
+        }
+
+        private void CheckEnemyBulletBombCollision()
+        {
+
         }
     }
 }

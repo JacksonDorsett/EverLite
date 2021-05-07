@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Timers;
+    using global::EverLite.Models.Items;
     using global::EverLite.Models.Weapons;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -20,18 +21,11 @@
         private SoundManager sound;
         private VolumeManager volume;
         bool isHit;
-
-        private List<SeismicCharge> seismicCharges = new List<SeismicCharge>() { };
-
-        internal List<SeismicCharge> SeismicCharges
-        {
-            get
-            {
-                return seismicCharges;
-            }
-        }
+        bool bombCooldown = false;
 
         public event EventHandler OnCollide;
+        public event EventHandler OnBombPress;
+        public event EventHandler OnBombPickup;
 
         public SpriteN PlayerSprite { get => playerSprite; }
 
@@ -65,6 +59,16 @@
             {
                 sound.LaserShot.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 shooter.Shoot(Position);
+            }
+
+            if (currentKeyboardState.IsKeyDown(playerSettings.UseBomb) && !bombCooldown)
+            {
+                OnBombPress?.Invoke(this, new EventArgs());
+                this.bombCooldown = true;
+                Timer timer = new Timer(new TimeSpan(0, 0, 3).TotalMilliseconds);
+                timer.AutoReset = false;
+                timer.Elapsed += (e, a) => { this.bombCooldown = false; };
+                timer.Start();
             }
         }
 
@@ -101,7 +105,7 @@
         {
             if (item is SeismicCharge)
             {
-
+                OnBombPickup?.Invoke(this, new EventArgs());
             }
         }
 

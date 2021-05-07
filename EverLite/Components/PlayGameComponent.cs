@@ -1,6 +1,7 @@
 ﻿namespace EverLite.Components
 {
     using global::EverLite.Models.Enemies;
+    using global::EverLite.Models.Items;
     using global::EverLite.Models.PlayerModel;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Audio;
@@ -20,7 +21,8 @@
         private PlayerLifeManager lifeManager;
         private PlayerSettings playerSettings;
         private SidePanelComponent sidePanel;
-        private ItemsManager itemsManager;
+        private ItemsManager itemsManager = ItemsManager.Instance;
+        private SeismicChargeCountManager seismicChargeCountManager;
         private VolumeManager volume;
         private SoundManager sound;
         /// <summary>
@@ -38,7 +40,6 @@
             this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
             this.playerSystem = new PlayerSystem(this.Game);
             this.enemyManager = new EnemyManager(this.Game);
-            this.itemsManager = new ItemsManager();
             this.bulletManager = BulletManager.Instance;
             this.collisionDetector = new CollisionDetector(
                 this.enemyManager.ActiveEnemies,
@@ -66,6 +67,7 @@
                 bulletManager.Update(gameTime);
                 collisionDetector.Update(gameTime);
                 itemsManager.Update(gameTime);
+                seismicChargeCountManager.Update(gameTime);
                 OnWin();
             }
 
@@ -93,7 +95,7 @@
             sidePanel.Draw(gameTime);
             lifeManager.Draw(game.spriteBatch);
             itemsManager.Draw(game.spriteBatch);
-
+            seismicChargeCountManager.Draw(game.spriteBatch);
             base.Draw(gameTime);
         }
 
@@ -101,6 +103,8 @@
         protected override void LoadContent()
         {
             lifeManager = new PlayerLifeManager(game);
+            this.seismicChargeCountManager = new SeismicChargeCountManager(game);
+            this.collisionDetector.SetSeismicList(this.seismicChargeCountManager.DeployedBombs);
             base.LoadContent();
         }
 
