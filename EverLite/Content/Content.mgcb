@@ -135,6 +135,18 @@
 /processorParam:Quality=Best
 /build:Sounds/losing.wav
 
+#begin Sounds/losing1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/losing1.wav
+
+#begin Sounds/medievalWin.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/medievalWin.wav
+
 #begin Sounds/Megalovania.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
