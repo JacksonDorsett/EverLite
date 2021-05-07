@@ -15,7 +15,7 @@
         public PlayerLifeManager(EverLite game)
         {
             this.game = game;
-            lives = new PlayerLives(1);
+            lives = new PlayerLives(3);
             player = Player.Instance();
             sound = SoundManager.Instance;
             volume = VolumeManager.Instance;

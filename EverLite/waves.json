@@ -98,7 +98,24 @@
           "B"
         ]
       }
-
+    },
+    {
+      "type": "B",
+      "health": 200,
+      "startTime": 6,
+      "spawnCount": 3,
+      "interval": 1,
+      "movement": "E",
+      "shootingPattern": {
+        "delay": 1,
+        "isLooping": false,
+        "patterns": [
+          "B",
+          "X",
+          "X",
+          "A"
+        ]
+      }
     }
   ]
 
