@@ -39,6 +39,7 @@ namespace EverLite.Utilities
         {
             get
             {
+                
                 return 0;
             }
         }

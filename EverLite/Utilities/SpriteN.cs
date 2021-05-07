@@ -3,6 +3,7 @@
     using global::EverLite.Utilities;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
+    using System;
 
     public class SpriteN
     {
@@ -40,6 +41,7 @@
             var m = Matrix.Identity;
             var npos = Vector2.Transform(position, m);
             var nOrigin = Vector2.Transform(origin, m);
+
             spriteBatch.Draw(this.mTexture, Vector2.Transform(position, TransformManager.Transform), null, Color.White, rotation + TransformManager.Angle, origin, scale, this.TransformManager.SpriteEffect, 0);
         }
 

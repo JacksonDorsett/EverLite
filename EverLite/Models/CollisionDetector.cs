@@ -36,6 +36,8 @@
         /// </summary>
         private EverLite scoreKeeper;
 
+        private SoundManager sound;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CollisionDetector"/> class.
         /// </summary>
@@ -52,6 +54,7 @@
             this.items = items;
             this.player = player;
             this.scoreKeeper = score;
+            this.sound = SoundManager.Instance;
         }
 
         public void Update(GameTime gameTime)

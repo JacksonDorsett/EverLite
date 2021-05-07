@@ -1,6 +1,7 @@
 ﻿namespace EverLite.Components
 {
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Media;
     using System;
@@ -14,11 +15,8 @@
         public SpriteFont FontOriginTech;
         public SpriteFont FontOriginTechSmall;
         public SpriteFont FontOriginTechTiny;
-        public Song DeepSpace;
-        public Song Megalovania;
-        public Song SolarSystem;
-        public Song MenuBG;
 
+        private SoundManager soundManager;
         private EverLite game;
         private GameScene MenuScene;
         private GameScene TopTenScene;
@@ -26,6 +24,7 @@
         private GameScene GameOverScene;
         private GameScene PlayerSettingsScene;
         private VolumeManager volume;
+        private SoundManager sound;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SceneManager"/> class.
@@ -35,6 +34,8 @@
         {
             this.game = game;
             this.volume = VolumeManager.Instance;
+            this.soundManager = SoundManager.Instance;
+            this.sound = SoundManager.Instance;
             Initialize();
         }
 
@@ -92,10 +93,24 @@
             MenuComponent menu = new MenuComponent(game, menuItems);
 
             // Assigns music
-            DeepSpace = game.Content.Load<Song>(@"Sounds\DeepSpace");
-            Megalovania = game.Content.Load<Song>(@"Sounds\Megalovania");
-            SolarSystem = game.Content.Load<Song>(@"Sounds\Solar System");
-            MenuBG = game.Content.Load<Song>(@"Sounds\MenuBG");
+            soundManager.SetDeepSpaceMusic(game.Content.Load<Song>(@"Sounds\DeepSpace"));
+            soundManager.SetMegalovaniaMusic(game.Content.Load<Song>(@"Sounds\Megalovania"));
+            soundManager.SetSolarSystemMusic(game.Content.Load<Song>(@"Sounds\Solar System"));
+            soundManager.SetMenuBGMusic(game.Content.Load<Song>(@"Sounds\MenuBG"));
+            
+            // Assigns sound effects
+            soundManager.SetGunShotSound(game.Content.Load<SoundEffect>(@"Sounds\gunShot"));
+            soundManager.SetExplosionSound(game.Content.Load<SoundEffect>(@"Sounds\explosion"));
+            soundManager.SetExplosion1Sound(game.Content.Load<SoundEffect>(@"Sounds\explosion1"));
+            soundManager.SetExplosion2Sound(game.Content.Load<SoundEffect>(@"Sounds\explosion2"));
+            soundManager.SetExplosionAggressiveSound(game.Content.Load<SoundEffect>(@"Sounds\explosion_aggresive"));
+            soundManager.SetExplosionTinySound(game.Content.Load<SoundEffect>(@"Sounds\explosion_tiny"));
+            soundManager.SetExplosionUnderwaterSound(game.Content.Load<SoundEffect>(@"Sounds\explosion_underwater"));
+            soundManager.SetLaserShotSound(game.Content.Load<SoundEffect>(@"Sounds\laserShot"));
+            soundManager.SetLaserShot1Sound(game.Content.Load<SoundEffect>(@"Sounds\laserShot1"));
+            soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
+            soundManager.SetPickUpItemSound(game.Content.Load<SoundEffect>(@"Sounds\pickUpItem"));
+            soundManager.SetStartUpSound(game.Content.Load<SoundEffect>(@"Sounds\startUpSound"));
 
             // Assigns fancy font.
             FontOriginTech = game.Content.Load<SpriteFont>(@"Fonts\font_origin_tech");
@@ -115,9 +130,8 @@
             {
                 ChangeComponentState(component, false);
             }
-
             
-            ChangeMusic(this.MenuBG);
+            ChangeMusic(this.sound.MenuBG);
         }
 
         /// <summary>

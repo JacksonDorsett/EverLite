@@ -12,7 +12,7 @@ namespace EverLite.Utilities
         private TransformAction current;
         private TransformManager()
         {
-            current = new MirrorTransform(3, 3);
+            current = new MirrorTransform(3, 20);
             mInstance = this;
         }
 

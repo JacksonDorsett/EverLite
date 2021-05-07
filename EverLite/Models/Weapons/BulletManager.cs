@@ -84,6 +84,7 @@
 
             foreach (var b in this.EnemyBullets)
             {
+
                 b.Draw(spriteBatch);
             }
         }

@@ -10,6 +10,7 @@
     {
         private bool isHit;
         private Health health;
+
         public override HitCircle HitCircle
         {
             get

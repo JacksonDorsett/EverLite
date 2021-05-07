@@ -22,6 +22,7 @@
         private Color selectedItemColor;
         private ListName listName;
         private VolumeManager volume;
+        private SoundManager sound;
 
         /// <summary>
         /// Enum to cycle through the 3 alphabet lists used for the player's initials.
@@ -47,6 +48,7 @@
             this.selectedItemColor = Color.Yellow;
             this.listName = ListName.letters1;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
         }
 
         /// <inheritdoc/>
@@ -81,7 +83,8 @@
                 this.game.score.AddToScoreList(this.game.score.Score);
                 Task<bool> result = this.game.InsertHighScore();
                 this.game.score.Reset();
-                this.game.SceneManager.ChangeMusic(this.game.SceneManager.MenuBG);
+                this.sound.StartUpSound.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
+                this.game.SceneManager.ChangeMusic(this.sound.MenuBG);
                 this.game.SceneManager.SwitchScene(this.game.SceneManager.Menu);
             }
             

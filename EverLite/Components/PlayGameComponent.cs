@@ -4,6 +4,7 @@
     using global::EverLite.Models.PlayerModel;
     using global::EverLite.Utilities;
     using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Audio;
     using Microsoft.Xna.Framework.Input;
 
     /// <summary>
@@ -23,6 +24,7 @@
         private ItemsManager itemsManager;
         private VolumeManager volume;
         private TransformManager transformManager;
+        private SoundManager sound;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayGameComponent"/> class.
@@ -33,6 +35,7 @@
         {
             this.game = game;
             this.volume = VolumeManager.Instance;
+            this.sound = SoundManager.Instance;
             this.sidePanel = new SidePanelComponent(game);
             this.playerSettings = PlayerSettings.Instance;
             this.pauseStatus = new ToggleStatus(this.playerSettings.Pause);
@@ -71,11 +74,16 @@
                 OnWin();
             }
 
+
             // Volume control
             if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
                 this.volume.VolumeUp();
             if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
                 this.volume.VolumeDown();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemCloseBrackets))
+                this.volume.SoundUp();
+            if (Keyboard.GetState().IsKeyDown(Keys.OemOpenBrackets))
+                this.volume.SoundDown();
             if (this.game.NewKey(Keys.D0))
                 this.volume.Mute();
             base.Update(gameTime);
@@ -108,7 +116,8 @@
         {
             if (!enemyManager.IsActive)
             {
-                game.SceneManager.ChangeMusic(game.SceneManager.Megalovania);
+                sound.Losing.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
+                game.SceneManager.ChangeMusic(sound.Megalovania);
                 game.SceneManager.SwitchScene(game.SceneManager.GameWin);
             }
         }

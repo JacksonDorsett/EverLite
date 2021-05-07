@@ -24,6 +24,7 @@ namespace EverLite.Utilities
 
         public override void Update(GameTime gameTime)
         {
+            
         }
     }
 }
