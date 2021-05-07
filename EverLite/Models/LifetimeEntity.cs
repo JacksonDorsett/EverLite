@@ -42,7 +42,7 @@
             }
         }
 
-        protected Movement Movement { get => this.move; }
+        protected Movement Movement { get => this.move; set => this.move = value; }
 
         public override void Update(GameTime gameTime)
         {

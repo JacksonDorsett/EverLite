@@ -17,7 +17,8 @@
         {
             var fpos = position;
             fpos.Y -= 1000;
-            manager.AddPlayerBullet(new Bullet(bulletSprite, new LifeTimeMovement(.7f, new LinearMovement(position, fpos))));
+
+            manager.AddPlayerBullet(new Bullet(bulletSprite, new LinearVectorMovement(position, fpos, 25)));
         }
     }
 }

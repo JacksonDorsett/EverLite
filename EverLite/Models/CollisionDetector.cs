@@ -76,6 +76,8 @@
             this.CheckItemPlayerCollision();
 
             this.CheckEnemyBombCollision();
+
+            this.CheckEnemyBulletBombCollision();
         }
 
 
@@ -174,6 +176,27 @@
 
         private void CheckEnemyBulletBombCollision()
         {
+            var bullets = BulletManager.Instance.EnemyBullets;
+            List<Bullet> bulletCol = new List<Bullet>();
+            foreach (var item in this.deployedBombs)
+            {
+                foreach (Bullet b in bullets)
+                {
+                    if (item.HitCircle.Contains(b.HitCircle))
+                    {
+                        var dif = b.Position - player.Position;
+                        b.SetVelocity(dif);
+                        bulletCol.Add(b);
+
+                    }
+                }
+            }
+            
+            foreach (var k in bulletCol)
+            {
+                bullets.Remove(k);
+                BulletManager.Instance.PlayerBullets.Add(k);
+            }
 
         }
     }

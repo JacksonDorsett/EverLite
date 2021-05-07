@@ -22,6 +22,8 @@
             get { return (float)angle; }
         }
 
+        public override float Speed => Velocity.Length();
+
         public override Movement Clone()
         {
             throw new NotImplementedException();
@@ -30,7 +32,7 @@
         public override void Update(GameTime gameTime)
         {
             Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity * 50;
-
+            
         }
     }
 }
