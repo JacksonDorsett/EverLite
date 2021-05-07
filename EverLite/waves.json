@@ -444,7 +444,7 @@
     {
       "type": "FB",
       "health": 2000,
-      "startTime": 150,
+      "startTime": 0,
       "spawnCount": 1,
       "interval": 1,
       "movement": [
