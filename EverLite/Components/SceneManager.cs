@@ -108,7 +108,8 @@
             soundManager.SetExplosionUnderwaterSound(game.Content.Load<SoundEffect>(@"Sounds\explosion_underwater"));
             soundManager.SetLaserShotSound(game.Content.Load<SoundEffect>(@"Sounds\laserShot"));
             soundManager.SetLaserShot1Sound(game.Content.Load<SoundEffect>(@"Sounds\laserShot1"));
-            soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing"));
+            soundManager.SetLosingSound(game.Content.Load<SoundEffect>(@"Sounds\losing1"));
+            soundManager.SetWinningSound(game.Content.Load<SoundEffect>(@"Sounds\medievalWin"));
             soundManager.SetPickUpItemSound(game.Content.Load<SoundEffect>(@"Sounds\pickUpItem"));
             soundManager.SetStartUpSound(game.Content.Load<SoundEffect>(@"Sounds\startUpSound"));
 

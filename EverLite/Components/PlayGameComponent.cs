@@ -111,7 +111,7 @@
         {
             if (!enemyManager.IsActive)
             {
-                sound.Losing.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
+                sound.Winning.Play(volume: volume.SoundLevel, pitch: 0.0f, pan: 0.0f);
                 game.SceneManager.ChangeMusic(sound.Megalovania);
                 game.SceneManager.SwitchScene(game.SceneManager.GameWin);
             }

@@ -34,8 +34,8 @@
                     tempVolume = 5;
                     volumeLevel = 5;
                     isMuted = false;
-                    soundLevel = 5;
-                    tempSound = 5;
+                    soundLevel = 3;
+                    tempSound = 3;
                 }
                 return instance;
             }
