@@ -24,7 +24,7 @@ namespace EverLite.ScriptInterperiter
 
         protected override void Spawn(Vector2 spawnPosition)
         {
-            transformManager.SetTransformAction(new FullRotationTransform(angularVelocity, pauseDelay));
+            transformManager.QueueTransformAction(new FullRotationTransform(angularVelocity, pauseDelay));
         }
     }
 }

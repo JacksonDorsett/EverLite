@@ -50,7 +50,7 @@ namespace EverLite.ScriptInterperiter
                 case "surround":
                     return new SurroundPattern(BulletManager.Instance.EnemyBullets, SpriteLoader.LoadSprite("redBullet"), obj["speed"].ToObject<float>(), obj["amount"].ToObject<int>(), obj["interval"].ToObject<float>(), obj["fireCount"].ToObject<int>());
                 case "rotate":
-                    return new RotateScreenPattern(obj["angularSpeed"].ToObject<float>(), obj["pauseDelay"].ToObject<float>());
+                    return new RotateScreenPattern(obj["rotationSpeed"].ToObject<float>(), obj["pauseDelay"].ToObject<float>());
                 case "none":
                     return new NoShootPattern(BulletManager.Instance.EnemyBullets, obj["time"].ToObject<double>());
             }

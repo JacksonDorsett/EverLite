@@ -8,36 +8,38 @@ namespace EverLite.Utilities
 {
     public class TransformManager
     {
+        Queue<TransformAction> transformQueue;
         private static TransformManager mInstance;
-        private TransformAction current;
+        private NullTransform defaultTransform;
         private TransformManager()
         {
-            current = new MirrorTransform(3, 20);
+            defaultTransform = new NullTransform();
             mInstance = this;
+            transformQueue = new Queue<TransformAction>();
         }
 
         public void Update(GameTime gameTime)
         {
-            if (current.IsComplete) return;
+            if (transformQueue.Count == 0) return;
 
-            current.Update(gameTime);
+            transformQueue.Peek().Update(gameTime);
+            if (transformQueue.Peek().IsComplete) transformQueue.Dequeue();
+
         }
 
-        public bool SetTransformAction(TransformAction action)
+        public bool QueueTransformAction(TransformAction action)
         {
-            if (!this.current.IsComplete) return false;
-
-            this.current = action;
+            this.transformQueue.Enqueue(action);
             return true;
         }
 
         public static TransformManager Instance { get { if (mInstance == null) mInstance = new TransformManager(); return mInstance; } }
 
-        public bool IsTransformActive { get => !current.IsComplete; }
+        public bool IsTransformActive { get => transformQueue.Count != 0; }
 
-        public float Angle { get => this.current.Angle; }
-        public Matrix Transform { get => this.current.TransformMatrix; }
+        public float Angle { get { if (transformQueue.Count == 0) return defaultTransform.Angle; return transformQueue.Peek().Angle; } }
+        public Matrix Transform { get { if (transformQueue.Count == 0) return defaultTransform.TransformMatrix; return transformQueue.Peek().TransformMatrix; } }
 
-        public SpriteEffects SpriteEffect { get => current.SpriteEffect; }
+        public SpriteEffects SpriteEffect { get { if (transformQueue.Count == 0) return defaultTransform.SpriteEffect;  return transformQueue.Peek().SpriteEffect; } }
     }
 }
