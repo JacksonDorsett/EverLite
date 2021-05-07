@@ -3,7 +3,7 @@
     {
       "type": "A",
       "health": 100,
-      "startTime": 15,
+      "startTime": 0.3,
       "spawnCount": 3,
       "interval": 1,
       "shootingPattern": {

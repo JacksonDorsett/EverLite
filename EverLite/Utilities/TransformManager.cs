@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace EverLite.Utilities
         private TransformAction current;
         private TransformManager()
         {
-            current = new FullRotationTransform(3, 3);
+            current = new MirrorTransform(3, 3);
             mInstance = this;
         }
 
@@ -36,5 +37,7 @@ namespace EverLite.Utilities
 
         public float Angle { get => this.current.Angle; }
         public Matrix Transform { get => this.current.TransformMatrix; }
+
+        public SpriteEffects SpriteEffect { get => current.SpriteEffect; }
     }
 }

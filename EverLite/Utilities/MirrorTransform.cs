@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
+
 namespace EverLite.Utilities
 {
-    class FullRotationTransform : TransformAction
+
+    class MirrorTransform : TransformAction
     {
         float curAngle = 0;
         bool isRotating;
@@ -14,8 +16,7 @@ namespace EverLite.Utilities
         float angularVelocity;
         bool hasPaused;
         Timer timer;
-
-        public FullRotationTransform(float angularVelocity, float pauseDelay)
+        public MirrorTransform(float angularVelocity, float pauseDelay)
         {
             this.pauseDelay = pauseDelay;
             this.angularVelocity = angularVelocity;
@@ -28,23 +29,31 @@ namespace EverLite.Utilities
             };
             timer.AutoReset = false;
         }
-
         public override bool IsComplete => curAngle >= (float)Math.PI * 2;
 
         public override Matrix TransformMatrix => Matrix.CreateTranslation(-mTransformOrigin.X, -mTransformOrigin.Y, 0f) *
-                                                  Matrix.CreateRotationZ(curAngle) *
+                                                  Matrix.CreateRotationY(curAngle) *
                                                   Matrix.CreateTranslation(mTransformOrigin.X, mTransformOrigin.Y, 0f);
 
         public override float Angle
         {
             get
             {
-                if (curAngle >= (float)Math.PI * 2) return (float)Math.PI * 2;
-                return curAngle;
+                return 0;
             }
         }
 
-        public override SpriteEffects SpriteEffect => SpriteEffects.None;
+        public override SpriteEffects SpriteEffect
+        {
+            get
+            {
+                if (curAngle >= (float)Math.PI / 2 && curAngle <= (float)Math.PI * 3 / 2)
+                {
+                    return SpriteEffects.FlipHorizontally;
+                }
+                return SpriteEffects.None;
+            }
+        }
 
         public override void Update(GameTime gameTime)
         {

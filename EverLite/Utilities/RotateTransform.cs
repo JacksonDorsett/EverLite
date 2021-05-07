@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,8 @@ namespace EverLite.Utilities
                                                   Matrix.CreateTranslation(mTransformOrigin.X, mTransformOrigin.Y, 0f);
 
         public override float Angle => angle;
+
+        public override SpriteEffects SpriteEffect => SpriteEffect;
 
         public override void Update(GameTime gameTime)
         {

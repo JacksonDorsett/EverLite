@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace EverLite.Utilities
 {
@@ -9,6 +10,7 @@ namespace EverLite.Utilities
         public virtual Matrix TransformMatrix { get; private set; }
 
         public virtual float Angle { get; private set; }
+        public abstract SpriteEffects SpriteEffect { get; }
 
         public abstract void Update(GameTime gameTime);
     }
