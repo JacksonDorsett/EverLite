@@ -164,6 +164,8 @@
                     {
                         enemy.TakeDamage(100);
                         charge.HitEnemies.Add(enemy);
+                        GameScore gameScore = GameScore.Instance;
+                        gameScore.Add(10);
                     }
                 }
                 
