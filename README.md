@@ -1,11 +1,10 @@
-# KC Studios
+# Cabal Studios
 
  - [About EverLite](#About EverLite)
  - [Menu Options](#Menu Options)
- - [Player  Settings](#Player Settings)
+ - [Player Settings](#Player Settings)
  - [Volume Controls](#Volume Controls)
  - [About](#About)
- - [KC Studios Team](#KC Studios Team)
 
 ## About EverLite
 
@@ -25,7 +24,7 @@ WARNING: The enemy waves will attack you from multiple directions and fly in see
  - `Player Settings` Change the player controls
  - `Quit` Exits the game.
 
-## Player  Settings
+## Player Settings
 
 The player settings initially are:
 
@@ -71,9 +70,8 @@ The NuGet packets used are:
  - NUnit
  - sqlite-net-pcl
 
-## KC Studios Team
+## Original Development Team
 
  - Michael Bykhovtsev
  - Alexander Crowther
  - Jackson Dorsett
- - Liam McDonnell
